@@ -1,2 +1,2 @@
 # amuseAdmin
-amuse Front-End admin repository
+amuse Front-End Admin repository
