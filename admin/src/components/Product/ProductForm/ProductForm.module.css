@@ -11,6 +11,9 @@
 
 .container.ticket {
   background-color: lightgreen;
+  height: fit-content;
+  min-height: 400px;
+  max-height: 635px;
 }
 
 .container.name{
@@ -24,6 +27,8 @@
 
 .container.content {
   background-color: lightcoral;
+  height: fit-content;
+  min-height: 400px;
 }
 
 .title {
@@ -48,10 +53,27 @@
 .status {
   width: 80%;
   height: fit-content;
-  min-height: 200px;
+  min-height: 300px;
   border: var(--border-width-thin) solid var(--color-amuse);
   border-radius: 10px;
   background-color: greenyellow;
   margin-top: 3%;
   margin-left: 10%;
+  overflow-y: scroll;
+}
+
+.status.ticket{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.ticketBox {
+  background-color: var(--color-light-grey);
+  border-radius: var(--border-radius);
+  width: 80%;
+  height: 80px;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import ProductSearch from '../ProductSearch/ProductSearch';
 import styles from './ProductForm.module.css';
-import Modal from '../../Modal/Modal';
+import TicketModal from '../../Modal/TicketModal';
 
 interface Ticket {
   title: string,
   content: string,
   price: number
 }
+
 function ProductForm() {
   
   const [productName, setProductName] = useState<string>('');
@@ -17,10 +18,16 @@ function ProductForm() {
   };
 
   const [ticketModalOpen, setTicketModalOpen] = useState<boolean>(false);
-  const [ticket, setTicket] = useState<Ticket[]>([]);
+  const [ticketList, setTicketList] = useState<Ticket[]>([]);
 
   const toggleTicketModal = () => {
     setTicketModalOpen((prev) => !prev);
+  }
+
+  const handleTicketModal = (ticket:Ticket) => {
+    toggleTicketModal();
+    console.log(ticket);
+    setTicketList((prev) => [...prev, ticket]);
   }
 
 
@@ -36,13 +43,19 @@ function ProductForm() {
           <div>
             <span className={styles.title}>티켓 관리</span>
             <button className={styles.addBtn} onClick={toggleTicketModal}>추가하기</button>
-            {ticketModalOpen && <Modal onSave={toggleTicketModal} title={'티켓 관리'} />}
+            {ticketModalOpen && <TicketModal onSave={handleTicketModal} />}
           </div>
-          <div className={styles.status}>
+          <div className={`${styles.status} ${styles.ticket}`}>
             <ul>
-              <li></li>
-              <li></li>
-              <li></li>
+              {ticketList.map((ticket) => {
+                return (
+                  <li className={styles.ticketBox} key={ticket.title}>
+                    <p>{ticket.title}</p>
+                    <p>{ticket.content}</p>
+                    <span>{ticket.price}</span>
+                  </li>
+                )
+              })}
             </ul>
           </div>
         </div>
