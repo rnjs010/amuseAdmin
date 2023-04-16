@@ -1,0 +1,42 @@
+@import '../../../App.module.css';
+
+.container {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.container.ticket {
+  background-color: lightgreen;
+}
+
+.container.name{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: skyblue;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.container.content {
+  background-color: lightcoral;
+}
+
+.addBtn {
+  width: 100px;
+  height: 30px;
+  background-color: var(--color-pink);
+  border-radius: 10px;
+  color: var(--color-white);
+}
+
+.status {
+  width: 80%;
+  height: fit-content;
+  min-height: 200px;
+  border: var(--border-width-thin) solid var(--color-amuse);
+  border-radius: 10px;
+  background-color: greenyellow;
+  margin: auto;
+}

@@ -1,0 +1,21 @@
+@import '../../App.module.css';
+
+* {
+}
+
+.logoAndLogin{
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  background-color: pink;
+}
+
+.category {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: var(--border-width-thin) solid var(--color-light-grey);
+  padding-top: 10px;
+  padding-bottom: 20px;
+  background-color: orange;
+}

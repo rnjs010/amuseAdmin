@@ -1,0 +1,44 @@
+:root {
+  /* Colors */
+  --color-pink: #EB3E6C;
+  --color-white: #ffffff;
+  --color-light-grey: #e0e0e0;
+
+  /* Border Width */
+  --border-width-thick: 4px
+  --border-width-thin: 1px
+}
+
+* {
+  /*임시 font 설정 */
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+input {
+  height: 30px;
+  border: none;
+  outline: none;
+  box-shadow: none;  
+}
+
+select {
+  height: 30px;
+  outline: none;
+  border: none;
+}
+
+ul {
+  list-style: none;
+}

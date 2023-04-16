@@ -1,7 +1,9 @@
+import ProductSearch from '../components/Product/ProductSearch/ProductSearch';
+
 function ProductDelete() {
   return (
     <div>
-      Delete
+      <ProductSearch isDeleting={true}/>
     </div>
   );
 }
