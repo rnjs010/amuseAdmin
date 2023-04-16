@@ -4,18 +4,23 @@
 }
 
 .logoAndLogin{
+  height: 70px;
+  background-color: pink;
   display: flex;
   justify-content: space-between;
   padding-top: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
   padding-bottom: 10px;
-  background-color: pink;
 }
 
 .category {
+  background-color: orange;
   display: flex;
   justify-content: space-between;
   border-bottom: var(--border-width-thin) solid var(--color-light-grey);
-  padding-top: 10px;
+  padding-top: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
   padding-bottom: 20px;
-  background-color: orange;
 }

@@ -1,9 +1,12 @@
 @import '../../../App.module.css';
 
 .container {
+  width: 80%;
+  margin: auto;
   display: flex;
   flex-direction: column;
-
+  padding-top: 20px;
+  padding-bottom: 10px;
 }
 
 .container.ticket {
@@ -23,6 +26,17 @@
   background-color: lightcoral;
 }
 
+.title {
+ margin-left: 10%; 
+ padding-right: 10px;
+ white-space: nowrap;
+}
+
+.nameInput {
+  width: 100%;
+  margin-right: 10%; 
+}
+
 .addBtn {
   width: 100px;
   height: 30px;
@@ -38,5 +52,6 @@
   border: var(--border-width-thin) solid var(--color-amuse);
   border-radius: 10px;
   background-color: greenyellow;
-  margin: auto;
+  margin-top: 3%;
+  margin-left: 10%;
 }

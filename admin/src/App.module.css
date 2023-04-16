@@ -5,8 +5,11 @@
   --color-light-grey: #e0e0e0;
 
   /* Border Width */
-  --border-width-thick: 4px
-  --border-width-thin: 1px
+  --border-width-thick: 4px;
+  --border-width-thin: 1px;
+
+  /* Border Radius */
+  --border-radius: 10px;
 }
 
 * {
@@ -28,6 +31,7 @@ button {
 
 input {
   height: 30px;
+  padding: 10px;
   border: none;
   outline: none;
   box-shadow: none;  

@@ -50,7 +50,7 @@ function ProductSearch({isDeleting}: ProductSearchProps){
   return (
     <div className={`${styles.container}`}>
       <div className={styles.category}>
-        <span>여행 카테고리</span>
+        <span className={styles.title}>여행 카테고리</span>
         <select onChange={handleCategoryChange}>
           {categoryList.map(
             (category) => {
@@ -60,7 +60,7 @@ function ProductSearch({isDeleting}: ProductSearchProps){
         </select>
       </div>
       <div className={styles.code}>
-          <span>상품 코드</span>
+          <span className={styles.title}>상품 코드</span>
           <input type="text" onChange={handleCodeChange}/>
       </div>
       {isDeleting && <button onClick={handleSearchProduct}>검색</button>}
