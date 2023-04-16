@@ -4,7 +4,6 @@ import ProductSearch from '../components/Product/ProductSearch/ProductSearch';
 function ProductCreate() {
   return (
     <div>
-      <ProductSearch isDeleting={false}/>
       <ProductForm/>
     </div>
   );
