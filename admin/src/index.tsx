@@ -17,7 +17,6 @@ const router = createBrowserRouter([
             {index: true, element: <DashBoard/>},
             {path: 'product/create', element: <ProductCreate/>},
             {path: 'product/delete', element: <ProductDelete/>}
-
         ]
     }
 ])
