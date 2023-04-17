@@ -1,7 +1,8 @@
 import React from "react";
-import styles from '../components/Ad/AdRegister.module.css'
+import styles from '../../components/Ad/AdRegister.module.css'
+import {Link} from "react-router-dom";
 
-const RegisterAd = () => {
+const Ad = () => {
 	
 	return(
 		<div className={styles.container}>
@@ -35,17 +36,29 @@ const RegisterAd = () => {
 					</div>
 				</div>
 				
+				<div
+					style={{position: "relative", top:20, left: "35%", flexDirection: "row", display: "flex"}}
+				>
+					<Link to={'/'} className={styles.linkBtn}>
+						수정
+					</Link>
+					
+					<Link to={'/'} className={styles.linkBtn}>
+						선택삭제
+					</Link>
+					
+					<Link to={'/'} className={styles.linkBtn}>
+						신규등록
+					</Link>
+				</div>
+				
+				
 				<div className={styles.adListComponent}>
 					<div className={styles.adListElement}>
 						<div
 							style={{marginRight: 10}}
 						>
-							<input
-								type="radio"
-								color="#eb1749"
-								checked={false}
-							
-							/>
+							<input type="radio" className={styles.adListElementRadio}/>
 						</div>
 						<div className={styles.adListElementImage}></div>
 						<div
@@ -76,4 +89,4 @@ const RegisterAd = () => {
 		)
 }
 
-export default RegisterAd;
+export default Ad;

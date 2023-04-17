@@ -8,7 +8,7 @@ import DashBoard from './pages/DashBoard';
 import ProductDelete from './pages/ProductDelete';
 import ProductCreate from './pages/ProductCreate';
 import ManipulateCategory from './pages/ManipulateCategory'
-import RegisterAd from './pages/RegisterAd'
+import Ad from './pages/AdPages/Ad'
 
 const router = createBrowserRouter([
     {
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
             {path: 'product/create', element: <ProductCreate/>},
             {path: 'product/delete', element: <ProductDelete/>},
             {path: '/manipulateCategory', element: <ManipulateCategory/>},
-            {path: '/registerAd', element: <RegisterAd/>}
+            {path: '/ad', element: <Ad/>}
         ]
     }
 ])
