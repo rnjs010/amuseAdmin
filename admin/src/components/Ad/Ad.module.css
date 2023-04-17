@@ -39,6 +39,10 @@
     border-radius: 10px;
 }
 
+.searchBar:focus{
+    background: #fff;
+}
+
 .searchBtn{
     display: flex;
     margin-left: 20px;
@@ -53,7 +57,7 @@
     font-size: 12px;
 }
 
-.linkBtn {
+.linkBtn{
     color: black;
     text-decoration: lightgrey;
     margin: 0 10px 0 0;
@@ -68,13 +72,13 @@
     font-size: 15px;
 }
 
-.linkBtn:hover, :focus {
+.linkBtn:hover, .linkBtn:focus {
     border: 1px solid;
     background: #eb1749;
     color: #ffffff;
 }
 
-linkBtn:active {
+.linkBtn:active {
     color: #eb1749;
 }
 
@@ -95,6 +99,10 @@ linkBtn:active {
     border: 1px solid #eb1749;
     margin: 10px 15px 0 15px;
     border-radius: 10px;
+}
+
+.showDatePickerBtn:focus{
+    background: #fff;
 }
 
 .adListComponent{
@@ -119,7 +127,6 @@ linkBtn:active {
 
 .adListElementRadio{
     color: #eb1749;
-    checked: true;
 }
 
 .adListElementImage{
