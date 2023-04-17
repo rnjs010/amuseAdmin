@@ -91,3 +91,10 @@
     border-radius: 10px;
 }
 
+.adListElementImage{
+    width: 90px;
+    height: 90px;
+    border: 1px solid #9e9e9e;
+    border-radius: 10px;
+}
+

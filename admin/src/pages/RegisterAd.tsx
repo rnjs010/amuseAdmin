@@ -47,8 +47,7 @@ const RegisterAd = () => {
 							
 							/>
 						</div>
-						// TODO
-						{/*<AdvertisementImage></AdvertisementImage>*/}
+						<div className={styles.adListElementImage}></div>
 						<div
 							style={{display: "flex", justifyContent: "center", width: "10%"}}
 						>
