@@ -7,8 +7,10 @@ import NotFound from './pages/NotFound';
 import DashBoard from './pages/DashBoard';
 import ProductDelete from './pages/ProductDelete';
 import ProductCreate from './pages/ProductCreate';
-import ManipulateCategory from './pages/ManipulateCategory'
+import ManipulateCategory from './pages/ManipulateCategory';
 import Ad from './pages/AdPages/Ad'
+import EditAd from './pages/AdPages/EditAd'
+
 
 const router = createBrowserRouter([
     {
@@ -19,8 +21,9 @@ const router = createBrowserRouter([
             {index: true, element: <DashBoard/>},
             {path: 'product/create', element: <ProductCreate/>},
             {path: 'product/delete', element: <ProductDelete/>},
-            {path: '/manipulateCategory', element: <ManipulateCategory/>},
-            {path: '/ad', element: <Ad/>}
+            {path: '/category', element: <ManipulateCategory/>},
+            {path: '/ad', element: <Ad/>},
+            {path: '/ad/edit', element: <EditAd/>}
         ]
     }
 ])
