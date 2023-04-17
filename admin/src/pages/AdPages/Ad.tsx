@@ -1,5 +1,5 @@
 import React from "react";
-import styles from '../../components/Ad/AdRegister.module.css'
+import styles from '../../components/Ad/Ad.module.css'
 import {Link} from "react-router-dom";
 
 const Ad = () => {
@@ -39,10 +39,11 @@ const Ad = () => {
 				<div
 					style={{position: "relative", top:20, left: "35%", flexDirection: "row", display: "flex"}}
 				>
-					<Link to={'/'} className={styles.linkBtn}>
+					<Link to={'/ad/edit'} className={styles.linkBtn}>
 						수정
 					</Link>
 					
+					{/*TODO*/}
 					<Link to={'/'} className={styles.linkBtn}>
 						선택삭제
 					</Link>
