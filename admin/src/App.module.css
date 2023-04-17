@@ -19,6 +19,7 @@
   font-size: 16px;
 
   box-sizing: border-box;
+
   margin: 0;
   padding: 0;
 }
@@ -43,6 +44,7 @@ select {
   padding: 10px;
   outline: none;
   border: none;
+  box-sizing: border-box;
 }
 
 ul {
@@ -56,6 +58,9 @@ textarea {
   padding: 10px;
 }
 
+input, textarea, select {
+  border: var(--border-width-medium) solid transparent
+}
 input:focus, textarea:focus, select:focus{
   border: var(--border-width-medium) solid var(--color-pink)
 }

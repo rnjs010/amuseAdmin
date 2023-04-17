@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ProductSearch from '../ProductSearch/ProductSearch';
 import styles from './ProductForm.module.css';
 import TicketModal from '../../Modal/TicketModal';
+import ContentModal from '../../Modal/ContentModal';
 
 interface Ticket {
   title: string,
@@ -19,17 +20,23 @@ function ProductForm() {
 
   const [ticketModalOpen, setTicketModalOpen] = useState<boolean>(false);
   const [ticketList, setTicketList] = useState<Ticket[]>([]);
-
   const toggleTicketModal = () => {
     setTicketModalOpen((prev) => !prev);
   }
-
   const handleTicketModal = (ticket:Ticket) => {
     toggleTicketModal();
     console.log(ticket);
     setTicketList((prev) => [...prev, ticket]);
   }
 
+  const [contentModalOpen, setContentModalOpen] = useState<boolean>(false);
+  const toggleContentModal = () => {
+    setContentModalOpen((prev) => !prev);
+  }
+  const handleContentModal = () => {
+    toggleContentModal();
+  }
+  
 
   return (
     <div>
@@ -51,8 +58,8 @@ function ProductForm() {
                 return (
                   <li className={styles.ticketBox} key={ticket.title}>
                     <p>{ticket.title}</p>
-                    <p>{ticket.content}</p>
-                    <span>{ticket.price}</span>
+                    <p>설명: {ticket.content}</p>
+                    <span>가격: {ticket.price}원</span>
                   </li>
                 )
               })}
@@ -63,7 +70,8 @@ function ProductForm() {
         <div className={`${styles.container} ${styles.content}`}>
           <div>
             <span className={styles.title}>상품 소개 관리</span>
-            <button className={styles.addBtn}>추가하기</button>
+            <button className={styles.addBtn} onClick={toggleContentModal}>추가하기</button>
+            {contentModalOpen && <ContentModal onSave={handleContentModal}/>}
           </div>
           <div className={styles.status}>
             <ul>

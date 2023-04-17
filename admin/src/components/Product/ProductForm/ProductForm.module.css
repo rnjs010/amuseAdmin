@@ -71,9 +71,10 @@
 .ticketBox {
   background-color: var(--color-light-grey);
   border-radius: var(--border-radius);
-  width: 80%;
-  height: 80px;
+  width: 94%;
+  height: fit-content;
   margin: auto;
   margin-top: 10px;
   margin-bottom: 10px;
+  padding: 10px;
 }
