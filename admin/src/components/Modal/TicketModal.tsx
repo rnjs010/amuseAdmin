@@ -42,7 +42,10 @@ function TicketModal({onSave}: MordalProps) {
   return (
     <>
       <div className={styles.modal}>
-        <header className={styles.header}>티켓 관리</header>
+        <header className={styles.header}>
+          <span className={styles.headerTitle}>티켓 관리</span>
+          <button className={styles.exitBtn}>나가기</button>
+        </header>
         <div className={styles.body}>
           <div className={`${styles.container} ${styles.title}`}>
             <p className={styles.label}>티켓 제목</p>

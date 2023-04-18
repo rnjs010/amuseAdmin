@@ -48,6 +48,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .body {
@@ -77,4 +78,16 @@
 
 .input.price {
   width: 40%;
+}
+
+.headerTitle {
+  text-align: center;
+}
+
+.exitBtn {
+  color: var(--color-white);
+  position: absolute;
+  top: 50%;
+  right: 4%;
+  transform: translateY(-50%);
 }
