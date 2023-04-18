@@ -4,7 +4,7 @@ import styles from './TicketModal.module.css';
 interface Ticket {
   title: string,
   content: string,
-  prices: Price[]
+  priceList: Price[]
 };
 
 type Price = {
@@ -21,7 +21,14 @@ type MordalProps = {
 function TicketModal({onSave, onToggle}: MordalProps) {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
-  const [price, setPrice] = useState<number>(0);
+  const [price, setPrice] = useState<Price>(
+    {
+      startDate: '',
+      endDate: '',
+      price: ''
+    }
+  );
+  const [priceList, setPriceList] = useState<Price[]>([]);
 
   const handleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.currentTarget.value);
@@ -31,16 +38,43 @@ function TicketModal({onSave, onToggle}: MordalProps) {
     setContent(event.currentTarget.value);
   };
 
-  const handlePrice = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPrice(parseInt(event.currentTarget.value));
+  const handleStartDate = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPrice((prev) => (
+      {...prev, startDate: event.target.value}
+    ));
   };
+
+  const handleEndDate = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPrice((prev) => (
+      {...prev, endDate: event.target.value}
+    ));
+  };
+
+  const handlePrice = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPrice((prev) => (
+      {...prev, price: event.target.value}
+    ));
+  };
+
+  const addPriceToPriceList = () => {
+    if(price.startDate && price.endDate && price.price){
+      setPriceList((prev) => (
+        [...prev, price]
+      ));
+      setPrice({
+        startDate: '',
+        endDate: '',
+        price: ''
+      })
+    }
+  }
 
   const handleSave = () => {
     if(title.length > 0 && content.length && price){
       const ticket:Ticket = {
         title: title,
         content: content,
-        prices: []
+        priceList: priceList
       };
       onSave(ticket);
     }
@@ -67,23 +101,32 @@ function TicketModal({onSave, onToggle}: MordalProps) {
             <div className={styles.priceInputContainer}>
               <div className={styles.dateInput}>
                 <p>시작일</p>
-                <input id="startDate" name="startDate" type="date" />
+                <input id="startDate" name="startDate" type="date" value={price.startDate} onChange={handleStartDate}/>
               </div>
               <div className={styles.dateInput}>
                 <p>종료일</p>
-                <input id="endDate" name="endDate" type="date" />
+                <input id="endDate" name="endDate" type="date" value={price.endDate} onChange={handleEndDate}/>
               </div>
               <div className={styles.priceInput}>
                 <p>티켓 가격</p>
-                <input type="text" />
+                <input id="price" name="price" type="text" value={price.price} onChange={handlePrice}/>
               </div>
-              <button className={styles.addBtn}>
-                추가
-              </button>
+              <button className={styles.addBtn} onClick={addPriceToPriceList} >추가</button>
             </div>
-            <div className={styles.priceStatus}>
+            <div className={styles.priceStatusContainer}>
               <ul>
-                <li>시작일-종료일-가격</li>
+                {priceList.map((price) => {
+                  return  (
+                            <li key={price.startDate} className={styles.priceStatus}>
+                              <p>시작일</p>
+                              <span>{price.startDate}</span> 
+                              <p>종료일</p>
+                              <span>{price.endDate}</span>                              
+                              <p>가격</p>
+                              <span>{price.price}</span> 
+                            </li>
+                          )
+                })}
               </ul>
             </div>
           </div>

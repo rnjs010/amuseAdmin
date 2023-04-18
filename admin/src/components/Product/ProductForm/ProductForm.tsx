@@ -7,7 +7,7 @@ import ContentModal from '../../Modal/ContentModal';
 interface Ticket {
   title: string,
   content: string,
-  prices: Price[]
+  priceList: Price[]
 };
 
 type Price = {
