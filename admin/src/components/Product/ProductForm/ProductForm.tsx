@@ -7,8 +7,15 @@ import ContentModal from '../../Modal/ContentModal';
 interface Ticket {
   title: string,
   content: string,
-  price: number
+  prices: Price[]
+};
+
+type Price = {
+  startDate: string,
+  endDate: string,
+  price: string
 }
+
 
 function ProductForm() {
   
@@ -30,9 +37,11 @@ function ProductForm() {
   }
 
   const [contentModalOpen, setContentModalOpen] = useState<boolean>(false);
+
   const toggleContentModal = () => {
     setContentModalOpen((prev) => !prev);
   }
+
   const handleContentModal = () => {
     toggleContentModal();
   }
@@ -50,7 +59,7 @@ function ProductForm() {
           <div>
             <span className={styles.title}>티켓 관리</span>
             <button className={styles.addBtn} onClick={toggleTicketModal}>추가하기</button>
-            {ticketModalOpen && <TicketModal onSave={handleTicketModal} />}
+            {ticketModalOpen && <TicketModal onSave={handleTicketModal} onToggle={toggleTicketModal}/>}
           </div>
           <div className={`${styles.status} ${styles.ticket}`}>
             <ul>
@@ -59,7 +68,7 @@ function ProductForm() {
                   <li className={styles.ticketBox} key={ticket.title}>
                     <p>{ticket.title}</p>
                     <p>설명: {ticket.content}</p>
-                    <span>가격: {ticket.price}원</span>
+                    <span>가격: 원</span>
                   </li>
                 )
               })}

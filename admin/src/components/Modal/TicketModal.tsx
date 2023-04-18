@@ -4,14 +4,21 @@ import styles from './TicketModal.module.css';
 interface Ticket {
   title: string,
   content: string,
-  price: number
+  prices: Price[]
 };
+
+type Price = {
+  startDate: string,
+  endDate: string,
+  price: string
+}
 
 type MordalProps = {
-  onSave(ticket:Ticket): void
+  onSave(ticket:Ticket): void,
+  onToggle(): void
 };
 
-function TicketModal({onSave}: MordalProps) {
+function TicketModal({onSave, onToggle}: MordalProps) {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [price, setPrice] = useState<number>(0);
@@ -33,7 +40,7 @@ function TicketModal({onSave}: MordalProps) {
       const ticket:Ticket = {
         title: title,
         content: content,
-        price: price
+        prices: []
       };
       onSave(ticket);
     }
@@ -44,7 +51,7 @@ function TicketModal({onSave}: MordalProps) {
       <div className={styles.modal}>
         <header className={styles.header}>
           <span className={styles.headerTitle}>티켓 관리</span>
-          <button className={styles.exitBtn}>나가기</button>
+          <button className={styles.exitBtn} onClick={onToggle}>나가기</button>
         </header>
         <div className={styles.body}>
           <div className={`${styles.container} ${styles.title}`}>
@@ -57,7 +64,28 @@ function TicketModal({onSave}: MordalProps) {
           </div>
           <div className={`${styles.container} ${styles.price}`}>
             <p className={styles.label}>티켓 가격</p>
-            <input className={`${styles.input} ${styles.price}`} value={price} onChange={handlePrice} type="text" />
+            <div className={styles.priceInputContainer}>
+              <div className={styles.dateInput}>
+                <p>시작일</p>
+                <input id="startDate" name="startDate" type="date" />
+              </div>
+              <div className={styles.dateInput}>
+                <p>종료일</p>
+                <input id="endDate" name="endDate" type="date" />
+              </div>
+              <div className={styles.priceInput}>
+                <p>티켓 가격</p>
+                <input type="text" />
+              </div>
+              <button className={styles.addBtn}>
+                추가
+              </button>
+            </div>
+            <div className={styles.priceStatus}>
+              <ul>
+                <li>시작일-종료일-가격</li>
+              </ul>
+            </div>
           </div>
         </div>
         <button className={styles.saveBtn} onClick={handleSave}>저장</button>
