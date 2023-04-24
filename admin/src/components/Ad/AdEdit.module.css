@@ -21,6 +21,18 @@
     flex-direction: column;
 }
 
+
+.radioContainer{
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.radio{
+
+}
+
+
 .adEditorContainer{
   	width: 90%;
   	height: 50%;
