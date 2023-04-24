@@ -43,11 +43,6 @@ const Ad = () => {
 						수정
 					</Link>
 					
-					{/*TODO*/}
-					<Link to={'/'} className={styles.linkBtn}>
-						선택삭제
-					</Link>
-					
 					<Link to={'/'} className={styles.linkBtn}>
 						신규등록
 					</Link>
