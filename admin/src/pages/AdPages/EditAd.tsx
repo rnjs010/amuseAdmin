@@ -12,7 +12,7 @@ const EditAd = () => {
 	const [parsedHTML, setParsedHTML] = useState<string>("");
 	
 	const [adType, setAdType] = useState<string>("Ad");
-	const [category, setCategory] = useState<string>("아이돌봄 여행")
+	const [category, setCategory] = useState<string>("Children")
 	
 	useEffect(() => {
 		console.log(editorRef);
