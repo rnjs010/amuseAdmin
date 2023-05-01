@@ -20,19 +20,9 @@ type Price = {
 function ProductForm() {
   
   const [productName, setProductName] = useState<string>('');
-  const [country, setCountry] = useState<string>('');
-  const [city, setCity] = useState<string>('');
 
   const handleProductName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setProductName(event.target.value);
-  };
-
-  const handleCountry = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCountry(event.target.value);
-  };
-
-  const handleCity = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCity(event.target.value);
   };
 
   const [ticketModalOpen, setTicketModalOpen] = useState<boolean>(false);
@@ -63,17 +53,6 @@ function ProductForm() {
         <div className={`${styles.container} ${styles.name}`}>
             <span className={` ${styles.title} ${styles.name}`}>여행 상품명</span>
             <input className={`${styles.nameInput}`} value={productName} onChange={handleProductName} type="text"/>
-        </div>
-
-        <div className={`${styles.container} ${styles.location}`}>
-            <div className={styles.country}>
-              <span className={styles.title}>국가</span>
-              <input className={`${styles.countryInput}`} value={country} onChange={handleCountry} type="text"/>
-            </div>
-            <div className={styles.city}>
-              <span className={styles.title}>도시</span>
-              <input className={`${styles.cityInput}`} value={city} onChange={handleCity} type="text"/>
-            </div>
         </div>
 
         <div className={`${styles.container} ${styles.ticket}`}>

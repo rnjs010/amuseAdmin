@@ -19,15 +19,10 @@
 .container.name{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
   align-items: center;
   background-color: skyblue;
   padding-top: 20px;
   padding-bottom: 20px;
-}
-
-.container.location{
-  background-color: lightsalmon;
 }
 
 .container.content {
@@ -45,10 +40,6 @@
 .nameInput {
   width: 100%;
   margin-right: 10%; 
-}
-
-.country{
-  margin-bottom: 10px;
 }
 
 .addBtn {

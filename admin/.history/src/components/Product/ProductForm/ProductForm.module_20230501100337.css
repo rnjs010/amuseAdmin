@@ -19,7 +19,6 @@
 .container.name{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
   align-items: center;
   background-color: skyblue;
   padding-top: 20px;
@@ -27,7 +26,7 @@
 }
 
 .container.location{
-  background-color: lightsalmon;
+  background-color: lightgray;
 }
 
 .container.content {
@@ -37,18 +36,13 @@
 }
 
 .title {
- margin-left: 10%; 
+ margin-left: 10%;  
  padding-right: 10px;
  white-space: nowrap;
 }
 
 .nameInput {
-  width: 100%;
-  margin-right: 10%; 
-}
-
-.country{
-  margin-bottom: 10px;
+  width: 100%
 }
 
 .addBtn {

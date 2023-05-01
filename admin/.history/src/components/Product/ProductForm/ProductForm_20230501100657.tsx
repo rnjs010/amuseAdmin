@@ -68,11 +68,11 @@ function ProductForm() {
         <div className={`${styles.container} ${styles.location}`}>
             <div className={styles.country}>
               <span className={styles.title}>국가</span>
-              <input className={`${styles.countryInput}`} value={country} onChange={handleCountry} type="text"/>
+              <input className={`${styles.countryInput}`} value={country} onChange={handleProductName} type="text"/>
             </div>
             <div className={styles.city}>
               <span className={styles.title}>도시</span>
-              <input className={`${styles.cityInput}`} value={city} onChange={handleCity} type="text"/>
+              <input className={`${styles.cityInput}`} value={city} onChange={handleProductName} type="text"/>
             </div>
         </div>
 

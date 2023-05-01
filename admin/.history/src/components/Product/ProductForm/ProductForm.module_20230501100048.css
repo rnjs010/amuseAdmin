@@ -26,10 +26,6 @@
   padding-bottom: 20px;
 }
 
-.container.location{
-  background-color: lightsalmon;
-}
-
 .container.content {
   background-color: lightcoral;
   height: fit-content;
@@ -43,12 +39,6 @@
 }
 
 .nameInput {
-  width: 100%;
-  margin-right: 10%; 
-}
-
-.country{
-  margin-bottom: 10px;
 }
 
 .addBtn {
