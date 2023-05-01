@@ -10,10 +10,6 @@ import draftjsToHtml from "draftjs-to-html";
 import CourseModal from '../../Modal/CourseModal';
 import axios from 'axios';
 
-type Category = {
-  name: string;
-}
-
 interface Ticket {
   title: string,
   content: string,
@@ -60,9 +56,7 @@ function ProductForm() {
   useEffect(
     () => {
       axios.get('/data/category.json')
-        .then((res) => {
-          setCategoryList(res.data);
-        })
+        .then((res) => setCategoryList(res.data))
         .catch((err) => console.error(`failed to get categories: ${err}`));
     }, []
   );
@@ -133,8 +127,8 @@ function ProductForm() {
   }
 
   const handleAddProduct = () => {
-    if(productId && category && productName && country && city && mainImg && ticketList && htmlString && courseList){
-      const product: Product = {
+    if(productName && country && city && mainImg && ticketList && htmlString && courseList){
+      const product:Product = {
         productId,
         category,
         title: productName,
@@ -146,21 +140,20 @@ function ProductForm() {
         ticket: ticketList,
         productInfo: htmlString,
         course: courseList,        
-      };
-      console.log(product);
+      }
     }
   }
 
 
   return (
     <div className={styles.productForm}>
-        <div className={`${styles.container} ${styles.idAndCategory}`}>
+        <div className={`${styles.container}`}>
       <div className={styles.category}>
         <span className={styles.title}>여행 카테고리</span>
         <select onChange={handleProductCategory}>
           {categoryList.map(
             (category) => {
-              return <option key={category} value={category}>{category}</option>
+              return <option key={category} value={category}></option>
             }
           )}
         </select>

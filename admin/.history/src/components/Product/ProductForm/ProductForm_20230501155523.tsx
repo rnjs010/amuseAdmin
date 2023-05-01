@@ -8,11 +8,6 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { EditorState, convertToRaw } from 'draft-js';
 import draftjsToHtml from "draftjs-to-html";
 import CourseModal from '../../Modal/CourseModal';
-import axios from 'axios';
-
-type Category = {
-  name: string;
-}
 
 interface Ticket {
   title: string,
@@ -50,22 +45,11 @@ type Product = {
 
 function ProductForm() {
   const [productId, setProductId] = useState<string>('');
+  const [category, setCategory] = useState<string>('');
 
   const handleProductID = (event: React.ChangeEvent<HTMLInputElement>) => {
     setProductId(event.target.value);
   }
-
-  const [category, setCategory] = useState<string>('');
-  const [categoryList, setCategoryList] = useState<string[]>([]);
-  useEffect(
-    () => {
-      axios.get('/data/category.json')
-        .then((res) => {
-          setCategoryList(res.data);
-        })
-        .catch((err) => console.error(`failed to get categories: ${err}`));
-    }, []
-  );
 
   const handleProductCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(event.target.value);
@@ -133,8 +117,8 @@ function ProductForm() {
   }
 
   const handleAddProduct = () => {
-    if(productId && category && productName && country && city && mainImg && ticketList && htmlString && courseList){
-      const product: Product = {
+    if(productName && country && city && mainImg && ticketList && htmlString && courseList){
+      const product:Product = {
         productId,
         category,
         title: productName,
@@ -146,21 +130,20 @@ function ProductForm() {
         ticket: ticketList,
         productInfo: htmlString,
         course: courseList,        
-      };
-      console.log(product);
+      }
     }
   }
 
 
   return (
     <div className={styles.productForm}>
-        <div className={`${styles.container} ${styles.idAndCategory}`}>
+        <div className={`${styles.container}`}>
       <div className={styles.category}>
         <span className={styles.title}>여행 카테고리</span>
         <select onChange={handleProductCategory}>
           {categoryList.map(
             (category) => {
-              return <option key={category} value={category}>{category}</option>
+              return <option key={category.name} value={category.name}>{category.name}</option>
             }
           )}
         </select>

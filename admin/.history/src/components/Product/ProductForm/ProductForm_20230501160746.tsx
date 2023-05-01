@@ -133,7 +133,7 @@ function ProductForm() {
   }
 
   const handleAddProduct = () => {
-    if(productId && category && productName && country && city && mainImg && ticketList && htmlString && courseList){
+    if(productName && country && city && mainImg && ticketList && htmlString && courseList){
       const product: Product = {
         productId,
         category,

@@ -61,15 +61,6 @@
   background-color: lightpink;
 }
 
-.container.idAndCategory{
-    background-color: yellow;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .title {
  padding-right: 10px;
  white-space: nowrap;

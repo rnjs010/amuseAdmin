@@ -1,7 +1,7 @@
 @import '../../../App.module.css';
 
 .productForm {
-  border: 2px solid #C5C5C5;
+  border: 1px solid #C5C5C5;
   width: 80%;
   margin: auto;
   margin-top: 20px;
@@ -61,15 +61,6 @@
   background-color: lightpink;
 }
 
-.container.idAndCategory{
-    background-color: yellow;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .title {
  padding-right: 10px;
  white-space: nowrap;
@@ -109,7 +100,6 @@
 .submitBtn {
   width: 80%;
   height: 40px;
-  border-radius: 10px;
   background-color: var(--color-pink);
   color: var(--color-white);
 }

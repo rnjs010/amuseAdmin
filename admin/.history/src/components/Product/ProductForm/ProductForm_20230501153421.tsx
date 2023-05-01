@@ -8,11 +8,8 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { EditorState, convertToRaw } from 'draft-js';
 import draftjsToHtml from "draftjs-to-html";
 import CourseModal from '../../Modal/CourseModal';
-import axios from 'axios';
 
-type Category = {
-  name: string;
-}
+
 
 interface Ticket {
   title: string,
@@ -41,35 +38,17 @@ type Product = {
     country: string;
     city: string;
   };
-  mainImg: File[];
+  mainImg: {
+    imageURL: string;
+  }[];
   ticket: Ticket[];
   productInfo: string;
   course: Course[];
+  extraInfo: string;
 };
 
 
 function ProductForm() {
-  const [productId, setProductId] = useState<string>('');
-
-  const handleProductID = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setProductId(event.target.value);
-  }
-
-  const [category, setCategory] = useState<string>('');
-  const [categoryList, setCategoryList] = useState<string[]>([]);
-  useEffect(
-    () => {
-      axios.get('/data/category.json')
-        .then((res) => {
-          setCategoryList(res.data);
-        })
-        .catch((err) => console.error(`failed to get categories: ${err}`));
-    }, []
-  );
-
-  const handleProductCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setCategory(event.target.value);
-  }
 
   const [productName, setProductName] = useState<string>('');
   const [country, setCountry] = useState<string>('');
@@ -132,44 +111,14 @@ function ProductForm() {
     setCourseList((prev) => [...prev, course])
   }
 
-  const handleAddProduct = () => {
-    if(productId && category && productName && country && city && mainImg && ticketList && htmlString && courseList){
-      const product: Product = {
-        productId,
-        category,
-        title: productName,
-        location: {
-          country,
-          city
-        },
-        mainImg: mainImg,
-        ticket: ticketList,
-        productInfo: htmlString,
-        course: courseList,        
-      };
-      console.log(product);
-    }
+  const handlePostProduct = () => {
+
   }
 
 
   return (
     <div className={styles.productForm}>
-        <div className={`${styles.container} ${styles.idAndCategory}`}>
-      <div className={styles.category}>
-        <span className={styles.title}>여행 카테고리</span>
-        <select onChange={handleProductCategory}>
-          {categoryList.map(
-            (category) => {
-              return <option key={category} value={category}>{category}</option>
-            }
-          )}
-        </select>
-      </div>
-      <div className={styles.code}>
-          <span className={styles.title}>상품 코드</span>
-          <input type="text" onChange={handleProductID}/>
-      </div>
-    </div>
+        <ProductSearch isDeleting={false}/>
         <div className={`${styles.container} ${styles.name}`}>
             <span className={` ${styles.title} ${styles.name}`}>여행 상품명</span>
             <input className={`${styles.nameInput}`} value={productName} onChange={handleProductName} type="text"/>
@@ -267,8 +216,8 @@ function ProductForm() {
             </ul>
           </div>
         </div>
-        <div className={`${styles.container} ${styles.submit}`}>
-            <button className={styles.submitBtn} onClick={handleAddProduct}>상품 등록하기</button>
+        <div className={`${styles.contaienr} ${styles.submit}`}>
+            <button className={styles.submitBtn}>상품 등록하기</button>
         </div>
     </div>
   );

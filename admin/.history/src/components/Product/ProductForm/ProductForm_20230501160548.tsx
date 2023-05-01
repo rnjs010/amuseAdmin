@@ -133,8 +133,8 @@ function ProductForm() {
   }
 
   const handleAddProduct = () => {
-    if(productId && category && productName && country && city && mainImg && ticketList && htmlString && courseList){
-      const product: Product = {
+    if(productName && country && city && mainImg && ticketList && htmlString && courseList){
+      const product:Product = {
         productId,
         category,
         title: productName,
@@ -146,15 +146,14 @@ function ProductForm() {
         ticket: ticketList,
         productInfo: htmlString,
         course: courseList,        
-      };
-      console.log(product);
+      }
     }
   }
 
 
   return (
     <div className={styles.productForm}>
-        <div className={`${styles.container} ${styles.idAndCategory}`}>
+        <div className={`${styles.container}`}>
       <div className={styles.category}>
         <span className={styles.title}>여행 카테고리</span>
         <select onChange={handleProductCategory}>

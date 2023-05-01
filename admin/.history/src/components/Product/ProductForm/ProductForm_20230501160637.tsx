@@ -133,8 +133,8 @@ function ProductForm() {
   }
 
   const handleAddProduct = () => {
-    if(productId && category && productName && country && city && mainImg && ticketList && htmlString && courseList){
-      const product: Product = {
+    if(productName && country && city && mainImg && ticketList && htmlString && courseList){
+      const product:Product = {
         productId,
         category,
         title: productName,
@@ -146,8 +146,7 @@ function ProductForm() {
         ticket: ticketList,
         productInfo: htmlString,
         course: courseList,        
-      };
-      console.log(product);
+      }
     }
   }
 
