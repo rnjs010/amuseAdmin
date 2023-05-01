@@ -181,7 +181,8 @@ function ProductForm() {
               }}
               wrapperClassName="wrapper-class"
               editorClassName="editor-class"
-              toolbarClassName="toolbar-class"            
+              toolbarClassName="toolbar-class"
+              // contentStyle={{ fontSize: 'inherit' }}
             />
           </div>
         </div>

@@ -4,7 +4,7 @@ import styles from './ProductForm.module.css';
 import TicketModal from '../../Modal/TicketModal';
 import ContentModal from '../../Modal/ContentModal';
 import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import '/node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { EditorState, convertToRaw } from 'draft-js';
 import draftjsToHtml from "draftjs-to-html";
 
@@ -174,14 +174,6 @@ function ProductForm() {
                 border: "3px solid lightgray",
                 padding: "20px"
               }}
-              toolbar={{
-                fontSize: {
-                  options: [8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48],
-                }
-              }}
-              wrapperClassName="wrapper-class"
-              editorClassName="editor-class"
-              toolbarClassName="toolbar-class"            
             />
           </div>
         </div>

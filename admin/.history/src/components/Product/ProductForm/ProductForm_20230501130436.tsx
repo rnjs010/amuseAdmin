@@ -177,11 +177,8 @@ function ProductForm() {
               toolbar={{
                 fontSize: {
                   options: [8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48],
-                }
+                },
               }}
-              wrapperClassName="wrapper-class"
-              editorClassName="editor-class"
-              toolbarClassName="toolbar-class"            
             />
           </div>
         </div>
