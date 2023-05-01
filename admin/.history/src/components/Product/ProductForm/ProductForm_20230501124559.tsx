@@ -176,6 +176,13 @@ function ProductForm() {
               }}
             />
           </div>
+          <div className={styles.status}>
+            <ul>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+          </div>
         </div>
     </div>
   );
