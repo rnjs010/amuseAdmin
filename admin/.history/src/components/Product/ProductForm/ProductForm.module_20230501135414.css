@@ -72,11 +72,6 @@
   height: 200px;
 }
 
-.courseImg{
-  width: 140px;
-  height: 140px;
-}
-
 .addBtn {
   width: 100px;
   height: 30px;
@@ -110,15 +105,4 @@
   margin: auto;
   margin-top: 10px;
   margin-bottom: 10px;
-}
-
-.courseBox{
-  display: flex;
-  justify-content: space-between;
-  width:80%;
-  margin:auto;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding: 10px;
-  background-color: #C5C5C5;
 }

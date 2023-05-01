@@ -7,7 +7,6 @@ import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { EditorState, convertToRaw } from 'draft-js';
 import draftjsToHtml from "draftjs-to-html";
-import CourseModal from '../../Modal/CourseModal';
 
 
 
@@ -23,13 +22,6 @@ type Price = {
   price: string
 }
 
-interface Course {
-  title: string;
-  timeCost: string;
-  content: string;
-  image: File;
-}
-
 type Product = {
   productId: string;
   category: string;
@@ -41,9 +33,22 @@ type Product = {
   mainImg: {
     imageURL: string;
   }[];
-  ticket: Ticket[];
+  ticket: {
+    title: string;
+    content: string;
+    priceList: {
+      startDate: string;
+      endDate: string;
+      price: string;
+    }[];
+  }[];
   productInfo: string;
-  course: Course[];
+  course: {
+    title: string;
+    timeCost: string;
+    content: string;
+    imageURL: string;
+  }[];
   extraInfo: string;
 };
 
@@ -101,17 +106,6 @@ function ProductForm() {
     setTicketList((prev) => [...prev, ticket]);
   }
 
-  const [courseModalOpen, setCourseModalOpen] = useState<boolean>(false);
-  const [courseList, setCourseList] = useState<Course[]>([]);
-
-  const toggleCourseModal = () => {
-    setCourseModalOpen((prev) => !prev);
-  }
-  const handleCourseModal = (course:Course) => {
-    toggleCourseModal();
-    console.log(course);
-    setCourseList((prev) => [...prev, course])
-  }
 
 
   return (
@@ -136,15 +130,13 @@ function ProductForm() {
         <div className={`${styles.container} ${styles.mainImg}`}>
             <span className={` ${styles.title} ${styles.mainImg}`}>메인 이미지</span>
             <input className={styles.mainImgInput} id="mainImgInput" onChange={handleMainImg} accept="image/png, image/jpeg" multiple type="file"/>
-            <div>
-              {mainImg.map((file) => {
-                return <img 
-                  key={file.name}
-                  src={URL.createObjectURL(file)}
-                  className={styles.mainImgList}
-                  />
-              })}
-            </div>
+            <div>{mainImg.map((file) => {
+              return <img 
+                key={file.name}
+                src={URL.createObjectURL(file)}
+                className={styles.mainImgList}
+                />
+            })}</div>
         </div>
 
         <div className={`${styles.container} ${styles.ticket}`}>
@@ -188,30 +180,6 @@ function ProductForm() {
                 }
               }}        
             />
-          </div>
-        </div>
-
-        <div className={`${styles.container} ${styles.course}`}>
-          <div>
-            <span className={styles.title}>코스 관리</span>
-            <button className={styles.addBtn} onClick={toggleCourseModal}>추가하기</button>
-            {courseModalOpen && <CourseModal onSave={handleCourseModal} onToggle={toggleCourseModal}/>}
-          </div>
-          <div className={`${styles.status} ${styles.course}`}>
-            <ul>
-              {courseList.map((course) => {
-                return (
-                  <li className={styles.courseBox}>
-                    <div className={styles.textInfo}>
-                      <p>제목: {course.title}</p>
-                      <p>소요시간: {course.timeCost}</p>
-                      <p>설명: {course.content}</p>
-                    </div>
-                    <img className={styles.courseImg} src={URL.createObjectURL(course.image)} alt="Course" />
-                  </li>
-                )
-              })}
-            </ul>
           </div>
         </div>
     </div>

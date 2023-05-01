@@ -30,6 +30,8 @@ interface Course {
   image: File;
 }
 
+
+
 type Product = {
   productId: string;
   category: string;
@@ -202,12 +204,10 @@ function ProductForm() {
               {courseList.map((course) => {
                 return (
                   <li className={styles.courseBox}>
-                    <div className={styles.textInfo}>
-                      <p>제목: {course.title}</p>
-                      <p>소요시간: {course.timeCost}</p>
-                      <p>설명: {course.content}</p>
-                    </div>
-                    <img className={styles.courseImg} src={URL.createObjectURL(course.image)} alt="Course" />
+                    <p>제목: {course.title}</p>
+                    <p>소요시간: {course.timeCost}</p>
+                    <p>설명: {course.content}</p>
+                    <span></span>
                   </li>
                 )
               })}

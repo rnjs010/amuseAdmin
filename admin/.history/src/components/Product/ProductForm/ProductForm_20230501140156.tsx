@@ -27,8 +27,10 @@ interface Course {
   title: string;
   timeCost: string;
   content: string;
-  image: File;
+  imageURL: string;
 }
+
+
 
 type Product = {
   productId: string;
@@ -107,6 +109,7 @@ function ProductForm() {
   const toggleCourseModal = () => {
     setCourseModalOpen((prev) => !prev);
   }
+
   const handleCourseModal = (course:Course) => {
     toggleCourseModal();
     console.log(course);
@@ -136,15 +139,13 @@ function ProductForm() {
         <div className={`${styles.container} ${styles.mainImg}`}>
             <span className={` ${styles.title} ${styles.mainImg}`}>메인 이미지</span>
             <input className={styles.mainImgInput} id="mainImgInput" onChange={handleMainImg} accept="image/png, image/jpeg" multiple type="file"/>
-            <div>
-              {mainImg.map((file) => {
-                return <img 
-                  key={file.name}
-                  src={URL.createObjectURL(file)}
-                  className={styles.mainImgList}
-                  />
-              })}
-            </div>
+            <div>{mainImg.map((file) => {
+              return <img 
+                key={file.name}
+                src={URL.createObjectURL(file)}
+                className={styles.mainImgList}
+                />
+            })}</div>
         </div>
 
         <div className={`${styles.container} ${styles.ticket}`}>
@@ -197,17 +198,14 @@ function ProductForm() {
             <button className={styles.addBtn} onClick={toggleCourseModal}>추가하기</button>
             {courseModalOpen && <CourseModal onSave={handleCourseModal} onToggle={toggleCourseModal}/>}
           </div>
-          <div className={`${styles.status} ${styles.course}`}>
+          <div className={`${styles.status} ${styles.ticket}`}>
             <ul>
-              {courseList.map((course) => {
+              {ticketList.map((ticket) => {
                 return (
-                  <li className={styles.courseBox}>
-                    <div className={styles.textInfo}>
-                      <p>제목: {course.title}</p>
-                      <p>소요시간: {course.timeCost}</p>
-                      <p>설명: {course.content}</p>
-                    </div>
-                    <img className={styles.courseImg} src={URL.createObjectURL(course.image)} alt="Course" />
+                  <li className={styles.ticketBox} key={ticket.title}>
+                    <p>{ticket.title}</p>
+                    <p>설명: {ticket.content}</p>
+                    <span>가격: 원</span>
                   </li>
                 )
               })}

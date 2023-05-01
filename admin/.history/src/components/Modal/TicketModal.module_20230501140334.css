@@ -28,8 +28,8 @@
   z-index: 999;
 
   position: absolute;
-  top: 100%;
-  left: 50%;
+  top: 50vh;
+  left: 50vh;
   transform: translate(-50%, -50%);
 
   display: flex;

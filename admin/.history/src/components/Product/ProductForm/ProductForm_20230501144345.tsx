@@ -207,7 +207,7 @@ function ProductForm() {
                       <p>소요시간: {course.timeCost}</p>
                       <p>설명: {course.content}</p>
                     </div>
-                    <img className={styles.courseImg} src={URL.createObjectURL(course.image)} alt="Course" />
+                    <img className={styles.courseImgList} src={URL.createObjectURL(course.image)} alt="Course" />
                   </li>
                 )
               })}

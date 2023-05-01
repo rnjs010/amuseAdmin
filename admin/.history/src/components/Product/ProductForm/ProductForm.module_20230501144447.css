@@ -72,9 +72,9 @@
   height: 200px;
 }
 
-.courseImg{
-  width: 140px;
-  height: 140px;
+.courseImgList{
+  width: 200px;
+  height: 200px;
 }
 
 .addBtn {
@@ -119,6 +119,6 @@
   margin:auto;
   margin-top: 10px;
   margin-bottom: 10px;
-  padding: 10px;
+  padding: 20px;
   background-color: #C5C5C5;
 }
