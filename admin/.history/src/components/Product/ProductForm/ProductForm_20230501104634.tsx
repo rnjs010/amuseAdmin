@@ -126,7 +126,6 @@ function ProductForm() {
               return <img 
                 key={file.name}
                 src={URL.createObjectURL(file)}
-                className={styles.mainImgList}
                 />
             })}</div>
         </div>

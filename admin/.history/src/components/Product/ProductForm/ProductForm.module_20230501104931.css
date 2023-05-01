@@ -86,6 +86,7 @@
   border-radius: 10px;
   background-color: greenyellow;
   margin-top: 3%;
+  margin-left: 10%;
   overflow-y: scroll;
 }
 
@@ -103,4 +104,5 @@
   margin: auto;
   margin-top: 10px;
   margin-bottom: 10px;
+  padding: 10px;
 }

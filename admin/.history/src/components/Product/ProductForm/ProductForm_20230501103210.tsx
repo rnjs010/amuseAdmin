@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ProductSearch from '../ProductSearch/ProductSearch';
 import styles from './ProductForm.module.css';
 import TicketModal from '../../Modal/TicketModal';
@@ -53,7 +53,7 @@ function ProductForm() {
   const [productName, setProductName] = useState<string>('');
   const [country, setCountry] = useState<string>('');
   const [city, setCity] = useState<string>('');
-  const [mainImg, setMainImg] = useState<File[]>([]);
+  const [mainImg, setMainImg] = useState<string[]>([]);
 
   const handleProductName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setProductName(event.target.value);
@@ -68,15 +68,12 @@ function ProductForm() {
   };
 
   const handleMainImg = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files as FileList;
-    if(files.length > 0){
-      setMainImg((prev) => [...prev, ...Array.from(files)]);
-    }
+    setMainImg((prev) => [
+        ...prev,
+        event.target.value
+      ]
+    )
   }
-
-  useEffect(() => {
-    console.log(mainImg)
-  }, [mainImg]);
 
   const [ticketModalOpen, setTicketModalOpen] = useState<boolean>(false);
   const [ticketList, setTicketList] = useState<Ticket[]>([]);
@@ -121,14 +118,7 @@ function ProductForm() {
 
         <div className={`${styles.container} ${styles.mainImg}`}>
             <span className={` ${styles.title} ${styles.mainImg}`}>메인 이미지</span>
-            <input className={`${styles.mainImgInput}`} id={"mainImgInput"} onChange={handleMainImg} accept="image/png, image/jpeg" multiple type="file"/>
-            <div>{mainImg.map((file) => {
-              return <img 
-                key={file.name}
-                src={URL.createObjectURL(file)}
-                className={styles.mainImgList}
-                />
-            })}</div>
+            <input className={`${styles.mainImgInput}`} id={"mainImgInput"} onChange={handleMainImg} value={mainImg} accept="image/png, image/jpeg" multiple type="file"/>
         </div>
 
         <div className={`${styles.container} ${styles.ticket}`}>

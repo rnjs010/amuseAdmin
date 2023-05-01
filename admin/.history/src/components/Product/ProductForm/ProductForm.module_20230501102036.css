@@ -7,7 +7,6 @@
   flex-direction: column;
   padding-top: 20px;
   padding-bottom: 10px;
-  padding-left: 10%;
 }
 
 .container.ticket {
@@ -34,8 +33,6 @@
 .container.mainImg{
   background-color: lightgoldenrodyellow;
   display: flex;
-  justify-content: center;
-  padding-left: 10%;
 }
 
 .container.content {
@@ -45,7 +42,7 @@
 }
 
 .title {
- /* margin-left: 10%;  */
+ margin-left: 10%; 
  padding-right: 10px;
  white-space: nowrap;
 }
@@ -60,14 +57,7 @@
 }
 
 .mainImgInput {
-  padding: 0;
-  background-color: transparent;
-  text-decoration: none;
-}
-
-.mainImgList {
-  width: 200px;
-  height: 200px;
+  
 }
 
 .addBtn {
@@ -86,6 +76,7 @@
   border-radius: 10px;
   background-color: greenyellow;
   margin-top: 3%;
+  margin-left: 10%;
   overflow-y: scroll;
 }
 
@@ -103,4 +94,5 @@
   margin: auto;
   margin-top: 10px;
   margin-bottom: 10px;
+  padding: 10px;
 }

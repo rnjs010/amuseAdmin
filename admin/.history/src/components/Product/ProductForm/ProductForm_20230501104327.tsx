@@ -122,12 +122,8 @@ function ProductForm() {
         <div className={`${styles.container} ${styles.mainImg}`}>
             <span className={` ${styles.title} ${styles.mainImg}`}>메인 이미지</span>
             <input className={`${styles.mainImgInput}`} id={"mainImgInput"} onChange={handleMainImg} accept="image/png, image/jpeg" multiple type="file"/>
-            <div>{mainImg.map((file) => {
-              return <img 
-                key={file.name}
-                src={URL.createObjectURL(file)}
-                className={styles.mainImgList}
-                />
+            <div>{mainImg.map((img) => {
+              return <li>{img.toString()}</li>
             })}</div>
         </div>
 
