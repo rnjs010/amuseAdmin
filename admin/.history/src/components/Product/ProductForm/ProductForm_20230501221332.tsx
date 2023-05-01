@@ -226,15 +226,18 @@ function ProductForm() {
             <ul>
               {ticketList.map((ticket) => {
                 return (
-                  <li className={styles.ticketList} key={ticket.title}>
-                    <p className={styles.ticketLabel}>티켓 제목</p><span>{ticket.title}</span>
-                    <p className={styles.ticketLabel}>티켓 설명</p><span>{ticket.content}</span>
+                  <li className={styles.ticketBox} key={ticket.title}>
+                    <p className={styles.ticketLabel}>티켓 제목: <span>{ticket.title}</span></p>
+                    <p className={styles.ticketLabel}>티켓 설명: <span>{ticket.content}</span></p>
                     <ul>
                       <p className={styles.ticketLabel}>1인당 티켓 가격</p>
                       {ticket.priceList.map((price) => {
                         return(
                           <li className={styles.ticketPriceList} key={price.startDate}>
-                            <p>{price.startDate} ~ {price.endDate} : {price.price}원</p>                            
+                            <span>시작일: {price.startDate}</span>
+                            <span> ~ </span>
+                            <span>종료일: {price.endDate}</span>
+                            <p>가격: {price.price}</p>
                           </li>                    
                         )
                       })}

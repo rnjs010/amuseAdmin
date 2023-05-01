@@ -234,7 +234,8 @@ function ProductForm() {
                       {ticket.priceList.map((price) => {
                         return(
                           <li className={styles.ticketPriceList} key={price.startDate}>
-                            <p>{price.startDate} ~ {price.endDate} : {price.price}원</p>                            
+                            <p>{price.startDate} ~ {price.endDate}</p>
+                            <p>가격: {price.price}원</p>
                           </li>                    
                         )
                       })}

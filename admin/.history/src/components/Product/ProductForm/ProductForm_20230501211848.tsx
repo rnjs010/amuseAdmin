@@ -43,9 +43,8 @@ type Product = {
   };
   mainImg: File[];
   ticket: Ticket[];
-  mainInfo: string;
+  productInfo: string;
   course: Course[];
-  extraInfo: string;
 };
 
 
@@ -77,18 +76,18 @@ function ProductForm() {
   const [city, setCity] = useState<string>('');
   const [mainImg, setMainImg] = useState<File[]>([]);
 
-  const [mainInfoState, setMainInfoState] = useState<EditorState>(EditorState.createEmpty());
-  const [mainInfoHtml, setMainInfoHtml] = useState<string>("");
+  const [contentState, setContentState] = useState<EditorState>(EditorState.createEmpty());
+  const [contentHtml, setContentHtml] = useState<string>("");
 
-  const updateMainInfoState = (mainInfoState: EditorState) => {
-    setMainInfoState(mainInfoState);
+  const updateContentState = (contentState: EditorState) => {
+    setContentState(contentState);
   }
 
   useEffect(() => {
-    const html = draftjsToHtml(convertToRaw(mainInfoState.getCurrentContent()));
-    setMainInfoHtml(html);
+    const html = draftjsToHtml(convertToRaw(contentState.getCurrentContent()));
+    setContentHtml(html);
     console.log(html);
-  }, [mainInfoState]);
+  }, [contentState]);
 
   const [extraInfoState, setExtraInfoState] = useState<EditorState>(EditorState.createEmpty());
   const [extraInfoHtml, setExtraInfoHtml] = useState<string>("");
@@ -148,7 +147,7 @@ function ProductForm() {
   }
 
   const handleAddProduct = () => {
-    if(productId && category && productName && country && city && mainImg && ticketList && mainInfoHtml && courseList){
+    if(productId && category && productName && country && city && mainImg && ticketList && contentHtml && courseList){
       const product: Product = {
         productId,
         category,
@@ -159,9 +158,8 @@ function ProductForm() {
         },
         mainImg: mainImg,
         ticket: ticketList,
-        mainInfo: mainInfoHtml,
-        course: courseList,  
-        extraInfo: extraInfoHtml      
+        productInfo: contentHtml,
+        course: courseList,        
       };
       console.log(product);
     }
@@ -226,19 +224,10 @@ function ProductForm() {
             <ul>
               {ticketList.map((ticket) => {
                 return (
-                  <li className={styles.ticketList} key={ticket.title}>
-                    <p className={styles.ticketLabel}>티켓 제목</p><span>{ticket.title}</span>
-                    <p className={styles.ticketLabel}>티켓 설명</p><span>{ticket.content}</span>
-                    <ul>
-                      <p className={styles.ticketLabel}>1인당 티켓 가격</p>
-                      {ticket.priceList.map((price) => {
-                        return(
-                          <li className={styles.ticketPriceList} key={price.startDate}>
-                            <p>{price.startDate} ~ {price.endDate} : {price.price}원</p>                            
-                          </li>                    
-                        )
-                      })}
-                    </ul>
+                  <li className={styles.ticketBox} key={ticket.title}>
+                    <p>{ticket.title}</p>
+                    <p>설명: {ticket.content}</p>
+                    <span>가격: 원</span>
                   </li>
                 )
               })}
@@ -250,8 +239,8 @@ function ProductForm() {
           <div>
             <span className={styles.title}>상품 소개 관리</span>
             <Editor
-              editorState={mainInfoState}
-              onEditorStateChange={updateMainInfoState}
+              editorState={contentState}
+              onEditorStateChange={updateContentState}
               editorStyle={{
                 height: "400px",
                 width: "100%",

@@ -70,10 +70,6 @@
     align-items: center;
 }
 
-.container.extraInfo{
-  background-color: cornflowerblue
-}
-
 .title {
  padding-right: 10px;
  white-space: nowrap;
@@ -135,7 +131,7 @@
 }
 
 
-.ticketList {
+.ticketBox {
   background-color: var(--color-light-grey);
   border-radius: var(--border-radius);
   width: 94%;
@@ -143,17 +139,6 @@
   margin: auto;
   margin-top: 10px;
   margin-bottom: 10px;
-  padding: 20px;
-}
-
-.ticketLabel{
-  font-weight: bolder;
-}
-
-.ticketPriceList {
-  background-color: lightgoldenrodyellow;
-  border-radius: var(--border-radius);
-  padding: 10px;
 }
 
 .courseBox{
@@ -173,5 +158,5 @@
 }
 
 .productId {
-  width: 260px;
+  width: 300px;
 }

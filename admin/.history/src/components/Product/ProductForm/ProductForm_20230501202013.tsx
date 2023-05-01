@@ -43,9 +43,8 @@ type Product = {
   };
   mainImg: File[];
   ticket: Ticket[];
-  mainInfo: string;
+  productInfo: string;
   course: Course[];
-  extraInfo: string;
 };
 
 
@@ -77,32 +76,18 @@ function ProductForm() {
   const [city, setCity] = useState<string>('');
   const [mainImg, setMainImg] = useState<File[]>([]);
 
-  const [mainInfoState, setMainInfoState] = useState<EditorState>(EditorState.createEmpty());
-  const [mainInfoHtml, setMainInfoHtml] = useState<string>("");
+  const [editorState, setEditorState] = useState<EditorState>(EditorState.createEmpty());
+  const [htmlString, setHtmlString] = useState<string>("");
 
-  const updateMainInfoState = (mainInfoState: EditorState) => {
-    setMainInfoState(mainInfoState);
+  const updateTextDescription = async(editorState: EditorState) => {
+    setEditorState(editorState);
   }
 
   useEffect(() => {
-    const html = draftjsToHtml(convertToRaw(mainInfoState.getCurrentContent()));
-    setMainInfoHtml(html);
+    const html = draftjsToHtml(convertToRaw(editorState.getCurrentContent()));
+    setHtmlString(html);
     console.log(html);
-  }, [mainInfoState]);
-
-  const [extraInfoState, setExtraInfoState] = useState<EditorState>(EditorState.createEmpty());
-  const [extraInfoHtml, setExtraInfoHtml] = useState<string>("");
-
-  const updateExtraInfoState = (extraInfoState: EditorState) => {
-    setExtraInfoState(extraInfoState);
-  }
-  useEffect(() => {
-    const html = draftjsToHtml(convertToRaw(extraInfoState.getCurrentContent()));
-    setExtraInfoHtml(html);
-  }, [extraInfoState]);
-
-
-
+  }, [editorState]);
 
   const handleProductName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setProductName(event.target.value);
@@ -148,7 +133,7 @@ function ProductForm() {
   }
 
   const handleAddProduct = () => {
-    if(productId && category && productName && country && city && mainImg && ticketList && mainInfoHtml && courseList){
+    if(productId && category && productName && country && city && mainImg && ticketList && htmlString && courseList){
       const product: Product = {
         productId,
         category,
@@ -159,9 +144,8 @@ function ProductForm() {
         },
         mainImg: mainImg,
         ticket: ticketList,
-        mainInfo: mainInfoHtml,
-        course: courseList,  
-        extraInfo: extraInfoHtml      
+        productInfo: htmlString,
+        course: courseList,        
       };
       console.log(product);
     }
@@ -173,7 +157,7 @@ function ProductForm() {
         <div className={`${styles.container} ${styles.idAndCategory}`}>
       <div className={styles.category}>
         <span className={styles.title}>여행 카테고리</span>
-        <select className={styles.categorySelect} onChange={handleProductCategory}>
+        <select onChange={handleProductCategory}>
           {categoryList.map(
             (category) => {
               return <option key={category} value={category}>{category}</option>
@@ -183,7 +167,7 @@ function ProductForm() {
       </div>
       <div className={styles.code}>
           <span className={styles.title}>상품 코드</span>
-          <input className={styles.productId} type="text" onChange={handleProductID}/>
+          <input type="text" onChange={handleProductID}/>
       </div>
     </div>
         <div className={`${styles.container} ${styles.name}`}>
@@ -226,19 +210,10 @@ function ProductForm() {
             <ul>
               {ticketList.map((ticket) => {
                 return (
-                  <li className={styles.ticketList} key={ticket.title}>
-                    <p className={styles.ticketLabel}>티켓 제목</p><span>{ticket.title}</span>
-                    <p className={styles.ticketLabel}>티켓 설명</p><span>{ticket.content}</span>
-                    <ul>
-                      <p className={styles.ticketLabel}>1인당 티켓 가격</p>
-                      {ticket.priceList.map((price) => {
-                        return(
-                          <li className={styles.ticketPriceList} key={price.startDate}>
-                            <p>{price.startDate} ~ {price.endDate} : {price.price}원</p>                            
-                          </li>                    
-                        )
-                      })}
-                    </ul>
+                  <li className={styles.ticketBox} key={ticket.title}>
+                    <p>{ticket.title}</p>
+                    <p>설명: {ticket.content}</p>
+                    <span>가격: 원</span>
                   </li>
                 )
               })}
@@ -250,8 +225,8 @@ function ProductForm() {
           <div>
             <span className={styles.title}>상품 소개 관리</span>
             <Editor
-              editorState={mainInfoState}
-              onEditorStateChange={updateMainInfoState}
+              editorState={editorState}
+              onEditorStateChange={updateTextDescription}
               editorStyle={{
                 height: "400px",
                 width: "100%",
@@ -263,8 +238,7 @@ function ProductForm() {
                 fontSize: {
                   options: [8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48],
                 }
-              }
-            }        
+              }}        
             />
           </div>
         </div>
@@ -290,29 +264,6 @@ function ProductForm() {
                 )
               })}
             </ul>
-          </div>
-        </div>
-
-        <div className={`${styles.container} ${styles.extraInfo}`}>
-          <div>
-            <span className={styles.title}>추가 정보 관리</span>
-            <Editor
-              editorState={extraInfoState}
-              onEditorStateChange={updateExtraInfoState}
-              editorStyle={{
-                height: "400px",
-                width: "100%",
-                backgroundColor: "white",
-                border: "3px solid lightgray",
-                padding: "20px"
-              }}
-              toolbar={{
-                fontSize: {
-                  options: [8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48],
-                }
-              }
-            }        
-            />
           </div>
         </div>
         <div className={`${styles.container} ${styles.submit}`}>

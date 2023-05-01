@@ -80,7 +80,7 @@ function ProductForm() {
   const [mainInfoState, setMainInfoState] = useState<EditorState>(EditorState.createEmpty());
   const [mainInfoHtml, setMainInfoHtml] = useState<string>("");
 
-  const updateMainInfoState = (mainInfoState: EditorState) => {
+  const updateContentState = (mainInfoState: EditorState) => {
     setMainInfoState(mainInfoState);
   }
 
@@ -226,19 +226,10 @@ function ProductForm() {
             <ul>
               {ticketList.map((ticket) => {
                 return (
-                  <li className={styles.ticketList} key={ticket.title}>
-                    <p className={styles.ticketLabel}>티켓 제목</p><span>{ticket.title}</span>
-                    <p className={styles.ticketLabel}>티켓 설명</p><span>{ticket.content}</span>
-                    <ul>
-                      <p className={styles.ticketLabel}>1인당 티켓 가격</p>
-                      {ticket.priceList.map((price) => {
-                        return(
-                          <li className={styles.ticketPriceList} key={price.startDate}>
-                            <p>{price.startDate} ~ {price.endDate} : {price.price}원</p>                            
-                          </li>                    
-                        )
-                      })}
-                    </ul>
+                  <li className={styles.ticketBox} key={ticket.title}>
+                    <p>{ticket.title}</p>
+                    <p>설명: {ticket.content}</p>
+                    <span>가격: 원</span>
                   </li>
                 )
               })}
@@ -251,7 +242,7 @@ function ProductForm() {
             <span className={styles.title}>상품 소개 관리</span>
             <Editor
               editorState={mainInfoState}
-              onEditorStateChange={updateMainInfoState}
+              onEditorStateChange={updateContentState}
               editorStyle={{
                 height: "400px",
                 width: "100%",
