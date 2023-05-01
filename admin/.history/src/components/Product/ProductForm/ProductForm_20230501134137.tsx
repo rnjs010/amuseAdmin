@@ -109,7 +109,7 @@ function ProductForm() {
 
 
   return (
-    <div className={styles.productForm}>
+    <div className={`${styles.container} ${styles.productForm}`}>
         <ProductSearch isDeleting={false}/>
         <div className={`${styles.container} ${styles.name}`}>
             <span className={` ${styles.title} ${styles.name}`}>여행 상품명</span>

@@ -10,8 +10,9 @@ input {
 }
 
 .container {
-  background-color: yellow;
-  width: 100%;
+  /* background-color: yellow; */
+  width: 80%;
+  margin: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -1,18 +1,19 @@
 @import '../../../App.module.css';
 
 .productForm {
-  border: 1px solid #C5C5C5;
+  border: 1px solid black;
   width: 80%;
-  margin: auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: atuo;
 }
 .container {
   width: 100%;
+  /* margin: auto; */
   display: flex;
   flex-direction: column;
   padding-top: 20px;
   padding-bottom: 10px;
+  /* padding-left: 10%; */
+  /* padding-right: 10%; */
 }
 
 .container.ticket {

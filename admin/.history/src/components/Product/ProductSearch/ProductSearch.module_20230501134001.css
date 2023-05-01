@@ -11,7 +11,8 @@ input {
 
 .container {
   background-color: yellow;
-  width: 100%;
+  width: 80%;
+  margin: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
