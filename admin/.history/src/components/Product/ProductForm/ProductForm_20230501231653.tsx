@@ -171,7 +171,7 @@ function ProductForm() {
     const formData = new FormData();
     formData.append('image', file);
   
-    const response = await fetch('https://api.imgur.com/3/image', {
+    const response = await fetch('/3/image', {
       method: 'POST',
       headers: {
         Authorization: `Client-ID dbc78497eb7d8a1`,

@@ -171,19 +171,21 @@ function ProductForm() {
     const formData = new FormData();
     formData.append('image', file);
   
-    const response = await fetch('https://api.imgur.com/3/image', {
-      method: 'POST',
-      headers: {
-        Authorization: `Client-ID dbc78497eb7d8a1`,
-      },
-      body: formData,
-    });
+    try {
+      const response = await axios.post('https://api.imgur.com/3/image', formData, {
+        headers: {
+          'Authorization': `Client-ID 0b662caf241dab5`,
+        },
+      });
   
-    if (response.ok) {
-      const jsonResponse = await response.json();
-      return { data: { link: jsonResponse.data.link } };
-    } else {
-      throw new Error('Failed to upload image to Imgur');
+      return {
+        data: {
+          link: response.data.data.link,
+        },
+      };
+    } catch (error) {
+      console.error('Failed to upload image', error);
+      return { error: 'Failed to upload image' };
     }
   };
 
@@ -287,8 +289,17 @@ function ProductForm() {
                   options: [8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48],
                 },
                 image: {
+                  urlEnabled: true,
+                  uploadEnabled: true,
+                  alignmentEnabled: true,
                   uploadCallback: uploadImageCallBack,
-                  alt:{present: true, mandatory: false}
+                  previewImage: true,
+                  inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
+                  alt: { present: true, mandatory: false },
+                  defaultSize: {
+                    height: 'auto',
+                    width: 'auto',
+                  },
                 },
               }
             }        
