@@ -257,11 +257,7 @@ function ProductForm() {
                 width: "100%",
                 backgroundColor: "white",
                 border: "3px solid lightgray",
-                borderRadius: "10px",
                 padding: "20px"
-              }}
-              toolbarStyle={{
-                borderRadius: "10px"
               }}
               toolbar={{
                 fontSize: {
@@ -310,9 +306,6 @@ function ProductForm() {
                 border: "3px solid lightgray",
                 borderRadius: "10px",
                 padding: "20px"
-              }}
-              toolbarStyle={{
-                borderRadius: "10px"
               }}
               toolbar={{
                 fontSize: {
