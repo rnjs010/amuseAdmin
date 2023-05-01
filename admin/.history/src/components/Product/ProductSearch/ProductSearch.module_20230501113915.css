@@ -18,17 +18,19 @@ input {
   align-items: center;
   
   padding-left: 10%;
-  padding-right: 10%;
+  padding-right; 10%;
   padding-top: 40px;
   padding-bottom: 40px;
 }
 
 .category {
+  margin-left: 10%;
   display: flex;
   align-items: center;
 }
 
 .code {
+  margin-right: 10%;
   display: flex;
   align-items: center;
 }

@@ -24,11 +24,13 @@ input {
 }
 
 .category {
+  margin-left: 10%;
   display: flex;
   align-items: center;
 }
 
 .code {
+  margin-right: 10%;
   display: flex;
   align-items: center;
 }

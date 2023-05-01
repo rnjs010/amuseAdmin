@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from './TicketModal.module.css';
 import { Editor } from 'react-draft-wysiwyg';
-import '/node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import './node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { EditorState } from 'draft-js';
 
 type MordalProps = {

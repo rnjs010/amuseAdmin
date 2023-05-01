@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ProductSearch from '../ProductSearch/ProductSearch';
 import styles from './ProductForm.module.css';
 import TicketModal from '../../Modal/TicketModal';
@@ -62,15 +62,25 @@ function ProductForm() {
 
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [htmlString, setHtmlString] = useState("");
+  const isMounted = useRef(false);
 
-  const updateTextDescription = async(state: EditorState) => {
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  const updateTextDescription = (state: EditorState) => {
     setEditorState(state);
   }
 
   useEffect(() => {
-    const html = draftjsToHtml(convertToRaw(editorState.getCurrentContent()));
-    setHtmlString(html);
-    console.log(html);
+    if (isMounted.current) {
+      const html = draftjsToHtml(convertToRaw(editorState.getCurrentContent()));
+      setHtmlString(html);
+      console.log(html);
+    }
   }, [editorState]);
 
   const handleProductName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,7 +101,6 @@ function ProductForm() {
       setMainImg((prev) => [...prev, ...Array.from(files)]);
     }
   }
-
 
 
   const [ticketModalOpen, setTicketModalOpen] = useState<boolean>(false);

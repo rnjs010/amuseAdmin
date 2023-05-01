@@ -63,7 +63,7 @@ function ProductForm() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [htmlString, setHtmlString] = useState("");
 
-  const updateTextDescription = async(state: EditorState) => {
+  const updateTextDescription = async(state: any) => {
     setEditorState(state);
   }
 
@@ -91,7 +91,6 @@ function ProductForm() {
       setMainImg((prev) => [...prev, ...Array.from(files)]);
     }
   }
-
 
 
   const [ticketModalOpen, setTicketModalOpen] = useState<boolean>(false);

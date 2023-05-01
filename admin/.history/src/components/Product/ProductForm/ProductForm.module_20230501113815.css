@@ -47,7 +47,9 @@
 
 .title {
  /* margin-left: 10%;  */
+ margin-bottom: 340px;
  padding-right: 10px;
+ 
  white-space: nowrap;
 }
 

@@ -70,7 +70,6 @@ function ProductForm() {
   useEffect(() => {
     const html = draftjsToHtml(convertToRaw(editorState.getCurrentContent()));
     setHtmlString(html);
-    console.log(html);
   }, [editorState]);
 
   const handleProductName = (event: React.ChangeEvent<HTMLInputElement>) => {

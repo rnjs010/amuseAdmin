@@ -63,15 +63,11 @@ function ProductForm() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [htmlString, setHtmlString] = useState("");
 
-  const updateTextDescription = async(state: EditorState) => {
-    setEditorState(state);
-  }
-
-  useEffect(() => {
+  const updateTextDescription = async(state: any) => {
+    await setEditorState(state);
     const html = draftjsToHtml(convertToRaw(editorState.getCurrentContent()));
     setHtmlString(html);
-    console.log(html);
-  }, [editorState]);
+  }
 
   const handleProductName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setProductName(event.target.value);
@@ -92,7 +88,9 @@ function ProductForm() {
     }
   }
 
-
+  useEffect(() => {
+    console.log(mainImg)
+  }, [mainImg]);
 
   const [ticketModalOpen, setTicketModalOpen] = useState<boolean>(false);
   const [ticketList, setTicketList] = useState<Ticket[]>([]);
@@ -172,7 +170,6 @@ function ProductForm() {
           <div>
             <span className={styles.title}>상품 소개 관리</span>
             <Editor
-              editorState={editorState}
               onEditorStateChange={updateTextDescription}
               localization={{locale: "ko"}}
               editorStyle={{

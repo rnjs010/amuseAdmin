@@ -4,10 +4,6 @@ import styles from './ProductForm.module.css';
 import TicketModal from '../../Modal/TicketModal';
 import ContentModal from '../../Modal/ContentModal';
 import { Editor } from 'react-draft-wysiwyg';
-import '/node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { EditorState, convertToRaw } from 'draft-js';
-import draftjsToHtml from "draftjs-to-html";
-
 
 
 interface Ticket {
@@ -60,19 +56,6 @@ function ProductForm() {
   const [city, setCity] = useState<string>('');
   const [mainImg, setMainImg] = useState<File[]>([]);
 
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const [htmlString, setHtmlString] = useState("");
-
-  const updateTextDescription = async(state: EditorState) => {
-    setEditorState(state);
-  }
-
-  useEffect(() => {
-    const html = draftjsToHtml(convertToRaw(editorState.getCurrentContent()));
-    setHtmlString(html);
-    console.log(html);
-  }, [editorState]);
-
   const handleProductName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setProductName(event.target.value);
   };
@@ -92,7 +75,9 @@ function ProductForm() {
     }
   }
 
-
+  useEffect(() => {
+    console.log(mainImg)
+  }, [mainImg]);
 
   const [ticketModalOpen, setTicketModalOpen] = useState<boolean>(false);
   const [ticketList, setTicketList] = useState<Ticket[]>([]);
@@ -171,18 +156,7 @@ function ProductForm() {
         <div className={`${styles.container} ${styles.content}`}>
           <div>
             <span className={styles.title}>상품 소개 관리</span>
-            <Editor
-              editorState={editorState}
-              onEditorStateChange={updateTextDescription}
-              localization={{locale: "ko"}}
-              editorStyle={{
-                height: "400px",
-                width: "100%",
-                backgroundColor: "white",
-                border: "3px solid lightgray",
-                padding: "20px"
-              }}
-            />
+            <Editor/>
           </div>
           {/* <div>
             <span className={styles.title}>상품 소개 관리</span>

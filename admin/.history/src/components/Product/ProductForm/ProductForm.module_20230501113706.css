@@ -79,7 +79,7 @@
 }
 
 .status {
-  width: 100%;
+  width: 80%;
   height: fit-content;
   min-height: 300px;
   border: var(--border-width-thin) solid var(--color-amuse);

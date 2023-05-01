@@ -29,6 +29,7 @@ input {
 }
 
 .code {
+  margin-right: 10%;
   display: flex;
   align-items: center;
 }

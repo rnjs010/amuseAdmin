@@ -5,9 +5,6 @@ import TicketModal from '../../Modal/TicketModal';
 import ContentModal from '../../Modal/ContentModal';
 import { Editor } from 'react-draft-wysiwyg';
 import '/node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { EditorState, convertToRaw } from 'draft-js';
-import draftjsToHtml from "draftjs-to-html";
-
 
 
 interface Ticket {
@@ -60,19 +57,6 @@ function ProductForm() {
   const [city, setCity] = useState<string>('');
   const [mainImg, setMainImg] = useState<File[]>([]);
 
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const [htmlString, setHtmlString] = useState("");
-
-  const updateTextDescription = async(state: EditorState) => {
-    setEditorState(state);
-  }
-
-  useEffect(() => {
-    const html = draftjsToHtml(convertToRaw(editorState.getCurrentContent()));
-    setHtmlString(html);
-    console.log(html);
-  }, [editorState]);
-
   const handleProductName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setProductName(event.target.value);
   };
@@ -92,7 +76,9 @@ function ProductForm() {
     }
   }
 
-
+  useEffect(() => {
+    console.log(mainImg)
+  }, [mainImg]);
 
   const [ticketModalOpen, setTicketModalOpen] = useState<boolean>(false);
   const [ticketList, setTicketList] = useState<Ticket[]>([]);
@@ -172,9 +158,7 @@ function ProductForm() {
           <div>
             <span className={styles.title}>상품 소개 관리</span>
             <Editor
-              editorState={editorState}
-              onEditorStateChange={updateTextDescription}
-              localization={{locale: "ko"}}
+              localization={{locage: "ko"}}
               editorStyle={{
                 height: "400px",
                 width: "100%",

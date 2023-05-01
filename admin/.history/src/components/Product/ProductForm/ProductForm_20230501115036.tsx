@@ -63,14 +63,13 @@ function ProductForm() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [htmlString, setHtmlString] = useState("");
 
-  const updateTextDescription = async(state: EditorState) => {
+  const updateTextDescription = async(state: any) => {
     setEditorState(state);
   }
 
   useEffect(() => {
     const html = draftjsToHtml(convertToRaw(editorState.getCurrentContent()));
     setHtmlString(html);
-    console.log(html);
   }, [editorState]);
 
   const handleProductName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,7 +91,9 @@ function ProductForm() {
     }
   }
 
-
+  useEffect(() => {
+    console.log(mainImg)
+  }, [mainImg]);
 
   const [ticketModalOpen, setTicketModalOpen] = useState<boolean>(false);
   const [ticketList, setTicketList] = useState<Ticket[]>([]);
