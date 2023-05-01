@@ -167,24 +167,18 @@ function ProductForm() {
     }
   }
 
-  const uploadImageCallBack = async (file: File) => {
-    const formData = new FormData();
-    formData.append('image', file);
-  
-    const response = await fetch('https://api.imgur.com/3/image', {
-      method: 'POST',
-      headers: {
-        Authorization: `Client-ID dbc78497eb7d8a1`,
-      },
-      body: formData,
+  const localImageUploadCallback = async (file: File) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64Url = reader.result as string;
+        resolve({ data: { link: base64Url } });
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      };
+      reader.readAsDataURL(file);
     });
-  
-    if (response.ok) {
-      const jsonResponse = await response.json();
-      return { data: { link: jsonResponse.data.link } };
-    } else {
-      throw new Error('Failed to upload image to Imgur');
-    }
   };
 
   return (
@@ -287,7 +281,7 @@ function ProductForm() {
                   options: [8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48],
                 },
                 image: {
-                  uploadCallback: uploadImageCallBack,
+                  uploadCallback: localImageUploadCallback,
                   alt:{present: true, mandatory: false}
                 },
               }
