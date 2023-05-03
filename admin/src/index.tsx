@@ -8,8 +8,9 @@ import DashBoard from './pages/DashBoard';
 import ProductDelete from './pages/ProductDelete';
 import ProductCreate from './pages/ProductCreate';
 import Category from './pages/Category';
-import Ad from './pages/AdPages/Ad'
-import EditAd from './pages/AdPages/EditAd'
+import Ad from './pages/AdPages/Ad';
+import EditAd from './pages/AdPages/EditAd';
+import RegisterAd from "./pages/AdPages/RegisterAd";
 
 
 const router = createBrowserRouter([
@@ -23,7 +24,8 @@ const router = createBrowserRouter([
             {path: 'product/delete', element: <ProductDelete/>},
             {path: '/category', element: <Category/>},
             {path: '/ad', element: <Ad/>},
-            {path: '/ad/edit', element: <EditAd/>}
+            {path: '/ad/edit', element: <EditAd/>},
+            {path: '/ad/register', element: <RegisterAd/>}
         ]
     }
 ])
