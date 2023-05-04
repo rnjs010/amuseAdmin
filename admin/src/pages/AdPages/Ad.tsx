@@ -73,6 +73,8 @@ const Ad = () => {
 						
 						<DatePicker
 							className={styles.showDatePickerBtn}
+							dateFormat={"yyyy-MM-dd"}
+							locale="ko"
 							selected={startDate}
 							onChange={(e) => setStartDate(e || startDate)}
 						>
@@ -83,6 +85,8 @@ const Ad = () => {
 						</div>
 						<DatePicker
 							className={styles.showDatePickerBtn}
+							dateFormat={"yyyy-MM-dd"}
+							locale="ko"
 							selected={endDate}
 							onChange={(e) => setEndDate(e || startDate)}
 						/>
