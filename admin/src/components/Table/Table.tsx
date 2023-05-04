@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import MOCK_DATA from './MOCK_DATA.json'
 import { COLUMNS } from './Columns'
 import { usePagination, useTable } from 'react-table'
 import './table.module.css'
