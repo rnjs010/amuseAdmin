@@ -28,7 +28,7 @@ interface Course {
   title: string;
   timeCost: string;
   content: string;
-  image: ImageFile;
+  image: File;
 }
 
 interface ImageFile {
@@ -165,7 +165,7 @@ function ProductForm() {
   }
 
   const handleAddProduct = () => {
-    // if(productId && category && productName && country && city && mainImg && ticketList && mainInfoHtml && courseList){
+    if(productId && category && productName && country && city && mainImg && ticketList && mainInfoHtml && courseList){
       const product: Product = {
         productId,
         category,
@@ -181,7 +181,7 @@ function ProductForm() {
         extraInfo: extraInfoHtml      
       };
       console.log(product);
-    // }
+    }
   }
 
   const uploadImageCallBack = (file: File) => {
@@ -206,7 +206,7 @@ function ProductForm() {
       <div className={styles.category}>
         <span className={styles.title}>여행 카테고리</span>
         <select className={styles.categorySelect} onChange={handleProductCategory}>
-          <option value="">카테고리 선택</option>
+          <option value="">-- 카테고리 선택 --</option>
           {categoryList.map(
             (category) => {
               return <option key={category} value={category}>{category}</option>
@@ -328,7 +328,7 @@ function ProductForm() {
                       <p>소요시간: {course.timeCost}</p>
                       <p>설명: {course.content}</p>
                     </div>
-                    <img className={styles.courseImg} src={course.image.base64Data} alt="Course" />
+                    <img className={styles.courseImg} src={URL.createObjectURL(course.image)} alt="Course" />
                   </li>
                 )
               })}

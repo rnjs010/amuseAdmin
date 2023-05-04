@@ -165,7 +165,7 @@ function ProductForm() {
   }
 
   const handleAddProduct = () => {
-    // if(productId && category && productName && country && city && mainImg && ticketList && mainInfoHtml && courseList){
+    if(productId && category && productName && country && city && mainImg && ticketList && mainInfoHtml && courseList){
       const product: Product = {
         productId,
         category,
@@ -181,7 +181,7 @@ function ProductForm() {
         extraInfo: extraInfoHtml      
       };
       console.log(product);
-    // }
+    }
   }
 
   const uploadImageCallBack = (file: File) => {
