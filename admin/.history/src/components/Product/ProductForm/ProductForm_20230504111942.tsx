@@ -31,9 +31,9 @@ interface Course {
   image: File;
 }
 
-interface ImageFile {
-  fileName: string,
-  base64Data: string
+interface FileData {
+  name: string,
+  data: string
 }
 
 type Product = {
@@ -44,7 +44,7 @@ type Product = {
     country: string;
     city: string;
   };
-  mainImg: ImageFile[];
+  mainImg: FileData[];
   ticket: Ticket[];
   mainInfo: string;
   course: Course[];
@@ -78,7 +78,7 @@ function ProductForm() {
   const [productName, setProductName] = useState<string>('');
   const [country, setCountry] = useState<string>('');
   const [city, setCity] = useState<string>('');
-  const [mainImg, setMainImg] = useState <ImageFile[]>([]);
+  const [mainImg, setMainImg] = useState<FileData[]>([]);
 
   const [mainInfoState, setMainInfoState] = useState<EditorState>(EditorState.createEmpty());
   const [mainInfoHtml, setMainInfoHtml] = useState<string>("");
@@ -123,14 +123,14 @@ function ProductForm() {
     if (!event.target.files) return;
 
     const files = Array.from(event.target.files as FileList);
-    const filePromise: Promise <ImageFile>[] = [];
+    const filePromise: Promise<FileData>[] = [];
 
     for (const file of files) {
       filePromise.push(
-        new Promise <ImageFile>((resolve) => {
+        new Promise<FileData>((resolve) => {
           const reader = new FileReader();
           reader.onloadend = () => {
-            resolve({fileName: file.name, base64Data: reader.result as string});
+            resolve({name: file.name, data: reader.result as string});
           };
           reader.readAsDataURL(file);
         })
@@ -248,10 +248,9 @@ function ProductForm() {
             <div>
               {mainImg.map((file) => {
                 return <img 
-                  key={file.fileName}
-                  src={file.base64Data}
-                  alt={file.fileName}
-                  className={styles.mainImgList}
+                  key={file.name}
+                  // src={URL.createObjectURL(file)}
+                  // className={styles.mainImgList}
                   />
               })}
             </div>

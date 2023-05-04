@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
+import ProductSearch from '../ProductSearch/ProductSearch';
 import styles from './ProductForm.module.css';
 import TicketModal from '../../Modal/TicketModal';
+import ContentModal from '../../Modal/ContentModal';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { EditorState, convertToRaw } from 'draft-js';
@@ -31,11 +33,6 @@ interface Course {
   image: File;
 }
 
-interface ImageFile {
-  fileName: string,
-  base64Data: string
-}
-
 type Product = {
   productId: string;
   category: string;
@@ -44,7 +41,7 @@ type Product = {
     country: string;
     city: string;
   };
-  mainImg: ImageFile[];
+  mainImg: File[];
   ticket: Ticket[];
   mainInfo: string;
   course: Course[];
@@ -78,7 +75,7 @@ function ProductForm() {
   const [productName, setProductName] = useState<string>('');
   const [country, setCountry] = useState<string>('');
   const [city, setCity] = useState<string>('');
-  const [mainImg, setMainImg] = useState <ImageFile[]>([]);
+  const [mainImg, setMainImg] = useState<File[]>([]);
 
   const [mainInfoState, setMainInfoState] = useState<EditorState>(EditorState.createEmpty());
   const [mainInfoHtml, setMainInfoHtml] = useState<string>("");
@@ -120,28 +117,11 @@ function ProductForm() {
   };
 
   const handleMainImg = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files) return;
-
-    const files = Array.from(event.target.files as FileList);
-    const filePromise: Promise <ImageFile>[] = [];
-
-    for (const file of files) {
-      filePromise.push(
-        new Promise <ImageFile>((resolve) => {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            resolve({fileName: file.name, base64Data: reader.result as string});
-          };
-          reader.readAsDataURL(file);
-        })
-      );
+    const files = event.target.files as FileList;
+    console.log(files);
+    if(files.length > 0){
+      setMainImg((prev) => [...prev, ...Array.from(files)]);
     }
-
-    Promise.all(filePromise).then((base64Files) => {
-      setMainImg((prev) => [...prev, ...base64Files]);
-      console.log(mainImg);
-    })
-  
   }
 
   const [ticketModalOpen, setTicketModalOpen] = useState<boolean>(false);
@@ -248,9 +228,8 @@ function ProductForm() {
             <div>
               {mainImg.map((file) => {
                 return <img 
-                  key={file.fileName}
-                  src={file.base64Data}
-                  alt={file.fileName}
+                  key={file.name}
+                  src={URL.createObjectURL(file)}
                   className={styles.mainImgList}
                   />
               })}
