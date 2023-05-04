@@ -90,6 +90,7 @@ function ProductForm() {
   useEffect(() => {
     const html = draftjsToHtml(convertToRaw(mainInfoState.getCurrentContent()));
     setMainInfoHtml(html);
+    console.log(html);
   }, [mainInfoState]);
 
   const [extraInfoState, setExtraInfoState] = useState<EditorState>(EditorState.createEmpty());
@@ -138,6 +139,7 @@ function ProductForm() {
 
     Promise.all(filePromise).then((base64Files) => {
       setMainImg((prev) => [...prev, ...base64Files]);
+      console.log(mainImg);
     })
   
   }
@@ -150,6 +152,7 @@ function ProductForm() {
   }
   const handleTicketModal = (ticket:Ticket) => {
     toggleTicketModal();
+    console.log(ticket);
     setTicketList((prev) => [...prev, ticket]);
   }
 
@@ -161,6 +164,7 @@ function ProductForm() {
   }
   const handleCourseModal = (course:Course) => {
     toggleCourseModal();
+    console.log(course);
     setCourseList((prev) => [...prev, course])
   }
 
@@ -190,7 +194,7 @@ function ProductForm() {
         const reader = new FileReader();
         reader.onload = () => {
           const src = reader.result;
-          resolve({data: {link:src}});
+          resolve({data: src});
         };
         reader.onerror = error => {
           reject(error);
@@ -302,8 +306,7 @@ function ProductForm() {
                 },
                 image: {
                   uploadCallback: uploadImageCallBack,
-                  alt:{present: true, mandatory: false},
-                  defaultSize: { height: 'auto', width: 'auto' }
+                  alt:{present: true, mandatory: false}
                 },
               }
             }        
@@ -355,13 +358,9 @@ function ProductForm() {
               toolbar={{
                 fontSize: {
                   options: [8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48],
-                },
-                image: {
-                  uploadCallback: uploadImageCallBack,
-                  alt:{present: true, mandatory: false},
-                  defaultSize: { height: 'auto', width: 'auto' }
-                },
-              }}  
+                }
+              }
+            }        
             />
           </div>
         </div>

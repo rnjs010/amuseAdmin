@@ -85,11 +85,13 @@ function ProductForm() {
 
   const updateMainInfoState = (mainInfoState: EditorState) => {
     setMainInfoState(mainInfoState);
+    console.log(mainInfoState);
   }
 
   useEffect(() => {
     const html = draftjsToHtml(convertToRaw(mainInfoState.getCurrentContent()));
     setMainInfoHtml(html);
+    console.log(html);
   }, [mainInfoState]);
 
   const [extraInfoState, setExtraInfoState] = useState<EditorState>(EditorState.createEmpty());
@@ -138,6 +140,7 @@ function ProductForm() {
 
     Promise.all(filePromise).then((base64Files) => {
       setMainImg((prev) => [...prev, ...base64Files]);
+      console.log(mainImg);
     })
   
   }
@@ -150,6 +153,7 @@ function ProductForm() {
   }
   const handleTicketModal = (ticket:Ticket) => {
     toggleTicketModal();
+    console.log(ticket);
     setTicketList((prev) => [...prev, ticket]);
   }
 
@@ -161,6 +165,7 @@ function ProductForm() {
   }
   const handleCourseModal = (course:Course) => {
     toggleCourseModal();
+    console.log(course);
     setCourseList((prev) => [...prev, course])
   }
 
@@ -302,8 +307,7 @@ function ProductForm() {
                 },
                 image: {
                   uploadCallback: uploadImageCallBack,
-                  alt:{present: true, mandatory: false},
-                  defaultSize: { height: 'auto', width: 'auto' }
+                  alt:{present: true, mandatory: false}
                 },
               }
             }        
@@ -358,8 +362,7 @@ function ProductForm() {
                 },
                 image: {
                   uploadCallback: uploadImageCallBack,
-                  alt:{present: true, mandatory: false},
-                  defaultSize: { height: 'auto', width: 'auto' }
+                  alt:{present: true, mandatory: false}
                 },
               }}  
             />

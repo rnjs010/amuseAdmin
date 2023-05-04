@@ -161,6 +161,7 @@ function ProductForm() {
   }
   const handleCourseModal = (course:Course) => {
     toggleCourseModal();
+    console.log(course);
     setCourseList((prev) => [...prev, course])
   }
 
