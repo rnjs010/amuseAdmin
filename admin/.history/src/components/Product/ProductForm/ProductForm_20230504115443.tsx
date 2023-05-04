@@ -138,6 +138,7 @@ function ProductForm() {
 
     Promise.all(filePromise).then((base64Files) => {
       setMainImg((prev) => [...prev, ...base64Files]);
+      console.log(mainImg);
     })
   
   }
@@ -150,6 +151,7 @@ function ProductForm() {
   }
   const handleTicketModal = (ticket:Ticket) => {
     toggleTicketModal();
+    console.log(ticket);
     setTicketList((prev) => [...prev, ticket]);
   }
 
@@ -161,6 +163,7 @@ function ProductForm() {
   }
   const handleCourseModal = (course:Course) => {
     toggleCourseModal();
+    console.log(course);
     setCourseList((prev) => [...prev, course])
   }
 

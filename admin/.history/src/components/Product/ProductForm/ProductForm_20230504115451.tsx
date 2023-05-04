@@ -150,6 +150,7 @@ function ProductForm() {
   }
   const handleTicketModal = (ticket:Ticket) => {
     toggleTicketModal();
+    console.log(ticket);
     setTicketList((prev) => [...prev, ticket]);
   }
 
@@ -161,6 +162,7 @@ function ProductForm() {
   }
   const handleCourseModal = (course:Course) => {
     toggleCourseModal();
+    console.log(course);
     setCourseList((prev) => [...prev, course])
   }
 
