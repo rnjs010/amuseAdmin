@@ -7,6 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import axios from "axios";
 
 import Table from "../../components/Table/Table";
+import {AdTableColumns} from "../../components/Table/AdTableColumns";
 
 type AdInfo = {
 	id: Number | null;
@@ -70,7 +71,7 @@ const Ad = () => {
 						<div className={styles.dateLabel}>
 							시작일
 						</div>
-						
+
 						<DatePicker
 							className={styles.showDatePickerBtn}
 							dateFormat={"yyyy-MM-dd"}
@@ -97,10 +98,7 @@ const Ad = () => {
 					<Link to={'/ad/edit'} className={styles.linkBtn}> 수정 </Link>
 					<Link to={'/ad/register'} className={styles.linkBtn}> 신규등록 </Link>
 				</div>
-				
-				<div className={styles.adListComponent}>
-					<Table data = {adListArr}></Table>
-				</div>
+					<Table root={'ad'} columns={AdTableColumns} data={adListArr}></Table>
 			</div>
 		</div>
 	)
