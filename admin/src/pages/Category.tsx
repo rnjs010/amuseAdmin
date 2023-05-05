@@ -7,9 +7,9 @@ import {CategoryTableColumns} from "../components/Table/CategoryTableColumns";
 const Category = () => {
 	return (
 		<div className={styles.container}>
-			<text className={styles.title}>
+			<h2 className={styles.title}>
 				카테고리 관리
-			</text>
+			</h2>
 			
 			<div className={styles.body}>
 				<div className={styles.categoryAddComponent}>
