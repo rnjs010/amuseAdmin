@@ -11,6 +11,9 @@ import Category from './pages/Category';
 import Ad from './pages/AdPages/Ad';
 import EditAd from './pages/AdPages/EditAd';
 import RegisterAd from "./pages/AdPages/RegisterAd";
+import Notice from "./pages/NoticePages/Notice";
+import NoticeDetail from "./pages/NoticePages/NoticeDetail";
+
 
 
 const router = createBrowserRouter([
@@ -22,10 +25,15 @@ const router = createBrowserRouter([
             {index: true, element: <DashBoard/>},
             {path: 'product/create', element: <ProductCreate/>},
             {path: 'product/delete', element: <ProductDelete/>},
+            
             {path: '/category', element: <Category/>},
+            
             {path: '/ad', element: <Ad/>},
             {path: '/ad/edit', element: <EditAd/>},
-            {path: '/ad/register', element: <RegisterAd/>}
+            {path: '/ad/register', element: <RegisterAd/>},
+            
+            {path: '/notice', element: <Notice/>},
+            {path: '/notice/:id', element: <NoticeDetail/>}
         ]
     }
 ])
