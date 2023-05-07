@@ -290,7 +290,7 @@ function ProductForm() {
           </div>
         </div>
 
-       <MainInfo onChange={handleMainInfo}/>
+       <MainInfo/>
 
         <div className={`${styles.container} ${styles.course}`}>
           <div>

@@ -9,9 +9,6 @@ import CourseModal from '../../Modal/CourseModal';
 import axios from 'axios';
 import axiosInstance from '../../../services/axiosInstance';
 import ExtraInfo from './ExtraInfo';
-import MainInfo from './MainInfo';
-
-type HTML = string;
 
 type Category = {
   name: string;
@@ -53,7 +50,7 @@ type Product = {
   ticket: Ticket[];
   mainInfo: string;
   course: Course[];
-  extraInfo: HTML;
+  extraInfo: string;
 };
 
 
@@ -84,6 +81,32 @@ function ProductForm() {
   const [country, setCountry] = useState<string>('');
   const [city, setCity] = useState<string>('');
   const [mainImg, setMainImg] = useState <ImageFile[]>([]);
+
+  const [mainInfoState, setMainInfoState] = useState<EditorState>(EditorState.createEmpty());
+  const [mainInfoHtml, setMainInfoHtml] = useState<string>("");
+
+  const updateMainInfoState = (mainInfoState: EditorState) => {
+    setMainInfoState(mainInfoState);
+  }
+
+  useEffect(() => {
+    const html = draftjsToHtml(convertToRaw(mainInfoState.getCurrentContent()));
+    setMainInfoHtml(html);
+  }, [mainInfoState]);
+
+  const [extraInfoState, setExtraInfoState] = useState<EditorState>(EditorState.createEmpty());
+  const [extraInfoHtml, setExtraInfoHtml] = useState<string>("");
+
+  const updateExtraInfoState = (extraInfoState: EditorState) => {
+    setExtraInfoState(extraInfoState);
+  }
+  useEffect(() => {
+    const html = draftjsToHtml(convertToRaw(extraInfoState.getCurrentContent()));
+    setExtraInfoHtml(html);
+  }, [extraInfoState]);
+
+
+
 
   const handleProductName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setProductName(event.target.value);
@@ -142,15 +165,6 @@ function ProductForm() {
     toggleCourseModal();
     setCourseList((prev) => [...prev, course])
   }
-  const [mainInfo, setMainInfo] = useState<HTML>('');
-  const handleMainInfo = (html:HTML) => {
-    setMainInfo(html);
-  }
-
-  const [extraInfo, setExtraInfo] = useState<HTML>('');
-  const handleExtraInfo = (html: HTML) => {
-    setExtraInfo(html);
-  }
 
   const handleAddProduct = () => {
     // if(productId && category && productName && country && city && mainImg && ticketList && mainInfoHtml && courseList){
@@ -164,9 +178,9 @@ function ProductForm() {
         },
         mainImg: mainImg,
         ticket: ticketList,
-        mainInfo,
+        mainInfo: mainInfoHtml,
         course: courseList,  
-        extraInfo  
+        extraInfo: extraInfoHtml      
       };
       console.log(product);
     // }
@@ -177,6 +191,23 @@ function ProductForm() {
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
   }
+
+  const uploadImageCallBack = (file: File) => {
+    return new Promise(
+      (resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const src = reader.result;
+          resolve({data: {link:src}});
+        };
+        reader.onerror = error => {
+          reject(error);
+        };
+        reader.readAsDataURL(file);
+      }
+    );
+  };
+
   const renderImageList = () => {
     return(
       <ul>
@@ -290,7 +321,37 @@ function ProductForm() {
           </div>
         </div>
 
-       <MainInfo onChange={handleMainInfo}/>
+        <div className={`${styles.container} ${styles.content}`}>
+          <div>
+            <span className={styles.title}>상품 소개 관리</span>
+            <Editor
+              editorState={mainInfoState}
+              onEditorStateChange={updateMainInfoState}
+              editorStyle={{
+                height: "400px",
+                width: "100%",
+                backgroundColor: "white",
+                border: "3px solid lightgray",
+                borderRadius: "10px",
+                padding: "20px"
+              }}
+              toolbarStyle={{
+                borderRadius: "10px"
+              }}
+              toolbar={{
+                fontSize: {
+                  options: [8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48],
+                },
+                image: {
+                  uploadCallback: uploadImageCallBack,
+                  alt:{present: true, mandatory: false},
+                  defaultSize: { height: 'auto', width: 'auto' }
+                },
+              }
+            }        
+            />
+          </div>
+        </div>
 
         <div className={`${styles.container} ${styles.course}`}>
           <div>
@@ -303,7 +364,7 @@ function ProductForm() {
           </div>
         </div>
 
-        <ExtraInfo onChange={handleExtraInfo} />
+        <ExtraInfo/>
         <div className={`${styles.container} ${styles.submit}`}>
             <button className={styles.submitBtn} onClick={handleAddProduct}>상품 등록하기</button>
         </div>
