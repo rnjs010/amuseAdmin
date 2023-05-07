@@ -138,6 +138,17 @@ function ProductForm() {
     setCourse((prev) => [...prev, course])
   }
 
+  const [courseModalOpen, setCourseModalOpen] = useState<boolean>(false);
+  const [courseList, setCourseList] = useState<Course[]>([]);
+
+  const toggleCourseModal = () => {
+    setCourseModalOpen((prev) => !prev);
+  }
+  const handleCourseModal = (course:Course) => {
+    toggleCourseModal();
+    setCourseList((prev) => [...prev, course])
+  }
+
   const [mainInfo, setMainInfo] = useState<HTML>('');
   const handleMainInfo = (html:HTML) => {
     setMainInfo(html);
@@ -188,6 +199,25 @@ function ProductForm() {
     )
   };
 
+  const renderCourseList = () => {
+    return (
+      <ul>
+        {courseList.map((course) => {
+          return (
+            <li className={styles.courseBox} key={course.title}>
+              <div className={styles.textInfo}>
+                <p>제목: {course.title}</p>
+                <p>소요시간: {course.timeCost}</p>
+                <p>설명: {course.content}</p>
+              </div>
+              <img className={styles.courseImg} src={course.image.base64Data} alt="Course" />
+            </li>
+          )
+        })}
+      </ul>
+    )
+  };
+
   const handleAddProduct = () => {
     // if(productId && category && productName && country && city && mainImg && ticketList && mainInfoHtml && courseList){
       const product: Product = {
@@ -201,14 +231,14 @@ function ProductForm() {
         mainImg: mainImg,
         ticket: ticketList,
         mainInfo,
-        course,  
+        course: courseList,  
         extraInfo  
       };
       console.log(product);
     // }
-    // const jsonString = JSON.stringify(product);
-    // const byteSize = new Blob([jsonString], {type: 'application/json'}).size;
-    // console.log('byteSize: ', byteSize);
+    const jsonString = JSON.stringify(product);
+    const byteSize = new Blob([jsonString], {type: 'application/json'}).size;
+    console.log('byteSize: ', byteSize);
     axiosInstance.post('/test/api/product/create', product)
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
