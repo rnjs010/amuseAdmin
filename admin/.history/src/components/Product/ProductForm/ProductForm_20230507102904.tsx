@@ -183,9 +183,6 @@ function ProductForm() {
       };
       console.log(product);
     // }
-    const jsonString = JSON.stringify(product);
-    const byteSize = new Blob([jsonString], {type: 'application/json'}).size;
-    console.log('byteSize: ', byteSize);
     axiosInstance.post('/test/api/product/create', product)
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
@@ -205,65 +202,6 @@ function ProductForm() {
         reader.readAsDataURL(file);
       }
     );
-  };
-
-  const renderImageList = () => {
-    return(
-      <ul>
-         {mainImg.map((file) => {
-                return <img 
-                  key={file.fileName}
-                  src={file.base64Data}
-                  alt={file.fileName}
-                  className={styles.mainImgList}
-                  />
-              })}
-      </ul>
-    )
-  }
-
-  const renderTicketList = () => {
-    return (
-      <ul>
-        {ticketList.map((ticket) => {
-          return (
-            <li className={styles.ticketList} key={ticket.title}>
-              <p className={styles.ticketLabel}>티켓 제목</p><span>{ticket.title}</span>
-              <p className={styles.ticketLabel}>티켓 설명</p><span>{ticket.content}</span>
-              <ul>
-                <p className={styles.ticketLabel}>1인당 티켓 가격</p>
-                {ticket.priceList.map((price) => {
-                  return(
-                    <li className={styles.ticketPriceList} key={price.startDate}>
-                      <p>{price.startDate} ~ {price.endDate} : {price.price}원</p>                            
-                    </li>                    
-                  )
-                })}
-              </ul>
-            </li>
-          )
-        })}
-      </ul>
-    )
-  };
-
-  const renderCourseList = () => {
-    return (
-      <ul>
-        {courseList.map((course) => {
-          return (
-            <li className={styles.courseBox} key={course.title}>
-              <div className={styles.textInfo}>
-                <p>제목: {course.title}</p>
-                <p>소요시간: {course.timeCost}</p>
-                <p>설명: {course.content}</p>
-              </div>
-              <img className={styles.courseImg} src={course.image.base64Data} alt="Course" />
-            </li>
-          )
-        })}
-      </ul>
-    )
   };
 
   return (
@@ -305,7 +243,14 @@ function ProductForm() {
             <span className={` ${styles.title} ${styles.mainImg}`}>메인 이미지</span>
             <input className={styles.mainImgInput} id="mainImgInput" onChange={handleMainImg} accept="image/png, image/jpeg" multiple type="file"/>
             <div>
-              {renderImageList()}
+              {mainImg.map((file) => {
+                return <img 
+                  key={file.fileName}
+                  src={file.base64Data}
+                  alt={file.fileName}
+                  className={styles.mainImgList}
+                  />
+              })}
             </div>
         </div>
 
@@ -316,7 +261,26 @@ function ProductForm() {
             {ticketModalOpen && <TicketModal onSave={handleTicketModal} onToggle={toggleTicketModal}/>}
           </div>
           <div className={`${styles.status} ${styles.ticket}`}>
-            {renderTicketList()}
+            <ul>
+              {ticketList.map((ticket) => {
+                return (
+                  <li className={styles.ticketList} key={ticket.title}>
+                    <p className={styles.ticketLabel}>티켓 제목</p><span>{ticket.title}</span>
+                    <p className={styles.ticketLabel}>티켓 설명</p><span>{ticket.content}</span>
+                    <ul>
+                      <p className={styles.ticketLabel}>1인당 티켓 가격</p>
+                      {ticket.priceList.map((price) => {
+                        return(
+                          <li className={styles.ticketPriceList} key={price.startDate}>
+                            <p>{price.startDate} ~ {price.endDate} : {price.price}원</p>                            
+                          </li>                    
+                        )
+                      })}
+                    </ul>
+                  </li>
+                )
+              })}
+            </ul>
           </div>
         </div>
 
@@ -359,7 +323,20 @@ function ProductForm() {
             {courseModalOpen && <CourseModal onSave={handleCourseModal} onToggle={toggleCourseModal}/>}
           </div>
           <div className={`${styles.status} ${styles.course}`}>
-            {renderCourseList()}
+            <ul>
+              {courseList.map((course) => {
+                return (
+                  <li className={styles.courseBox} key={course.title}>
+                    <div className={styles.textInfo}>
+                      <p>제목: {course.title}</p>
+                      <p>소요시간: {course.timeCost}</p>
+                      <p>설명: {course.content}</p>
+                    </div>
+                    <img className={styles.courseImg} src={course.image.base64Data} alt="Course" />
+                  </li>
+                )
+              })}
+            </ul>
           </div>
         </div>
 

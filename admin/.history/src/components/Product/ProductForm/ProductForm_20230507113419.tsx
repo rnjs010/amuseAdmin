@@ -207,21 +207,6 @@ function ProductForm() {
     );
   };
 
-  const renderImageList = () => {
-    return(
-      <ul>
-         {mainImg.map((file) => {
-                return <img 
-                  key={file.fileName}
-                  src={file.base64Data}
-                  alt={file.fileName}
-                  className={styles.mainImgList}
-                  />
-              })}
-      </ul>
-    )
-  }
-
   const renderTicketList = () => {
     return (
       <ul>
@@ -305,7 +290,14 @@ function ProductForm() {
             <span className={` ${styles.title} ${styles.mainImg}`}>메인 이미지</span>
             <input className={styles.mainImgInput} id="mainImgInput" onChange={handleMainImg} accept="image/png, image/jpeg" multiple type="file"/>
             <div>
-              {renderImageList()}
+              {mainImg.map((file) => {
+                return <img 
+                  key={file.fileName}
+                  src={file.base64Data}
+                  alt={file.fileName}
+                  className={styles.mainImgList}
+                  />
+              })}
             </div>
         </div>
 
