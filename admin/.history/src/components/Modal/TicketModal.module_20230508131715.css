@@ -146,23 +146,25 @@
 
 .priceStatus {
   width: 90%;
-  height: 76px;
+  height: 66px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   margin-top: 12px;
-
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .priceStatusDate {
   width: 100%;
   display: flex;
   justify-content: space-evenly;
-  padding: 4px;
-  border-bottom: 3px solid var(--color-light-grey);
-
+  border: 2px solid var(--color-pink);
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  /* padding: 4px; */
 }
 
 .priceStatusWeekDayPrice {
@@ -170,6 +172,8 @@
   width: 100%;
   justify-content: space-between;
   text-align: center;
-  padding: 4px;
-
+  border: 2px solid var(--color-pink);
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  /* padding: 4px; */
 }

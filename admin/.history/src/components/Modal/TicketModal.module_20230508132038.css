@@ -153,7 +153,8 @@
   justify-content: space-around;
   align-items: center;
   margin-top: 12px;
-
+  /* padding-left: 20px;
+  padding-right: 20px; */
 }
 
 .priceStatusDate {
@@ -161,7 +162,7 @@
   display: flex;
   justify-content: space-evenly;
   padding: 4px;
-  border-bottom: 3px solid var(--color-light-grey);
+  border-bottom: 2px solid var(--color-light-grey);
 
 }
 
