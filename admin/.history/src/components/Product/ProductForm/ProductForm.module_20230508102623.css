@@ -27,11 +27,10 @@
   padding-bottom: 20px;
 }
 
-.container.locationAndDuration{
+.container.location{
   background-color: lightsalmon;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
 }
 
 .container.mainImg{

@@ -109,9 +109,19 @@ function ProductForm() {
     setCity(event.target.value);
   };
 
+  const [nights, setNights] = useState<string>('');
+  const [days, setDays] = useState<string>('');
   const [duration, setDuration] = useState<string>('');
-  const handleDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDuration(event.target.value);
+  const handleNights = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNights(event.target.value);
+  }
+  const handleDays = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDays(event.target.value);
+  }
+  const handleDuration = () => {
+    if(nights && days){
+      setDuration(`${nights}박 ${days}일`)
+    }
   }
 
   const [mainImg, setMainImg] = useState <ImageFile[]>([]);
@@ -198,7 +208,7 @@ function ProductForm() {
             </div>
             <div className={styles.duration}>
               <span className={styles.title}>여행 기간</span>
-              <input value={duration} onChange={handleDuration} type="text" placeholder='0박 0일'/>
+              <input value={duration} onChange={handleDuration} type="text"/>
             </div>
         </div>
 

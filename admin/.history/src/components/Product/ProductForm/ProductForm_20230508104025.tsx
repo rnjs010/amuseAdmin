@@ -198,7 +198,7 @@ function ProductForm() {
             </div>
             <div className={styles.duration}>
               <span className={styles.title}>여행 기간</span>
-              <input value={duration} onChange={handleDuration} type="text" placeholder='0박 0일'/>
+              <input value={duration} onChange={handleDuration} type="text"/>
             </div>
         </div>
 

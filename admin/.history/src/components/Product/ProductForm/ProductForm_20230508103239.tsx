@@ -190,15 +190,15 @@ function ProductForm() {
         <div className={`${styles.container} ${styles.locationAndDuration}`}>
             <div className={styles.country}>
               <span className={styles.title}>국가</span>
-              <input value={country} onChange={handleCountry} type="text"/>
+              <input className={`${styles.countryInput}`} value={country} onChange={handleCountry} type="text"/>
             </div>
             <div className={styles.city}>
               <span className={styles.title}>도시</span>
-              <input value={city} onChange={handleCity} type="text"/>
+              <input  value={city} onChange={handleCity} type="text"/>
             </div>
             <div className={styles.duration}>
               <span className={styles.title}>여행 기간</span>
-              <input value={duration} onChange={handleDuration} type="text" placeholder='0박 0일'/>
+              <input className={`${styles.cityInput}`} value={city} onChange={handleDuration} type="text"/>
             </div>
         </div>
 
