@@ -1,0 +1,23 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.container.location{
+  background-color: lightsalmon;
+}
+
+.title {
+  padding-right: 10px;
+  white-space: nowrap;
+}
+
+ 
+.country{
+  margin-bottom: 10px;
+}

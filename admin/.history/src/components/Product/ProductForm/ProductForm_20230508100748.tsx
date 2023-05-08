@@ -83,27 +83,18 @@ function ProductForm() {
     setCategory(event.target.value);
   }
 
-  const renderCategoryOptions = () => {
-    return categoryList.map((category) => {
-      return (
-        <option key={category} value={category}>
-          {category}
-        </option>
-      );
-    });
-  };
-
   const [productName, setProductName] = useState<string>('');
+  const [country, setCountry] = useState<string>('');
+  const [city, setCity] = useState<string>('');
+
   const handleProductName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setProductName(event.target.value);
   };
 
-  const [country, setCountry] = useState<string>('');
   const handleCountry = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCountry(event.target.value);
   };
 
-  const [city, setCity] = useState<string>('');
   const handleCity = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCity(event.target.value);
   };
@@ -161,20 +152,23 @@ function ProductForm() {
 
   return (
     <div className={styles.productForm}>
-        <div className={`${styles.container} ${styles.idAndCategory}`}>
-          <div className={styles.category}>
-            <span className={styles.title}>여행 카테고리</span>
-            <select className={styles.categorySelect} onChange={handleProductCategory}>
-              <option value="">카테고리 선택</option>
-              {renderCategoryOptions()}
-            </select>
-          </div>
-          <div className={styles.code}>
-              <span className={styles.title}>상품 코드</span>
-              <input className={styles.productId} type="text" onChange={handleProductID}/>
-          </div>
+      <div className={`${styles.container} ${styles.idAndCategory}`}>
+        <div className={styles.category}>
+          <span className={styles.title}>여행 카테고리</span>
+          <select className={styles.categorySelect} onChange={handleProductCategory}>
+            <option value="">카테고리 선택</option>
+            {categoryList.map(
+              (category) => {
+                return <option key={category} value={category}>{category}</option>
+              }
+            )}
+          </select>
         </div>
-
+        <div className={styles.code}>
+            <span className={styles.title}>상품 코드</span>
+            <input className={styles.productId} type="text" onChange={handleProductID}/>
+        </div>
+      </div>
         <div className={`${styles.container} ${styles.name}`}>
             <span className={` ${styles.title} ${styles.name}`}>여행 상품명</span>
             <input className={`${styles.nameInput}`} value={productName} onChange={handleProductName} type="text"/>
@@ -192,15 +186,10 @@ function ProductForm() {
         </div>
 
         <MainImage onAdd={handleMainImg}/>
-
         <TicketInfo onAdd={handleTicket} />
-
         <MainInfo onChange={handleMainInfo}/>
-
         <CourseInfo onAdd={handleCourse} />
-
         <ExtraInfo onChange={handleExtraInfo} />
-        
         <div className={`${styles.container} ${styles.submit}`}>
             <button className={styles.submitBtn} onClick={handleAddProduct}>상품 등록하기</button>
         </div>

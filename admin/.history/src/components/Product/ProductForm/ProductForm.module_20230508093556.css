@@ -17,6 +17,13 @@
   padding-right: 60px;
 }
 
+.container.ticket {
+  background-color: lightgreen;
+  height: fit-content;
+  min-height: 400px;
+  max-height: 635px;
+}
+
 .container.name{
   display: flex;
   flex-direction: row;

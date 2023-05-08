@@ -12,7 +12,6 @@ import ExtraInfo from './ExtraInfo';
 import MainInfo from './MainInfo';
 import CourseInfo from './CourseInfo';
 import TicketInfo from './TicketInfo';
-import MainImage from './MainImage';
 
 type HTML = string;
 
@@ -83,36 +82,47 @@ function ProductForm() {
     setCategory(event.target.value);
   }
 
-  const renderCategoryOptions = () => {
-    return categoryList.map((category) => {
-      return (
-        <option key={category} value={category}>
-          {category}
-        </option>
-      );
-    });
-  };
-
   const [productName, setProductName] = useState<string>('');
+  const [country, setCountry] = useState<string>('');
+  const [city, setCity] = useState<string>('');
+  const [mainImg, setMainImg] = useState <ImageFile[]>([]);
+
   const handleProductName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setProductName(event.target.value);
   };
 
-  const [country, setCountry] = useState<string>('');
   const handleCountry = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCountry(event.target.value);
   };
 
-  const [city, setCity] = useState<string>('');
   const handleCity = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCity(event.target.value);
   };
 
-  const [mainImg, setMainImg] = useState <ImageFile[]>([]);
-  const handleMainImg = (imageFiles: ImageFile[]) => {
-    setMainImg((prev) => [...prev, ...imageFiles]);
-  }
+  const handleMainImg = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) return;
+
+    const files = Array.from(event.target.files as FileList);
+    const filePromise: Promise <ImageFile>[] = [];
+
+    for (const file of files) {
+      filePromise.push(
+        new Promise <ImageFile>((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            resolve({fileName: file.name, base64Data: reader.result as string});
+          };
+          reader.readAsDataURL(file);
+        })
+      );
+    }
+
+    Promise.all(filePromise).then((base64Files) => {
+      setMainImg((prev) => [...prev, ...base64Files]);
+    })
   
+  }
+
   const [ticket, setTicket] = useState<Ticket[]>([]);
   const handleTicket = (ticket:Ticket) => {
     setTicket((prev) => [...prev, ticket])
@@ -133,6 +143,21 @@ function ProductForm() {
     setExtraInfo(html);
   }
 
+  const renderImageList = () => {
+    return(
+      <ul>
+         {mainImg.map((file) => {
+                return <img 
+                  key={file.fileName}
+                  src={file.base64Data}
+                  alt={file.fileName}
+                  className={styles.mainImgList}
+                  />
+              })}
+      </ul>
+    )
+  }
+
   const handleAddProduct = () => {
     // if(productId && category && productName && country && city && mainImg && ticketList && mainInfoHtml && courseList){
       const product: Product = {
@@ -144,7 +169,7 @@ function ProductForm() {
           city
         },
         mainImg: mainImg,
-        ticket,
+        ticket: ticketList,
         mainInfo,
         course,  
         extraInfo  
@@ -162,19 +187,22 @@ function ProductForm() {
   return (
     <div className={styles.productForm}>
         <div className={`${styles.container} ${styles.idAndCategory}`}>
-          <div className={styles.category}>
-            <span className={styles.title}>여행 카테고리</span>
-            <select className={styles.categorySelect} onChange={handleProductCategory}>
-              <option value="">카테고리 선택</option>
-              {renderCategoryOptions()}
-            </select>
-          </div>
-          <div className={styles.code}>
-              <span className={styles.title}>상품 코드</span>
-              <input className={styles.productId} type="text" onChange={handleProductID}/>
-          </div>
-        </div>
-
+      <div className={styles.category}>
+        <span className={styles.title}>여행 카테고리</span>
+        <select className={styles.categorySelect} onChange={handleProductCategory}>
+          <option value="">카테고리 선택</option>
+          {categoryList.map(
+            (category) => {
+              return <option key={category} value={category}>{category}</option>
+            }
+          )}
+        </select>
+      </div>
+      <div className={styles.code}>
+          <span className={styles.title}>상품 코드</span>
+          <input className={styles.productId} type="text" onChange={handleProductID}/>
+      </div>
+    </div>
         <div className={`${styles.container} ${styles.name}`}>
             <span className={` ${styles.title} ${styles.name}`}>여행 상품명</span>
             <input className={`${styles.nameInput}`} value={productName} onChange={handleProductName} type="text"/>
@@ -191,16 +219,19 @@ function ProductForm() {
             </div>
         </div>
 
-        <MainImage onAdd={handleMainImg}/>
-
+        <div className={`${styles.container} ${styles.mainImg}`}>
+            <span className={` ${styles.title} ${styles.mainImg}`}>메인 이미지</span>
+            <input className={styles.mainImgInput} id="mainImgInput" onChange={handleMainImg} accept="image/png, image/jpeg" multiple type="file"/>
+            <div>
+              {renderImageList()}
+            </div>
+        </div>
         <TicketInfo onAdd={handleTicket} />
-
         <MainInfo onChange={handleMainInfo}/>
 
         <CourseInfo onAdd={handleCourse} />
 
         <ExtraInfo onChange={handleExtraInfo} />
-        
         <div className={`${styles.container} ${styles.submit}`}>
             <button className={styles.submitBtn} onClick={handleAddProduct}>상품 등록하기</button>
         </div>

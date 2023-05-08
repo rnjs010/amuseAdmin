@@ -192,15 +192,10 @@ function ProductForm() {
         </div>
 
         <MainImage onAdd={handleMainImg}/>
-
         <TicketInfo onAdd={handleTicket} />
-
         <MainInfo onChange={handleMainInfo}/>
-
         <CourseInfo onAdd={handleCourse} />
-
         <ExtraInfo onChange={handleExtraInfo} />
-        
         <div className={`${styles.container} ${styles.submit}`}>
             <button className={styles.submitBtn} onClick={handleAddProduct}>상품 등록하기</button>
         </div>

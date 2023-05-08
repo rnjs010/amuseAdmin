@@ -28,7 +28,7 @@ function CourseInfo({onAdd} : MainInfoProps) {
   }
   const handleCourseModal = (course:Course) => {
     toggleCourseModal();
-    setCourseList((prev) => [...prev, course]);
+    // setCourseList((prev) => [...prev, course]);
     onAdd(course);
   }
 
