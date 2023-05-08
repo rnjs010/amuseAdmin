@@ -82,7 +82,7 @@
 
 .input.content {
   border-radius: var(--border-radius);
-  height: 100px;
+  height: 160px;
 }
 
 
@@ -127,11 +127,21 @@
   align-items: center;
 }
 
+.priceStatus {
+  width: 90%;
+  height: 50px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
 .weekDaysPrice {
-  border: 2px solid var(--color-pink);
+  color: var(--color-white);
   border-radius: 10px;
-  margin-top: 10px;
-  padding: 4px;
   display: flex;
   justify-content: space-between;
   text-align: center;
@@ -139,30 +149,6 @@
 
 .weekDayPrice{
   width: 80px;
+
 }
 
-.priceStatus {
-  width: 90%;
-  height: 66px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 12px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.priceStatusDate {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.priceStatusWeekDayPrice {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  text-align: center;
-}

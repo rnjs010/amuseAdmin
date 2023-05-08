@@ -39,10 +39,8 @@ function TicketInfo({onAdd}: TicketInfoProps) {
         {ticketList.map((ticket) => {
           return (
             <li className={styles.ticketList} key={ticket.title}>
-              <p className={styles.ticketLabel}>티켓 제목</p>
-              <p className={styles.ticketTitle}>{ticket.title}</p>
-              <p className={styles.ticketLabel}>티켓 설명</p>
-              <p className={styles.ticketContent}>{ticket.content}</p>
+              <p className={styles.ticketLabel}>티켓 제목</p><p>{ticket.title}</p>
+              <p className={styles.ticketLabel}>티켓 설명</p><p>{ticket.content}</p>
               <ul>
                 <p className={styles.ticketLabel}>1인당 티켓 가격</p>
                 {ticket.priceList.map((price) => {

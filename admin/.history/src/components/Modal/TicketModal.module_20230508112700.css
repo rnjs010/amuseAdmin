@@ -82,7 +82,7 @@
 
 .input.content {
   border-radius: var(--border-radius);
-  height: 100px;
+  height: 160px;
 }
 
 
@@ -104,11 +104,10 @@
 }
 
 .addBtn {
-  width: 100%;
-  height: 30px;
+  width: 60px;
+  height: 50px;
   background-color: var(--color-pink);
   border-radius: 10px;
-  margin-top: 10px;
   color: var(--color-white);
 }
 
@@ -127,42 +126,26 @@
   align-items: center;
 }
 
-.weekDaysPrice {
-  border: 2px solid var(--color-pink);
-  border-radius: 10px;
-  margin-top: 10px;
-  padding: 4px;
-  display: flex;
-  justify-content: space-between;
-  text-align: center;
-}
-
-.weekDayPrice{
-  width: 80px;
-}
-
 .priceStatus {
   width: 90%;
-  height: 66px;
+  height: 50px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   margin-top: 12px;
   padding-left: 20px;
   padding-right: 20px;
 }
 
-.priceStatusDate {
-  width: 100%;
+.weekDaysPrice {
+  background-color: lightcoral;
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
 }
 
-.priceStatusWeekDayPrice {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  text-align: center;
+.weekDayPrice{
+  width: 70px;
+
 }
+

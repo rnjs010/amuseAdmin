@@ -10,6 +10,7 @@ interface Ticket {
 type Price = {
   startDate: string,
   endDate: string,
+  price: string,
   weekdayPrices: {
     [key: string]: string
   }
@@ -27,6 +28,7 @@ function TicketModal({onSave, onToggle}: MordalProps) {
     {
       startDate: '',
       endDate: '',
+      price: '',
       weekdayPrices: {
         'Monday': '',
         'Tuesday': '',
@@ -60,6 +62,11 @@ function TicketModal({onSave, onToggle}: MordalProps) {
     ));
   };
 
+  const handlePrice = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPrice((prev) => (
+      {...prev, price: event.target.value}
+    ));
+  };
 
   const handleWeekdayPrice = (event: React.ChangeEvent<HTMLInputElement>, weekday: string) => {
     setPrice((prev) => (
@@ -74,14 +81,14 @@ function TicketModal({onSave, onToggle}: MordalProps) {
   };
 
   const addPriceToPriceList = () => {
-    console.log(price);
-    if(price.startDate && price.endDate){
+    if(price.startDate && price.endDate && price.price){
       setPriceList((prev) => (
         [...prev, price]
       ));
       setPrice({
         startDate: '',
         endDate: '',
+        price: '',
         weekdayPrices: {
           'Monday': '',
           'Tuesday': '',
@@ -96,7 +103,7 @@ function TicketModal({onSave, onToggle}: MordalProps) {
   }
 
   const handleSave = () => {
-  {
+    if(title.length > 0 && content.length && price){
       const ticket:Ticket = {
         title: title,
         content: content,
@@ -133,6 +140,11 @@ function TicketModal({onSave, onToggle}: MordalProps) {
                 <p>종료일</p>
                 <input id="endDate" name="endDate" type="date" value={price.endDate} onChange={handleEndDate}/>
               </div>
+              <div className={styles.priceInput}>
+                <p>티켓 가격</p>
+                <input id="price" name="price" type="text" value={price.price} onChange={handlePrice}/>
+              </div>
+              {/* <button className={styles.addBtn} onClick={addPriceToPriceList} >추가</button> */}
           </div>
           <div className={styles.weekDaysPrice}>
             {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(weekday => (
@@ -149,32 +161,22 @@ function TicketModal({onSave, onToggle}: MordalProps) {
                 </div>
               ))}
           </div>
-          <button className={styles.addBtn} onClick={addPriceToPriceList} >추가</button>
-
-          <div className={styles.priceStatusContainer}>
-            <ul>
-              {priceList.map((price) => {
-                return  (
-                          <li key={price.startDate} className={styles.priceStatus}>
-                            <div className={styles.priceStatusDate}>
+            <div className={styles.priceStatusContainer}>
+              <ul>
+                {priceList.map((price) => {
+                  return  (
+                            <li key={price.startDate} className={styles.priceStatus}>
                               <p>시작일</p>
                               <span>{price.startDate}</span> 
                               <p>종료일</p>
                               <span>{price.endDate}</span>                              
-                            </div>
-                            <div className={styles.priceStatusWeekDayPrice}>
-                              {Object.entries(price.weekdayPrices).map(([weekday, weekdayPrice]) => (
-                              <div key={weekday} className={styles.weekdayPriceStatus}>
-                                <p>{weekday}</p>
-                                <span>{weekdayPrice}</span>
-                              </div>))}
-                            </div>
-                          </li>
-                        )
-                      })
-              }
-            </ul>
-          </div>
+                              <p>가격</p>
+                              <span>{price.price}</span> 
+                            </li>
+                          )
+                })}
+              </ul>
+            </div>
           </div>
         </div>
         <button className={styles.saveBtn} onClick={handleSave}>저장</button>

@@ -39,28 +39,14 @@ function TicketInfo({onAdd}: TicketInfoProps) {
         {ticketList.map((ticket) => {
           return (
             <li className={styles.ticketList} key={ticket.title}>
-              <p className={styles.ticketLabel}>티켓 제목</p>
-              <p className={styles.ticketTitle}>{ticket.title}</p>
-              <p className={styles.ticketLabel}>티켓 설명</p>
-              <p className={styles.ticketContent}>{ticket.content}</p>
+              <p className={styles.ticketLabel}>티켓 제목</p><span>{ticket.title}</span>
+              <p className={styles.ticketLabel}>티켓 설명</p><span>{ticket.content}</span>
               <ul>
                 <p className={styles.ticketLabel}>1인당 티켓 가격</p>
                 {ticket.priceList.map((price) => {
                   return(
                     <li className={styles.ticketPriceList} key={price.startDate}>
-                      <div className={styles.priceStatusDate}>
-                          <p>시작일</p>
-                          <span>{price.startDate}</span> 
-                          <p>종료일</p>
-                          <span>{price.endDate}</span>                              
-                      </div>        
-                      <div className={styles.priceStatusWeekDayPrice}>
-                          {Object.entries(price.weekdayPrices).map(([weekday, weekdayPrice]) => (
-                            <div key={weekday} className={styles.weekdayPriceStatus}>
-                                <p>{weekday}</p>
-                                <span>{weekdayPrice}</span>
-                            </div>))}
-                       </div>
+                      <p>{price.startDate} ~ {price.endDate} : 원</p>                            
                     </li>                    
                   )
                 })}

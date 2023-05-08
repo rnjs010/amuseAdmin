@@ -96,7 +96,7 @@ function TicketModal({onSave, onToggle}: MordalProps) {
   }
 
   const handleSave = () => {
-  {
+    if(title.length > 0 && content.length && price){
       const ticket:Ticket = {
         title: title,
         content: content,

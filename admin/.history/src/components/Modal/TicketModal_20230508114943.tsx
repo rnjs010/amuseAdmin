@@ -96,7 +96,7 @@ function TicketModal({onSave, onToggle}: MordalProps) {
   }
 
   const handleSave = () => {
-  {
+    if(title.length > 0 && content.length && price){
       const ticket:Ticket = {
         title: title,
         content: content,
@@ -156,13 +156,13 @@ function TicketModal({onSave, onToggle}: MordalProps) {
               {priceList.map((price) => {
                 return  (
                           <li key={price.startDate} className={styles.priceStatus}>
-                            <div className={styles.priceStatusDate}>
+                            <div>
                               <p>시작일</p>
                               <span>{price.startDate}</span> 
                               <p>종료일</p>
                               <span>{price.endDate}</span>                              
                             </div>
-                            <div className={styles.priceStatusWeekDayPrice}>
+                            <div>
                               {Object.entries(price.weekdayPrices).map(([weekday, weekdayPrice]) => (
                               <div key={weekday} className={styles.weekdayPriceStatus}>
                                 <p>{weekday}</p>
