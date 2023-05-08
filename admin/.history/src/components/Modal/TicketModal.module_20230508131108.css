@@ -161,6 +161,7 @@
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+  border: 1px solid var(--color-light-grey)
 }
 
 .priceStatusWeekDayPrice {

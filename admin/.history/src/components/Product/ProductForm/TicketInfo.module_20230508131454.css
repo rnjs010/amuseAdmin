@@ -48,7 +48,7 @@
 }
 
 .ticketTitle {
-  background-color: var(--color-white);
+  background-color: lightgoldenrodyellow;
   border-radius: var(--border-radius);
   text-align: center;
   height: 30px;
@@ -57,7 +57,7 @@
 }
 
 .ticketContent {
-  background-color: var(--color-white);
+  background-color: lightgoldenrodyellow;
   border-radius: var(--border-radius);
   min-height: 30px;
   margin-bottom: 10px;
@@ -79,7 +79,7 @@
 }
 
 .ticketPriceList {
-  background-color: var(--color-white);
+  background-color: lightgoldenrodyellow;
   border-radius: var(--border-radius);
   padding: 10px;
 }
@@ -89,9 +89,8 @@
   display: flex;
   justify-content: space-evenly;
   border: 2px solid var(--color-pink);
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-  padding: 4px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .priceStatusWeekDayPrice {
@@ -100,7 +99,6 @@
   justify-content: space-between;
   text-align: center;
   border: 2px solid var(--color-pink);
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
-  padding: 4px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }

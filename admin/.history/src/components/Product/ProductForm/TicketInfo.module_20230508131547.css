@@ -48,7 +48,7 @@
 }
 
 .ticketTitle {
-  background-color: var(--color-white);
+  background-color: lightgoldenrodyellow;
   border-radius: var(--border-radius);
   text-align: center;
   height: 30px;
@@ -57,7 +57,7 @@
 }
 
 .ticketContent {
-  background-color: var(--color-white);
+  background-color: lightgoldenrodyellow;
   border-radius: var(--border-radius);
   min-height: 30px;
   margin-bottom: 10px;
