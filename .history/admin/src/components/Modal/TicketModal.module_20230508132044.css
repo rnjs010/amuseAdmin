@@ -157,7 +157,6 @@
 }
 
 .priceStatusDate {
-  position: relative;
   width: 100%;
   display: flex;
   justify-content: space-evenly;
@@ -173,12 +172,4 @@
   text-align: center;
   padding: 4px;
 
-}
-
-.removeBtn {
-  position: absolute;
-  right: 0;
-  font-size: 20px;
-  color: red;
-  background-color: transparent;
 }
