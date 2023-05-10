@@ -98,7 +98,7 @@ const Ad = () => {
 					<Link to={'/ad/edit'} className={styles.linkBtn}> 수정 </Link>
 					<Link to={'/ad/register'} className={styles.linkBtn}> 신규등록 </Link>
 				</div>
-					<Table root={'ad'} columns={AdTableColumns} data={adListArr}></Table>
+					<Table route={'ad'} columns={AdTableColumns} data={adListArr}></Table>
 			</div>
 		</div>
 	)

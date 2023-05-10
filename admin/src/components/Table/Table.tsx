@@ -6,12 +6,12 @@ import {useNavigate} from "react-router-dom";
 
 // TODO
 // @ts-ignore
-const Table = ({root = "", columns, data}) => {
+const Table = ({route = "", columns, data}) => {
 	
 	const navigate = useNavigate();
 	
 	const onClickRow = (id: number) => {
-		navigate(`/${root}/${id}`);
+		navigate(`/${route}/${id}`);
 	};
 	
 	const {
@@ -37,7 +37,6 @@ const Table = ({root = "", columns, data}) => {
 	);
 	
 	const {pageIndex, pageSize} = state
-	
 	
 	// @ts-ignore
 	return (

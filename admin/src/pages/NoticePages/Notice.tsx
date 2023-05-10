@@ -14,7 +14,7 @@ const Notice = () => {
 				style={{marginLeft: '5%', width: '90%'}}
 			>
 				<Table
-					root={'notice'}
+					route={'notice'}
 					columns={NoticeTableColumns}
 					data={
 						[
