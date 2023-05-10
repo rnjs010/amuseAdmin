@@ -1,0 +1,43 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.container.mainImg{
+  background-color: lightgoldenrodyellow;
+  display: flex;
+  min-height: 300px;
+}
+
+.title {
+  padding-right: 10px;
+  white-space: nowrap;
+}
+
+ .mainImgInput {
+  padding: 0;
+  text-decoration: none;
+}
+
+.renderedImg {
+  position: relative;
+  width: fit-content;
+}
+
+.img {
+  width: 200px;
+  height: 200px;
+}
+
+.removeBtn {
+  position: absolute;
+  right: 0;
+  width: 14px;
+  height: 14px;
+  background-color: var(--color-light-grey);
+}
