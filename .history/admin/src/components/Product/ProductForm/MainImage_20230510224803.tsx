@@ -42,12 +42,12 @@ function MainImage({onAdd}:ExtraInfoProps) {
       <ul>
          {mainImg.map((file) => {
                 return (
-                  <div className={styles.renderedImg}>
+                  <div>
                     <img 
                       key={file.fileName}
                       src={file.base64Data}
                       alt={file.fileName}
-                      className={styles.img}                  
+                      className={styles.mainImgList}                  
                     />
                     <button className={styles.removeBtn}>x</button>
                   </div>                

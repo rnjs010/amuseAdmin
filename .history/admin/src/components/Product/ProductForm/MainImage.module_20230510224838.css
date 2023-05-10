@@ -24,20 +24,7 @@
   text-decoration: none;
 }
 
-.renderedImg {
-  position: relative;
-  width: fit-content;
-}
-
-.img {
+.mainImg {
   width: 200px;
   height: 200px;
-}
-
-.removeBtn {
-  position: absolute;
-  right: 0;
-  width: 10px;
-  height: 10px;
-  background-color: var(--color-light-grey);
 }

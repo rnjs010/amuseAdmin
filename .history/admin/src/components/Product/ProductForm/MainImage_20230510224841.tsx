@@ -47,7 +47,7 @@ function MainImage({onAdd}:ExtraInfoProps) {
                       key={file.fileName}
                       src={file.base64Data}
                       alt={file.fileName}
-                      className={styles.img}                  
+                      className={styles.mainImg}                  
                     />
                     <button className={styles.removeBtn}>x</button>
                   </div>                

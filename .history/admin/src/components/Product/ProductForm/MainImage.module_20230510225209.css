@@ -26,7 +26,6 @@
 
 .renderedImg {
   position: relative;
-  width: fit-content;
 }
 
 .img {
@@ -37,7 +36,4 @@
 .removeBtn {
   position: absolute;
   right: 0;
-  width: 10px;
-  height: 10px;
-  background-color: var(--color-light-grey);
 }

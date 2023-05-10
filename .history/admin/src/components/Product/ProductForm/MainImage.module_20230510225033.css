@@ -1,0 +1,24 @@
+.mainImgContainer{
+  background-color: lightgoldenrodyellow;
+  display: flex;
+  min-height: 300px;
+}
+
+.title {
+  padding-right: 10px;
+  white-space: nowrap;
+}
+
+ .mainImgInput {
+  padding: 0;
+  text-decoration: none;
+}
+
+.renderedImg {
+  width: 100%;
+}
+
+.mainImg {
+  width: 200px;
+  height: 200px;
+}
