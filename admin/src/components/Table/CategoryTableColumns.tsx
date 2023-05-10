@@ -1,6 +1,6 @@
 export const CategoryTableColumns = [
     {
-        Header : 'id',
+        Header : 'ID',
         accessor : 'id'
     },
     {
@@ -9,11 +9,11 @@ export const CategoryTableColumns = [
     },
     {
         Header : '등록일',
-        accessor : 'startDate'
+        accessor : 'createdAt'
     },
     {
         Header : '등록자',
-        accessor : 'createdCategoryDate'
+        accessor : 'createdBy'
     },
     {
         Header : '등록 상품 수',
