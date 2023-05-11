@@ -32,7 +32,7 @@ const Category = () => {
 	
 	useEffect(() => {
 		(async () => {
-			await axios.get(`${process.env.REACT_APP_API_URL}/test/api/category`)
+			await axios.get(`https://ammuse.store/test/api/category`)
 				.then(r => setCategoryListArr(r.data.data))
 				.catch(e => console.log(e))
 		})();
