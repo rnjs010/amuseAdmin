@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useMemo} from "react";
 import styles from '../../components/Ad/Ad.module.css'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -25,6 +25,8 @@ type AdInfo = {
 
 const Ad = () => {
 	
+	const navigate = useNavigate();
+	
 	const todayDate = new Date();
 	const [startDate, setStartDate] = useState<Date>(todayDate);
 	const [endDate, setEndDate] = useState<Date>(todayDate);
@@ -37,6 +39,7 @@ const Ad = () => {
 				.then(r => setAdListArr(r.data.data))
 				.catch(e => console.log(e))
 		})();
+		console.log(adListArr)
 	}, [])
 	
 	useEffect(() => {
@@ -50,55 +53,29 @@ const Ad = () => {
 	
 	return (
 		<div className={styles.container}>
-			<h2 className={styles.title}>
-				광고 관리
-			</h2>
-			<div className={styles.body}>
-				<div className={styles.searchComponent}>
-					<div
-						style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}
-					>
-						<input className={styles.searchBar}/>
-						
-						<button className={styles.searchBtn}
-								onClick={() => console.log("123123")}
-						>
-							검색
-						</button>
-					</div>
-					<div className={styles.adList}>
-						
-						<div className={styles.dateLabel}>
-							시작일
-						</div>
-
-						<DatePicker
-							className={styles.showDatePickerBtn}
-							dateFormat={"yyyy-MM-dd"}
-							locale="ko"
-							selected={startDate}
-							onChange={(e) => setStartDate(e || startDate)}
-						>
-						</DatePicker>
-						
-						<div className={styles.dateLabel}>
-							종료일
-						</div>
-						<DatePicker
-							className={styles.showDatePickerBtn}
-							dateFormat={"yyyy-MM-dd"}
-							locale="ko"
-							selected={endDate}
-							onChange={(e) => setEndDate(e || startDate)}
-						/>
-					</div>
-				</div>
+			
+			<div
+				style={{
+					display: "flex",
+					flexDirection: "row",
+					justifyContent: "space-between",
+					alignItems: "center",
+					borderBottom: "1px solid #eb1749",
+					margin: "30px 50px 0px 50px",
+					paddingBottom: 10
+				}}
+			>
+				<h2> 광고 관리 </h2>
 				
-				<div style={{position: "relative", top: 20, left: "35%", flexDirection: "row", display: "flex"}}>
-					<Link to={'/ad/edit'} className={styles.linkBtn}> 수정 </Link>
-					<Link to={'/ad/register'} className={styles.linkBtn}> 신규등록 </Link>
-				</div>
-					<Table route={'ad'} columns={AdTableColumns} data={adListArr}></Table>
+				<button
+					className={styles.button}
+					onClick={() => navigate('/ad/register')}
+				>
+					등록하기
+				</button>
+			</div>
+			<div style={{paddingTop: 30}}>
+				<Table route={'ad'} columns={AdTableColumns} data={adListArr}/>
 			</div>
 		</div>
 	)
