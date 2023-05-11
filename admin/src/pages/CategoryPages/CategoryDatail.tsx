@@ -118,7 +118,8 @@ const CategoryDetail = () => {
 						</div>
 						<div>
 							<ToastEditor
-								// setStateValue={setMainDescription}
+								value={mainDescription}
+								setStateValue={setMainDescription}
 							/>
 						
 						</div>
@@ -129,7 +130,10 @@ const CategoryDetail = () => {
 							<strong>부가 설명</strong>
 						</div>
 						<div>
-							<ToastEditor/>
+							<ToastEditor
+								value={subDescription}
+								setStateValue={setSubDescription}
+							/>
 						</div>
 					</p>
 				</form>
@@ -139,11 +143,19 @@ const CategoryDetail = () => {
 				>
 					<strong>등록된 상품</strong>
 				</div>
-					<Table
+				<Table
 					columns={CategoryProductTableColumns}
 					data={productListArr}
-					/>
-
+				/>
+				
+				<div
+					className={styles.p}
+				>
+					<button className={styles.button}>
+						수정하기
+					</button>
+				</div>
+			
 			</div>
 		
 		

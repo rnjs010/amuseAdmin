@@ -30,3 +30,17 @@
 .textInput:focus-visible{
     border: 1px solid;
 }
+
+.button{
+    background: #eb1749;
+    width: 80px;
+    height: 30px;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.button:hover{
+    border: 1px solid #eb1749;
+    background: #fff;
+    color: #eb1749;
+}
