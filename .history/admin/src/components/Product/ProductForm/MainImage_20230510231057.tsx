@@ -37,13 +37,14 @@ function MainImage({onAdd}:ExtraInfoProps) {
     })
   }
 
-  const removeMainImg = (fileName: string) => {    
-    setMainImg((prevImages) => prevImages.filter((img) => img.fileName !== fileName))
+  const removeMainImg = (event: React.MouseEvent<HTMLButtonElement>) => {    
+    console.log(event);
+    console.log(mainImg);
   }
 
   const renderImageList = () => {
     return(
-      <ul className={styles.mainImgList}>
+      <ul>
          {mainImg.map((file) => {
                 return (
                   <div className={styles.renderedImg}>
@@ -53,7 +54,7 @@ function MainImage({onAdd}:ExtraInfoProps) {
                       alt={file.fileName}
                       className={styles.img}                  
                     />
-                    <button className={styles.removeBtn} onClick={() => removeMainImg(file.fileName)}><IoMdRemoveCircle/></button>
+                    <button className={styles.removeBtn} onClick={removeMainImg}><IoMdRemoveCircle/></button>
                   </div>                
                 )
               })}

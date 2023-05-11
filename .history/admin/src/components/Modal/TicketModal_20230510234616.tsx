@@ -96,8 +96,8 @@ function TicketModal({onSave, onToggle}: MordalProps) {
     }
   }
 
-  const removeTicketPrice = (startDate: string) => {
-    setPriceList((prevPrices) => prevPrices.filter((price) => price.startDate !== startDate));
+  const removeTicketPrice = () => {
+
   }
 
   const handleSave = () => {
@@ -167,7 +167,7 @@ function TicketModal({onSave, onToggle}: MordalProps) {
                               <span>{price.startDate}</span> 
                               <p>종료일</p>
                               <span>{price.endDate}</span>
-                              <button className={styles.removeBtn} onClick={() => removeTicketPrice(price.startDate)}><IoMdRemoveCircle/></button>                              
+                              <button className={styles.removeBtn} onClick={() => removeTicketPrice()}><IoMdRemoveCircle/></button>                              
                             </div>
                             <div className={styles.priceStatusWeekDayPrice}>
                               {Object.entries(price.weekdayPrices).map(([weekday, weekdayPrice]) => (

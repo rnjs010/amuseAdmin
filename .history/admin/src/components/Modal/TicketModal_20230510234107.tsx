@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import styles from './TicketModal.module.css';
-import {IoMdRemoveCircle} from 'react-icons/io';
 
 interface Ticket {
   title: string,
@@ -96,10 +95,6 @@ function TicketModal({onSave, onToggle}: MordalProps) {
     }
   }
 
-  const removeTicketPrice = (startDate: string) => {
-    setPriceList((prevPrices) => prevPrices.filter((price) => price.startDate !== startDate));
-  }
-
   const handleSave = () => {
   {
       const ticket:Ticket = {
@@ -150,8 +145,8 @@ function TicketModal({onSave, onToggle}: MordalProps) {
                     placeholder="₩"
                     value={price.weekdayPrices[weekday]}
                     onChange={event => handleWeekdayPrice(event, weekday)}
-                    className={styles.weekDayPrice}                    
-                  />                  
+                    className={styles.weekDayPrice}
+                  />
                 </div>
               ))}
           </div>
@@ -166,8 +161,7 @@ function TicketModal({onSave, onToggle}: MordalProps) {
                               <p>시작일</p>
                               <span>{price.startDate}</span> 
                               <p>종료일</p>
-                              <span>{price.endDate}</span>
-                              <button className={styles.removeBtn} onClick={() => removeTicketPrice(price.startDate)}><IoMdRemoveCircle/></button>                              
+                              <span>{price.endDate}</span>                              
                             </div>
                             <div className={styles.priceStatusWeekDayPrice}>
                               {Object.entries(price.weekdayPrices).map(([weekday, weekdayPrice]) => (

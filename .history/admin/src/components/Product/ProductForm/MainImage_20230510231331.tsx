@@ -43,7 +43,7 @@ function MainImage({onAdd}:ExtraInfoProps) {
 
   const renderImageList = () => {
     return(
-      <ul className={styles.mainImgList}>
+      <ul>
          {mainImg.map((file) => {
                 return (
                   <div className={styles.renderedImg}>

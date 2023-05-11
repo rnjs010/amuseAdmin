@@ -24,10 +24,6 @@
   text-decoration: none;
 }
 
-.mainImgList {
-  display: flex;
-}
-
 .renderedImg {
   position: relative;
   width: fit-content;
@@ -42,6 +38,5 @@
   position: absolute;
   right: 0;
   font-size: 20px;
-  color: red;
   background-color: transparent;
 }

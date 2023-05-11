@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styles from './MainImage.module.css';
-import {IoMdRemoveCircle} from 'react-icons/io';
 
 interface ImageFile {
   fileName: string,
@@ -35,15 +34,12 @@ function MainImage({onAdd}:ExtraInfoProps) {
       setMainImg((prev) => [...prev, ...base64Files]);
       onAdd(base64Files)
     })
-  }
-
-  const removeMainImg = (fileName: string) => {    
-    setMainImg((prevImages) => prevImages.filter((img) => img.fileName !== fileName))
+  
   }
 
   const renderImageList = () => {
     return(
-      <ul className={styles.mainImgList}>
+      <ul>
          {mainImg.map((file) => {
                 return (
                   <div className={styles.renderedImg}>
@@ -53,7 +49,7 @@ function MainImage({onAdd}:ExtraInfoProps) {
                       alt={file.fileName}
                       className={styles.img}                  
                     />
-                    <button className={styles.removeBtn} onClick={() => removeMainImg(file.fileName)}><IoMdRemoveCircle/></button>
+                    <button className={styles.removeBtn}>x</button>
                   </div>                
                 )
               })}

@@ -24,10 +24,6 @@
   text-decoration: none;
 }
 
-.mainImgList {
-  display: flex;
-}
-
 .renderedImg {
   position: relative;
   width: fit-content;
@@ -41,7 +37,7 @@
 .removeBtn {
   position: absolute;
   right: 0;
-  font-size: 20px;
-  color: red;
-  background-color: transparent;
+  width: 4px;
+  height: 4px;
+  background-color: var(--color-light-grey);
 }
