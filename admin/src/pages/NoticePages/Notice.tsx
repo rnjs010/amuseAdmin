@@ -3,16 +3,38 @@ import styles from '../../components/Notice/Notice.module.css'
 import Table from "../../components/Table/Table";
 import {NoticeTableColumns} from "../../components/Table/NoticeTableColumns";
 
+import {useNavigate} from "react-router-dom";
+
 const Notice = () => {
+	
+	const navigate = useNavigate();
 	
 	return (
 		<div className={styles.container}>
-			<h2 className={styles.title}> 공지사항 </h2>
 			
 			
 			<div
-				style={{marginLeft: '5%', width: '90%'}}
+				style={{
+					display: "flex",
+					flexDirection: "row",
+					justifyContent: "space-between",
+					alignItems: "center",
+					borderBottom: "1px solid #eb1749",
+					margin: "30px 50px 0px 50px",
+					paddingBottom: 10
+				}}
 			>
+				<h2> 공지사항 </h2>
+				
+				<button
+					className={styles.button}
+					onClick={() => navigate('/notice/register')}
+				>
+					등록하기
+				</button>
+			</div>
+			
+			<div style={{paddingTop: 30}}>
 				<Table
 					route={'notice'}
 					columns={NoticeTableColumns}
