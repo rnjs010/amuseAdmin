@@ -33,7 +33,7 @@ const CategoryDetail = () => {
 	
 	useEffect(() => {
 		(async () => {
-			await axios.post(`${process.env.REACT_APP_API_URL}/test/api/category/detail`, {
+			await axios.post(`https://ammuse.store/test/api/category/detail`, {
 				"id": id,
 				"offset": 1,
 				"limit": 10
