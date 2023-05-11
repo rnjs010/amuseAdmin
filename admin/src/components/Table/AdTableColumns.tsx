@@ -1,6 +1,6 @@
 export const AdTableColumns = [
     {
-        Header : 'id',
+        Header : 'ID',
         accessor : 'id'
     },
     {
