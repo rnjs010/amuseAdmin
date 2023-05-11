@@ -5,7 +5,7 @@
 
 .button{
     background: #eb1749;
-    width: 100px;
+    width: 80px;
     height: 30px;
     color: #fff;
     border-radius: 10px;
@@ -15,6 +15,10 @@
     border: 1px solid #eb1749;
     background: #fff;
     color: #eb1749;
+}
+
+.button:active {
+    background: #f9f9f9;
 }
 
 .body{
