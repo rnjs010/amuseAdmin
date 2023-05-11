@@ -1,11 +1,22 @@
-import React, {useRef} from "react";
+import React, {useRef, Dispatch, SetStateAction, useEffect} from "react";
 import {Editor} from "@toast-ui/react-editor";
 
 
-const ToastEditor = () => {
+interface Props {
+    setStateValue: Dispatch<SetStateAction<string>>;
+	value: string;
+}
+
+
+// @ts-ignore
+const ToastEditor = ({setStateValue, value = ""}: Props) => {
+	
+	useEffect(() => {
+		console.log(value)
+	}, [])
 	
 	const editorRef = useRef<Editor>(null);
-
+	
 	return(
 		<Editor
 				ref={editorRef}
@@ -46,8 +57,8 @@ const ToastEditor = () => {
 					try {
 						// @ts-ignore
 						// TODO: TO Discuss
-						// setParsedHTML(editorRef.current?.getInstance().getHTML());
-						console.log(parsedHTML)
+						setStateValue(editorRef.current?.getInstance().getHTML());
+						console.log(editorRef.current?.getInstance().getHTML())
 						
 					} catch (error) {
 						console.log(error)
