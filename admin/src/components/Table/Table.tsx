@@ -11,7 +11,7 @@ const Table = ({route = "", columns, data}) => {
 	const navigate = useNavigate();
 	
 	const onClickRow = (id: number) => {
-		navigate(`/${route}/${id}`);
+		if(route !== "") navigate(`/${route}/${id}`);
 	};
 	
 	const {
