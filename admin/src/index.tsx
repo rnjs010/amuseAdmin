@@ -15,6 +15,7 @@ import Ad from './pages/AdPages/Ad';
 import EditAd from './pages/AdPages/EditAd';
 import RegisterAd from "./pages/AdPages/RegisterAd";
 import Notice from "./pages/NoticePages/Notice";
+import NoticeRegister from "./pages/NoticePages/NoticeRegister";
 import NoticeDetail from "./pages/NoticePages/NoticeDetail";
 import StaffDetail from "./pages/StaffDetail";
 
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
             {path: '/ad/register', element: <RegisterAd/>},
             
             {path: '/notice', element: <Notice/>},
+            {path: '/notice/register', element: <NoticeRegister/>},
             {path: '/notice/:id', element: <NoticeDetail/>},
             
             {path: '/staff/:id', element: <StaffDetail/>}
