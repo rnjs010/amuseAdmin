@@ -1,0 +1,58 @@
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.body{
+    display: flex;
+    width: 98%;
+    padding: 0 30px 0 30px;
+    flex-direction: column;
+    border: 1px solid #eb1749;
+    border-radius: 0.5rem;
+    margin: 10px 1% 10px 1%;
+}
+
+.p{
+    margin: 20px 0 20px 0;
+}
+
+.pTitle{
+    margin-bottom: 10px;
+}
+
+.showDatePickerBtn{
+    margin: 0 10px 0 10px;
+    width: 100px;
+    border: 1px solid ;
+}
+
+.radioContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+.textInput{
+    width: 250px;
+    border: 1px solid;
+}
+
+.textInput:focus-visible{
+    border: 1px solid;
+}
+
+.button{
+    background: #eb1749;
+    width: 80px;
+    height: 30px;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.button:hover{
+    border: 1px solid #eb1749;
+    background: #fff;
+    color: #eb1749;
+}
