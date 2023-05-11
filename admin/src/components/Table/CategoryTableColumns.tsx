@@ -5,18 +5,18 @@ export const CategoryTableColumns = [
     },
     {
         Header : '카테고리',
-        accessor : 'category'
+        accessor : 'categoryName'
     },
     {
-        Header : '등록일',
-        accessor : 'createdAt'
+        Header : '등록 상품 수',
+        accessor : 'item'
     },
     {
         Header : '등록자',
         accessor : 'createdBy'
     },
     {
-        Header : '등록 상품 수',
-        accessor : 'count'
-    }
+        Header : '등록일',
+        accessor : 'createdAt'
+    },
 ];
