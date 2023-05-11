@@ -8,14 +8,15 @@ import DashBoard from './pages/DashBoard';
 import ProductDelete from './pages/ProductDelete';
 import ProductCreate from './pages/ProductCreate';
 
+import Category from "./pages/CategoryPages/Category";
 import CategoryDetail from "./pages/CategoryPages/CategoryDatail";
+import CategoryRegister from "./pages/CategoryPages/CategoryRegister";
 import Ad from './pages/AdPages/Ad';
 import EditAd from './pages/AdPages/EditAd';
 import RegisterAd from "./pages/AdPages/RegisterAd";
 import Notice from "./pages/NoticePages/Notice";
 import NoticeDetail from "./pages/NoticePages/NoticeDetail";
 import StaffDetail from "./pages/StaffDetail";
-import Category from './pages/Category';
 
 
 
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
             
             {path: '/category', element: <Category/>},
             {path: '/category/:id', element: <CategoryDetail/>},
+            {path: '/category/register', element: <CategoryRegister/>},
             
             {path: '/ad', element: <Ad/>},
             {path: '/ad/edit', element: <EditAd/>},
