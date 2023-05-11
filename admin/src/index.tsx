@@ -7,7 +7,8 @@ import NotFound from './pages/NotFound';
 import DashBoard from './pages/DashBoard';
 import ProductDelete from './pages/ProductDelete';
 import ProductCreate from './pages/ProductCreate';
-import Category from './pages/Category';
+import Category from './pages/CategoryPages/Category';
+import CategoryDetail from "./pages/CategoryPages/CategoryDatail";
 import Ad from './pages/AdPages/Ad';
 import EditAd from './pages/AdPages/EditAd';
 import RegisterAd from "./pages/AdPages/RegisterAd";
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
             {path: 'product/delete', element: <ProductDelete/>},
             
             {path: '/category', element: <Category/>},
+            {path: '/category/:id', element: <CategoryDetail/>},
             
             {path: '/ad', element: <Ad/>},
             {path: '/ad/edit', element: <EditAd/>},
