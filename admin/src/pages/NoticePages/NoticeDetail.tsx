@@ -54,9 +54,9 @@ const NoticeDetail = () => {
 					상세
 				</button>
 			</p>
-			<ToastEditor
+			{/*<ToastEditor*/}
 			
-			></ToastEditor>
+			{/*></ToastEditor>*/}
 		</>
 	
 	)
