@@ -230,7 +230,7 @@ const RegisterAd = () => {
 						   type="text"
 						   name="mobileBannerLink"
 						   placeholder="모바일 배너의 링크를 입력해주세요."
-						   onChange={e => setPcBannerLink(e.target.value)}
+						   onChange={e => setMobileBannerLink(e.target.value)}
 					/>
 				</p>
 				
