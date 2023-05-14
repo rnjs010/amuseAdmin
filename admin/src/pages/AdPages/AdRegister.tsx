@@ -16,7 +16,7 @@ function getToday(date: Date) {
 	return year + "-" + month + "-" + day;
 }
 
-const RegisterAd = () => {
+const AdRegister = () => {
 	
 	const editorRef = useRef<Editor>(null);
 	
@@ -308,4 +308,4 @@ const RegisterAd = () => {
 	)
 }
 
-export default RegisterAd;
+export default AdRegister;

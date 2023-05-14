@@ -5,7 +5,7 @@ import {Editor} from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 
 
-const EditAd = () => {
+const AdEdit = () => {
 	
 	const editorRef = useRef<Editor>(null);
 	
@@ -240,4 +240,4 @@ const EditAd = () => {
 	
 }
 
-export default EditAd;
+export default AdEdit;

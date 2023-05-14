@@ -17,8 +17,8 @@ import HashTagRegister from "./pages/HashTagPages/HashTagRegister";
 import HashTagDetail from "./pages/HashTagPages/HashTagDetail";
 
 import Ad from './pages/AdPages/Ad';
-import EditAd from './pages/AdPages/EditAd';
-import RegisterAd from "./pages/AdPages/RegisterAd";
+import AdEdit from './pages/AdPages/AdEdit';
+import AdRegister from "./pages/AdPages/AdRegister";
 
 import Notice from "./pages/NoticePages/Notice";
 import NoticeRegister from "./pages/NoticePages/NoticeRegister";
@@ -38,7 +38,6 @@ const router = createBrowserRouter([
             {path: 'product/create', element: <ProductCreate/>},
             {path: 'product/delete', element: <ProductDelete/>},
             
-            
             // TODO: Deprecated
             {path: '/category', element: <Category/>},
             {path: '/category/:id', element: <CategoryDetail/>},
@@ -49,8 +48,8 @@ const router = createBrowserRouter([
             {path: '/hashtag/:id', element: <HashTagDetail/>},
             
             {path: '/ad', element: <Ad/>},
-            {path: '/ad/edit', element: <EditAd/>},
-            {path: '/ad/register', element: <RegisterAd/>},
+            {path: '/ad/edit', element: <AdEdit/>},
+            {path: '/ad/register', element: <AdRegister/>},
             
             {path: '/notice', element: <Notice/>},
             {path: '/notice/register', element: <NoticeRegister/>},
