@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styles from '../../components/HashTag/HashTag.module.css'
-import axios from "axios";
 import Table from "../../components/Table/Table";
 import {HashTagTableColumns} from "../../components/Table/HashTagTableColumns";
 
