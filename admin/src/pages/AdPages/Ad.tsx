@@ -37,7 +37,7 @@ const Ad = () => {
 		(async () => {
 			// await axios.get(`${process.env.REACT_APP_API_URL}/test/api/ad/getList`)
 			await axios.get(`https://ammuse.store/test/api/ad/getList`)
-				.then(r => setAdListArr(r.data.data))
+				// .then(r => setAdListArr(r.data.data))
 				.catch(e => console.log(e))
 		})();
 		console.log(adListArr)
@@ -76,7 +76,7 @@ const Ad = () => {
 				</button>
 			</div>
 			<div style={{paddingTop: 30}}>
-				<Table route={'ad'} columns={AdTableColumns} data={adListArr}/>
+				<Table route={'ad'} columns={AdTableColumns} data={[]}/>
 			</div>
 		</div>
 	)
