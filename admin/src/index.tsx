@@ -14,6 +14,7 @@ import CategoryRegister from "./pages/CategoryPages/CategoryRegister";
 
 import HashTag from "./pages/HashTagPages/HashTag";
 import HashTagRegister from "./pages/HashTagPages/HashTagRegister";
+import HashTagDetail from "./pages/HashTagPages/HashTagDetail";
 
 import Ad from './pages/AdPages/Ad';
 import EditAd from './pages/AdPages/EditAd';
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
             
             {path: '/hashtag', element: <HashTag/>},
             {path: '/hashtag/register', element: <HashTagRegister/>},
+            {path: '/hashtag/:id', element: <HashTagDetail/>},
             
             {path: '/ad', element: <Ad/>},
             {path: '/ad/edit', element: <EditAd/>},
