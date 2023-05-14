@@ -17,7 +17,7 @@ import HashTagRegister from "./pages/HashTagPages/HashTagRegister";
 import HashTagDetail from "./pages/HashTagPages/HashTagDetail";
 
 import Ad from './pages/AdPages/Ad';
-import AdEdit from './pages/AdPages/AdEdit';
+import AdDetail from './pages/AdPages/AdDetail';
 import AdRegister from "./pages/AdPages/AdRegister";
 
 import Notice from "./pages/NoticePages/Notice";
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
             {path: '/hashtag/:id', element: <HashTagDetail/>},
             
             {path: '/ad', element: <Ad/>},
-            {path: '/ad/edit', element: <AdEdit/>},
+            {path: '/ad/:id', element: <AdDetail/>},
             {path: '/ad/register', element: <AdRegister/>},
             
             {path: '/notice', element: <Notice/>},

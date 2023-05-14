@@ -3,9 +3,12 @@ import styles from '../../components/Ad/AdEdit.module.css'
 
 import {Editor} from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
+import {useParams} from "react-router-dom";
 
 
-const AdEdit = () => {
+const AdDetail = () => {
+	
+	const {id} = useParams()
 	
 	const editorRef = useRef<Editor>(null);
 	
@@ -40,6 +43,10 @@ const AdEdit = () => {
 	
 	return (
 		<div className={styles.container}>
+			
+			<div>
+				{id}
+			</div>
 			<text className={styles.title}>
 				광고 수정
 			</text>
@@ -240,4 +247,4 @@ const AdEdit = () => {
 	
 }
 
-export default AdEdit;
+export default AdDetail;
