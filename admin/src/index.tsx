@@ -11,12 +11,17 @@ import ProductCreate from './pages/ProductCreate';
 import Category from "./pages/CategoryPages/Category";
 import CategoryDetail from "./pages/CategoryPages/CategoryDatail";
 import CategoryRegister from "./pages/CategoryPages/CategoryRegister";
+
+import HashTag from "./pages/HashTagPages/HashTag";
+
 import Ad from './pages/AdPages/Ad';
 import EditAd from './pages/AdPages/EditAd';
 import RegisterAd from "./pages/AdPages/RegisterAd";
+
 import Notice from "./pages/NoticePages/Notice";
 import NoticeRegister from "./pages/NoticePages/NoticeRegister";
 import NoticeDetail from "./pages/NoticePages/NoticeDetail";
+
 import StaffDetail from "./pages/StaffDetail";
 
 
@@ -31,9 +36,13 @@ const router = createBrowserRouter([
             {path: 'product/create', element: <ProductCreate/>},
             {path: 'product/delete', element: <ProductDelete/>},
             
+            
+            // TODO: Deprecated
             {path: '/category', element: <Category/>},
             {path: '/category/:id', element: <CategoryDetail/>},
             {path: '/category/register', element: <CategoryRegister/>},
+            
+            {path: '/hashtag', element: <HashTag/>},
             
             {path: '/ad', element: <Ad/>},
             {path: '/ad/edit', element: <EditAd/>},
