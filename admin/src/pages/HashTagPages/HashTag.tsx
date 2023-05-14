@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styles from '../../components/HashTag/HashTag.module.css'
+
+import {useNavigate} from "react-router-dom";
+
 import Table from "../../components/Table/Table";
 import {HashTagTableColumns} from "../../components/Table/HashTagTableColumns";
 
 const HashTag = () => {
+	
+	const navigate = useNavigate();
 	
 	return (
 		<div className={styles.container}>
@@ -22,7 +27,7 @@ const HashTag = () => {
 				
 				<button
 					className={styles.button}
-					onClick={() => console.log("등록하기")}
+					onClick={() => navigate('/hashtag/register')}
 				>
 					등록하기
 				</button>
