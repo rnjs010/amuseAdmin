@@ -13,20 +13,18 @@ import CategoryDetail from "./pages/CategoryPages/CategoryDatail";
 import CategoryRegister from "./pages/CategoryPages/CategoryRegister";
 
 import HashTag from "./pages/HashTagPages/HashTag";
-import HashTagRegister from "./pages/HashTagPages/HashTagRegister";
 import HashTagDetail from "./pages/HashTagPages/HashTagDetail";
+import HashTagRegister from "./pages/HashTagPages/HashTagRegister";
 
 import Ad from './pages/AdPages/Ad';
 import AdDetail from './pages/AdPages/AdDetail';
 import AdRegister from "./pages/AdPages/AdRegister";
 
 import Notice from "./pages/NoticePages/Notice";
-import NoticeRegister from "./pages/NoticePages/NoticeRegister";
 import NoticeDetail from "./pages/NoticePages/NoticeDetail";
+import NoticeRegister from "./pages/NoticePages/NoticeRegister";
 
 import StaffDetail from "./pages/StaffDetail";
-
-
 
 const router = createBrowserRouter([
     {
@@ -44,16 +42,16 @@ const router = createBrowserRouter([
             {path: '/category/register', element: <CategoryRegister/>},
             
             {path: '/hashtag', element: <HashTag/>},
-            {path: '/hashtag/register', element: <HashTagRegister/>},
             {path: '/hashtag/:id', element: <HashTagDetail/>},
+            {path: '/hashtag/register', element: <HashTagRegister/>},
             
             {path: '/ad', element: <Ad/>},
             {path: '/ad/:id', element: <AdDetail/>},
             {path: '/ad/register', element: <AdRegister/>},
             
             {path: '/notice', element: <Notice/>},
-            {path: '/notice/register', element: <NoticeRegister/>},
             {path: '/notice/:id', element: <NoticeDetail/>},
+            {path: '/notice/register', element: <NoticeRegister/>},
             
             {path: '/staff/:id', element: <StaffDetail/>}
         ]
