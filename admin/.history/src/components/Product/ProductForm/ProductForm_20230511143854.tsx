@@ -108,12 +108,12 @@ function ProductForm() {
 
   const [listingStartDate, setListingStartDate] = useState<string>('');
   const handleListingStartDate = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setListingStartDate(event.target.value);
+
   }
 
   const [listingEndDate, setListingEndDate] = useState<string>('');
   const handleListingEndDate = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setListingEndDate(event.target.value);
+
   }
 
   const [duration, setDuration] = useState<string>('');

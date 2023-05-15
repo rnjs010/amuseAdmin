@@ -2,7 +2,7 @@
 
 .productForm {
   border: 2px solid #C5C5C5;
-  width: 80%;
+  width: 70%;
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -32,8 +32,6 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .container.mainImg{
@@ -70,7 +68,6 @@
 .country{
   margin-bottom: 10px;
 }
-
 
 .mainImgInput {
   padding: 0;
