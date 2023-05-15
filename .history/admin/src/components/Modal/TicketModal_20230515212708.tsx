@@ -24,8 +24,6 @@ type MordalProps = {
 function TicketModal({onSave, onToggle}: MordalProps) {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
-  const [defaultPrice, setDefaultPrice] = useState<string>('');
-
   const [price, setPrice] = useState<Price>(
     {
       startDate: '',
@@ -76,29 +74,12 @@ function TicketModal({onSave, onToggle}: MordalProps) {
     ));
   };
 
-  const handleDefaultPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDefaultPrice(event.target.value);
-    setPrice((prev) => ({
-      ...prev,
-      weekdayPrices: {
-        'Monday': event.target.value,
-          'Tuesday': event.target.value,
-          'Wednesday': event.target.value,
-          'Thursday': event.target.value,
-          'Friday': event.target.value,
-          'Saturday': event.target.value,
-          'Sunday': event.target.value
-      }
-    }))
-  }
-
   const addPriceToPriceList = () => {
     console.log(price);
     if(price.startDate && price.endDate){
       setPriceList((prev) => (
         [...prev, price]
       ));
-      setDefaultPrice('');
       setPrice({
         startDate: '',
         endDate: '',
@@ -159,7 +140,7 @@ function TicketModal({onSave, onToggle}: MordalProps) {
               </div>
               <div className={styles.dateInput}>
                 <p>기본 가격</p>
-                <input id="defaultPrice" name="defaultPrice" type="text" value={defaultPrice} onChange={handleDefaultPrice} placeholder="₩"/>
+                <input id="defaultPrice" name="defaultPrice" type="text" value={defaultPrice} onChange={handleDefaultPrice}/>
               </div>
           </div>
           <div className={styles.weekDaysPrice}>
