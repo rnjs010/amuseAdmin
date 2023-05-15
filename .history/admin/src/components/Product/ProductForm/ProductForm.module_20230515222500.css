@@ -64,6 +64,8 @@
 }
 
 .categoryStatus {
+  background-color: var(--color-pink);
+  color: var(--color-white);
   list-style: none;
   display: flex;
   margin-left: 10px;
@@ -71,11 +73,7 @@
 }
 
 .categoryStatus > li {
-  margin: 2px;
-  background-color: var(--color-pink);
-  color: var(--color-white);
-  border-radius: 10px;
-  padding: 8px;  
+  margin: 10px;
 }
 
 .title {
