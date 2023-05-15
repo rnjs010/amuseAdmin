@@ -106,16 +106,6 @@ function ProductForm() {
     setCity(event.target.value);
   };
 
-  const [listingStartDate, setListingStartDate] = useState<string>('');
-  const handleListingStartDate = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setListingStartDate(event.target.value);
-  }
-
-  const [listingEndDate, setListingEndDate] = useState<string>('');
-  const handleListingEndDate = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setListingEndDate(event.target.value);
-  }
-
   const [duration, setDuration] = useState<string>('');
   const handleDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDuration(event.target.value);
@@ -202,11 +192,6 @@ function ProductForm() {
             <div className={styles.city}>
               <span className={styles.title}>도시</span>
               <input value={city} onChange={handleCity} type="text"/>
-            </div>
-            <div className={styles.productPeriod}>
-              <span className={styles.title}>상품 게재 기간</span>
-              <input value={listingStartDate} onChange={handleListingStartDate} type="date"/>
-              <input value={listingEndDate} onChange={handleListingEndDate} type="date"/>
             </div>
             <div className={styles.duration}>
               <span className={styles.title}>여행 기간</span>
