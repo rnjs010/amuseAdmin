@@ -77,7 +77,6 @@ function TicketModal({onSave, onToggle}: MordalProps) {
   };
 
   const handleDefaultPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDefaultPrice(event.target.value);
     setPrice((prev) => ({
       ...prev,
       weekdayPrices: {
@@ -98,7 +97,6 @@ function TicketModal({onSave, onToggle}: MordalProps) {
       setPriceList((prev) => (
         [...prev, price]
       ));
-      setDefaultPrice('');
       setPrice({
         startDate: '',
         endDate: '',
