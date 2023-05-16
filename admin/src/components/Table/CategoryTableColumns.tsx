@@ -5,11 +5,11 @@ export const CategoryTableColumns = [
     },
     {
         Header : '카테고리',
-        accessor : 'categoryName'
+        accessor : 'displayHashTag'
     },
     {
-        Header : '등록 상품 수',
-        accessor : 'item'
+        Header : '배치순서',
+        accessor : 'sequence'
     },
     {
         Header : '등록자',

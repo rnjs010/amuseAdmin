@@ -21,6 +21,8 @@ type categoryInfo = {
 	createdAd: String | null;
 	updatedAdDate: Date | null;
 	updatedAd: String | null;
+	
+	
 };
 
 
@@ -32,8 +34,11 @@ const Category = () => {
 	
 	useEffect(() => {
 		(async () => {
-			await axios.get(`https://ammuse.store/test/api/category`)
-				.then(r => setCategoryListArr(r.data.data))
+			await axios.get(`https://ammuse.store/test/api/category/sequence`)
+				.then(r => {
+					const res = r.data
+					setCategoryListArr(res.data);
+				})
 				.catch(e => console.log(e))
 		})();
 	}, [])
