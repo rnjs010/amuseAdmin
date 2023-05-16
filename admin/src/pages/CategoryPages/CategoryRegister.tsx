@@ -4,9 +4,10 @@ import styles from '../../components/Category/CategoryRegister.module.css'
 import axios from "axios";
 import ToastEditor from "../../components/ToastEditor";
 import category from "./Category";
+import {Editor} from "@toast-ui/react-editor";
 
 const CategoryRegister = () => {
-
+	
 	const [categoryTitle, setCategoryTitle] = useState("");
 	
 	const [categoryImage, setCategoryImage] = useState("");
@@ -16,24 +17,26 @@ const CategoryRegister = () => {
 	const [mainDescription, setMainDescription] = useState<string>("")
 	const [subDescription, setSubDescription] = useState<string>("")
 	
+	const mainDescriptionRef = useRef<Editor>(null);
+	const subDescriptionRef = useRef<Editor>(null);
+	
 	const saveImgFile = () => {
 		try {
 			if (categoryImageRef != null) {
-			// @ts-ignore
-			const file = categoryImageRef.current.files[0];
-			const reader = new FileReader();
-			reader.readAsDataURL(file);
-			reader.onloadend = () => {
 				// @ts-ignore
-				setCategoryImage(reader.result);
-				setCategoryImageFileName(file.name)
+				const file = categoryImageRef.current.files[0];
+				const reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.onloadend = () => {
+					// @ts-ignore
+					setCategoryImage(reader.result);
+					setCategoryImageFileName(file.name)
+				}
 			}
-		}
 		} catch {
 		
 		}
 		
-
 		
 	};
 	
@@ -45,12 +48,13 @@ const CategoryRegister = () => {
 				base64Data: categoryImage,
 				mainDescription: mainDescription,
 				subDescription: subDescription,
-				createdBy : "daw916@naver.com"
+				createdBy: "daw916@naver.com"
 			})
 				.then(() => {
-				window.confirm("등록되었습니다.");
-				window.history.back();
-			})
+					window.confirm("등록되었습니다.");
+					window.history.back();
+				})
+				.catch(e => console.log(e))
 		})()
 	}
 	
@@ -112,10 +116,54 @@ const CategoryRegister = () => {
 						
 						</div>
 						<div>
-							<ToastEditor
-								value={mainDescription}
-								setStateValue={setMainDescription}
-							/>
+							<Editor
+								ref={mainDescriptionRef}
+								placeholder="내용을 입력하세요"
+								previewStyle="tab"
+								initialEditType="markdown"
+								initialValue={mainDescription || ' '}
+								hideModeSwitch={true}
+								height="500px"
+								toolbarItems={[
+									// 툴바 옵션 설정
+									['heading', 'bold', 'italic', 'strike'],
+									['hr', 'quote'],
+									['ul', 'ol', 'task', 'indent', 'outdent'],
+									['table', 'image', 'link'],
+									['code', 'codeblock']
+								]}
+								customHTMLRenderer={{
+									// 구글 맵 삽입을 위한
+									// iframe 태그 커스텀 코드
+									htmlBlock: {
+										iframe(node: any) {
+											return [
+												{
+													type: 'openTag',
+													tagName: 'iframe',
+													outerNewLine: true,
+													attributes: node.attrs
+												},
+												{type: 'html', content: node.childrenHTML},
+												{type: 'closeTag', tagName: 'iframe', outerNewLine: true}
+											];
+										}
+									}
+								}}
+								onChange={() => {
+									try {
+										// @ts-ignore
+										setMainDescription(mainDescriptionRef.current?.getInstance().getHTML());
+									} catch (error) {
+										console.log(error)
+									}
+								}}
+								hooks={{
+									addImageBlobHook: async (blob, callback) => {
+										console.log(blob);
+									}
+								}}
+							></Editor>
 						
 						</div>
 					</p>
@@ -125,10 +173,54 @@ const CategoryRegister = () => {
 							<strong>부가 설명</strong>
 						</div>
 						<div>
-							<ToastEditor
-								value={subDescription}
-								setStateValue={setSubDescription}
-							/>
+							<Editor
+								ref={subDescriptionRef}
+								placeholder="내용을 입력하세요"
+								previewStyle="tab"
+								initialEditType="markdown"
+								initialValue={subDescription || ' '}
+								hideModeSwitch={true}
+								height="500px"
+								toolbarItems={[
+									// 툴바 옵션 설정
+									['heading', 'bold', 'italic', 'strike'],
+									['hr', 'quote'],
+									['ul', 'ol', 'task', 'indent', 'outdent'],
+									['table', 'image', 'link'],
+									['code', 'codeblock']
+								]}
+								customHTMLRenderer={{
+									// 구글 맵 삽입을 위한
+									// iframe 태그 커스텀 코드
+									htmlBlock: {
+										iframe(node: any) {
+											return [
+												{
+													type: 'openTag',
+													tagName: 'iframe',
+													outerNewLine: true,
+													attributes: node.attrs
+												},
+												{type: 'html', content: node.childrenHTML},
+												{type: 'closeTag', tagName: 'iframe', outerNewLine: true}
+											];
+										}
+									}
+								}}
+								onChange={() => {
+									try {
+										// @ts-ignore
+										setSubDescription(subDescriptionRef.current?.getInstance().getHTML());
+									} catch (error) {
+										console.log(error)
+									}
+								}}
+								hooks={{
+									addImageBlobHook: async (blob, callback) => {
+										console.log(blob);
+									}
+								}}
+							></Editor>
 						</div>
 					</p>
 				</form>
