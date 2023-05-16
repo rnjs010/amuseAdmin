@@ -132,39 +132,20 @@ function TicketModal({onSave, onToggle}: MordalProps) {
 
   const [validWeekDays, setValidWeekDays] = useState(
     [
-      ['sun', false],
       ['mon', false],
       ['tue', false],
       ['wed', false],
       ['thu', false],
       ['fri', false],
       ['sat', false],
+      ['sun', false],
     ]
   )
   useEffect(() => {
-    const startDate = new Date(price.startDate);
-    const endDate = new Date(price.endDate);
-
-    const updatedWeekDays = [...validWeekDays];
-
-    validWeekDays.forEach((weekday, idx) => {
-      console.log(weekday, idx);
-      for (let date = new Date(startDate); date <= endDate; date.setDate(date.getDate() + 1)){
-        console.log(date.getDay(), idx);
-        if(date.getDay() == idx){
-          updatedWeekDays[idx] = [weekday[0], true];
-          console.log(date.getDay(), idx, updatedWeekDays);
-          break;
-        }
-        else {
-          continue;
-        }
-      }
+    validWeekDays.map((weekday) => {
+      console.log(weekday)[0];
     })
-
-    console.log(updatedWeekDays);
-    setValidWeekDays(updatedWeekDays);
-  }, [price.endDate])
+  }, [price.startDate, price.endDate])
 
   const renderWeekDaysPriceInput = () => {
     return ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(weekday => (

@@ -149,7 +149,7 @@ function TicketModal({onSave, onToggle}: MordalProps) {
 
     validWeekDays.forEach((weekday, idx) => {
       console.log(weekday, idx);
-      for (let date = new Date(startDate); date <= endDate; date.setDate(date.getDate() + 1)){
+      for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)){
         console.log(date.getDay(), idx);
         if(date.getDay() == idx){
           updatedWeekDays[idx] = [weekday[0], true];

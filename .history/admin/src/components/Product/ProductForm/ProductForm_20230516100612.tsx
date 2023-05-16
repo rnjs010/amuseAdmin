@@ -173,7 +173,7 @@ function ProductForm() {
     const byteSize = new Blob([jsonString], {type: 'application/json'}).size;
     console.log('byteSize: ', byteSize);
     axiosInstance.post('/test/api/product/create', product)
-    .then((res) => console.log(JSON.stringify(res)))
+    .then((res) => console.log(res))
     .catch((err) => console.error(err));
   }
 

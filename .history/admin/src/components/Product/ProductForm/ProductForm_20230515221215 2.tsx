@@ -43,10 +43,8 @@ interface ImageFile {
 
 type Product = {
   productId: string;
-  category: string[];
+  category: string;
   title: string;
-  startPrice: number;
-  admin: string;
   location: {
     country: string;
     city: string;
@@ -67,11 +65,11 @@ function ProductForm() {
     setProductId(event.target.value);
   }
 
-  const [category, setCategory] = useState<string[]>([]);
+  const [category, setCategory] = useState<string>('');
   const [categoryList, setCategoryList] = useState<string[]>([]);
   useEffect(
     () => {
-      axios.get('/data/category.json')
+      axios.get('/test/api/category/getAll')
         .then((res) => {
           setCategoryList(res.data);
         })
@@ -80,7 +78,7 @@ function ProductForm() {
   );
 
   const handleProductCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setCategory((prev) => [...prev, event.target.value]);
+    setCategory(event.target.value);
   }
 
   const renderCategoryOptions = () => {
@@ -154,8 +152,6 @@ function ProductForm() {
         productId,
         category,
         title: productTitle,
-        startPrice: 9999,
-        admin: 'admin@google.com',
         location: {
           country,
           city
@@ -169,11 +165,11 @@ function ProductForm() {
       };
       console.log(product);
     // }
-    const jsonString = JSON.stringify(product);
-    const byteSize = new Blob([jsonString], {type: 'application/json'}).size;
-    console.log('byteSize: ', byteSize);
+    // const jsonString = JSON.stringify(product);
+    // const byteSize = new Blob([jsonString], {type: 'application/json'}).size;
+    // console.log('byteSize: ', byteSize);
     axiosInstance.post('/test/api/product/create', product)
-    .then((res) => console.log(JSON.stringify(res)))
+    .then((res) => console.log(res))
     .catch((err) => console.error(err));
   }
 
@@ -186,11 +182,6 @@ function ProductForm() {
               <option value="">카테고리 선택</option>
               {renderCategoryOptions()}
             </select>
-            <div className={styles.categoryStatus}>
-              {category.map(categoryName => 
-                <li>{categoryName}</li>
-              )}
-            </div>
           </div>
           <div className={styles.code}>
               <span className={styles.title}>상품 코드</span>
@@ -215,7 +206,6 @@ function ProductForm() {
             <div className={styles.productPeriod}>
               <span className={styles.title}>상품 게재 기간</span>
               <input value={listingStartDate} onChange={handleListingStartDate} type="date"/>
-              <span> ~ </span>
               <input value={listingEndDate} onChange={handleListingEndDate} type="date"/>
             </div>
             <div className={styles.duration}>

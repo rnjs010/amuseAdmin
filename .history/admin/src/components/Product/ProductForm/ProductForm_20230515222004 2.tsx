@@ -45,8 +45,6 @@ type Product = {
   productId: string;
   category: string[];
   title: string;
-  startPrice: number;
-  admin: string;
   location: {
     country: string;
     city: string;
@@ -154,8 +152,6 @@ function ProductForm() {
         productId,
         category,
         title: productTitle,
-        startPrice: 9999,
-        admin: 'admin@google.com',
         location: {
           country,
           city
@@ -169,11 +165,11 @@ function ProductForm() {
       };
       console.log(product);
     // }
-    const jsonString = JSON.stringify(product);
-    const byteSize = new Blob([jsonString], {type: 'application/json'}).size;
-    console.log('byteSize: ', byteSize);
+    // const jsonString = JSON.stringify(product);
+    // const byteSize = new Blob([jsonString], {type: 'application/json'}).size;
+    // console.log('byteSize: ', byteSize);
     axiosInstance.post('/test/api/product/create', product)
-    .then((res) => console.log(JSON.stringify(res)))
+    .then((res) => console.log(res))
     .catch((err) => console.error(err));
   }
 
@@ -187,9 +183,7 @@ function ProductForm() {
               {renderCategoryOptions()}
             </select>
             <div className={styles.categoryStatus}>
-              {category.map(categoryName => 
-                <li>{categoryName}</li>
-              )}
+
             </div>
           </div>
           <div className={styles.code}>

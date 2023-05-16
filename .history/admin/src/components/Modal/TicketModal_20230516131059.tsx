@@ -76,6 +76,22 @@ function TicketModal({onSave, onToggle}: MordalProps) {
     ));
   };
 
+  const handleDefaultPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDefaultPrice(event.target.value);
+    setPrice((prev) => ({
+      ...prev,
+      weekdayPrices: {
+        'Monday': event.target.value,
+          'Tuesday': event.target.value,
+          'Wednesday': event.target.value,
+          'Thursday': event.target.value,
+          'Friday': event.target.value,
+          'Saturday': event.target.value,
+          'Sunday': event.target.value
+      }
+    }))
+  }
+
   const addPriceToPriceList = () => {
     console.log(price);
     if(price.startDate && price.endDate){
@@ -113,58 +129,6 @@ function TicketModal({onSave, onToggle}: MordalProps) {
       onSave(ticket);
     }
   };
-
-  const handleDefaultPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDefaultPrice(event.target.value);
-    setPrice((prev) => ({
-      ...prev,
-      weekdayPrices: {
-        'Monday': event.target.value,
-          'Tuesday': event.target.value,
-          'Wednesday': event.target.value,
-          'Thursday': event.target.value,
-          'Friday': event.target.value,
-          'Saturday': event.target.value,
-          'Sunday': event.target.value
-      }
-    }))
-  }
-
-  const [validWeekDays, setValidWeekDays] = useState(
-    [
-      ['sun', false],
-      ['mon', false],
-      ['tue', false],
-      ['wed', false],
-      ['thu', false],
-      ['fri', false],
-      ['sat', false],
-    ]
-  )
-  useEffect(() => {
-    const startDate = new Date(price.startDate);
-    const endDate = new Date(price.endDate);
-
-    const updatedWeekDays = [...validWeekDays];
-
-    validWeekDays.forEach((weekday, idx) => {
-      console.log(weekday, idx);
-      for (let date = new Date(startDate); date <= endDate; date.setDate(date.getDate() + 1)){
-        console.log(date.getDay(), idx);
-        if(date.getDay() == idx){
-          updatedWeekDays[idx] = [weekday[0], true];
-          console.log(date.getDay(), idx, updatedWeekDays);
-          break;
-        }
-        else {
-          continue;
-        }
-      }
-    })
-
-    console.log(updatedWeekDays);
-    setValidWeekDays(updatedWeekDays);
-  }, [price.endDate])
 
   const renderWeekDaysPriceInput = () => {
     return ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(weekday => (
