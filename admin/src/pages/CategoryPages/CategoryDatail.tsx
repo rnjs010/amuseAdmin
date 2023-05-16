@@ -19,10 +19,8 @@ const CategoryDetail = () => {
 	};
 	
 	const [categoryTitle, setCategoryTitle] = useState("");
-	
 	const [categoryImage, setCategoryImage] = useState("");
 	const categoryImageRef = useRef<HTMLInputElement | null>(null);
-	
 	const [mainDescription, setMainDescription] = useState<string>("")
 	const [subDescription, setSubDescription] = useState<string>("")
 	
@@ -33,13 +31,16 @@ const CategoryDetail = () => {
 	
 	useEffect(() => {
 		(async () => {
-			await axios.post(`https://ammuse.store/test/api/category/detail`, {
-				"id": id,
-				"offset": 1,
-				"limit": 10
-			})
-				.then(r => setProductListArr(r.data.data.data))
-				// .then(r => console.log(r.data.data.data))
+			await axios.get(`https://ammuse.store/test/api/category/${id}`)
+				// .then(r => setProductListArr(r.data.data.data))
+				.then(r => {
+					const res = r.data.data
+					setCategoryTitle(res.hashTag)
+					setCategoryImage(res.imgUrl)
+					setMainDescription(res.mainDescription)
+					setSubDescription(res.subDescription)
+					console.log(res)
+				})
 				.catch(e => console.log(e))
 		})();
 	}, [])
@@ -74,7 +75,7 @@ const CategoryDetail = () => {
 						<input className={styles.textInput}
 							   type="text"
 							   name="categoryName"
-							   placeholder="추가할 카테고리 이름을 입력해주세요."
+							   placeholder={categoryTitle}
 							   onChange={e => setCategoryTitle(e.target.value)}
 						/>
 					</p>
@@ -119,7 +120,7 @@ const CategoryDetail = () => {
 						<div>
 							<ToastEditor
 								value={mainDescription}
-								setStateValue={setMainDescription}
+								setStateValue={setSubDescription}
 							/>
 						
 						</div>
