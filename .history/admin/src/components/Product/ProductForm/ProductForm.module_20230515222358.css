@@ -64,18 +64,7 @@
 }
 
 .categoryStatus {
-  list-style: none;
-  display: flex;
-  margin-left: 10px;
-  border-radius: 10px;
-}
-
-.categoryStatus > li {
-  margin: 2px;
   background-color: var(--color-pink);
-  color: var(--color-white);
-  border-radius: 10px;
-  padding: 8px;  
 }
 
 .title {

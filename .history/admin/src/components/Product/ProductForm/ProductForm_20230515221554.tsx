@@ -43,7 +43,7 @@ interface ImageFile {
 
 type Product = {
   productId: string;
-  category: string[];
+  category: string;
   title: string;
   location: {
     country: string;
@@ -65,20 +65,21 @@ function ProductForm() {
     setProductId(event.target.value);
   }
 
-  const [category, setCategory] = useState<string[]>([]);
+  const [category, setCategory] = useState<string>('');
   const [categoryList, setCategoryList] = useState<string[]>([]);
   useEffect(
     () => {
-      axios.get('/data/category.json')
+      axios.get('/test/api/category/getAll')
         .then((res) => {
           setCategoryList(res.data);
+          console.log(res.data);
         })
         .catch((err) => console.error(`failed to get categories: ${err}`));
     }, []
   );
 
   const handleProductCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setCategory((prev) => [...prev, event.target.value]);
+    setCategory(event.target.value);
   }
 
   const renderCategoryOptions = () => {
@@ -182,11 +183,6 @@ function ProductForm() {
               <option value="">카테고리 선택</option>
               {renderCategoryOptions()}
             </select>
-            <div className={styles.categoryStatus}>
-              {category.map(categoryName => 
-                <li>{categoryName}</li>
-              )}
-            </div>
           </div>
           <div className={styles.code}>
               <span className={styles.title}>상품 코드</span>

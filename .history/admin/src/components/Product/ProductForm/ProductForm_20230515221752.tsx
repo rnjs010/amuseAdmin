@@ -43,7 +43,7 @@ interface ImageFile {
 
 type Product = {
   productId: string;
-  category: string[];
+  category: string;
   title: string;
   location: {
     country: string;
@@ -65,7 +65,7 @@ function ProductForm() {
     setProductId(event.target.value);
   }
 
-  const [category, setCategory] = useState<string[]>([]);
+  const [category, setCategory] = useState<string>('');
   const [categoryList, setCategoryList] = useState<string[]>([]);
   useEffect(
     () => {
@@ -78,7 +78,7 @@ function ProductForm() {
   );
 
   const handleProductCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setCategory((prev) => [...prev, event.target.value]);
+    setCategory(event.target.value);
   }
 
   const renderCategoryOptions = () => {
@@ -176,18 +176,9 @@ function ProductForm() {
   return (
     <div className={styles.productForm}>
         <div className={`${styles.container} ${styles.idAndCategory}`}>
-          <div className={styles.category}>
-            <span className={styles.title}>여행 카테고리</span>
-            <select className={styles.categorySelect} onChange={handleProductCategory}>
-              <option value="">카테고리 선택</option>
-              {renderCategoryOptions()}
-            </select>
-            <div className={styles.categoryStatus}>
-              {category.map(categoryName => 
-                <li>{categoryName}</li>
-              )}
-            </div>
-          </div>
+          <span className={` ${styles.title} ${styles.name}`}>여행 상품명</span>
+          <input className={`${styles.nameInput}`} value={productTitle} onChange={handleProductName} type="text"/>
+          
           <div className={styles.code}>
               <span className={styles.title}>상품 코드</span>
               <input className={styles.productId} type="text" onChange={handleProductID}/>
@@ -195,8 +186,13 @@ function ProductForm() {
         </div>
 
         <div className={`${styles.container} ${styles.name}`}>
-            <span className={` ${styles.title} ${styles.name}`}>여행 상품명</span>
-            <input className={`${styles.nameInput}`} value={productTitle} onChange={handleProductName} type="text"/>
+          <div className={styles.category}>
+            <span className={styles.title}>여행 카테고리</span>
+            <select className={styles.categorySelect} onChange={handleProductCategory}>
+              <option value="">카테고리 선택</option>
+              {renderCategoryOptions()}
+            </select>
+          </div>
         </div>
 
         <div className={`${styles.container} ${styles.locationAndDuration}`}>

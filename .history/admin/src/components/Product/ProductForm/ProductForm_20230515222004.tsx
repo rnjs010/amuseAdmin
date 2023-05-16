@@ -183,9 +183,7 @@ function ProductForm() {
               {renderCategoryOptions()}
             </select>
             <div className={styles.categoryStatus}>
-              {category.map(categoryName => 
-                <li>{categoryName}</li>
-              )}
+
             </div>
           </div>
           <div className={styles.code}>
