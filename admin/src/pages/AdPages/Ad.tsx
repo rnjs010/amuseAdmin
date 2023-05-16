@@ -40,8 +40,8 @@ const Ad = () => {
 	
 	useEffect(() => {
 		(async () => {
-			await axios.get(`${process.env.REACT_APP_API_URL}/test/api/ad/getList?offset=${offset}&limit=${limit}&page=${page}`)
-			// await axios.get(`https://ammuse.store/test/api/ad/getList`)
+			// await axios.get(`${process.env.REACT_APP_API_URL}/test/api/ad/getList?offset=${offset}&limit=${limit}&page=${page}`)
+			await axios.get(`https://ammuse.store/test/api/ad/getList?offset=${offset}&limit=${limit}&page=${page}`)
 				.then(r => setAdListArr(r.data.data.data))
 			 	.catch(e => console.log(e))
 			
