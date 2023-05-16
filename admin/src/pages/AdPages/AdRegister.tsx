@@ -1,4 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
+
 import styles from '../../components/Ad/AdRegister.module.css'
 
 import {Editor} from '@toast-ui/react-editor';
@@ -16,6 +17,15 @@ function getToday(date: Date) {
 	return year + "-" + month + "-" + day;
 }
 
+
+const Categories = [
+	"아이돌봄 여행",
+	"컨시어지 여행",
+	"산",
+	"캠핑",
+]
+
+
 const AdRegister = () => {
 	
 	const editorRef = useRef<Editor>(null);
@@ -27,15 +37,29 @@ const AdRegister = () => {
 	const [category, setCategory] = useState<string>("아이돌봄 여행")
 	const [parsedHTML, setParsedHTML] = useState<string>("");
 	
-	
+	const [pcBannerFileName, setPcBannerFileName] = useState("");
 	const [pcBanner, setPcBanner] = useState("");
 	const pcBannerRef = useRef<HTMLInputElement | null>(null);
 	
+	const [mobileBannerFileName, setMobileBannerFileName] = useState("");
 	const [mobileBanner, setMobileBanner] = useState("");
 	const mobileBannerRef = useRef<HTMLInputElement | null>(null);
 	
 	const [pcBannerLink, setPcBannerLink] = useState("");
 	const [mobileBannerLink, setMobileBannerLink] = useState("");
+	
+	const [selectedCategoryArr, setSelectedCategoryArr] = useState<string[]>([]);
+	
+	const handleCategory = (category: string) => {
+		if (selectedCategoryArr.some((v) => v == category)) {
+			setSelectedCategoryArr(selectedCategoryArr.filter(v => v !== category));
+			console.log(selectedCategoryArr)
+			return
+		}
+		setSelectedCategoryArr([...selectedCategoryArr, category])
+		console.log(selectedCategoryArr)
+	}
+	
 	
 	useEffect(() => {
 		console.log(editorRef);
@@ -58,18 +82,25 @@ const AdRegister = () => {
 		setCategory(event.target.value);
 	};
 	
-	const saveImgFile = (ref: any, setBanner: any) => {
+	const saveImgFile = (ref: any, setBannerFileName: any, setBanner: any,) => {
 		
-		if (ref != null) {
-			// @ts-ignore
-			const file = ref.current.files[0];
-			const reader = new FileReader();
-			reader.readAsDataURL(file);
-			reader.onloadend = () => {
+		
+		try {
+			if (ref != null) {
 				// @ts-ignore
-				setBanner(reader.result);
+				setBannerFileName(ref.current.files[0].name);
+				const file = ref.current.files[0];
+				const reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.onloadend = () => {
+					setBanner(reader.result);
+				}
 			}
+		} catch {
+		
 		}
+		
+		
 	};
 	
 	
@@ -87,20 +118,40 @@ const AdRegister = () => {
 		
 		await axios.post(`https://ammuse.store/test/api/ad/register`, {
 			title: title,
-			startDate: startDate,
-			endDate: endDate,
-			adType: adType,
-			adCategory: category,
+			startDate: startDate.toISOString().split("T")[0],
+			endDate: endDate.toISOString().split("T")[0],
+			pcBannerFileName: pcBannerFileName,
+			pcBannerBase64: window.btoa(pcBanner),
+			pcBannerLink: pcBannerLink,
+			mobileBannerFileName: mobileBannerFileName,
+			mobileBannerBase64: window.btoa(mobileBanner),
+			mobileBannerLink: mobileBannerLink,
+			adCategory: selectedCategoryArr,
 			adContent: parsedHTML,
-			createdAd: "daw916@naver.com"
+			createdBy: "daw916@naver.com",
 		})
 			.then(() => {
 				window.confirm("등록되었습니다.");
 				window.history.back();
 			})
-			.catch(e => console.log(e))
+			.catch(e => window.confirm(e))
 	}
 	
+	
+	const clicked = {
+		padding: "5px 5px",
+		border: "1px solid #eb1749",
+		borderRadius: "10px",
+		background: "#eb1749",
+		color: "#fff",
+	}
+	
+	const notClicked = {
+		padding: "5px 5px",
+		border: "1px solid #eb1749",
+		borderRadius: "10px",
+		background: "",
+	}
 	
 	return (
 		<div className={styles.container}>
@@ -132,18 +183,17 @@ const AdRegister = () => {
 						<div>
 							<DatePicker
 								className={styles.showDatePickerBtn}
-								dateFormat={"yyyy-MM-dd"}
-								locale="ko"
+								dateFormat="yyyy-MM-dd"
 								selected={startDate}
 								onChange={(e) => setStartDate(e || startDate)}
 							/>
+							
 						</div>
 						~
 						<div>
 							<DatePicker
 								className={styles.showDatePickerBtn}
 								dateFormat={"yyyy-MM-dd"}
-								locale="ko"
 								selected={endDate}
 								onChange={(e) => setEndDate(e || endDate)}
 							/>
@@ -159,7 +209,7 @@ const AdRegister = () => {
 						type="file"
 						accept="image/*"
 						id="pcBanner"
-						onChange={() => saveImgFile(pcBannerRef, setPcBanner)}
+						onChange={() => saveImgFile(pcBannerRef, setPcBannerFileName, setPcBanner)}
 						ref={pcBannerRef}
 					/>
 				</p>
@@ -200,7 +250,7 @@ const AdRegister = () => {
 						type="file"
 						accept="image/*"
 						id="mobileBanner"
-						onChange={() => saveImgFile(mobileBannerRef, setMobileBanner)}
+						onChange={() => saveImgFile(mobileBannerRef, setMobileBannerFileName, setMobileBanner)}
 						ref={mobileBannerRef}
 					/>
 					
@@ -235,55 +285,46 @@ const AdRegister = () => {
 				</p>
 				
 				<p className={styles.p}>
-					<strong>카테고리</strong>
-					<div className={styles.radioContainer}>
-						<input type="radio"
-							   name="Children"
-							   value="아이돌봄 여행"
-							   checked={category == "아이돌봄 여행"}
-							   id="Children"
-							   style={{marginRight: 10}}
-							   onChange={radioCategoryTypeHandler}
-						/>
-						<div
-							style={{marginRight: 10}}
-						> 아이돌봄 여행
-						</div>
-						
-						<input type="radio"
-							   name="TheOld"
-							   value="어르신돌봄 여행"
-							   checked={category == "어르신돌봄 여행"}
-							   id="TheOld"
-							   style={{marginRight: 10}}
-							   onChange={radioCategoryTypeHandler}
-						/>
-						<div
-							style={{marginRight: 10}}
-						> 어르신 돌봄 여행
-						</div>
-						
-						<input type="radio"
-							   name="Concierge"
-							   value="컨시어지 여행"
-							   checked={category == "컨시어지 여행"}
-							   id="Concierge"
-							   style={{marginRight: 10}}
-							   onChange={radioCategoryTypeHandler}
-						/>
-						<div
-							style={{marginRight: 10}}> 컨시어지 여행
-						</div>
-						
-						<input type="radio"
-							   name="OnLan"
-							   value="랜선 여행"
-							   checked={category == "랜선 여행"}
-							   id="OnLan"
-							   style={{marginRight: 10}}
-							   onChange={radioCategoryTypeHandler}
-						/>
-						<div style={{marginRight: 10}}> 랜선 여행</div>
+					<div
+						style={{
+							display: "flex",
+							flexDirection: "row"
+						}}
+					>
+						<strong>카테고리</strong>
+						(
+						<div> {selectedCategoryArr.length} 개 선택</div>
+						)
+					</div>
+					
+					<div className={styles.categoryList}>
+						{
+							Categories.map((v, i) => (
+								<div
+									style={{
+										marginRight: 5,
+										marginBottom: 5
+									}}
+									key={i}
+								>
+									<button
+										style={
+											(
+												selectedCategoryArr.includes(v)
+											) ? (
+													clicked
+												)
+												: (
+													notClicked
+												)
+										}
+										onClick={() => handleCategory(v)}
+									>
+										{v}
+									</button>
+								</div>
+							))
+						}
 					</div>
 				</p>
 				
@@ -299,7 +340,9 @@ const AdRegister = () => {
 				<div
 					className={styles.p}
 				>
-					<button className={styles.button}>
+					<button className={styles.button}
+							onClick={registerAd}
+					>
 						등록하기
 					</button>
 				</div>
@@ -307,5 +350,6 @@ const AdRegister = () => {
 		</div>
 	)
 }
+
 
 export default AdRegister;
