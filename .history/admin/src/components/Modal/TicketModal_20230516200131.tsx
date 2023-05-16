@@ -84,15 +84,6 @@ function TicketModal({onSave, onToggle}: MordalProps) {
           'sun': ''
         }
       })
-      setValidWeekDays([
-        ['sun', false],
-        ['mon', false],
-        ['tue', false],
-        ['wed', false],
-        ['thu', false],
-        ['fri', false],
-        ['sat', false],
-      ])
     }
   }
 

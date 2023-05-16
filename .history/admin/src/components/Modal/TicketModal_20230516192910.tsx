@@ -64,6 +64,18 @@ function TicketModal({onSave, onToggle}: MordalProps) {
   };
 
 
+  const handleWeekdayPrice = (event: React.ChangeEvent<HTMLInputElement>, weekday: string) => {
+    setPrice((prev) => (
+      {
+        ...prev,
+        weekdayPrices: {
+          ...prev.weekdayPrices,
+          [weekday]: event.target.value
+        }
+      }
+    ));
+  };
+
   const addPriceToPriceList = () => {
     console.log(price);
     if(price.startDate && price.endDate){
@@ -75,24 +87,15 @@ function TicketModal({onSave, onToggle}: MordalProps) {
         startDate: '',
         endDate: '',
         weekdayPrices: {
-          'mon': '',
-          'tue': '',
-          'wed': '',
-          'thu': '',
-          'fri': '',
-          'sat': '',
-          'sun': ''
+          'Monday': '',
+          'Tuesday': '',
+          'Wednesday': '',
+          'Thursday': '',
+          'Friday': '',
+          'Saturday': '',
+          'Sunday': ''
         }
       })
-      setValidWeekDays([
-        ['sun', false],
-        ['mon', false],
-        ['tue', false],
-        ['wed', false],
-        ['thu', false],
-        ['fri', false],
-        ['sat', false],
-      ])
     }
   }
 
@@ -111,6 +114,22 @@ function TicketModal({onSave, onToggle}: MordalProps) {
     }
   };
 
+  const handleDefaultPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDefaultPrice(event.target.value);
+    setPrice((prev) => ({
+      ...prev,
+      weekdayPrices: {
+        'Monday': event.target.value,
+          'Tuesday': event.target.value,
+          'Wednesday': event.target.value,
+          'Thursday': event.target.value,
+          'Friday': event.target.value,
+          'Saturday': event.target.value,
+          'Sunday': event.target.value
+      }
+    }))
+  }
+
   const [validWeekDays, setValidWeekDays] = useState(
     [
       ['sun', false],
@@ -123,33 +142,6 @@ function TicketModal({onSave, onToggle}: MordalProps) {
     ]
   )
 
-  const handleDefaultPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDefaultPrice(event.target.value);
-  }
-
-  useEffect(() => {
-    const tmpWeekdayPrices = {
-      'mon': '0',
-      'tue': '0',
-      'wed': '0',
-      'thu': '0',
-      'fri': '0',
-      'sat': '0',
-      'sun': '0'
-    }
-    validWeekDays.map((weekday) => {
-      if(weekday[1]){
-        tmpWeekdayPrices[weekday[0] as keyof typeof tmpWeekdayPrices] = defaultPrice
-      }
-    });
-    console.log(tmpWeekdayPrices);
-    setPrice((prev) => ({
-      ...prev,
-      weekdayPrices: tmpWeekdayPrices
-    }))
-  }, [defaultPrice])
-
-
   useEffect(() => {
     const startDate = new Date(price.startDate);
     const endDate = new Date(price.endDate);
@@ -157,9 +149,12 @@ function TicketModal({onSave, onToggle}: MordalProps) {
     const updatedWeekDays = [...validWeekDays];
 
     validWeekDays.forEach((weekday, idx) => {
+      console.log(weekday, idx);
       for (let date = new Date(startDate); date <= endDate; date.setDate(date.getDate() + 1)){
+        console.log(date.getDay(), idx);
         if(date.getDay() == idx){
           updatedWeekDays[idx] = [weekday[0], true];
+          console.log(date.getDay(), idx, updatedWeekDays);
           break;
         }
         else {
@@ -167,20 +162,28 @@ function TicketModal({onSave, onToggle}: MordalProps) {
         }
       }
     })
+
+    console.log(updatedWeekDays);
     setValidWeekDays(updatedWeekDays);
   }, [price.endDate])
 
-  const handleWeekdayPrice = (event: React.ChangeEvent<HTMLInputElement>, weekday: string) => {
-    setPrice((prev) => (
-      {
-        ...prev,
-        weekdayPrices: {
-          ...prev.weekdayPrices,
-          [weekday]: event.target.value
-        }
-      }
-    ));
-  };
+  const renderWeekDaysPriceInput = () => {
+    return validWeekDays.map((weekday, idx) => (
+      <div className={styles.weekdayPriceInput}>
+        <p>{weekday[0]}</p>
+        <input
+          id={`price-${weekday[0]}`}
+          name={`price-${weekday[0]}`}
+          type="text"
+          placeholder="₩"
+          value={weekday[1] ? price.weekdayPrices[idx] : 0}
+          onChange={event => handleWeekdayPrice(event, `${weekday[0]}`)}
+          className={styles.weekDayPrice}      
+          disabled = {!weekday[1]}
+        />                  
+      </div>
+    ))
+  }
 
   return (
     <>
@@ -215,21 +218,7 @@ function TicketModal({onSave, onToggle}: MordalProps) {
               </div>
           </div>
           <div className={styles.weekDaysPrice}>
-            {validWeekDays.map((weekday, idx) => (
-              <div className={styles.weekdayPriceInput}>
-                  <p>{weekday[0]}</p>
-                  <input
-                    id={`price-${weekday[0]}`}
-                    name={`price-${weekday[0]}`}
-                    type="text"
-                    placeholder="₩"
-                    value={price.weekdayPrices[weekday[0] as string]}
-                    onChange={event => handleWeekdayPrice(event, weekday[0] as string)}
-                    className={weekday[1] ? styles.weekDayPrice : styles.disabled_weekDayPrice }      
-                    disabled = {!weekday[1]}
-                  />                  
-                </div>
-              ))}
+            {renderWeekDaysPriceInput()}
           </div>
           <button className={styles.addBtn} onClick={addPriceToPriceList} >추가</button>
 

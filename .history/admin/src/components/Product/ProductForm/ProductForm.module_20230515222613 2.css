@@ -1,0 +1,139 @@
+@import '../../../App.module.css';
+
+.productForm {
+  border: 2px solid #C5C5C5;
+  width: 80%;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.container.name{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-color: skyblue;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.container.locationAndDuration{
+  background-color: lightsalmon;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.container.mainImg{
+  background-color: lightgoldenrodyellow;
+  display: flex;
+  min-height: 300px;
+}
+
+.container.submit {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: lightpink;
+}
+
+.container.idAndCategory{
+    background-color: yellow;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category {
+  display: flex;
+  align-items: center;
+}
+
+.categoryStatus {
+  list-style: none;
+  display: flex;
+  margin-left: 10px;
+  border-radius: 10px;
+}
+
+.categoryStatus > li {
+  margin: 4px;
+  background-color: var(--color-pink);
+  color: var(--color-white);
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.title {
+ padding-right: 10px;
+ white-space: nowrap;
+}
+
+.nameInput {
+  width: 100%;
+}
+
+.country{
+  margin-bottom: 10px;
+}
+
+
+.mainImgInput {
+  padding: 0;
+  text-decoration: none;
+}
+
+.mainImgList {
+  width: 200px;
+  height: 200px;
+}
+
+.addBtn {
+  width: 100px;
+  height: 30px;
+  background-color: var(--color-pink);
+  border-radius: 10px;
+  color: var(--color-white);
+}
+
+.submitBtn {
+  width: 80%;
+  height: 40px;
+  border-radius: 10px;
+  background-color: var(--color-pink);
+  color: var(--color-white);
+}
+
+.status {
+  width: 100%;
+  height: fit-content;
+  min-height: 300px;
+  border: var(--border-width-thin) solid var(--color-amuse);
+  border-radius: 10px;
+  background-color: greenyellow;
+  margin-top: 3%;
+  overflow-y: scroll;
+}
+
+.categorySelect {
+  width: 200px;
+  text-align: center;
+}
+
+.productId {
+  width: 260px;
+}

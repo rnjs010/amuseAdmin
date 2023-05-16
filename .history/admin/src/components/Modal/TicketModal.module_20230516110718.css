@@ -80,6 +80,9 @@
   width: 100%;
 }
 
+.disabledInput {
+  background-color: aquamarine;
+}
 
 .input.content {
   border-radius: var(--border-radius);
@@ -143,14 +146,6 @@
   width: 80px;
   height: 20px;
   background-color: var(--color-light-grey);
-}
-
-
-.disabled_weekDayPrice {
-  width: 80px;
-  height: 20px;
-  background-color: darkgray;
-  color: darkgray;
 }
 
 .priceStatus {

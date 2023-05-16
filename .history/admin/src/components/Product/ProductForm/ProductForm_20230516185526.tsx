@@ -52,8 +52,6 @@ type Product = {
     city: string;
   };
   duration: string;
-  startDate: string;
-  endDate: string;
   mainImg: ImageFile[];
   ticket: Ticket[];
   mainInfo: string;
@@ -163,8 +161,6 @@ function ProductForm() {
           city
         },
         duration,
-        startDate: listingStartDate,
-        endDate: listingEndDate,
         mainImg,
         ticket,
         mainInfo,

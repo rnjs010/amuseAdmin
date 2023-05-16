@@ -52,8 +52,6 @@ type Product = {
     city: string;
   };
   duration: string;
-  startDate: string;
-  endDate: string;
   mainImg: ImageFile[];
   ticket: Ticket[];
   mainInfo: string;
@@ -157,14 +155,12 @@ function ProductForm() {
         category,
         title: productTitle,
         startPrice: 9999,
-        admin: 'daw916@naver.com',
+        admin: 'admin@google.com',
         location: {
           country,
           city
         },
         duration,
-        startDate: listingStartDate,
-        endDate: listingEndDate,
         mainImg,
         ticket,
         mainInfo,
@@ -173,11 +169,11 @@ function ProductForm() {
       };
       console.log(product);
     // }
-    const jsonString = JSON.stringify(product);
-    const byteSize = new Blob([jsonString], {type: 'application/json'}).size;
-    console.log('byteSize: ', byteSize);
+    // const jsonString = JSON.stringify(product);
+    // const byteSize = new Blob([jsonString], {type: 'application/json'}).size;
+    // console.log('byteSize: ', byteSize);
     axiosInstance.post('/test/api/product/create', product)
-    .then((res) => console.log(JSON.stringify(res)))
+    .then((res) => console.log(res))
     .catch((err) => console.error(err));
   }
 
