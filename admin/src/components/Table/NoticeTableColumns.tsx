@@ -1,9 +1,6 @@
-
-
-
 export const NoticeTableColumns = [
     {
-        Header : 'id',
+        Header : 'ID',
         accessor : 'id'
     },
     {
@@ -12,18 +9,18 @@ export const NoticeTableColumns = [
     },
     {
         Header : '등록일자',
-        accessor : 'createdAdDate'
+        accessor : 'createdAt'
     },
     {
         Header : '등록자',
-        accessor : 'createdAd'
+        accessor : 'createdBy'
     },
     {
         Header : '수정일자',
-        accessor : 'updatedAdDate'
+        accessor : 'updatedAt'
     },
     {
         Header : '수정자',
-        accessor : 'updatedAd'
+        accessor : 'updatedBy'
     }
 ];

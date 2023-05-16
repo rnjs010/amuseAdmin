@@ -1,13 +1,36 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styles from '../../components/Notice/Notice.module.css'
 import Table from "../../components/Table/Table";
 import {NoticeTableColumns} from "../../components/Table/NoticeTableColumns";
 
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
+
+type NoticeInfo = {
+	id: Number | null;
+	title: String | null;
+	createdAt: Date | null;
+	createdBy: String | null;
+	updatedAt: Date | null;
+	updatedBy: String | null;
+};
 
 const Notice = () => {
 	
 	const navigate = useNavigate();
+	
+	const [noticeListArr, setNoticeListArr] = useState<NoticeInfo[]>([]);
+	useEffect(() => {
+
+		(async () => {
+			await axios.get(`https://ammuse.store/test/api/notice/getList?offset=0&limit=10&page=1`)
+				.then(r => {
+					const res = r.data.data
+					setNoticeListArr(res.data)
+				})
+				.catch(e => console.log(e))
+		})();
+	}, [])
 	
 	return (
 		<div className={styles.container}>
@@ -39,16 +62,7 @@ const Notice = () => {
 					route={'notice'}
 					columns={NoticeTableColumns}
 					data={
-						[
-							{
-								id: 1,
-								title: "테스트",
-								createdAdDate: "테스트",
-								createdAd: "테스트",
-								updatedAdDate: "테스트",
-								updatedAd: "테스트"
-							}
-						]
+						noticeListArr
 					}/>
 			</div>
 		
