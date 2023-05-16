@@ -24,7 +24,7 @@ import Notice from "./pages/NoticePages/Notice";
 import NoticeDetail from "./pages/NoticePages/NoticeDetail";
 import NoticeRegister from "./pages/NoticePages/NoticeRegister";
 
-import StaffDetail from "./pages/StaffDetail";
+import StaffDetail from "./pages/StaffPages/StaffDetail";
 
 const router = createBrowserRouter([
     {
