@@ -3,20 +3,22 @@ import styles from '../../components/Category/CategoryRegister.module.css'
 
 import axios from "axios";
 import ToastEditor from "../../components/ToastEditor";
+import category from "./Category";
 
 const CategoryRegister = () => {
 
 	const [categoryTitle, setCategoryTitle] = useState("");
 	
 	const [categoryImage, setCategoryImage] = useState("");
+	const [categoryImageFileName, setCategoryImageFileName] = useState("");
 	const categoryImageRef = useRef<HTMLInputElement | null>(null);
 	
 	const [mainDescription, setMainDescription] = useState<string>("")
 	const [subDescription, setSubDescription] = useState<string>("")
 	
 	const saveImgFile = () => {
-		
-		if (categoryImageRef != null) {
+		try {
+			if (categoryImageRef != null) {
 			// @ts-ignore
 			const file = categoryImageRef.current.files[0];
 			const reader = new FileReader();
@@ -24,9 +26,33 @@ const CategoryRegister = () => {
 			reader.onloadend = () => {
 				// @ts-ignore
 				setCategoryImage(reader.result);
+				setCategoryImageFileName(file.name)
 			}
 		}
+		} catch {
+		
+		}
+		
+
+		
 	};
+	
+	const registerCategory = () => {
+		(async () => {
+			await axios.post("https://ammuse.store/test/api/category/register", {
+				category: categoryTitle,
+				fileName: categoryImageFileName,
+				base64Data: categoryImage,
+				mainDescription: mainDescription,
+				subDescription: subDescription,
+				createdBy : "daw916@naver.com"
+			})
+				.then(() => {
+				window.confirm("등록되었습니다.");
+				window.history.back();
+			})
+		})()
+	}
 	
 	
 	return (
@@ -108,7 +134,9 @@ const CategoryRegister = () => {
 				</form>
 				
 				<div className={styles.p}>
-					<button className={styles.button}>
+					<button className={styles.button}
+							onClick={registerCategory}
+					>
 						등록하기
 					</button>
 				</div>
