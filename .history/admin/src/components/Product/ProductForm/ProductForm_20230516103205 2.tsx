@@ -52,8 +52,6 @@ type Product = {
     city: string;
   };
   duration: string;
-  startDate: string;
-  endDate: string;
   mainImg: ImageFile[];
   ticket: Ticket[];
   mainInfo: string;
@@ -157,14 +155,12 @@ function ProductForm() {
         category,
         title: productTitle,
         startPrice: 9999,
-        admin: 'daw916@naver.com',
+        admin: 'admin@google.com',
         location: {
           country,
           city
         },
         duration,
-        startDate: listingStartDate,
-        endDate: listingEndDate,
         mainImg,
         ticket,
         mainInfo,

@@ -84,15 +84,6 @@ function TicketModal({onSave, onToggle}: MordalProps) {
           'sun': ''
         }
       })
-      setValidWeekDays([
-        ['sun', false],
-        ['mon', false],
-        ['tue', false],
-        ['wed', false],
-        ['thu', false],
-        ['fri', false],
-        ['sat', false],
-      ])
     }
   }
 
@@ -223,7 +214,7 @@ function TicketModal({onSave, onToggle}: MordalProps) {
                     name={`price-${weekday[0]}`}
                     type="text"
                     placeholder="₩"
-                    value={price.weekdayPrices[weekday[0] as string]}
+                    value={price.weekdayPrices[idx]}
                     onChange={event => handleWeekdayPrice(event, weekday[0] as string)}
                     className={weekday[1] ? styles.weekDayPrice : styles.disabled_weekDayPrice }      
                     disabled = {!weekday[1]}
