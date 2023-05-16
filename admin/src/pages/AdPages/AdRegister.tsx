@@ -9,13 +9,6 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import ToastEditor from "../../components/ToastEditor";
 import DatePicker from 'react-datepicker';
 
-const Categories = [
-	"아이돌봄 여행",
-	"컨시어지 여행",
-	"산",
-	"캠핑",
-]
-
 
 const AdRegister = () => {
 	
@@ -24,9 +17,8 @@ const AdRegister = () => {
 	const [title, setTitle] = useState<string>("");
 	const [startDate, setStartDate] = useState<Date | null>(null);
 	const [endDate, setEndDate] = useState<Date | null>(null);
-	const [adType, setAdType] = useState<string>("ad1");
-	const [category, setCategory] = useState<string>("아이돌봄 여행")
 	const [parsedHTML, setParsedHTML] = useState<string>("");
+	const parsedHTMLRef = useRef<Editor>(null);
 	const [pcBannerFileName, setPcBannerFileName] = useState("");
 	const [pcBanner, setPcBanner] = useState("");
 	const pcBannerRef = useRef<HTMLInputElement | null>(null);
@@ -35,6 +27,8 @@ const AdRegister = () => {
 	const mobileBannerRef = useRef<HTMLInputElement | null>(null);
 	const [pcBannerLink, setPcBannerLink] = useState("");
 	const [mobileBannerLink, setMobileBannerLink] = useState("");
+	
+	const [category, setCategory] = useState<string[]>([]);
 	const [selectedCategoryArr, setSelectedCategoryArr] = useState<string[]>([]);
 	
 	const handleCategory = (category: string) => {
@@ -47,10 +41,21 @@ const AdRegister = () => {
 		console.log(selectedCategoryArr)
 	}
 	
-	
 	useEffect(() => {
 		console.log(editorRef);
 	}, [editorRef])
+	
+	useEffect(() => {
+		(async () => {
+			await axios.get(`https://ammuse.store/test/api/category/sequence`)
+				.then((r) => {
+					const res = r.data.data
+					const categoryArr = res.map((v: any) => v.displayHashTag);
+					setCategory(categoryArr);
+				})
+				.catch(e => window.confirm(e))
+		})()
+	}, [])
 	
 	// TODO: TO Discuss
 	useEffect(() => {
@@ -70,6 +75,7 @@ const AdRegister = () => {
 				const reader = new FileReader();
 				reader.readAsDataURL(file);
 				reader.onloadend = () => {
+					console.log(reader.result)
 					setBanner(reader.result);
 				}
 			}
@@ -96,14 +102,15 @@ const AdRegister = () => {
 			startDate: startDate.toISOString().split("T")[0],
 			endDate: endDate.toISOString().split("T")[0],
 			pcBannerFileName: pcBannerFileName,
-			pcBannerBase64: window.btoa(pcBanner),
+			pcBannerBase64: pcBanner,
 			pcBannerLink: pcBannerLink,
 			mobileBannerFileName: mobileBannerFileName,
-			mobileBannerBase64: window.btoa(mobileBanner),
+			mobileBannerBase64: mobileBanner,
 			mobileBannerLink: mobileBannerLink,
 			adCategory: selectedCategoryArr,
 			adContent: parsedHTML,
 			createdBy: "daw916@naver.com",
+			
 		})
 			.then(() => {
 				window.confirm("등록되었습니다.");
@@ -162,7 +169,7 @@ const AdRegister = () => {
 								selected={startDate}
 								onChange={(e) => setStartDate(e || startDate)}
 							/>
-							
+						
 						</div>
 						~
 						<div>
@@ -274,7 +281,7 @@ const AdRegister = () => {
 					
 					<div className={styles.categoryList}>
 						{
-							Categories.map((v, i) => (
+							category.map((v, i) => (
 								<div
 									style={{
 										marginRight: 5,
@@ -308,7 +315,53 @@ const AdRegister = () => {
 					<div
 						style={{marginTop: 20}}
 					>
-						<ToastEditor setStateValue={setParsedHTML} value={parsedHTML}/>
+						<Editor
+							ref={parsedHTMLRef}
+							placeholder={parsedHTML}
+							previewStyle="tab"
+							initialEditType="markdown"
+							hideModeSwitch={true}
+							height="500px"
+							toolbarItems={[
+								// 툴바 옵션 설정
+								['heading', 'bold', 'italic', 'strike'],
+								['hr', 'quote'],
+								['ul', 'ol', 'task', 'indent', 'outdent'],
+								['table', 'image', 'link'],
+								['code', 'codeblock']
+							]}
+							customHTMLRenderer={{
+								// 구글 맵 삽입을 위한
+								// iframe 태그 커스텀 코드
+								htmlBlock: {
+									iframe(node: any) {
+										return [
+											{
+												type: 'openTag',
+												tagName: 'iframe',
+												outerNewLine: true,
+												attributes: node.attrs
+											},
+											{type: 'html', content: node.childrenHTML},
+											{type: 'closeTag', tagName: 'iframe', outerNewLine: true}
+										];
+									}
+								}
+							}}
+							onChange={() => {
+								try {
+									// @ts-ignore
+									setParsedHTML(parsedHTMLRef.current?.getInstance().getHTML());
+								} catch (error) {
+									console.log(error)
+								}
+							}}
+							hooks={{
+								addImageBlobHook: async (blob, callback) => {
+									console.log(blob);
+								}
+							}}
+						></Editor>
 					</div>
 				</p>
 				

@@ -44,7 +44,12 @@ const Ad = () => {
 		(async () => {
 			// await axios.get(`${process.env.REACT_APP_API_URL}/test/api/ad/getList?offset=${offset}&limit=${limit}&page=${page}`)
 			await axios.get(`https://ammuse.store/test/api/ad/getList?offset=${offset}&limit=${limit}&page=${page}`)
-				.then(r => setAdListArr(r.data.data.data))
+				// .then(r => setAdListArr(r.data.data.data))
+				.then(r => {
+					const res = r.data.data
+					setAdListArr(res.data)
+					setPageCount(res.pageCount)
+				})
 			 	.catch(e => console.log(e))
 			
 		})();
@@ -83,7 +88,7 @@ const Ad = () => {
 				</button>
 			</div>
 			<div style={{paddingTop: 30}}>
-				<Table route={'ad'} columns={AdTableColumns} data={adListArr}/>
+				<Table route={'ad'} columns={AdTableColumns} data={adListArr} pageCount={pageCount}/>
 			</div>
 		</div>
 	)
