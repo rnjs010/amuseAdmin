@@ -1,21 +1,69 @@
 import React, {useEffect, useRef, useState} from "react";
-import styles from '../../components/Ad/AdEdit.module.css'
+import styles from '../../components/Ad/AdRegister.module.css'
+
+import {useParams} from "react-router-dom";
+import axios from "axios";
 
 import {Editor} from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import {useParams} from "react-router-dom";
+import ToastEditor from "../../components/ToastEditor";
+import DatePicker from 'react-datepicker';
 
+const Categories = [
+	"아이돌봄 여행",
+	"컨시어지 여행",
+	"산",
+	"캠핑",
+]
 
 const AdDetail = () => {
 	
 	const {id} = useParams()
-	
 	const editorRef = useRef<Editor>(null);
-	
+	const [title, setTitle] = useState<string>("");
+	const [startDate, setStartDate] = useState<Date | null>(null);
+	const [endDate, setEndDate] = useState<Date | null>(null);
 	const [parsedHTML, setParsedHTML] = useState<string>("");
+	const [pcBannerFileName, setPcBannerFileName] = useState("");
+	const [pcBanner, setPcBanner] = useState("");
+	const pcBannerRef = useRef<HTMLInputElement | null>(null);
+	const [mobileBannerFileName, setMobileBannerFileName] = useState("");
+	const [mobileBanner, setMobileBanner] = useState("");
+	const mobileBannerRef = useRef<HTMLInputElement | null>(null);
+	const [pcBannerLink, setPcBannerLink] = useState("");
+	const [mobileBannerLink, setMobileBannerLink] = useState("");
+	const [selectedCategoryArr, setSelectedCategoryArr] = useState<string[]>([]);
 	
-	const [adType, setAdType] = useState<string>("Ad");
-	const [category, setCategory] = useState<string>("Children")
+	const handleCategory = (category: string) => {
+		if (selectedCategoryArr.some((v) => v == category)) {
+			setSelectedCategoryArr(selectedCategoryArr.filter(v => v !== category));
+			console.log(selectedCategoryArr)
+			return
+		}
+		setSelectedCategoryArr([...selectedCategoryArr, category])
+		console.log(selectedCategoryArr)
+	}
+	
+	useEffect(() => {
+		
+		(async () => {
+			await axios.get(`https://ammuse.store/test/api/ad/${id}`)
+				.then(r => {
+					const res = r.data.data;
+					console.log(res)
+					setTitle(res.title)
+					setStartDate(new Date(res.startDate))
+					setEndDate(new Date(res.endDate))
+					setParsedHTML(res.adContent)
+					setPcBanner(res.pcBannerUrl)
+					setMobileBanner(res.mobileBannerUrl)
+					setPcBannerLink(res.pcBannerLink)
+					setMobileBannerLink(res.mobileBannerLink)
+					setSelectedCategoryArr(res.adCategory)
+				})
+				.catch(e => console.log(e))
+		})();
+	}, [])
 	
 	useEffect(() => {
 		console.log(editorRef);
@@ -30,218 +78,268 @@ const AdDetail = () => {
 		// console.log(found)
 	}, [parsedHTML])
 	
-	const radioAdTypeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setAdType(event.target.value);
-		setCategory("Banner");
+	const saveImgFile = (ref: any, setBannerFileName: any, setBanner: any,) => {
+		try {
+			if (ref != null) {
+				// @ts-ignore
+				setBannerFileName(ref.current.files[0].name);
+				const file = ref.current.files[0];
+				const reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.onloadend = () => {
+					setBanner(reader.result);
+				}
+			}
+		} catch {
+		
+		}
 	};
 	
-	const radioCategoryTypeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setCategory(event.target.value);
-	};
 	
-	const editAd = () => window.confirm(`${adType} ${category}`);
+	const editAd = async () => {
+		
+		if (title == "") {
+			window.confirm("제목을 다시 확인해주세요");
+			return;
+		}
+		
+		if (startDate == null || endDate == null) {
+			window.confirm("날짜를 다시 확인해주세요");
+			return;
+		}
+		
+		await axios.post(`https://ammuse.store/test/api/ad/edit`, {
+			id: id,
+			title: title,
+			startDate: startDate.toISOString().split("T")[0],
+			endDate: endDate.toISOString().split("T")[0],
+			pcBannerFileName: pcBannerFileName,
+			pcBannerBase64: window.btoa(pcBanner),
+			pcBannerLink: pcBannerLink,
+			mobileBannerFileName: mobileBannerFileName,
+			mobileBannerBase64: window.btoa(mobileBanner),
+			mobileBannerLink: mobileBannerLink,
+			adCategory: selectedCategoryArr,
+			adContent: parsedHTML,
+			updatedBy: "daw564@naver.com"
+		})
+			.then(() => {
+				window.confirm("수정되었습니다.");
+				window.history.back();
+			})
+			.catch(e => window.confirm(e))
+	}
+	
+	const clicked = {
+		padding: "5px 5px",
+		border: "1px solid #eb1749",
+		borderRadius: "10px",
+		background: "#eb1749",
+		color: "#fff",
+	}
+	
+	const notClicked = {
+		padding: "5px 5px",
+		border: "1px solid #eb1749",
+		borderRadius: "10px",
+		background: "",
+	}
 	
 	return (
 		<div className={styles.container}>
-			
-			<div>
-				{id}
-			</div>
-			<text className={styles.title}>
-				광고 수정
-			</text>
-			
 			<div className={styles.body}>
-				<div className={styles.adEditorContainer}>
-					
-					<div className={styles.adEditorContainerElement}>
-						광고제목
-						<input className={styles.adEditorContainerAdTitleInput}/>
+				<p className={styles.p}>
+					<div
+						className={styles.pTitle}
+					>
+						<strong>광고 제목</strong>
 					</div>
 					
-					<div className={styles.adEditorContainerElement}>
-						광고 기간
-						<button className={styles.showDatePickerBtn}/>
-						~
-						<button className={styles.showDatePickerBtn}/>
+					<input className={styles.textInput}
+						   type="text"
+						   name="adName"
+						   placeholder="등록할 광고의 이름을 입력해주세요."
+						   value={title}
+						   onChange={e => setTitle(e.target.value)}
+					/>
+				</p>
+				
+				<div className={styles.p}>
+					<div
+						className={styles.pTitle}
+					>
+						<strong>광고 기간</strong>
 					</div>
 					
-					<div className={styles.adEditorContainerElement}>
-							광고 유형
-						<div className={styles.radioContainer}>
-						<input type="radio"
-							   name="Ad"
-							   value="Ad"
-							   checked={adType == "Ad"}
-							   id="Ad"
-							   style={{marginRight: 10}}
-							   onChange={radioAdTypeHandler}
-						/>
-						<div style={{marginRight: 10}}>
-							일반 광고
-						</div>
+					<div style={{display: "flex", flexDirection: "row", alignItems: "center"}}
+					>
+						<div>
+							<DatePicker
+								className={styles.showDatePickerBtn}
+								dateFormat="yyyy-MM-dd"
+								selected={startDate}
+								onChange={(e) => setStartDate(e || startDate)}
+							/>
 						
-						<input type="radio"
-							   name="Banner"
-							   value="Banner"
-							   checked={adType == "Banner"}
-							   id="Banner"
-							   style={{marginRight: 10}}
-							   onChange={radioAdTypeHandler}
-						/>
-						<div style={{marginRight: 10}}>
-							배너 광고
 						</div>
-					</div>
-					</div>
+						~
+						<div>
+							<DatePicker
+								className={styles.showDatePickerBtn}
+								dateFormat={"yyyy-MM-dd"}
+								selected={endDate}
+								onChange={(e) => setEndDate(e || endDate)}
+							/>
+						</div>
 					
+					</div>
+				</div>
+				
+				
+				<p className={styles.p}>
+					<strong>PC 배너</strong>
+					<input
+						type="file"
+						accept="image/*"
+						id="pcBanner"
+						onChange={() => saveImgFile(pcBannerRef, setPcBannerFileName, setPcBanner)}
+						ref={pcBannerRef}
+					/>
+				</p>
+				
+				<p className={styles.p}>
 					{
-						(
-							adType == "Banner"
-						) ? (
-							<div className={styles.adEditorContainerElement}>
-								광고 이미지
-								<button className={styles.submitImageBtn}>
-									첨부하기
-								</button>
-							</div>
+						(!pcBanner) ? (
+							""
 						) : (
-							<>
-								<div className={styles.adEditorContainerElement}>
-									카테고리
-								<div className={styles.radioContainer}>
-									<input type="radio"
-										   name="Children"
-										   value="Children"
-										   checked={category == "Children"}
-										   id="Children"
-										   style={{marginRight: 10}}
-										   onChange={radioCategoryTypeHandler}
-									/>
-									<div
-										style={{marginRight: 10}}
-									> 아이돌봄 여행
-									</div>
-									
-									<input type="radio"
-										   name="TheOld"
-										   value="TheOld"
-										   checked={category == "TheOld"}
-										   id="TheOld"
-										   style={{marginRight: 10}}
-										   onChange={radioCategoryTypeHandler}
-									/>
-									<div
-										style={{marginRight: 10}}
-									> 어르신 돌봄 여행
-									</div>
-									
-									<input type="radio"
-										   name="Concierge"
-										   value="Concierge"
-										   checked={category == "Concierge"}
-										   id="Concierge"
-										   style={{marginRight: 10}}
-										   onChange={radioCategoryTypeHandler}
-									/>
-									<div
-										style={{marginRight: 10}}> 컨시어지 여행
-									</div>
-									
-									<input type="radio"
-										   name="OnLan"
-										   value="OnLan"
-										   checked={category == "OnLan"}
-										   id="OnLan"
-										   style={{marginRight: 10}}
-										   onChange={radioCategoryTypeHandler}
-									/>
-									<div style={{marginRight: 10}}> 랜선 여행</div>
-								</div>
-								</div>
-								<div className={styles.adEditorContainerElement}>
-									광고 내용
-								</div>
-								
-								<Editor
-									ref={editorRef}
-									placeholder="내용을 입력해주세요."
-									previewStyle="tab"
-									initialEditType="markdown"
-									// TODO
-									// Wysiwyg mode width error
-									hideModeSwitch={true}
-									height="500px"
-									toolbarItems={[
-										// 툴바 옵션 설정
-										['heading', 'bold', 'italic', 'strike'],
-										['hr', 'quote'],
-										['ul', 'ol', 'task', 'indent', 'outdent'],
-										['table', 'image', 'link'],
-										['code', 'codeblock']
-									]}
-									customHTMLRenderer={{
-										// 구글 맵 삽입을 위한
-										// iframe 태그 커스텀 코드
-										htmlBlock: {
-											iframe(node: any) {
-												return [
-													{
-														type: 'openTag',
-														tagName: 'iframe',
-														outerNewLine: true,
-														attributes: node.attrs
-													},
-													{type: 'html', content: node.childrenHTML},
-													{type: 'closeTag', tagName: 'iframe', outerNewLine: true}
-												];
-											}
-										}
-									}}
-									onChange={() => {
-										try {
-											// @ts-ignore
-											// TODO: TO Discuss
-											// setParsedHTML(editorRef.current?.getInstance().getHTML());
-											console.log(parsedHTML)
-											
-										} catch (error) {
-											console.log(error)
-										}
-									}}
-									hooks={{
-										addImageBlobHook: async (blob, callback) => {
-											
-											console.log(blob);
-											
-											// 1. 첨부된 이미지 파일 S3에 저장
-											//	const imgUrl = await ....
-											
-											// 2. S3에 저장된 이미지 경로 Url 받음
-											// 3. 반환된 이미지 경로 Url 경로를 Callback으로 넣어준다.
-											// callback("imgUrl", "Alt Text")
-											// callback("https://i.namu.wiki/i/JmEHtLbAQdW1xKBdD-YaeRIHZTGeB4es55y9qfK5OftrXlmieyK1t8-nRrLC58l45c-_RELd1YY9Fchx5HzhboS1OuSs7p2Q63b_wPr7u_XGODu-Se_JeYzuJRvNOzzvvzMelUnC65Mrmyqi21D1vQ.webp", "강아지")
-											
-											// 이미지 첨부 후 base 64로 에디터에 나오는 것이 아닌
-											// 서버에 저장 후 저장된 경로를 자동으로 받아와서
-											// 에디터에 자동으로 <img src="blahblah..." /> 로 변환된다.
-										}
-									}}
-								></Editor>
-								
-							</>
+							<img
+								src={pcBanner}
+								width={200}
+								alt="프로필 이미지"
+							/>
 						)
 					}
+				</p>
+				
+				
+				<p className={styles.p}>
+					<div
+						className={styles.pTitle}
+					>
+						<strong>PC 배너 링크</strong>
+					</div>
+					
+					<input className={styles.textInput}
+						   type="text"
+						   name="pcBannerLink"
+						   placeholder="PC 배너의 링크를 입력해주세요."
+						   onChange={e => setPcBannerLink(e.target.value)}
+					/>
+				</p>
+				
+				<p className={styles.p}>
+					<strong>모바일 배너</strong>
+					<input
+						type="file"
+						accept="image/*"
+						id="mobileBanner"
+						onChange={() => saveImgFile(mobileBannerRef, setMobileBannerFileName, setMobileBanner)}
+						ref={mobileBannerRef}
+					/>
+					
+					<p className={styles.p}>
+						{
+							(!mobileBanner) ? (
+								""
+							) : (
+								<img
+									src={mobileBanner}
+									width={200}
+									alt="프로필 이미지"
+								/>
+							)
+						}
+					</p>
+				</p>
+				
+				<p className={styles.p}>
+					<div
+						className={styles.pTitle}
+					>
+						<strong>모바일 배너 링크</strong>
+					</div>
+					
+					<input className={styles.textInput}
+						   type="text"
+						   name="mobileBannerLink"
+						   placeholder="모바일 배너의 링크를 입력해주세요."
+						   onChange={e => setMobileBannerLink(e.target.value)}
+					/>
+				</p>
+				
+				<p className={styles.p}>
+					<div
+						style={{
+							display: "flex",
+							flexDirection: "row"
+						}}
+					>
+						<strong>카테고리</strong>
+						(
+						<div> {selectedCategoryArr.length} 개 선택</div>
+						)
+					</div>
+					
+					<div className={styles.categoryList}>
+						{
+							Categories.map((v, i) => (
+								<div
+									style={{
+										marginRight: 5,
+										marginBottom: 5
+									}}
+									key={i}
+								>
+									<button
+										style={
+											(
+												selectedCategoryArr.includes(v)
+											) ? (
+													clicked
+												)
+												: (
+													notClicked
+												)
+										}
+										onClick={() => handleCategory(v)}
+									>
+										{v}
+									</button>
+								</div>
+							))
+						}
+					</div>
+				</p>
+				
+				<p className={styles.p}>
+					<strong>광고 내용</strong>
+					<div
+						style={{marginTop: 20}}
+					>
+						<ToastEditor setStateValue={setParsedHTML} value={parsedHTML}/>
+					</div>
+				</p>
+				
+				<div
+					className={styles.p}
+				>
+					<button className={styles.button}
+							onClick={editAd}
+					>
+						수정하기
+					</button>
 				</div>
 			</div>
-			
-			<button
-				title={"등록하기"}
-				style={{width: 100, height: 100, background: 'red'}}
-				onClick={editAd}
-			>
-			
-			</button>
 		</div>
 	)
 	

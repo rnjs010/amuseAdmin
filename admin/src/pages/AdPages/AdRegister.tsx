@@ -2,21 +2,12 @@ import React, {useEffect, useRef, useState} from "react";
 
 import styles from '../../components/Ad/AdRegister.module.css'
 
+import axios from "axios";
+
 import {Editor} from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
-
-import DatePicker from 'react-datepicker';
-import axios from "axios";
 import ToastEditor from "../../components/ToastEditor";
-
-// TODO: dayjs
-function getToday(date: Date) {
-	const year = date.getFullYear();
-	const month = ("0" + (1 + date.getMonth())).slice(-2);
-	const day = ("0" + date.getDate()).slice(-2);
-	return year + "-" + month + "-" + day;
-}
-
+import DatePicker from 'react-datepicker';
 
 const Categories = [
 	"아이돌봄 여행",
@@ -36,18 +27,14 @@ const AdRegister = () => {
 	const [adType, setAdType] = useState<string>("ad1");
 	const [category, setCategory] = useState<string>("아이돌봄 여행")
 	const [parsedHTML, setParsedHTML] = useState<string>("");
-	
 	const [pcBannerFileName, setPcBannerFileName] = useState("");
 	const [pcBanner, setPcBanner] = useState("");
 	const pcBannerRef = useRef<HTMLInputElement | null>(null);
-	
 	const [mobileBannerFileName, setMobileBannerFileName] = useState("");
 	const [mobileBanner, setMobileBanner] = useState("");
 	const mobileBannerRef = useRef<HTMLInputElement | null>(null);
-	
 	const [pcBannerLink, setPcBannerLink] = useState("");
 	const [mobileBannerLink, setMobileBannerLink] = useState("");
-	
 	const [selectedCategoryArr, setSelectedCategoryArr] = useState<string[]>([]);
 	
 	const handleCategory = (category: string) => {
@@ -74,17 +61,7 @@ const AdRegister = () => {
 		// console.log(found)
 	}, [parsedHTML])
 	
-	const radioAdTypeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setAdType(event.target.value);
-	};
-	
-	const radioCategoryTypeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setCategory(event.target.value);
-	};
-	
 	const saveImgFile = (ref: any, setBannerFileName: any, setBanner: any,) => {
-		
-		
 		try {
 			if (ref != null) {
 				// @ts-ignore
@@ -99,8 +76,6 @@ const AdRegister = () => {
 		} catch {
 		
 		}
-		
-		
 	};
 	
 	

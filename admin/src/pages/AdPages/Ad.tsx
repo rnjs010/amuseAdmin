@@ -34,9 +34,11 @@ const Ad = () => {
 	
 	// https://ammuse.store/test/api/ad/getList?offset=0&limit=2&page=1?
 	
-	const [offset, setOffset] = useState<Number>(0);
-	const [limit, setLimit] = useState<Number>(10);
-	const [page, setPage] = useState<Number>(1);
+	const [offset, setOffset] = useState<number>(0);
+	const [limit, setLimit] = useState<number>(10);
+	const [page, setPage] = useState<number>(1);
+	
+	const [pageCount, setPageCount] = useState<number>(1);
 	
 	useEffect(() => {
 		(async () => {
