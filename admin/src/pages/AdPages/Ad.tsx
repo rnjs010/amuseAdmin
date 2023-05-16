@@ -14,13 +14,11 @@ type AdInfo = {
 	title: String | null;
 	startDate: Date | null;
 	endDate: Date | null;
-	adType: String | null;
-	adCategory: String | null;
-	adContent: String | null;
-	createdAdDate: Date | null;
-	createdAd: String | null;
-	updatedAdDate: Date | null;
-	updatedAd: String | null;
+	adCategory: Array<String> | null;
+	createdAt: Date | null;
+	createdBy: String | null;
+	updatedAt: Date | null;
+	updatedBy: String | null;
 };
 
 const Ad = () => {
@@ -33,14 +31,21 @@ const Ad = () => {
 	
 	const [adListArr, setAdListArr] = useState<AdInfo[]>([]);
 	
+	
+	// https://ammuse.store/test/api/ad/getList?offset=0&limit=2&page=1?
+	
+	const [offset, setOffset] = useState<Number>(0);
+	const [limit, setLimit] = useState<Number>(10);
+	const [page, setPage] = useState<Number>(1);
+	
 	useEffect(() => {
 		(async () => {
-			// await axios.get(`${process.env.REACT_APP_API_URL}/test/api/ad/getList`)
-			await axios.get(`https://ammuse.store/test/api/ad/getList`)
-				// .then(r => setAdListArr(r.data.data))
-				.catch(e => console.log(e))
+			await axios.get(`${process.env.REACT_APP_API_URL}/test/api/ad/getList?offset=${offset}&limit=${limit}&page=${page}`)
+			// await axios.get(`https://ammuse.store/test/api/ad/getList`)
+				.then(r => setAdListArr(r.data.data.data))
+			 	.catch(e => console.log(e))
+			
 		})();
-		console.log(adListArr)
 	}, [])
 	
 	useEffect(() => {
@@ -76,7 +81,7 @@ const Ad = () => {
 				</button>
 			</div>
 			<div style={{paddingTop: 30}}>
-				<Table route={'ad'} columns={AdTableColumns} data={[]}/>
+				<Table route={'ad'} columns={AdTableColumns} data={adListArr}/>
 			</div>
 		</div>
 	)
