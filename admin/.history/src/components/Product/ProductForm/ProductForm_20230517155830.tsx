@@ -132,13 +132,7 @@ function ProductForm() {
 
   const [mainImg, setMainImg] = useState <ImageFile[]>([]);
   const handleMainImg = (imageFiles: ImageFile[]) => {
-    setMainImg((prev) => [...prev, ...imageFiles]);
-  }
-
-  const removeMainImg = (imageFile: ImageFile) => {
-    setMainImg((prev) => prev.filter(
-      (img) => img.fileName !== imageFile.fileName
-    ));
+    setMainImg(imageFiles);
   }
   
   const [ticket, setTicket] = useState<Ticket[]>([]);
@@ -253,7 +247,7 @@ function ProductForm() {
             </div>
         </div>
 
-        <MainImage onAdd={handleMainImg} onRemove={removeMainImg}/>
+        <MainImage onAdd={handleMainImg}/>
 
         <TicketInfo onAdd={handleTicket} />
 

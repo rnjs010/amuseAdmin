@@ -137,7 +137,9 @@ function ProductForm() {
 
   const removeMainImg = (imageFile: ImageFile) => {
     setMainImg((prev) => prev.filter(
-      (img) => img.fileName !== imageFile.fileName
+      (img) => {
+        img.fileName != imageFile.fileName
+      }
     ));
   }
   
