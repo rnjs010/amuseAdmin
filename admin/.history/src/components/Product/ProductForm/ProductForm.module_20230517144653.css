@@ -36,14 +36,12 @@
   padding-left: 60px;
   padding-right: 60px;
   width: 100%;
-  overflow: hidden;
 }
 
 .container.mainImg{
   background-color: lightgoldenrodyellow;
   display: flex;
   min-height: 300px;
-  overflow: auto;
 }
 
 .container.submit {
@@ -157,9 +155,4 @@
 .duration {
   display: flex;
   align-items: center;
-}
-
-.duration_input {
-  width: 40px;
-  font-size: 14px;
 }

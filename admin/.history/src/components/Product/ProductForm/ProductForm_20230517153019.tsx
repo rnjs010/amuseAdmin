@@ -134,12 +134,6 @@ function ProductForm() {
   const handleMainImg = (imageFiles: ImageFile[]) => {
     setMainImg((prev) => [...prev, ...imageFiles]);
   }
-
-  const removeMainImg = (imageFile: ImageFile) => {
-    setMainImg((prev) => prev.filter(
-      (img) => img.fileName !== imageFile.fileName
-    ));
-  }
   
   const [ticket, setTicket] = useState<Ticket[]>([]);
   const handleTicket = (ticket:Ticket) => {
@@ -246,14 +240,14 @@ function ProductForm() {
             </div>
             <div className={styles.duration}>
               <span className={styles.title}>여행 기간</span>
-              <input className={styles.duration_input} value={durationNights} onChange={handleDurationNights} type="text" placeholder='' maxLength={2}/>
+              <input className={styles.duration_input} value={durationNights} onChange={handleDurationNights} type="text" placeholder=''/>
               <span className={styles.title}>박</span>
-              <input className={styles.duration_input} value={durationDays} onChange={handleDurationDays} type="text" placeholder='' maxLength={2}/>
+              <input className={styles.duration_input} value={durationDays} onChange={handleDurationDays} type="text" placeholder=''/>
               <span className={styles.title}>일</span>
             </div>
         </div>
 
-        <MainImage onAdd={handleMainImg} onRemove={removeMainImg}/>
+        <MainImage onAdd={handleMainImg}/>
 
         <TicketInfo onAdd={handleTicket} />
 

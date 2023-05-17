@@ -41,7 +41,7 @@ function MainImage({onAdd, onRemove}:ExtraInfoProps) {
 
   const removeMainImg = (file: ImageFile) => {    
     setMainImg((prevImages) => prevImages.filter((img) => img.fileName !== file.fileName));
-    onRemove(file);
+    onRemove(file)
   }
 
   const renderImageList = () => {

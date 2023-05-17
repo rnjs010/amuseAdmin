@@ -120,25 +120,14 @@ function ProductForm() {
     setListingEndDate(event.target.value);
   }
 
-  const [durationNights, setDurationNights] = useState<string>('');
-  const handleDurationNights = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDurationNights(event.target.value);
-  }
-
-  const [durationDays, setDurationDays] = useState<string>('');
-  const handleDurationDays = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDurationDays(event.target.value);
+  const [duration, setDuration] = useState<string>('');
+  const handleDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDuration(event.target.value);
   }
 
   const [mainImg, setMainImg] = useState <ImageFile[]>([]);
   const handleMainImg = (imageFiles: ImageFile[]) => {
     setMainImg((prev) => [...prev, ...imageFiles]);
-  }
-
-  const removeMainImg = (imageFile: ImageFile) => {
-    setMainImg((prev) => prev.filter(
-      (img) => img.fileName !== imageFile.fileName
-    ));
   }
   
   const [ticket, setTicket] = useState<Ticket[]>([]);
@@ -162,6 +151,7 @@ function ProductForm() {
   }
 
   const handleAddProduct = () => {
+    // if(productId && category && productTitle && country && city && mainImg && ticketList && mainInfoHtml && courseList){
       const product: Product = {
         productId,
         category,
@@ -172,7 +162,7 @@ function ProductForm() {
           country,
           city
         },
-        duration:`${durationNights}박${durationDays}일`,
+        duration,
         startDate: listingStartDate,
         endDate: listingEndDate,
         mainImg,
@@ -182,6 +172,7 @@ function ProductForm() {
         extraInfo  
       };
       console.log(product);
+    // }
     const jsonString = JSON.stringify(product);
     const byteSize = new Blob([jsonString], {type: 'application/json'}).size;
     console.log('byteSize: ', byteSize);
@@ -246,14 +237,11 @@ function ProductForm() {
             </div>
             <div className={styles.duration}>
               <span className={styles.title}>여행 기간</span>
-              <input className={styles.duration_input} value={durationNights} onChange={handleDurationNights} type="text" placeholder='' maxLength={2}/>
-              <span className={styles.title}>박</span>
-              <input className={styles.duration_input} value={durationDays} onChange={handleDurationDays} type="text" placeholder='' maxLength={2}/>
-              <span className={styles.title}>일</span>
+              <input value={duration} onChange={handleDuration} type="text" placeholder='0'/>
             </div>
         </div>
 
-        <MainImage onAdd={handleMainImg} onRemove={removeMainImg}/>
+        <MainImage onAdd={handleMainImg}/>
 
         <TicketInfo onAdd={handleTicket} />
 

@@ -43,7 +43,6 @@
   background-color: lightgoldenrodyellow;
   display: flex;
   min-height: 300px;
-  overflow: auto;
 }
 
 .container.submit {

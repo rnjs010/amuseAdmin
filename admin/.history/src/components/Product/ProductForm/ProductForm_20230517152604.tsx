@@ -120,6 +120,11 @@ function ProductForm() {
     setListingEndDate(event.target.value);
   }
 
+  const [duration, setDuration] = useState<string>('');
+  const handleDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDuration(event.target.value);
+  }
+
   const [durationNights, setDurationNights] = useState<string>('');
   const handleDurationNights = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDurationNights(event.target.value);
@@ -133,12 +138,6 @@ function ProductForm() {
   const [mainImg, setMainImg] = useState <ImageFile[]>([]);
   const handleMainImg = (imageFiles: ImageFile[]) => {
     setMainImg((prev) => [...prev, ...imageFiles]);
-  }
-
-  const removeMainImg = (imageFile: ImageFile) => {
-    setMainImg((prev) => prev.filter(
-      (img) => img.fileName !== imageFile.fileName
-    ));
   }
   
   const [ticket, setTicket] = useState<Ticket[]>([]);
@@ -246,14 +245,14 @@ function ProductForm() {
             </div>
             <div className={styles.duration}>
               <span className={styles.title}>여행 기간</span>
-              <input className={styles.duration_input} value={durationNights} onChange={handleDurationNights} type="text" placeholder='' maxLength={2}/>
+              <input className={styles.durationInput} value={durationNights} onChange={handleDurationNights} type="text" placeholder=''/>
               <span className={styles.title}>박</span>
-              <input className={styles.duration_input} value={durationDays} onChange={handleDurationDays} type="text" placeholder='' maxLength={2}/>
+              <input className={styles.durationInput} value={durationDays} onChange={handleDurationDays} type="text" placeholder=''/>
               <span className={styles.title}>일</span>
             </div>
         </div>
 
-        <MainImage onAdd={handleMainImg} onRemove={removeMainImg}/>
+        <MainImage onAdd={handleMainImg}/>
 
         <TicketInfo onAdd={handleTicket} />
 
