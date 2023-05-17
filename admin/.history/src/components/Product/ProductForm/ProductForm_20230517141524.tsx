@@ -184,13 +184,8 @@ function ProductForm() {
         ${JSON.stringify(res)}
       `)
     })
-    .catch((err) => {
-      console.error(err);
-      alert(`
-        여행 상품 등록에 실패했습니다.
-        ${err}
-      `)
-    }    
+    .catch((err) => 
+    console.error(err)
     );
   }
 

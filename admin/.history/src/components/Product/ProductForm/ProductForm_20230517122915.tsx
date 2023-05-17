@@ -177,21 +177,8 @@ function ProductForm() {
     const byteSize = new Blob([jsonString], {type: 'application/json'}).size;
     console.log('byteSize: ', byteSize);
     axiosInstance.post('/test/api/product/create', product)
-    .then((res) => {
-      console.log(JSON.stringify(res));
-      alert(`
-        여행 상품 등록에 성공했습니다.
-        ${JSON.stringify(res)}
-      `)
-    })
-    .catch((err) => {
-      console.error(err);
-      alert(`
-        여행 상품 등록에 실패했습니다.
-        ${err}
-      `)
-    }    
-    );
+    .then((res) => console.log(JSON.stringify(res)))
+    .catch((err) => console.error(err));
   }
 
   return (
