@@ -22,7 +22,7 @@ interface TicketInfoProps {
   onRemove(ticket: Ticket): void
 }
 
-function TicketInfo({onAdd, onRemove}: TicketInfoProps) {
+function TicketInfo({onAdd}: TicketInfoProps) {
   const [ticketModalOpen, setTicketModalOpen] = useState<boolean>(false);
   const [ticketList, setTicketList] = useState<Ticket[]>([]);
 
@@ -37,7 +37,7 @@ function TicketInfo({onAdd, onRemove}: TicketInfoProps) {
 
   const removeTicket = (selectedTicket: Ticket) => {    
     setTicketList((prevTickets) => prevTickets.filter((ticket) => ticket.title !== selectedTicket.title));
-    onRemove(selectedTicket);
+
   }
 
   const renderTicketList = () => {

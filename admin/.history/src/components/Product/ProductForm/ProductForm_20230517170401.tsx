@@ -149,7 +149,6 @@ function ProductForm() {
   }
 
   const removeTicket = (selectedTicket: Ticket) => {
-    console.log(selectedTicket);
     setTicket((prev) => prev.filter(
       (ticket) => ticket.title !== selectedTicket.title
     ));

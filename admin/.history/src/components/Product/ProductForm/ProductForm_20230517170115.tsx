@@ -149,15 +149,10 @@ function ProductForm() {
   }
 
   const removeTicket = (selectedTicket: Ticket) => {
-    console.log(selectedTicket);
     setTicket((prev) => prev.filter(
       (ticket) => ticket.title !== selectedTicket.title
     ));
   }
-
-  useEffect(() => {
-    console.log(ticket);
-  }, [ticket])
   
   const [course, setCourse] = useState<Course[]>([]);
   const handleCourse = (course:Course) => {
