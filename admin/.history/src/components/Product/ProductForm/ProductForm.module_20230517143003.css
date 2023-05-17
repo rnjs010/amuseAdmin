@@ -2,7 +2,7 @@
 
 .productForm {
   border: 2px solid #C5C5C5;
-  width: 90%;
+  width: 80%;
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -31,7 +31,6 @@
   background-color: lightsalmon;
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: space-between;
   padding-left: 60px;
   padding-right: 60px;
@@ -90,14 +89,7 @@
 }
 
 .country{
-  display: flex;
-  align-items: center;
   margin-bottom: 10px;
-}
-
-.city {
-  display: flex;
-  align-items: center;
 }
 
 
@@ -149,10 +141,4 @@
 
 .productPeriod {
   display: flex;
-  align-items: center;
-}
-
-.duration {
-  display: flex;
-  align-items: center;
 }

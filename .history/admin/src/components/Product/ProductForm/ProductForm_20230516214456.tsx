@@ -177,21 +177,8 @@ function ProductForm() {
     const byteSize = new Blob([jsonString], {type: 'application/json'}).size;
     console.log('byteSize: ', byteSize);
     axiosInstance.post('/test/api/product/create', product)
-    .then((res) => {
-      console.log(JSON.stringify(res));
-      alert(`
-        여행 상품 등록에 성공했습니다.
-        ${JSON.stringify(res)}
-      `)
-    })
-    .catch((err) => {
-      console.error(err);
-      alert(`
-        여행 상품 등록에 실패했습니다.
-        ${err}
-      `)
-    }    
-    );
+    .then((res) => console.log(JSON.stringify(res)))
+    .catch((err) => console.error(err));
   }
 
   return (
@@ -205,7 +192,7 @@ function ProductForm() {
             </select>
             <div className={styles.categoryStatus}>
               {category.map(categoryName => 
-                <li key={categoryName}>{categoryName}</li>
+                <li>{categoryName}</li>
               )}
             </div>
           </div>
@@ -237,8 +224,7 @@ function ProductForm() {
             </div>
             <div className={styles.duration}>
               <span className={styles.title}>여행 기간</span>
-              <input value={duration} onChange={handleDuration} type="text" placeholder=''/>
-              <span className={styles.title}>일</span>
+              <input value={duration} onChange={handleDuration} type="text" placeholder='0박 0일'/>
             </div>
         </div>
 
