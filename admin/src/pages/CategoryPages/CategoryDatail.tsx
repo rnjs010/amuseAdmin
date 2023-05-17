@@ -23,8 +23,8 @@ const CategoryDetail = () => {
 	const [mainDescription, setMainDescription] = useState<string>("")
 	const [subDescription, setSubDescription] = useState<string>("")
 	
-	const mainDescriptionRef = useRef<Editor>(null);
-	const subDescriptionRef = useRef<Editor>(null);
+	// const mainDescriptionRef = useRef<Editor>(null);
+	// const subDescriptionRef = useRef<Editor>(null);
 	
 	useEffect(() => {
 		
@@ -35,8 +35,8 @@ const CategoryDetail = () => {
 					const res = r.data.data
 					setCategoryTitle(res.hashTag)
 					setCategoryImage(res.imgUrl)
-					const mainDescriptionRefInit = mainDescriptionRef?.current?.getInstance().setHTML(res.mainDescription);
-					const subDescriptionRefInit = subDescriptionRef?.current?.getInstance().setHTML(res.subDescription);
+					// const mainDescriptionRefInit = mainDescriptionRef?.current?.getInstance().setHTML(res.mainDescription);
+					// const subDescriptionRefInit = subDescriptionRef?.current?.getInstance().setHTML(res.subDescription);
 					setMainDescription(res.mainDescription)
 					setSubDescription(res.subDescription)
 					console.log(res)

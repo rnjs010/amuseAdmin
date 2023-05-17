@@ -17,8 +17,8 @@ const CategoryRegister = () => {
 	const [mainDescription, setMainDescription] = useState<string>("")
 	const [subDescription, setSubDescription] = useState<string>("")
 	
-	const mainDescriptionRef = useRef<Editor>(null);
-	const subDescriptionRef = useRef<Editor>(null);
+	// const mainDescriptionRef = useRef<Editor>(null);
+	// const subDescriptionRef = useRef<Editor>(null);
 	
 	const saveImgFile = () => {
 		try {
