@@ -8,6 +8,7 @@ import axios from "axios";
 
 import Table from "../../components/Table/Table";
 import {AdTableColumns} from "../../components/Table/AdTableColumns";
+import {AdApiLogic} from "../../logics/AdLogic";
 
 type AdInfo = {
 	id: Number | null;
@@ -31,42 +32,23 @@ const Ad = () => {
 	
 	const [adListArr, setAdListArr] = useState<AdInfo[]>([]);
 	
-	
-	// https://ammuse.store/test/api/ad/getList?offset=0&limit=2&page=1?
-	
 	const [offset, setOffset] = useState<number>(0);
 	const [limit, setLimit] = useState<number>(10);
 	const [page, setPage] = useState<number>(1);
 	
 	const [pageCount, setPageCount] = useState<number>(1);
 	
+	
 	useEffect(() => {
 		(async () => {
-			// await axios.get(`${process.env.REACT_APP_API_URL}/test/api/ad/getList?offset=${offset}&limit=${limit}&page=${page}`)
-			await axios.get(`https://ammuse.store/test/api/ad/getList?offset=${offset}&limit=${limit}&page=${page}`)
-				// .then(r => setAdListArr(r.data.data.data))
-				.then(r => {
-					const res = r.data.data
-					setAdListArr(res.data)
-					setPageCount(res.pageCount)
-				})
-			 	.catch(e => console.log(e))
-			
+			const response = await AdApiLogic.getAdArr(offset, limit, page);
+			setAdListArr(response.data)
+			setPageCount(response.pageCount)
 		})();
 	}, [])
 	
-	useEffect(() => {
-		
-		if (startDate > endDate) {
-			window.confirm("시작 날짜를 확인해주세요");
-			setStartDate(todayDate);
-			setEndDate(todayDate);
-		}
-	}, [startDate, endDate])
-	
 	return (
 		<div className={styles.container}>
-			
 			<div
 				style={{
 					display: "flex",
@@ -79,16 +61,14 @@ const Ad = () => {
 				}}
 			>
 				<h2> 광고 관리 </h2>
-				
-				<button
-					className={styles.button}
-					onClick={() => navigate('/ad/register')}
+				<button className={styles.button}
+						onClick={() => navigate('/ad/register')}
 				>
 					등록하기
 				</button>
 			</div>
 			<div style={{paddingTop: 30}}>
-				<Table route={'ad'} columns={AdTableColumns} data={adListArr} pageCount={pageCount}/>
+				<Table route={'ad'} columns={AdTableColumns} data={adListArr}/>
 			</div>
 		</div>
 	)

@@ -3,15 +3,20 @@ import axios from "axios";
 
 export const AdApiLogic = {
 	
+	getAdArr: (async (offset: number, limit: number, page: number) => {
+		const response = await axios.get(`https://ammuse.store/test/api/ad/getList?offset=${offset}&limit=${limit}&page=${page}`)
+		return response.data.data;
+	}),
 	
-	getTestAdList : (async () => {
-			// return await axios.get(`${process.env.REACT_APP_API_URL}/test/api/ad/getList`);
-			return await axios.get(`https://ammuse.store/test/api/ad/getList`);
-		})
-		
-		
+	getAdDetail: (async (id: number) => {
+		const response = await axios.get(`https://ammuse.store/test/api/ad/${id}`)
+		return response.data.data;
+	}),
 	
+	updateAdDetail: (async (data: any) => {
+		const response = await axios.post(`https://ammuse.store/test/api/ad/edit`, data)
+		return response;
+	}),
 	
-
 }
 

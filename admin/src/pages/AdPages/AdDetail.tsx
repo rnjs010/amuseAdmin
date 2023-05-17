@@ -8,22 +8,29 @@ import {Editor} from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import ToastEditor from "../../components/ToastEditor";
 import DatePicker from 'react-datepicker';
+import {AdApiLogic} from "../../logics/AdLogic";
+import {CategoryLogic} from "../../logics/CategoryLogic";
+import {ImageAttachLogic} from "../../logics/ImageFileAttachLogic";
 
 const AdDetail = () => {
 	
 	const {id} = useParams()
+	
 	const editorRef = useRef<Editor>(null);
+	
 	const [title, setTitle] = useState<string>("");
 	const [startDate, setStartDate] = useState<Date | null>(null);
 	const [endDate, setEndDate] = useState<Date | null>(null);
 	const [parsedHTML, setParsedHTML] = useState<string>("");
-	const parsedHTMLRef  = useRef<Editor>(null);
+	const parsedHTMLRef = useRef<Editor>(null);
 	const [pcBannerFileName, setPcBannerFileName] = useState("");
 	const [pcBanner, setPcBanner] = useState("");
 	const pcBannerRef = useRef<HTMLInputElement | null>(null);
+	const [pcBannerUrl, setPcBannerUrl] = useState<string>("");
 	const [mobileBannerFileName, setMobileBannerFileName] = useState("");
 	const [mobileBanner, setMobileBanner] = useState("");
 	const mobileBannerRef = useRef<HTMLInputElement | null>(null);
+	const [mobileBannerUrl, setMobileBannerUrl] = useState<string>("");
 	const [pcBannerLink, setPcBannerLink] = useState("");
 	const [mobileBannerLink, setMobileBannerLink] = useState("");
 	
@@ -33,77 +40,45 @@ const AdDetail = () => {
 	const handleCategory = (category: string) => {
 		if (selectedCategoryArr.some((v) => v == category)) {
 			setSelectedCategoryArr(selectedCategoryArr.filter(v => v !== category));
-			console.log(selectedCategoryArr)
-			return
+			return;
 		}
-		setSelectedCategoryArr([...selectedCategoryArr, category])
-		console.log(selectedCategoryArr)
+		setSelectedCategoryArr([...selectedCategoryArr, category]);
 	}
 	
 	useEffect(() => {
-		
 		(async () => {
-			await axios.get(`https://ammuse.store/test/api/ad/${id}`)
-				.then(r => {
-					const res = r.data.data;
-					console.log(res)
-					setTitle(res.title)
-					setStartDate(new Date(res.startDate))
-					setEndDate(new Date(res.endDate))
-					setParsedHTML(res.adContent)
-					const parsedHTMLRefInit = parsedHTMLRef?.current?.getInstance().setHTML(res.adContent);
-					setPcBanner(res.pcBannerUrl)
-					setMobileBanner(res.mobileBannerUrl)
-					setPcBannerLink(res.pcBannerLink)
-					setMobileBannerLink(res.mobileBannerLink)
-					setSelectedCategoryArr(res.adCategory)
-				})
-				.catch(e => console.log(e))
+			// @ts-ignore
+			const response = await AdApiLogic.getAdDetail(id);
+			setTitle(response.title)
+			setStartDate(new Date(response.startDate))
+			setEndDate(new Date(response.endDate))
+			setParsedHTML(response.adContent)
+			parsedHTMLRef?.current?.getInstance().setHTML(response.adContent);
+			
+			setPcBannerUrl(response.pcBannerUrl)
+			setPcBannerLink(response.pcBannerLink)
+			
+			setMobileBannerUrl(response.mobileBannerUrl)
+			setMobileBannerLink(response.mobileBannerLink)
+			
+			setSelectedCategoryArr(response.adCategory)
 		})();
 	}, [])
 	
+	
 	useEffect(() => {
 		(async () => {
-			await axios.get(`https://ammuse.store/test/api/category/sequence`)
-				.then((r) => {
-					const res = r.data.data
-					const categoryArr = res.map((v: any) => v.displayHashTag);
-					setCategory(categoryArr);
-				})
-				.catch(e => window.confirm(e))
+			const response = await CategoryLogic.getCategoryArr();
+			const categoryArr = response.map((v: any) => v.displayHashTag);
+			setCategory(categoryArr);
 		})()
 	}, [])
 	
 	useEffect(() => {
-		console.log(editorRef);
-	}, [editorRef])
-	
-	// TODO: TO Discuss
-	useEffect(() => {
 		// @ts-ignore
 		const regex = /<img.*?src="(.*?)"/g
 		const found = parsedHTML.match(regex);
-		// console.log("found is")
-		// console.log(found)
 	}, [parsedHTML])
-	
-	const saveImgFile = (ref: any, setBannerFileName: any, setBanner: any,) => {
-		try {
-			if (ref != null) {
-				// @ts-ignore
-				const file = ref.current.files[0];
-				const reader = new FileReader();
-				reader.readAsDataURL(file);
-				reader.onloadend = () => {
-					setBanner(reader.result);
-					setBannerFileName(ref.current.files[0].name);
-				}
-			}
-		} catch {
-		
-		}
-	};
-	
 	
 	const editAd = async () => {
 		
@@ -117,7 +92,7 @@ const AdDetail = () => {
 			return;
 		}
 		
-		await axios.post(`https://ammuse.store/test/api/ad/edit`, {
+		await AdApiLogic.updateAdDetail({
 			id: id,
 			title: title,
 			startDate: startDate.toISOString().split("T")[0],
@@ -130,14 +105,13 @@ const AdDetail = () => {
 			mobileBannerLink: mobileBannerLink,
 			adCategory: selectedCategoryArr,
 			adContent: parsedHTML,
-			updatedBy: "daw564@naver.com"
-		})
-			.then(() => {
-				window.confirm("수정되었습니다.");
-				window.history.back();
-			})
-			.catch(e => window.confirm(e))
+			updatedBy: "daw564@naver.com",
+		}).then(() => {
+			window.confirm("수정되었습니다.");
+			window.history.back();
+		}).catch(e => window.confirm(e));
 	}
+	
 	
 	const clicked = {
 		padding: "5px 5px",
@@ -153,6 +127,24 @@ const AdDetail = () => {
 		borderRadius: "10px",
 		background: "",
 	}
+	
+	const saveImgFile = (ref: any, setBannerFileName: any, setBanner: any,) => {
+		try {
+			if (ref != null) {
+				// @ts-ignore
+				setBannerFileName(ref.current.files[0].name);
+				const file = ref.current.files[0];
+				const reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.onloadend = () => {
+					console.log(reader.result)
+					setBanner(reader.result);
+				}
+			}
+		} catch {
+		
+		}
+	};
 	
 	return (
 		<div className={styles.container}>
@@ -218,14 +210,24 @@ const AdDetail = () => {
 				
 				<p className={styles.p}>
 					{
-						(!pcBanner) ? (
-							""
-						) : (
+						(pcBannerUrl) ? (
 							<img
-								src={pcBanner}
+								src={pcBannerUrl}
 								width={200}
-								alt="프로필 이미지"
+								alt="pcBannerUrl"
 							/>
+						) : (
+							(
+								pcBanner
+							) ? (
+								<img
+									src={pcBanner}
+									width={200}
+									alt="pcBanner"
+								/>
+							) : (
+								""
+							)
 						)
 					}
 				</p>
@@ -258,16 +260,26 @@ const AdDetail = () => {
 					
 					<p className={styles.p}>
 						{
-							(!mobileBanner) ? (
-								""
-							) : (
+						(mobileBannerUrl) ? (
+							<img
+								src={mobileBannerUrl}
+								width={200}
+								alt="mobileBannerUrl"
+							/>
+						) : (
+							(
+								mobileBanner
+							) ? (
 								<img
 									src={mobileBanner}
 									width={200}
-									alt="프로필 이미지"
+									alt="mobileBanner"
 								/>
+							) : (
+								""
 							)
-						}
+						)
+					}
 					</p>
 				</p>
 				
