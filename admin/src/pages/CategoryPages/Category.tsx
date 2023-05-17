@@ -31,18 +31,24 @@ const Category = () => {
 	const navigate = useNavigate();
 	
 	const [categoryListArr, setCategoryListArr] = useState<categoryInfo[]>([]);
+	const [categorySeq, setCategorySeq] = useState<any>([]);
 	
+	
+
 	useEffect(() => {
 		(async () => {
 			await axios.get(`https://ammuse.store/test/api/category/sequence`)
 				.then(r => {
 					const res = r.data
 					setCategoryListArr(res.data);
+					setCategorySeq(res.data.map((v: any) => ({ displayHashTag: v.displayHashTag, sequence: v.sequence })));
 				})
 				.catch(e => console.log(e))
 		})();
 	}, [])
 	
+	
+	console.log(categorySeq)
 	
 	return (
 		<div className={styles.container}>

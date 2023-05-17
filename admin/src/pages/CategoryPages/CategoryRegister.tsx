@@ -116,54 +116,14 @@ const CategoryRegister = () => {
 						
 						</div>
 						<div>
-							<Editor
-								ref={mainDescriptionRef}
-								placeholder="내용을 입력하세요"
-								previewStyle="tab"
-								initialEditType="markdown"
-								initialValue={mainDescription || ' '}
-								hideModeSwitch={true}
-								height="500px"
-								toolbarItems={[
-									// 툴바 옵션 설정
-									['heading', 'bold', 'italic', 'strike'],
-									['hr', 'quote'],
-									['ul', 'ol', 'task', 'indent', 'outdent'],
-									['table', 'image', 'link'],
-									['code', 'codeblock']
-								]}
-								customHTMLRenderer={{
-									// 구글 맵 삽입을 위한
-									// iframe 태그 커스텀 코드
-									htmlBlock: {
-										iframe(node: any) {
-											return [
-												{
-													type: 'openTag',
-													tagName: 'iframe',
-													outerNewLine: true,
-													attributes: node.attrs
-												},
-												{type: 'html', content: node.childrenHTML},
-												{type: 'closeTag', tagName: 'iframe', outerNewLine: true}
-											];
-										}
-									}
+							<textarea
+								style={{
+									border: "1px solid"
 								}}
-								onChange={() => {
-									try {
-										// @ts-ignore
-										setMainDescription(mainDescriptionRef.current?.getInstance().getHTML());
-									} catch (error) {
-										console.log(error)
-									}
-								}}
-								hooks={{
-									addImageBlobHook: async (blob, callback) => {
-										console.log(blob);
-									}
-								}}
-							></Editor>
+								value={subDescription}
+								onChange={(e) => setMainDescription(e.target.value)}
+							>
+							</textarea>
 						
 						</div>
 					</p>
@@ -173,54 +133,14 @@ const CategoryRegister = () => {
 							<strong>부가 설명</strong>
 						</div>
 						<div>
-							<Editor
-								ref={subDescriptionRef}
-								placeholder="내용을 입력하세요"
-								previewStyle="tab"
-								initialEditType="markdown"
-								initialValue={subDescription || ' '}
-								hideModeSwitch={true}
-								height="500px"
-								toolbarItems={[
-									// 툴바 옵션 설정
-									['heading', 'bold', 'italic', 'strike'],
-									['hr', 'quote'],
-									['ul', 'ol', 'task', 'indent', 'outdent'],
-									['table', 'image', 'link'],
-									['code', 'codeblock']
-								]}
-								customHTMLRenderer={{
-									// 구글 맵 삽입을 위한
-									// iframe 태그 커스텀 코드
-									htmlBlock: {
-										iframe(node: any) {
-											return [
-												{
-													type: 'openTag',
-													tagName: 'iframe',
-													outerNewLine: true,
-													attributes: node.attrs
-												},
-												{type: 'html', content: node.childrenHTML},
-												{type: 'closeTag', tagName: 'iframe', outerNewLine: true}
-											];
-										}
-									}
+							<textarea
+								style={{
+									border: "1px solid"
 								}}
-								onChange={() => {
-									try {
-										// @ts-ignore
-										setSubDescription(subDescriptionRef.current?.getInstance().getHTML());
-									} catch (error) {
-										console.log(error)
-									}
-								}}
-								hooks={{
-									addImageBlobHook: async (blob, callback) => {
-										console.log(blob);
-									}
-								}}
-							></Editor>
+								value={subDescription}
+								onChange={(e) => setSubDescription(e.target.value)}
+							>
+							</textarea>
 						</div>
 					</p>
 				</form>
