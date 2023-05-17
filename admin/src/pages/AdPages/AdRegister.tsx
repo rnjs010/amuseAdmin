@@ -8,6 +8,7 @@ import {Editor} from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import ToastEditor from "../../components/ToastEditor";
 import DatePicker from 'react-datepicker';
+import {CategoryLogic} from "../../logics/CategoryLogic";
 
 
 const AdRegister = () => {
@@ -47,13 +48,9 @@ const AdRegister = () => {
 	
 	useEffect(() => {
 		(async () => {
-			await axios.get(`https://ammuse.store/test/api/category/sequence`)
-				.then((r) => {
-					const res = r.data.data
-					const categoryArr = res.map((v: any) => v.displayHashTag);
-					setCategory(categoryArr);
-				})
-				.catch(e => window.confirm(e))
+			const response = await CategoryLogic.getCategoryArr();
+			const categoryArr = response.map((v: any) => v.displayHashTag);
+			setCategory(categoryArr);
 		})()
 	}, [])
 	
