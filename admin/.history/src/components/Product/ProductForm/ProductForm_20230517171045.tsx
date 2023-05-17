@@ -149,7 +149,7 @@ function ProductForm() {
   }
 
   const removeTicket = (selectedTicket: Ticket) => {
-    
+    console.log(selectedTicket.title);
     setTicket((prev) => prev.filter(
       (ticket) => ticket.title !== selectedTicket.title
     ));
@@ -162,12 +162,6 @@ function ProductForm() {
   const [course, setCourse] = useState<Course[]>([]);
   const handleCourse = (course:Course) => {
     setCourse((prev) => [...prev, course])
-  }
-
-  const removeCourse = (selectedCourse:Course) => {
-    setCourse((prev) => prev.filter(
-      (course) => course.title !== selectedCourse.title
-    ));
   }
 
   const [mainInfo, setMainInfo] = useState<HTML>('');
@@ -278,7 +272,7 @@ function ProductForm() {
 
         <MainInfo onChange={handleMainInfo}/>
 
-        <CourseInfo onAdd={handleCourse} onRemove={removeCourse} />
+        <CourseInfo onAdd={handleCourse} />
 
         <ExtraInfo onChange={handleExtraInfo} />
 

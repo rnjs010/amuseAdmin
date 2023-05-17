@@ -147,27 +147,10 @@ function ProductForm() {
   const handleTicket = (ticket:Ticket) => {
     setTicket((prev) => [...prev, ticket])
   }
-
-  const removeTicket = (selectedTicket: Ticket) => {
-    
-    setTicket((prev) => prev.filter(
-      (ticket) => ticket.title !== selectedTicket.title
-    ));
-  }
-
-  useEffect(() => {
-    console.log(ticket);
-  }, [ticket])
   
   const [course, setCourse] = useState<Course[]>([]);
   const handleCourse = (course:Course) => {
     setCourse((prev) => [...prev, course])
-  }
-
-  const removeCourse = (selectedCourse:Course) => {
-    setCourse((prev) => prev.filter(
-      (course) => course.title !== selectedCourse.title
-    ));
   }
 
   const [mainInfo, setMainInfo] = useState<HTML>('');
@@ -274,16 +257,16 @@ function ProductForm() {
 
         <MainImage onAdd={handleMainImg} onRemove={removeMainImg}/>
 
-        <TicketInfo onAdd={handleTicket} onRemove={removeTicket}/>
+        <TicketInfo onAdd={handleTicket} />
 
         <MainInfo onChange={handleMainInfo}/>
 
-        <CourseInfo onAdd={handleCourse} onRemove={removeCourse} />
+        <CourseInfo onAdd={handleCourse} />
 
         <ExtraInfo onChange={handleExtraInfo} />
 
         <div className={`${styles.container} ${styles.guide}`}>
-
+                
         </div>
 
         <div className={`${styles.container} ${styles.submit}`}>
