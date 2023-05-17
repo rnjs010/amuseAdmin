@@ -128,6 +128,7 @@ function ProductForm() {
   const [durationDays, setDurationDays] = useState<string>('');
   const handleDurationDays = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDurationDays(event.target.value);
+    console.log(event.target.value);
   }
 
   const [mainImg, setMainImg] = useState <ImageFile[]>([]);
@@ -240,9 +241,9 @@ function ProductForm() {
             </div>
             <div className={styles.duration}>
               <span className={styles.title}>여행 기간</span>
-              <input className={styles.duration_input} value={durationNights} onChange={handleDurationNights} type="text" placeholder='' maxLength={2}/>
+              <input className={styles.durationInput} value={durationNights} onChange={handleDurationNights} type="text" placeholder=''/>
               <span className={styles.title}>박</span>
-              <input className={styles.duration_input} value={durationDays} onChange={handleDurationDays} type="text" placeholder='' maxLength={2}/>
+              <input className={styles.durationInput} value={durationDays} onChange={handleDurationDays} type="text" placeholder=''/>
               <span className={styles.title}>일</span>
             </div>
         </div>
