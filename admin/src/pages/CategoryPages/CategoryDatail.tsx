@@ -99,7 +99,7 @@ const CategoryDetail = () => {
 						<input className={styles.textInput}
 							   type="text"
 							   name="categoryName"
-							   placeholder={categoryTitle}
+							   value={categoryTitle}
 							   onChange={e => setCategoryTitle(e.target.value)}
 						/>
 					</p>
