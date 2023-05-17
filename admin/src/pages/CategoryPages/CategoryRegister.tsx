@@ -6,6 +6,7 @@ import ToastEditor from "../../components/ToastEditor";
 import category from "./Category";
 import {Editor} from "@toast-ui/react-editor";
 import {AdApiLogic} from "../../logics/AdLogic";
+import {CategoryLogic} from "../../logics/CategoryLogic";
 
 const CategoryRegister = () => {
 	
@@ -43,7 +44,7 @@ const CategoryRegister = () => {
 	
 	const registerCategory = () => {
 		(async () => {
-			const response = AdApiLogic.postAd({
+			const response = CategoryLogic.postCategory({
 				category: categoryTitle,
 				fileName: categoryImageFileName,
 				base64Data: categoryImage,
