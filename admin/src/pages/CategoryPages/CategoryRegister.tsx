@@ -5,6 +5,7 @@ import axios from "axios";
 import ToastEditor from "../../components/ToastEditor";
 import category from "./Category";
 import {Editor} from "@toast-ui/react-editor";
+import {AdApiLogic} from "../../logics/AdLogic";
 
 const CategoryRegister = () => {
 	
@@ -42,7 +43,7 @@ const CategoryRegister = () => {
 	
 	const registerCategory = () => {
 		(async () => {
-			await axios.post("https://ammuse.store/test/api/category/register", {
+			const response = AdApiLogic.postAd({
 				category: categoryTitle,
 				fileName: categoryImageFileName,
 				base64Data: categoryImage,
@@ -120,7 +121,7 @@ const CategoryRegister = () => {
 								style={{
 									border: "1px solid"
 								}}
-								value={subDescription}
+								value={mainDescription}
 								onChange={(e) => setMainDescription(e.target.value)}
 							>
 							</textarea>
