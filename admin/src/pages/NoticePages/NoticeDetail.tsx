@@ -44,6 +44,7 @@ const NoticeDetail = () => {
 					setTitle(res.title);
 					setContent(res.content)
 					const contentRefInit = contentRef?.current?.getInstance().setHTML(res.content);
+					console.log(res)
 				})
 		})()
 	}, [])
@@ -78,42 +79,6 @@ const NoticeDetail = () => {
 							   value={title}
 							   onChange={(e) => setTitle(e.target.value)}
 						/>
-					</p>
-					
-					<p className={styles.p}>
-						<div
-							className={styles.pTitle}
-						>
-							<strong> 등록일자 </strong>
-						</div>
-						2023-05-01
-					</p>
-					
-					<p className={styles.p}>
-						<div
-							className={styles.pTitle}
-						>
-							<strong> 등록자 </strong>
-						</div>
-						Admin1
-					</p>
-					
-					<p className={styles.p}>
-						<div
-							className={styles.pTitle}
-						>
-							<strong> 수정일자 </strong>
-						</div>
-						2023-05-01
-					</p>
-					
-					<p className={styles.p}>
-						<div
-							className={styles.pTitle}
-						>
-							<strong> 수정자 </strong>
-						</div>
-						Admin2
 					</p>
 					
 					<p className={styles.p}>
