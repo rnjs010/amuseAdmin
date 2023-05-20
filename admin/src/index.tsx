@@ -8,6 +8,8 @@ import DashBoard from './pages/DashBoard';
 import ProductDelete from './pages/ProductDelete';
 import ProductCreate from './pages/ProductCreate';
 
+import ComponentManage from "./pages/ComponentManagePages/ComponentManage"
+
 import Category from "./pages/CategoryPages/Category";
 import CategoryDetail from "./pages/CategoryPages/CategoryDatail";
 import CategoryRegister from "./pages/CategoryPages/CategoryRegister";
@@ -35,6 +37,8 @@ const router = createBrowserRouter([
             {index: true, element: <DashBoard/>},
             {path: 'product/create', element: <ProductCreate/>},
             {path: 'product/delete', element: <ProductDelete/>},
+            
+            {path: '/component', element: <ComponentManage/>},
             
             // TODO: Deprecated
             {path: '/category', element: <Category/>},
