@@ -220,6 +220,7 @@ const AdRegister = () => {
 						   name="pcBannerLink"
 						   placeholder="PC 배너의 링크를 입력해주세요."
 						   onChange={e => setPcBannerLink(e.target.value)}
+						   value={pcBannerLink}
 					/>
 				</p>
 				
@@ -258,7 +259,6 @@ const AdRegister = () => {
 					<input className={styles.textInput}
 						   type="text"
 						   name="mobileBannerLink"
-						   placeholder="모바일 배너의 링크를 입력해주세요."
 						   onChange={e => setMobileBannerLink(e.target.value)}
 					/>
 				</p>
