@@ -8,6 +8,7 @@ import {useNavigate} from "react-router-dom";
 
 import Table from "../../components/Table/Table";
 import {CategoryTableColumns} from "../../components/Table/CategoryTableColumns";
+import {CategoryLogic} from "../../logics/CategoryLogic";
 
 type categoryInfo = {
 	id: Number | null;
@@ -34,16 +35,11 @@ const Category = () => {
 	const [categorySeq, setCategorySeq] = useState<any>([]);
 	
 	
-
 	useEffect(() => {
 		(async () => {
-			await axios.get(`https://ammuse.store/test/api/category/sequence`)
-				.then(r => {
-					const res = r.data
-					setCategoryListArr(res.data);
-					setCategorySeq(res.data.map((v: any) => ({ displayHashTag: v.displayHashTag, sequence: v.sequence })));
-				})
-				.catch(e => console.log(e))
+			const response = await CategoryLogic.getCategoryArr();
+			setCategoryListArr(response);
+			setCategorySeq(response.map((v: any) => ({displayHashTag: v.displayHashTag, sequence: v.sequence})));
 		})();
 	}, [])
 	
