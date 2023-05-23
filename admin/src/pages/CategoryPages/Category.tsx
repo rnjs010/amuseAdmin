@@ -1,10 +1,7 @@
 import React, {useEffect, useState} from "react";
 import styles from '../../components/Category/Category.module.css'
 
-import axios from "axios";
-
 import {useNavigate} from "react-router-dom";
-
 
 import Table from "../../components/Table/Table";
 import {CategoryTableColumns} from "../../components/Table/CategoryTableColumns";
