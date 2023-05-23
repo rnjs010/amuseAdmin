@@ -27,6 +27,7 @@ import NoticeDetail from "./pages/NoticePages/NoticeDetail";
 import NoticeRegister from "./pages/NoticePages/NoticeRegister";
 
 import StaffDetail from "./pages/StaffPages/StaffDetail";
+import MainPageComponentAdd from "./pages/ComponentManagePages/MainPageComponentAdd";
 
 const router = createBrowserRouter([
     {
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
             {path: 'product/delete', element: <ProductDelete/>},
             
             {path: '/component', element: <ComponentManage/>},
+            {path: '/component/mainpage', element: <MainPageComponentAdd/>},
             
             // TODO: Deprecated
             {path: '/category', element: <Category/>},
