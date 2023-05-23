@@ -40,7 +40,8 @@ const SelectableTable = ({route = '', columns, data, pageCount = 1}) => {
 					id: '선택',
 					Header: '선택',
 					Cell: ({row}) => (
-						<input type="checkbox" {...row.getToggleRowSelectedProps()} />
+						// <input type="checkbox" {...row.getToggleRowSelectedProps()} />
+                        <input type="checkbox"/>
 					),
 				},
 				...columns,
