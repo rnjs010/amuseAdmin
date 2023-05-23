@@ -3,8 +3,6 @@
     flex-direction: column;
 }
 
-
-
 .body{
     display: flex;
     width: 98%;
@@ -21,6 +19,19 @@
 
 .pTitle{
     margin-bottom: 10px;
+}
+
+.showDatePickerBtn{
+    margin: 0 10px 0 10px;
+    width: 100px;
+    border: 1px solid ;
+}
+
+.categoryList{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 5px;
 }
 
 
