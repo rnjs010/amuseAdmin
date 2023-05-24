@@ -285,7 +285,7 @@ const [accessibleUserClass, setAccessibleUserClass] = useState<string>('');
 
         {isConcierge && (
           <div className={`${styles.container} ${styles.accessAuthority}`}>
-              <div className={`${styles.controller } ${styles.accessAuthority}`}>
+              <div className={`${styles.controller }${styles.accessAuthority}`}>
                 <div className={styles.accessibleUser}>
                   <span className={styles.title}>접근 가능 회원 ID</span>
                   <input className={styles.accessibleUserInput} value={accessibleUser} onChange={handleAccessibleUser} type="text"/>
@@ -299,15 +299,13 @@ const [accessibleUserClass, setAccessibleUserClass] = useState<string>('');
                   </select>
                 </div>
               </div>
-              {
-                accessibleUserList && ( 
-                    <div className={styles.accessibleUserList}>
-                      <ul>
-                        {accessibleUserList.map((user) => ( <li>{user}</li>))}
-                      </ul>                      
-                    </div>
-                )
-              }
+              <div className={styles.accessibleUserList}>
+                  {accessibleUserList && (accessibleUserList.map((user) => (
+                    <li>
+                      {user}
+                    </li>
+                  )))}
+              </div>
           </div>
           )
         }

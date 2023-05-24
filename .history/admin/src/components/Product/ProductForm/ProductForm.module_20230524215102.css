@@ -93,12 +93,13 @@
   min-height: 60px;
   border-radius: var(--border-radius);
   background-color: lightblue;
-  overflow: scroll;
+
 }
 
 .accessibleUserList > ul {
   display: flex;
   flex-direction: row;
+  overflow: scroll;
 }
 
 .accessibleUserList > ul > li {

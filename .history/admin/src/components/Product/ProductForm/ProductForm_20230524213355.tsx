@@ -283,34 +283,20 @@ const [accessibleUserClass, setAccessibleUserClass] = useState<string>('');
           </div>
         </div>
 
-        {isConcierge && (
-          <div className={`${styles.container} ${styles.accessAuthority}`}>
-              <div className={`${styles.controller } ${styles.accessAuthority}`}>
-                <div className={styles.accessibleUser}>
-                  <span className={styles.title}>접근 가능 회원 ID</span>
-                  <input className={styles.accessibleUserInput} value={accessibleUser} onChange={handleAccessibleUser} type="text"/>
-                  <button className={styles.addBtn} onClick={handleAddAccessibleUser}>추가</button>
-                </div>
-                <div className={styles.accessibleClass}>
-                  <span className={styles.title}>등급 설정</span>
-                  <select value={accessibleUserClass} onChange={handleAccessibleUserClass}>
-                    <option value="">등급 선택</option>
-                    {renderUserClassOptions()}
-                  </select>
-                </div>
-              </div>
-              {
-                accessibleUserList && ( 
-                    <div className={styles.accessibleUserList}>
-                      <ul>
-                        {accessibleUserList.map((user) => ( <li>{user}</li>))}
-                      </ul>                      
-                    </div>
-                )
-              }
-          </div>
-          )
-        }
+        <div className={`${styles.container} ${styles.accessAuthority}`}>
+            <div className={styles.accessibleUser}>
+              <span className={styles.title}>접근 가능 회원 ID</span>
+              <input className={styles.accessibleUserInput} value={accessibleUser} onChange={handleAccessibleUser} type="text"/>
+              <button className={styles.addBtn} onClick={handleAddAccessibleUser}>추가</button>
+            </div>
+            <div className={styles.accessibleClass}>
+              <span className={styles.title}>등급 설정</span>
+              <select value={accessibleUserClass} onChange={handleAccessibleUserClass}>
+                <option value="">등급 선택</option>
+                {renderUserClassOptions()}
+              </select>
+            </div>
+        </div>
 
         <div className={`${styles.container} ${styles.name}`}>
             <span className={` ${styles.title} ${styles.name}`}>여행 상품명</span>

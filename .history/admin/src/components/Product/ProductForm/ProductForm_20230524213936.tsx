@@ -299,15 +299,13 @@ const [accessibleUserClass, setAccessibleUserClass] = useState<string>('');
                   </select>
                 </div>
               </div>
-              {
-                accessibleUserList && ( 
-                    <div className={styles.accessibleUserList}>
-                      <ul>
-                        {accessibleUserList.map((user) => ( <li>{user}</li>))}
-                      </ul>                      
-                    </div>
-                )
-              }
+              <div className={styles.accessibleUserList}>
+                  {accessibleUserList && (accessibleUserList.map((user) => (
+                    <li>
+                      {user}
+                    </li>
+                  )))}
+              </div>
           </div>
           )
         }

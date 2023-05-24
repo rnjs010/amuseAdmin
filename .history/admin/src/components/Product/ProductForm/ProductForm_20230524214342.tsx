@@ -302,9 +302,7 @@ const [accessibleUserClass, setAccessibleUserClass] = useState<string>('');
               {
                 accessibleUserList && ( 
                     <div className={styles.accessibleUserList}>
-                      <ul>
-                        {accessibleUserList.map((user) => ( <li>{user}</li>))}
-                      </ul>                      
+                      {accessibleUserList.map((user) => ( <li>{user}</li>))}
                     </div>
                 )
               }

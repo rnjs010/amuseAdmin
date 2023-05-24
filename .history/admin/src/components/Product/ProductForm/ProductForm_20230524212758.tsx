@@ -95,14 +95,9 @@ const [accessibleUserClass, setAccessibleUserClass] = useState<string>('');
   }
 
   const [accessibleUserList, setAccessibleUserList] = useState<string[]>([]);
-  const [accessibleUser, setAccessibleUser] = useState<string>('');
-  const handleAccessibleUser = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAccessibleUser(event.target.value);
-  }
 
-  const handleAddAccessibleUser = () => {
-    setAccessibleUserList((prev) => [...prev, accessibleUser]);
-    setAccessibleUser('');
+  const handleAccessibleUser = () => {
+
   }
 
   const [category, setCategory] = useState<string[]>([]);
@@ -279,38 +274,23 @@ const [accessibleUserClass, setAccessibleUserClass] = useState<string>('');
           </div>
           <div className={styles.isConcierge}>
             <span>컨시어지 여부</span>
-            <input className={styles.isConciergeCheck} type="checkbox" onChange={handleIsConciergeOrNot}/>
+            <select className={styles.isConciergeCheck} onChange={handleIsConciergeOrNot}/>
           </div>
         </div>
 
-        {isConcierge && (
-          <div className={`${styles.container} ${styles.accessAuthority}`}>
-              <div className={`${styles.controller } ${styles.accessAuthority}`}>
-                <div className={styles.accessibleUser}>
-                  <span className={styles.title}>접근 가능 회원 ID</span>
-                  <input className={styles.accessibleUserInput} value={accessibleUser} onChange={handleAccessibleUser} type="text"/>
-                  <button className={styles.addBtn} onClick={handleAddAccessibleUser}>추가</button>
-                </div>
-                <div className={styles.accessibleClass}>
-                  <span className={styles.title}>등급 설정</span>
-                  <select value={accessibleUserClass} onChange={handleAccessibleUserClass}>
-                    <option value="">등급 선택</option>
-                    {renderUserClassOptions()}
-                  </select>
-                </div>
-              </div>
-              {
-                accessibleUserList && ( 
-                    <div className={styles.accessibleUserList}>
-                      <ul>
-                        {accessibleUserList.map((user) => ( <li>{user}</li>))}
-                      </ul>                      
-                    </div>
-                )
-              }
-          </div>
-          )
-        }
+        <div className={`${styles.container} ${styles.accessAuthority}`}>
+            <div className={styles.accessibleUser}>
+              <span className={styles.title}>접근 가능 회원 ID</span>
+              <input value={accessibleUserList} onChange={handleAccessibleUser} type="text"/>
+            </div>
+            <div className={styles.accessibleClass}>
+              <span className={styles.title}>등급 설정</span>
+              <select value={accessibleUserClass} onChange={handleAccessibleUserClass}>
+                <option value="">등급 선택</option>
+                {renderUserClassOptions()}
+              </select>
+            </div>
+        </div>
 
         <div className={`${styles.container} ${styles.name}`}>
             <span className={` ${styles.title} ${styles.name}`}>여행 상품명</span>

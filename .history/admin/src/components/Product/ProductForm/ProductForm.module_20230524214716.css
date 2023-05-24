@@ -93,7 +93,7 @@
   min-height: 60px;
   border-radius: var(--border-radius);
   background-color: lightblue;
-  overflow: scroll;
+
 }
 
 .accessibleUserList > ul {
@@ -101,15 +101,9 @@
   flex-direction: row;
 }
 
-.accessibleUserList > ul > li {
+.accessibleUserList > li {
   list-style: none;
-  background-color: var(--color-light-grey);
-  width: fit-content;
-  height: 30px;
-  line-height: 24px;
-  padding: 6px;
-  border-radius: var(--border-radius);
-  margin: 4px;
+  background-color: grey;
 }
 
 .category {
