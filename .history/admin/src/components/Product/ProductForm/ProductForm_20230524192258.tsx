@@ -286,10 +286,8 @@ function ProductForm() {
               <div className={styles.guideProfile}>
                 <div className={styles.guideImg}></div>
                 <p className={styles.guideName}>name</p>
-                <p className={styles.guideCode}>1234-1234-1234</p>
               </div>                  
-              <div className={styles.divider}></div>
-              <textarea className={styles.guideTextArea} placeholder='내용을 입력하세요.'></textarea>
+              <p className={styles.guideContent}>content</p>
               <button className={styles.guideGetBtn}>가이드 불러오기</button>
         </div>
 

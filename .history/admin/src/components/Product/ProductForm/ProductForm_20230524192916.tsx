@@ -289,7 +289,7 @@ function ProductForm() {
                 <p className={styles.guideCode}>1234-1234-1234</p>
               </div>                  
               <div className={styles.divider}></div>
-              <textarea className={styles.guideTextArea} placeholder='내용을 입력하세요.'></textarea>
+              <textarea className={styles.guideTextArea}>content</textarea>
               <button className={styles.guideGetBtn}>가이드 불러오기</button>
         </div>
 
