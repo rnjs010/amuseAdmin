@@ -11,7 +11,7 @@ interface Ticket {
 type Price = {
   startDate: string,
   endDate: string,
-  quantity: string,
+  quantity: number,
   weekdayPrices: {
     [key: string]: string
   }
@@ -31,7 +31,7 @@ function TicketModal({onSave, onToggle}: MordalProps) {
     {
       startDate: '',
       endDate: '',
-      quantity: '',
+      quantity: 0,
       weekdayPrices: {
         'mon': '',
         'tue': '',
@@ -76,7 +76,7 @@ function TicketModal({onSave, onToggle}: MordalProps) {
       setPrice({
         startDate: '',
         endDate: '',
-        quantity: '',
+        quantity: 0,
         weekdayPrices: {
           'mon': '',
           'tue': '',
@@ -101,15 +101,6 @@ function TicketModal({onSave, onToggle}: MordalProps) {
 
   const removeTicketPrice = (startDate: string) => {
     setPriceList((prevPrices) => prevPrices.filter((price) => price.startDate !== startDate));
-  }
-
-  const [quantity, setQuantity] = useState<number>(0);
-
-  const handleQuantity = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPrice((prev) => ({
-      ...prev,
-      quantity: event.target.value
-    }))
   }
 
   const handleSave = () => {
@@ -194,7 +185,6 @@ function TicketModal({onSave, onToggle}: MordalProps) {
     ));
   };
 
-
   return (
     <>
       <div className={styles.modal}>
@@ -226,10 +216,6 @@ function TicketModal({onSave, onToggle}: MordalProps) {
                 <p>기본 가격</p>
                 <input id="defaultPrice" name="defaultPrice" type="text" value={defaultPrice} onChange={handleDefaultPrice} placeholder="₩"/>
               </div>
-              <div className={styles.dateInput}>
-                <p>개수</p>
-                <input className={styles.quantityInput} id="defaultPrice" name="defaultPrice" type="text" value={price.quantity} onChange={handleQuantity} placeholder=""/>
-              </div>
           </div>
           <div className={styles.weekDaysPrice}>
             {validWeekDays.map((weekday, idx) => (
@@ -260,8 +246,6 @@ function TicketModal({onSave, onToggle}: MordalProps) {
                               <span>{price.startDate}</span> 
                               <p>종료일</p>
                               <span>{price.endDate}</span>
-                              <p>개수</p>
-                              <span>{price.quantity}</span>
                               <button className={styles.removeBtn} onClick={() => removeTicketPrice(price.startDate)}><IoMdRemoveCircle/></button>                              
                             </div>
                             <div className={styles.priceStatusWeekDayPrice}>

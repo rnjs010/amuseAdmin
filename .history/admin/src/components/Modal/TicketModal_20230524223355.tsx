@@ -11,7 +11,7 @@ interface Ticket {
 type Price = {
   startDate: string,
   endDate: string,
-  quantity: string,
+  quantity: number,
   weekdayPrices: {
     [key: string]: string
   }
@@ -31,7 +31,7 @@ function TicketModal({onSave, onToggle}: MordalProps) {
     {
       startDate: '',
       endDate: '',
-      quantity: '',
+      quantity: 0,
       weekdayPrices: {
         'mon': '',
         'tue': '',
@@ -76,7 +76,7 @@ function TicketModal({onSave, onToggle}: MordalProps) {
       setPrice({
         startDate: '',
         endDate: '',
-        quantity: '',
+        quantity: 0,
         weekdayPrices: {
           'mon': '',
           'tue': '',
@@ -106,10 +106,7 @@ function TicketModal({onSave, onToggle}: MordalProps) {
   const [quantity, setQuantity] = useState<number>(0);
 
   const handleQuantity = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPrice((prev) => ({
-      ...prev,
-      quantity: event.target.value
-    }))
+    setQuantity(parseInt(event.target.value));
   }
 
   const handleSave = () => {
@@ -228,7 +225,7 @@ function TicketModal({onSave, onToggle}: MordalProps) {
               </div>
               <div className={styles.dateInput}>
                 <p>개수</p>
-                <input className={styles.quantityInput} id="defaultPrice" name="defaultPrice" type="text" value={price.quantity} onChange={handleQuantity} placeholder=""/>
+                <input id="defaultPrice" name="defaultPrice" type="text" value={quantity} onChange={handleQuantity} placeholder="0"/>
               </div>
           </div>
           <div className={styles.weekDaysPrice}>
@@ -260,8 +257,6 @@ function TicketModal({onSave, onToggle}: MordalProps) {
                               <span>{price.startDate}</span> 
                               <p>종료일</p>
                               <span>{price.endDate}</span>
-                              <p>개수</p>
-                              <span>{price.quantity}</span>
                               <button className={styles.removeBtn} onClick={() => removeTicketPrice(price.startDate)}><IoMdRemoveCircle/></button>                              
                             </div>
                             <div className={styles.priceStatusWeekDayPrice}>
