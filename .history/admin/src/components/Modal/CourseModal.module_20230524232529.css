@@ -94,6 +94,8 @@
   width: 200px;
 }
 
+.latitude, .longitude {
+}
 
 .input.latitude, .input.longitude {
   width: 200px;
