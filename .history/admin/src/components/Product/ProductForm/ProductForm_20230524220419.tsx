@@ -50,7 +50,7 @@ type Product = {
   admin: string;
   accessAuthority: {
     accessibleUserList: string[],
-    accessibleTier: string
+    accessibleLevel: string
   }
   location: {
     country: string;
@@ -80,10 +80,10 @@ function ProductForm() {
     setIsConcierge((prev) => !prev);
   }
 
-  const userTierList = ['Bronze', 'Silver', 'Gold', 'Platinum'];
+  const userClassList = ['Bronze', 'Silver', 'Gold', 'Platinum'];
 
-  const renderUserTierOptions = () => {
-    return userTierList.map((userClass) => {
+  const renderUserClassOptions = () => {
+    return userClassList.map((userClass) => {
       return (
         <option key={userClass} value={userClass}>
           {userClass}
@@ -92,11 +92,11 @@ function ProductForm() {
     });
   }
 
-const [accessibleTier, setAccessibleTier] = useState<string>('');
+const [accessibleLevel, setAccessibleLevel] = useState<string>('');
 
 
-  const handleAccessibleUserTier = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setAccessibleTier(event.target.value);
+  const handleAccessibleUserClass = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setAccessibleLevel(event.target.value);
   }
 
   const [accessibleUserList, setAccessibleUserList] = useState<string[]>([]);
@@ -234,8 +234,8 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
           city
         },
         accessAuthority: {
-          accessibleUserList,
-          accessibleTier
+          accessibleUserList: [],
+          accessibleLevel: ''
         },
         duration:`${durationNights}박 ${durationDays}일`,
         startDate: listingStartDate,
@@ -301,11 +301,11 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
                   <input className={styles.accessibleUserInput} value={accessibleUser} onChange={handleAccessibleUser} type="text"/>
                   <button className={styles.addBtn} onClick={handleAddAccessibleUser}>추가</button>
                 </div>
-                <div className={styles.accessibleTier}>
+                <div className={styles.accessibleLevel}>
                   <span className={styles.title}>등급 설정</span>
-                  <select value={accessibleTier} onChange={handleAccessibleUserTier}>
+                  <select value={accessibleLevel} onChange={handleAccessibleUserClass}>
                     <option value="">등급 선택</option>
-                    {renderUserTierOptions()}
+                    {renderUserClassOptions()}
                   </select>
                 </div>
               </div>
