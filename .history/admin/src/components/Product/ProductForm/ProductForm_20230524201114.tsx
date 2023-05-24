@@ -77,6 +77,8 @@ function ProductForm() {
 
   const userClassList = ['Bronze', 'Silver', 'Gold', 'Platinum'];
 
+  const [accessibleUserClass, setAccessibleUserClass] = useState<string[]>([]);
+
   const renderUserClassOptions = () => {
     return userClassList.map((userClass) => {
       return (
@@ -86,9 +88,6 @@ function ProductForm() {
       );
     });
   }
-
-const [accessibleUserClass, setAccessibleUserClass] = useState<string[]>([]);
-
 
   const handleAccessibleUserClass = (event: React.ChangeEvent<HTMLSelectElement>) => {
 

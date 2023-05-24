@@ -71,35 +71,6 @@ function ProductForm() {
 
   const [isConcierge ,setIsConcierge] = useState<boolean>(false);
 
-  const handleIsConciergeOrNot = () => {
-    setIsConcierge((prev) => !prev);
-  }
-
-  const userClassList = ['Bronze', 'Silver', 'Gold', 'Platinum'];
-
-  const renderUserClassOptions = () => {
-    return userClassList.map((userClass) => {
-      return (
-        <option key={userClass} value={userClass}>
-          {userClass}
-        </option>
-      );
-    });
-  }
-
-const [accessibleUserClass, setAccessibleUserClass] = useState<string[]>([]);
-
-
-  const handleAccessibleUserClass = (event: React.ChangeEvent<HTMLSelectElement>) => {
-
-  }
-
-  const [accessibleUserList, setAccessibleUserList] = useState<string[]>([]);
-
-  const handleAccessibleUser = () => {
-
-  }
-
   const [category, setCategory] = useState<string[]>([]);
   const [categoryList, setCategoryList] = useState<string[]>([]);
   useEffect(
@@ -272,24 +243,10 @@ const [accessibleUserClass, setAccessibleUserClass] = useState<string[]>([]);
               <span className={styles.title}>상품 코드</span>
               <input className={styles.productId} type="text" onChange={handleProductID}/>
           </div>
-          <div className={styles.isConcierge}>
-            <span>컨시어지 여부</span>
-            <select className={styles.isConciergeCheck} onChange={handleIsConciergeOrNot}/>
+          <div>
+            <label htmlFor="isConcierge">컨시어지 여부</label>
+            <input type="checkbox" id="isConcierge"/>
           </div>
-        </div>
-
-        <div className={`${styles.container} ${styles.accessAuthority}`}>
-            <div className={styles.accessibleUser}>
-              <span className={styles.title}>접근 가능 유저</span>
-              <input value={''} onChange={handleAccessibleUser} type="text"/>
-            </div>
-            <div className={styles.accessibleClass}>
-              <span className={styles.title}>등급 설정</span>
-              <select value={''} onChange={handleAccessibleUserClass}>
-                <option value="">등급 선택</option>
-                {renderUserClassOptions()}
-              </select>
-            </div>
         </div>
 
         <div className={`${styles.container} ${styles.name}`}>

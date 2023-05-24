@@ -77,7 +77,9 @@ function ProductForm() {
 
   const userClassList = ['Bronze', 'Silver', 'Gold', 'Platinum'];
 
-  const renderUserClassOptions = () => {
+  const [accessibleUserClass, setAccessibleUserClass] = useState<string[]>([]);
+
+  const renderUserClass = () => {
     return userClassList.map((userClass) => {
       return (
         <option key={userClass} value={userClass}>
@@ -86,9 +88,6 @@ function ProductForm() {
       );
     });
   }
-
-const [accessibleUserClass, setAccessibleUserClass] = useState<string[]>([]);
-
 
   const handleAccessibleUserClass = (event: React.ChangeEvent<HTMLSelectElement>) => {
 
@@ -286,8 +285,7 @@ const [accessibleUserClass, setAccessibleUserClass] = useState<string[]>([]);
             <div className={styles.accessibleClass}>
               <span className={styles.title}>등급 설정</span>
               <select value={''} onChange={handleAccessibleUserClass}>
-                <option value="">등급 선택</option>
-                {renderUserClassOptions()}
+
               </select>
             </div>
         </div>

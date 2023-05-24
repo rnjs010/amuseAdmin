@@ -17,13 +17,6 @@
   padding-right: 60px;
 }
 
-.container.accessAuthority {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  background-color: #C5C5C5;
-}
-
 .container.name{
   display: flex;
   flex-direction: row;
@@ -96,10 +89,6 @@
   padding: 8px;  
 }
 
-.isConcierge {
-  transform: translateY(-3px);
-}
-
 .isConcierge > span {
   margin-right: 10px;
 }
@@ -107,7 +96,7 @@
 .isConciergeCheck {
   width: 20px;
   height: 20px;
-  transform: translateY(4px);
+  transform: translateY(10px)''
   background-color: var(--color-white);
 }
 

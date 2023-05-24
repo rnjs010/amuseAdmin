@@ -71,26 +71,13 @@ function ProductForm() {
 
   const [isConcierge ,setIsConcierge] = useState<boolean>(false);
 
-  const handleIsConciergeOrNot = () => {
+  const handleIsConciergeOrNot = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsConcierge((prev) => !prev);
   }
 
-  const userClassList = ['Bronze', 'Silver', 'Gold', 'Platinum'];
+  const [accessibleClass, setAccessibleClass] = useState<string[]>([]);
 
-  const renderUserClassOptions = () => {
-    return userClassList.map((userClass) => {
-      return (
-        <option key={userClass} value={userClass}>
-          {userClass}
-        </option>
-      );
-    });
-  }
-
-const [accessibleUserClass, setAccessibleUserClass] = useState<string[]>([]);
-
-
-  const handleAccessibleUserClass = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleAccessibleClass = () => {
 
   }
 
@@ -274,7 +261,7 @@ const [accessibleUserClass, setAccessibleUserClass] = useState<string[]>([]);
           </div>
           <div className={styles.isConcierge}>
             <span>컨시어지 여부</span>
-            <select className={styles.isConciergeCheck} onChange={handleIsConciergeOrNot}/>
+            <input className={styles.isConciergeCheck} type="checkbox" id="isConcierge" onChange={handleIsConciergeOrNot}/>
           </div>
         </div>
 
@@ -285,10 +272,7 @@ const [accessibleUserClass, setAccessibleUserClass] = useState<string[]>([]);
             </div>
             <div className={styles.accessibleClass}>
               <span className={styles.title}>등급 설정</span>
-              <select value={''} onChange={handleAccessibleUserClass}>
-                <option value="">등급 선택</option>
-                {renderUserClassOptions()}
-              </select>
+              <input value={''} onChange={handleAccessibleUser} type="text"/>
             </div>
         </div>
 

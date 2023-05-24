@@ -20,7 +20,6 @@
 .container.accessAuthority {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   background-color: #C5C5C5;
 }
 
