@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-export const AdApiLogic = {
+export const AdLogic = {
 	
 	getAdArr: (async (offset: number, limit: number, page: number) => {
 		const response = await axios.get(`https://ammuse.store/test/api/ad/getList?offset=${offset}&limit=${limit}&page=${page}`)

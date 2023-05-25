@@ -8,7 +8,7 @@ import axios from "axios";
 
 import Table from "../../components/Table/Table";
 import {AdTableColumns} from "../../components/Table/AdTableColumns";
-import {AdApiLogic} from "../../logics/AdLogic";
+import {AdLogic} from "../../logics/AdLogic";
 
 type AdInfo = {
 	id: Number | null;
@@ -41,7 +41,7 @@ const Ad = () => {
 	
 	useEffect(() => {
 		(async () => {
-			const response = await AdApiLogic.getAdArr(offset, limit, page);
+			const response = await AdLogic.getAdArr(offset, limit, page);
 			setAdListArr(response.data)
 			setPageCount(response.pageCount)
 		})();
