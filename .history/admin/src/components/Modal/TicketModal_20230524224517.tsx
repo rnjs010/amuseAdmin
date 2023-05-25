@@ -260,8 +260,6 @@ function TicketModal({onSave, onToggle}: MordalProps) {
                               <span>{price.startDate}</span> 
                               <p>종료일</p>
                               <span>{price.endDate}</span>
-                              <p>개수</p>
-                              <span>{price.quantity}</span>
                               <button className={styles.removeBtn} onClick={() => removeTicketPrice(price.startDate)}><IoMdRemoveCircle/></button>                              
                             </div>
                             <div className={styles.priceStatusWeekDayPrice}>

@@ -8,7 +8,7 @@ import {Editor} from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import ToastEditor from "../../components/ToastEditor";
 import DatePicker from 'react-datepicker';
-import {AdApiLogic} from "../../logics/AdLogic";
+import {AdLogic} from "../../logics/AdLogic";
 import {CategoryLogic} from "../../logics/CategoryLogic";
 import {ImageAttachLogic} from "../../logics/ImageFileAttachLogic";
 
@@ -48,7 +48,7 @@ const AdDetail = () => {
 	useEffect(() => {
 		(async () => {
 			// @ts-ignore
-			const response = await AdApiLogic.getAdDetail(id);
+			const response = await AdLogic.getAdDetail(id);
 			setTitle(response.title)
 			setStartDate(new Date(response.startDate))
 			setEndDate(new Date(response.endDate))
@@ -92,7 +92,7 @@ const AdDetail = () => {
 			return;
 		}
 		
-		await AdApiLogic.updateAdDetail({
+		await AdLogic.updateAdDetail({
 			id: id,
 			title: title,
 			startDate: startDate.toISOString().split("T")[0],

@@ -6,15 +6,9 @@ interface ImageFile {
   base64Data: string
 }
 
-type Location  = {
-  latitude: string,
-  longitude: string
-}
-
 interface Course {
   title: string;
   timeCost: string;
-  location: Location;
   content: string;
   image: ImageFile;
 }
@@ -27,11 +21,6 @@ type MordalProps = {
 function CourseModal({onSave, onToggle}: MordalProps) {
   const [title, setTitle] = useState<string>('');
   const [timeCost, setTimeCost] = useState<string>('');
-  const [location, setLocation] = useState<Location>({
-    latitude: '',
-    longitude: ''
-  });
-
   const [content, setContent] = useState<string>('');
   const [image, setImage] = useState<ImageFile | undefined>();
   
@@ -46,20 +35,6 @@ function CourseModal({onSave, onToggle}: MordalProps) {
   const handleTimeCost = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTimeCost(event.currentTarget.value);
   };
-
-  const handleLatitude = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLocation((prev) => ({
-      ...prev,
-      latitude: event.target.value
-    }))
-  }
-
-  const handleLongitude = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLocation((prev) => ({
-      ...prev,
-      longitude: event.target.value
-    }))
-  }
 
   const handleImg = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -90,7 +65,6 @@ function CourseModal({onSave, onToggle}: MordalProps) {
       const course:Course = {
         title: title,
         timeCost: timeCost,
-        location: location,
         content: content,
         image: image
       };
@@ -113,17 +87,13 @@ function CourseModal({onSave, onToggle}: MordalProps) {
           </div>
           <div className={`${styles.container} ${styles.timeCost}`}>
             <p className={styles.label}>코스 소요시간</p>
-            <input className={`${styles.input} ${styles.timeCost}`} value={timeCost} onChange={handleTimeCost} type="text" placeholder='코스 소요시간을 입력하세요.' />
+            <input className={`${styles.input} ${styles.timeCost}`} value={timeCost} onChange={handleTimeCost} type="text" />
           </div>
           <div className={`${styles.container} ${styles.location}`}>
-            <div className={styles.latitude}>
-              <p className={styles.label}>위도값</p>
-              <input className={`${styles.input} ${styles.latitude}`} value={location.latitude} onChange={handleLatitude} type="text" placeholder='위도값을 입력하세요.' />
-            </div>
-            <div className={styles.longitude}>
-              <p className={styles.label}>경도값</p>
-              <input className={`${styles.input} ${styles.longitude}`} value={location.longitude} onChange={handleLongitude} type="text" placeholder='경도값을 입력하세요.' />
-            </div>
+            <p className={styles.label}>위도</p>
+            <input className={`${styles.input} ${styles.latitude}`} value={latitude} onChange={handleLatitude} type="text" />
+            <p className={styles.label}>경도</p>
+            <input className={`${styles.input} ${styles.logitude}`} value={longitude} onChange={handleLongitude} type="text" />
           </div>
           <div className={`${styles.container} ${styles.content}`}>
             <p className={styles.label}>코스 설명</p>

@@ -234,8 +234,8 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
           city
         },
         accessAuthority: {
-          accessibleUserList,
-          accessibleTier
+          accessibleUserList: [],
+          accessibleTier: ''
         },
         duration:`${durationNights}박 ${durationDays}일`,
         startDate: listingStartDate,

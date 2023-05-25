@@ -1,17 +1,40 @@
-import React, {useEffect} from 'react';
+import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import {usePagination, useRowSelect, useTable} from 'react-table';
 import './table.module.css';
 import {useNavigate} from 'react-router-dom';
 
+interface Props {
+	setStateValue: Dispatch<SetStateAction<any>>;
+	value: any[];
+	route: string;
+	columns: any[];
+	data: any[];
+}
 
 // @ts-ignore
-const SelectableTable = ({route = '', columns, data, pageCount = 1}) => {
+const SelectableTable = ({route = '', columns, data, setStateValue, value}: Props) => {
 	const navigate = useNavigate();
 	
-	const onClickRow = (id: number) => {
-		if (route !== '') navigate(`/${route}/${id}`);
+	const [selected, setSelected] = useState<any>([]);
+
+	const redundancyCheck = (id: string) => {
+		if (selected.some((v: any) => v == id)) {
+			setSelected(selected.filter((v: any) => v !== id));
+			return
+		}
+		setSelected([...selected, id])
+	}
+	
+	const onClickRow = (row: any) => {
+		row.toggleRowSelected();
+		redundancyCheck(row.original.id)
 	};
 	
+	useEffect(() => {
+		console.log(selected)
+		setStateValue(selected)
+		console.log(value)
+	}, [selected])
 	
 	const {
 		getTableProps,
@@ -40,8 +63,11 @@ const SelectableTable = ({route = '', columns, data, pageCount = 1}) => {
 					id: '선택',
 					Header: '선택',
 					Cell: ({row}) => (
-						// <input type="checkbox" {...row.getToggleRowSelectedProps()} />
-                        <input type="checkbox"/>
+						<input
+							type="checkbox"
+							{...row.getToggleRowSelectedProps()}
+							onClick={(e) => e.stopPropagation()} // Stop event propagation to prevent row click event
+						/>
 					),
 				},
 				...columns,
@@ -50,7 +76,6 @@ const SelectableTable = ({route = '', columns, data, pageCount = 1}) => {
 	);
 	
 	const {pageIndex, pageSize} = state;
-	
 	
 	return (
 		<div style={{marginLeft: '5%', width: '90%'}}>
@@ -67,23 +92,20 @@ const SelectableTable = ({route = '', columns, data, pageCount = 1}) => {
 					</thead>
 					
 					<tbody {...getTableBodyProps()}>
-					{page.map((row: any) => {
+					{page.map((row) => {
 						prepareRow(row);
 						return (
-							<tr {...row.getRowProps()} onClick={() => onClickRow(row.original.id)}>
-								{row.cells.map((cell: any) => {
-									return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
-								})}
+							<tr {...row.getRowProps()} onClick={() => onClickRow(row)}>
+								{row.cells.map((cell) => (
+									<td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+								))}
 							</tr>
 						);
 					})}
 					</tbody>
 				</table>
 				
-				<div
-					className="table-pagination"
-					style={{margin: '5px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}
-				>
+				<div className="table-pagination">
 					<button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
 						{'<<'}
 					</button>
@@ -91,7 +113,7 @@ const SelectableTable = ({route = '', columns, data, pageCount = 1}) => {
 						Previous
 					</button>
 					<span>
-            <strong style={{display: 'block', width: '100px', textAlign: 'center'}}>
+            <strong>
               {pageIndex + 1} / {pageOptions.length}
             </strong>
           </span>
@@ -102,10 +124,7 @@ const SelectableTable = ({route = '', columns, data, pageCount = 1}) => {
 						{'>>'}
 					</button>
 				</div>
-				<div
-					className="table-pagesize"
-					style={{margin: '5px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}
-				>
+				<div className="table-pagesize">
 					<select value={pageSize} onChange={(e) => setPageSize(Number(e.target.value))}>
 						{[10, 25, 50].map((pageSize) => (
 							<option key={pageSize} value={pageSize}>

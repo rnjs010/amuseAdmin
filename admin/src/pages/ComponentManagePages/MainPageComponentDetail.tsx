@@ -1,33 +1,27 @@
-import React, {useEffect, useRef, useState} from "react";
-
+import React, {useState, useRef, useEffect} from "react";
 import styles from '../../components/ComponentManage/ComponentManage.module.css'
+
+import {useParams, useNavigate} from "react-router-dom";
 
 import SelectableTable from "../../components/Table/SelectableTable";
 import {ProductTableColumns} from "../../components/Table/ProductTableColumns";
-import {Editor} from "@toast-ui/react-editor";
 import {CategoryLogic} from "../../logics/CategoryLogic";
 import {ItemLogic} from "../../logics/ItemLogic";
+
+import {Editor} from "@toast-ui/react-editor";
 import {ComponentManageLogic} from "../../logics/ComponentManageLogic";
 
-type ProductItem = {
-	id: number
-	title: string
-	categoryNames: string[]
-	createdAt: string
-	createdBy: string
-	updatedAt: string
-	updatedBy: string
-}
 
-const MainPageComponentAdd = () => {
+const MainPageComponentDetail = () => {
+	
+	const {id} = useParams();
+	const navigate = useNavigate();
 	
 	const [category, setCategory] = useState<string[]>([]);
 	const [component, setComponent] = useState<string>("")
 	const [componentType, setComponentType] = useState<string>("리스트");
 	
 	const [productListArr, setProductListArr] = useState<any>([]);
-	
-	const [selected, setSelected] = useState<any[]>([]);
 	
 	const [bannerTitle, setBannerTitle] = useState<string>("");
 	const [parsedHTML, setParsedHTML] = useState<string>("");
@@ -42,6 +36,8 @@ const MainPageComponentAdd = () => {
 	const [mobileBannerUrl, setMobileBannerUrl] = useState<string>("");
 	const [pcBannerLink, setPcBannerLink] = useState("");
 	const [mobileBannerLink, setMobileBannerLink] = useState("");
+	
+	const [selected, setSelected] = useState<any[]>([]);
 	
 	const saveImgFile = (ref: any, setBannerFileName: any, setBanner: any,) => {
 		try {
@@ -65,58 +61,19 @@ const MainPageComponentAdd = () => {
 		setComponentType(event.target.value);
 	};
 	
-	const componentSubmit = async () => {
-		
-		// console.log({
-		// 	title: bannerTitle,
-		// 	type: "배너",
-		// 	createBy: "daw916@naver.com",
-		// 	sequence: 3,
-		// 	pcBannerFileName: pcBannerFileName,
-		// 	pcBannerBase64: pcBanner,
-		// 	pcBannerLink: pcBannerLink,
-		// 	mobileBannerFileName: mobileBannerFileName,
-		// 	mobileBannerBase64: mobileBanner,
-		// 	mobileBannerLink: mobileBannerLink,
-		// 	content: parsedHTML,
-		// 	createdBy: "daw916@naver.com",
-		// 	itemCode: selected
-		// })
-		
-		
-		if (componentType == "리스트") {
-			const response = await ComponentManageLogic.postComponent({
-				title: component,
-				type: "리스트",
-				createBy: "daw916@naver.com",
-				sequence: 3,
-				itemCode: selected
-			})
-			console.log(response)
-			return;
-		}
-		
-		
+	const componentSubmit = () => {
 		if (componentType == "배너") {
-			const response = await ComponentManageLogic.postComponent({
-				title: component,
-				type: "배너",
-				createBy: "daw916@naver.com",
-				sequence: 3,
-				pcBannerFileName: pcBannerFileName,
-				pcBannerBase64: pcBanner,
-				pcBannerLink: pcBannerLink,
-				mobileBannerFileName: mobileBannerFileName,
-				mobileBannerBase64: mobileBanner,
-				mobileBannerLink: mobileBannerLink,
-				content: parsedHTML,
-			})
-			console.log(response)
-			return;
+		
 		}
 	};
 	
 	useEffect(() => {
+		
+		(async () => {
+			const response = await ComponentManageLogic.getMainPageComponentDetail(id);
+			console.log(response)
+		})();
+		
 		(async () => {
 			const response = await CategoryLogic.getCategoryArr();
 			setCategory(response.map((v: any) => (v.displayHashTag)));
@@ -136,11 +93,19 @@ const MainPageComponentAdd = () => {
 	}, [])
 	
 	useEffect(() => {
-	
-	}, [componentType]);
+		console.log(selected)
+	}, [selected]);
 	
 	return (
 		<div className={styles.container}>
+			{id}
+			{
+				category.map((v, i) => (
+					<div key={i}>
+						{v}
+					</div>
+				))
+			}
 			<div className={styles.body}>
 				
 				<p className={styles.p}>
@@ -217,8 +182,7 @@ const MainPageComponentAdd = () => {
 							
 							</p>
 							<SelectableTable
-								route={""} columns={ProductTableColumns} data={productListArr}
-								setStateValue={setSelected} value={selected}
+								route={""} columns={ProductTableColumns} data={productListArr} setStateValue={setSelected} value={selected}
 							/>
 						</div>
 					) : ("")
@@ -433,8 +397,33 @@ const MainPageComponentAdd = () => {
 									<strong>상품 목록</strong>
 								</p>
 								<SelectableTable
-									route={""} columns={ProductTableColumns} data={productListArr}
-									setStateValue={setSelected} value={selected}
+									route={""} columns={ProductTableColumns} data={[
+									{
+										id: 1,
+										product: "[2박 3일] 김에 바다의 역사에 대해서 알아볼까요?",
+										createdAt: "2023-05-17T17:30:47.55265",
+										createdBy: "daw916@naver.com",
+									},
+									{
+										id: 2,
+										product: "[2박 3일] 낭만 가득한 여수 여행",
+										createdAt: "2023-05-17T17:30:47.55265",
+										createdBy: "daw916@naver.com",
+									},
+									{
+										id: 3,
+										product: "[3박 4일] 청춘 가득한 제주 여행",
+										createdAt: "2023-05-17T17:30:47.55265",
+										createdBy: "daw916@naver.com",
+									},
+									{
+										id: 4,
+										product: "[2박 3일] 낭만 가득한 여수 여행",
+										createdAt: "2023-05-17T17:30:47.55265",
+										createdBy: "daw916@naver.com",
+									}]}
+									setStateValue={setSelected}
+									value={selected}
 								/>
 							</p>
 							
@@ -465,9 +454,34 @@ const MainPageComponentAdd = () => {
 									<strong>상품 목록</strong>
 								</p>
 								<SelectableTable
-									route={""} columns={ProductTableColumns} data={productListArr}
-									setStateValue={setSelected} value={selected}
-								/>
+									route={""} columns={ProductTableColumns} data={[
+									{
+										id: 1,
+										product: "[2박 3일] 김에 바다의 역사에 대해서 알아볼까요?",
+										createdAt: "2023-05-17T17:30:47.55265",
+										createdBy: "daw916@naver.com",
+									},
+									{
+										id: 2,
+										product: "[2박 3일] 낭만 가득한 여수 여행",
+										createdAt: "2023-05-17T17:30:47.55265",
+										createdBy: "daw916@naver.com",
+									},
+									{
+										id: 3,
+										product: "[3박 4일] 청춘 가득한 제주 여행",
+										createdAt: "2023-05-17T17:30:47.55265",
+										createdBy: "daw916@naver.com",
+									},
+									{
+										id: 4,
+										product: "[2박 3일] 낭만 가득한 여수 여행",
+										createdAt: "2023-05-17T17:30:47.55265",
+										createdBy: "daw916@naver.com",
+									}]}
+									setStateValue={setSelected}
+									value={selected}
+								 />
 							</p>
 							
 							
@@ -498,8 +512,33 @@ const MainPageComponentAdd = () => {
 								</p>
 								
 								<SelectableTable
-									route={""} columns={ProductTableColumns} data={productListArr}
-									setStateValue={setSelected} value={selected}
+									route={""} columns={ProductTableColumns} data={[
+									{
+										id: 1,
+										product: "[2박 3일] 김에 바다의 역사에 대해서 알아볼까요?",
+										createdAt: "2023-05-17T17:30:47.55265",
+										createdBy: "daw916@naver.com",
+									},
+									{
+										id: 2,
+										product: "[2박 3일] 낭만 가득한 여수 여행",
+										createdAt: "2023-05-17T17:30:47.55265",
+										createdBy: "daw916@naver.com",
+									},
+									{
+										id: 3,
+										product: "[3박 4일] 청춘 가득한 제주 여행",
+										createdAt: "2023-05-17T17:30:47.55265",
+										createdBy: "daw916@naver.com",
+									},
+									{
+										id: 4,
+										product: "[2박 3일] 낭만 가득한 여수 여행",
+										createdAt: "2023-05-17T17:30:47.55265",
+										createdBy: "daw916@naver.com",
+									}]}
+									setStateValue={setSelected}
+									value={selected}
 								/>
 							</p>
 						
@@ -512,7 +551,6 @@ const MainPageComponentAdd = () => {
 					style={{marginBottom: 10}}
 				>
 					<button className={styles.button}
-							onClick={componentSubmit}
 					>
 						등록하기
 					</button>
@@ -525,4 +563,4 @@ const MainPageComponentAdd = () => {
 	
 }
 
-export default MainPageComponentAdd
+export default MainPageComponentDetail;

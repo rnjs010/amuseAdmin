@@ -6,7 +6,7 @@ import {IoMdRemoveCircle} from 'react-icons/io';
 type Price = {
   startDate: string,
   endDate: string,
-  quantity: string,
+  quantity: number,
   weekdayPrices: {
     [key: string]: string
   }

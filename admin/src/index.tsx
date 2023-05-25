@@ -28,6 +28,7 @@ import NoticeRegister from "./pages/NoticePages/NoticeRegister";
 
 import StaffDetail from "./pages/StaffPages/StaffDetail";
 import MainPageComponentAdd from "./pages/ComponentManagePages/MainPageComponentAdd";
+import MainPageComponentDetail from "./pages/ComponentManagePages/MainPageComponentDetail";
 
 const router = createBrowserRouter([
     {
@@ -41,6 +42,7 @@ const router = createBrowserRouter([
             
             {path: '/component', element: <ComponentManage/>},
             {path: '/component/mainpage', element: <MainPageComponentAdd/>},
+            {path: '/component/mainpage/:id', element: <MainPageComponentDetail/>},
             
             // TODO: Deprecated
             {path: '/category', element: <Category/>},

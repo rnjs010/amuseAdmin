@@ -6,7 +6,7 @@ export const ComponentListTableColumn = [
 	},
 	{
 		Header: '컴포넌트명',
-		accessor: 'component'
+		accessor: 'title'
 	},
 	{
 		Header: '순서',
@@ -22,6 +22,6 @@ export const ComponentListTableColumn = [
 	},
 	{
 		Header: '등록자',
-		accessor: 'createdBy'
+		accessor: 'createBy'
 	},
 ];

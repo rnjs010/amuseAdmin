@@ -1,11 +1,6 @@
 import React, {useState, useEffect, useRef} from "react";
 import styles from '../../components/Category/CategoryRegister.module.css'
 
-import axios from "axios";
-import ToastEditor from "../../components/ToastEditor";
-import category from "./Category";
-import {Editor} from "@toast-ui/react-editor";
-import {AdApiLogic} from "../../logics/AdLogic";
 import {CategoryLogic} from "../../logics/CategoryLogic";
 
 const CategoryRegister = () => {
@@ -19,8 +14,6 @@ const CategoryRegister = () => {
 	const [mainDescription, setMainDescription] = useState<string>("")
 	const [subDescription, setSubDescription] = useState<string>("")
 	
-	// const mainDescriptionRef = useRef<Editor>(null);
-	// const subDescriptionRef = useRef<Editor>(null);
 	
 	const saveImgFile = () => {
 		try {

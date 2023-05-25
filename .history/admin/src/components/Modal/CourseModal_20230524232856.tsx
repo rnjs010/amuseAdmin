@@ -118,11 +118,11 @@ function CourseModal({onSave, onToggle}: MordalProps) {
           <div className={`${styles.container} ${styles.location}`}>
             <div className={styles.latitude}>
               <p className={styles.label}>위도값</p>
-              <input className={`${styles.input} ${styles.latitude}`} value={location.latitude} onChange={handleLatitude} type="text" placeholder='위도값을 입력하세요.' />
+              <input className={`${styles.input} ${styles.latitude}`} value={latitude} onChange={handleLatitude} type="text" placeholder='위도값을 입력하세요.' />
             </div>
             <div className={styles.longitude}>
               <p className={styles.label}>경도값</p>
-              <input className={`${styles.input} ${styles.longitude}`} value={location.longitude} onChange={handleLongitude} type="text" placeholder='경도값을 입력하세요.' />
+              <input className={`${styles.input} ${styles.longitude}`} value={longitude} onChange={handleLongitude} type="text" placeholder='경도값을 입력하세요.' />
             </div>
           </div>
           <div className={`${styles.container} ${styles.content}`}>

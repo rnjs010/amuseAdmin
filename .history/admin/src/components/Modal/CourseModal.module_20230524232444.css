@@ -78,7 +78,6 @@
 
 .container.location {
   display: flex;
-  justify-content: space-between;
 }
 
 .container.img{
@@ -93,7 +92,6 @@
 .input.timeCost{
   width: 200px;
 }
-
 
 .input.latitude, .input.longitude {
   width: 200px;

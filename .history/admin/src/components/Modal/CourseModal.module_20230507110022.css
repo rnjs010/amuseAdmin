@@ -76,11 +76,6 @@
   margin-bottom: 10px;
 }
 
-.container.location {
-  display: flex;
-  justify-content: space-between;
-}
-
 .container.img{
   display: flex;
   flex-direction: column;
@@ -91,11 +86,6 @@
 }
 
 .input.timeCost{
-  width: 200px;
-}
-
-
-.input.latitude, .input.longitude {
   width: 200px;
 }
 
