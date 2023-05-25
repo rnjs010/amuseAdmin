@@ -386,9 +386,9 @@ const MainPageComponentAdd = () => {
 				{
 					(componentType == "타일") ? (
 						<div>
-							타일 개수 3개로 가정한 것
-							n 개의 타일 개수 입력받아서 아래 형식 n개로 나타낼 예정
-							테이블마다 검색기능 필요
+							{/*타일 개수 3개로 가정한 것*/}
+							{/*n 개의 타일 개수 입력받아서 아래 형식 n개로 나타낼 예정*/}
+							{/*테이블마다 검색기능 필요*/}
 							<p className={styles.p}>
 								<div
 									className={styles.pTitle}
