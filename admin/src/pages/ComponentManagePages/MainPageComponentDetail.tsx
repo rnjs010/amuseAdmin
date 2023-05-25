@@ -61,32 +61,17 @@ const MainPageComponentDetail = () => {
 		setComponentType(event.target.value);
 	};
 	
-	const componentSubmit = () => {
-		if (componentType == "배너") {
-		
-		}
-	};
-	
 	useEffect(() => {
 		
 		(async () => {
 			const response = await ComponentManageLogic.getMainPageComponentDetail(id);
 			console.log(response)
-		})();
-		
-		(async () => {
-			const response = await CategoryLogic.getCategoryArr();
-			setCategory(response.map((v: any) => (v.displayHashTag)));
-		})();
-		
-		(async () => {
-			const response = await ItemLogic.getProductItems({
-				"option": 1,
-				"page": 0,
-				"limit": 100,
-				"categoryNames": category
-			})
-			setProductListArr(response);
+			setComponent(response.title)
+			setComponentType(response.type)
+			setProductListArr(response.itemCode)
+			
+			setPcBannerUrl(response.pcBannerImgUrl)
+			setMobileBannerUrl(response.mobileBannerImgUrl)
 		})();
 		
 		
@@ -98,16 +83,17 @@ const MainPageComponentDetail = () => {
 	
 	return (
 		<div className={styles.container}>
-			{id}
-			{
-				category.map((v, i) => (
-					<div key={i}>
-						{v}
-					</div>
-				))
-			}
+			
 			<div className={styles.body}>
 				
+				
+				<p className={styles.p}>
+					<div
+						className={styles.pTitle}
+					>
+						<strong>ID: {id}</strong>
+					</div>
+				</p>
 				<p className={styles.p}>
 					<div
 						className={styles.pTitle}
@@ -119,6 +105,7 @@ const MainPageComponentDetail = () => {
 						   type="text"
 						   name="componentName"
 						   placeholder="컴포넌트 이름을 입력하세요"
+						   value={component}
 						   onChange={(e) => setComponent(e.target.value)}
 					/>
 				</p>
@@ -129,44 +116,12 @@ const MainPageComponentDetail = () => {
 					>
 						<strong>타입</strong>
 					</div>
-					
 					<div
-						style={{display: "flex", flexDirection: "row"}}
+						className={styles.pTitle}
 					>
-						<div
-							style={{display: "flex", flexDirection: "row", alignItems: "center", marginRight: 10}}
-						>
-							<input type="radio"
-								   checked={componentType == "리스트"}
-								   value={"리스트"}
-								   id={"List"}
-								   onChange={radioComponentTypeHandler}
-							/>
-							<div> 리스트</div>
-						</div>
-						
-						<div
-							style={{display: "flex", flexDirection: "row", alignItems: "center", marginRight: 10}}
-						>
-							<input type="radio"
-								   checked={componentType == "배너"}
-								   value={"배너"}
-								   id={"Banner"}
-								   onChange={radioComponentTypeHandler}/>
-							<div> 배너</div>
-						</div>
-						
-						<div
-							style={{display: "flex", flexDirection: "row", alignItems: "center", marginRight: 10}}
-						>
-							<input type="radio"
-								   checked={componentType == "타일"}
-								   value={"타일"}
-								   id={"Tile"}
-								   onChange={radioComponentTypeHandler}/>
-							<div> 타일</div>
-						</div>
+						{componentType}
 					</div>
+				
 				</p>
 				
 				{
@@ -181,9 +136,13 @@ const MainPageComponentDetail = () => {
 							
 							
 							</p>
-							<SelectableTable
-								route={""} columns={ProductTableColumns} data={productListArr} setStateValue={setSelected} value={selected}
-							/>
+							{
+								productListArr.map((v: any, i: any) => (
+									<div key={i}>
+										상품코드: {v}
+									</div>
+								))
+							}
 						</div>
 					) : ("")
 				}
@@ -191,20 +150,20 @@ const MainPageComponentDetail = () => {
 				{
 					(componentType == "배너") ? (
 						<div>
-							<p className={styles.p}>
-								<div
-									className={styles.pTitle}
-								>
-									<strong>배너 제목</strong>
-								</div>
-								
-								<input className={styles.textInput}
-									   type="text"
-									   name="adName"
-									   placeholder="등록할 광고의 이름을 입력해주세요."
-									   onChange={(e) => setBannerTitle(e.target.value)}
-								/>
-							</p>
+							{/*<p className={styles.p}>*/}
+							{/*	<div*/}
+							{/*		className={styles.pTitle}*/}
+							{/*	>*/}
+							{/*		<strong>배너 제목</strong>*/}
+							{/*	</div>*/}
+							{/*	*/}
+							{/*	<input className={styles.textInput}*/}
+							{/*		   type="text"*/}
+							{/*		   name="adName"*/}
+							{/*		   placeholder="등록할 광고의 이름을 입력해주세요."*/}
+							{/*		   onChange={(e) => setBannerTitle(e.target.value)}*/}
+							{/*	/>*/}
+							{/*</p>*/}
 							
 							<p className={styles.p}>
 								<strong>PC 배너</strong>
@@ -481,7 +440,7 @@ const MainPageComponentDetail = () => {
 									}]}
 									setStateValue={setSelected}
 									value={selected}
-								 />
+								/>
 							</p>
 							
 							
