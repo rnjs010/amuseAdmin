@@ -15,6 +15,7 @@ function Header() {
 				<button onClick={() => navigate('/category')}>카테고리 관리</button>
 				<button onClick={() => navigate('/product/create')}>여행 상품 관리</button>
 				<button onClick={() => navigate('/ad')}>광고 관리</button>
+				<button onClick={() => navigate('/staff')}>가이드 관리</button>
 				<button>기타 관리</button>
 			</div>
 		</div>

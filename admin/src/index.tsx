@@ -59,7 +59,7 @@ const router = createBrowserRouter([
             {path: '/notice/:id', element: <NoticeDetail/>},
             {path: '/notice/register', element: <NoticeRegister/>},
             
-            {path: '/staff/:id', element: <StaffDetail/>}
+            {path: '/staff', element: <StaffDetail/>}
         ]
     }
 ])
