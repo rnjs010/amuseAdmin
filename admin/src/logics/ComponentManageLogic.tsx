@@ -9,7 +9,7 @@ export const ComponentManageLogic = {
 	
 	getMainPageComponentDetail: (async (id: any) => {
 		const response = await axios.get(`https://ammuse.store/test/api/mainPage/${id}`)
-		return response;
+		return response.data.data;
 	}),
 	
 	postComponent: (async (data: any) => {
