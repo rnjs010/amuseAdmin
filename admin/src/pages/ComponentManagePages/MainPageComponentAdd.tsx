@@ -67,23 +67,6 @@ const MainPageComponentAdd = () => {
 	
 	const componentSubmit = async () => {
 		
-		// console.log({
-		// 	title: bannerTitle,
-		// 	type: "배너",
-		// 	createBy: "daw916@naver.com",
-		// 	sequence: 3,
-		// 	pcBannerFileName: pcBannerFileName,
-		// 	pcBannerBase64: pcBanner,
-		// 	pcBannerLink: pcBannerLink,
-		// 	mobileBannerFileName: mobileBannerFileName,
-		// 	mobileBannerBase64: mobileBanner,
-		// 	mobileBannerLink: mobileBannerLink,
-		// 	content: parsedHTML,
-		// 	createdBy: "daw916@naver.com",
-		// 	itemCode: selected
-		// })
-		
-		
 		if (componentType == "리스트") {
 			const response = await ComponentManageLogic.postComponent({
 				title: component,
