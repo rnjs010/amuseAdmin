@@ -1,14 +1,13 @@
 import React from "react";
 import {useParams} from "react-router-dom";
+import GuideModal from './GuideModal';
 
 const StaffDetail = () => {
 	
-	const { id } = useParams()
-	
-	
+
 	return(
-		<div>
-			{id}
+		<div style={{margin: '18px'}}>
+			<GuideModal />
 		</div>
 	)
 }
