@@ -138,9 +138,9 @@ const MainPageComponentDetail = () => {
 							</p>
 							{
 								productListArr.map((v: any, i: any) => (
-									<div key={i}>
+									<p className={styles.p} key={i}>
 										상품코드: {v}
-									</div>
+									</p>
 								))
 							}
 						</div>
