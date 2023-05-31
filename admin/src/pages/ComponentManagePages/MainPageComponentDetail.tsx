@@ -12,6 +12,7 @@ import {Editor} from "@toast-ui/react-editor";
 import {ComponentManageLogic} from "../../logics/ComponentManageLogic";
 
 
+
 const MainPageComponentDetail = () => {
 	
 	const {id} = useParams();
@@ -326,9 +327,6 @@ const MainPageComponentDetail = () => {
 				{
 					(componentType == "타일") ? (
 						<div>
-							{/*타일 개수 3개로 가정한 것*/}
-							{/*n 개의 타일 개수 입력받아서 아래 형식 n개로 나타낼 예정*/}
-							{/*테이블마다 검색기능 필요*/}
 							<p className={styles.p}>
 								<div
 									className={styles.pTitle}
@@ -355,153 +353,14 @@ const MainPageComponentDetail = () => {
 								<p className={styles.p}>
 									<strong>상품 목록</strong>
 								</p>
+								
 								<SelectableTable
-									route={""} columns={ProductTableColumns} data={[
-									{
-										id: 1,
-										product: "[2박 3일] 김에 바다의 역사에 대해서 알아볼까요?",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									},
-									{
-										id: 2,
-										product: "[2박 3일] 낭만 가득한 여수 여행",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									},
-									{
-										id: 3,
-										product: "[3박 4일] 청춘 가득한 제주 여행",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									},
-									{
-										id: 4,
-										product: "[2박 3일] 낭만 가득한 여수 여행",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									}]}
+									route={""} columns={ProductTableColumns} data={[]}
 									setStateValue={setSelected}
 									value={selected}
 								/>
 							</p>
 							
-							<p className={styles.p}>
-								<div
-									className={styles.pTitle}
-								>
-									<strong>타일명</strong>
-								</div>
-								
-								<input className={styles.textInput}
-									   type="text"
-									   name="tileName"
-									   placeholder="타일 이름을 입력하세요"
-								/>
-								
-								<p className={styles.p}>
-									<strong>타일 사진 추가</strong>
-									<input
-										type="file"
-										accept="image/*"
-									/>
-								
-								</p>
-								
-								
-								<p className={styles.p}>
-									<strong>상품 목록</strong>
-								</p>
-								<SelectableTable
-									route={""} columns={ProductTableColumns} data={[
-									{
-										id: 1,
-										product: "[2박 3일] 김에 바다의 역사에 대해서 알아볼까요?",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									},
-									{
-										id: 2,
-										product: "[2박 3일] 낭만 가득한 여수 여행",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									},
-									{
-										id: 3,
-										product: "[3박 4일] 청춘 가득한 제주 여행",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									},
-									{
-										id: 4,
-										product: "[2박 3일] 낭만 가득한 여수 여행",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									}]}
-									setStateValue={setSelected}
-									value={selected}
-								/>
-							</p>
-							
-							
-							<p className={styles.p}>
-								<div
-									className={styles.pTitle}
-								>
-									<strong>타일명</strong>
-								</div>
-								
-								<input className={styles.textInput}
-									   type="text"
-									   name="tileName"
-									   placeholder="타일 이름을 입력하세요"
-								/>
-								
-								<p className={styles.p}>
-									<strong>타일 사진 추가</strong>
-									<input
-										type="file"
-										accept="image/*"
-									/>
-								
-								</p>
-								
-								<p className={styles.p}>
-									<strong>상품 목록</strong>
-								</p>
-								
-								<SelectableTable
-									route={""} columns={ProductTableColumns} data={[
-									{
-										id: 1,
-										product: "[2박 3일] 김에 바다의 역사에 대해서 알아볼까요?",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									},
-									{
-										id: 2,
-										product: "[2박 3일] 낭만 가득한 여수 여행",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									},
-									{
-										id: 3,
-										product: "[3박 4일] 청춘 가득한 제주 여행",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									},
-									{
-										id: 4,
-										product: "[2박 3일] 낭만 가득한 여수 여행",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									}]}
-									setStateValue={setSelected}
-									value={selected}
-								/>
-							</p>
-						
-						
 						</div>
 					) : ("")
 				}
