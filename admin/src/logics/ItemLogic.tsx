@@ -12,5 +12,15 @@ export const ItemLogic = {
 		return response.data.data;
 	}),
 	
+	getProductItemsFromTitle: (async (page: any, keyword: string) => {
+		const response = await axios.get(`https://ammuse.store/search/title/page=${page}?keyword=${keyword}`)
+		return response.data.data;
+	}),
+	
+	getProductItemsFromContent: (async (page: any, keyword: string) => {
+		const response = await axios.get(`https://ammuse.store/search/content/page=${page}?keyword=${keyword}`)
+		return response.data.data;
+	}),
+	
 }
 
