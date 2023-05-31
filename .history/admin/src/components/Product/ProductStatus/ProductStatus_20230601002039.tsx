@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import axiosInstance from '../../../services/axiosInstance';
 import styles from './ProductStatus.module.css';
-import { useNavigate } from 'react-router-dom';
 
 function ProductStatus() {
-  const navigate = useNavigate();
-
-  const [activeItemList, setActiveItemList] = useState([{}]);
+  const [activeItemList, setActiveItemList] = useState([
+    {}
+  ]);
   useEffect(() => {
     axiosInstance.get('/main/current-item')
   .then((res) => {
@@ -33,7 +32,7 @@ function ProductStatus() {
           {activeItemList.map((item:any) => (
             <li className={styles.activeItem}>
               <img className={styles.activeImg}src={item.imageUrl} alt="" />
-              <button onClick={() => navigate(`/product/edit/${item.product_code}`)}>수정하기</button>
+              <button>수정하기</button>
               <button>삭제하기</button>
               <div className={styles.productCodeContainer}>
                 <p className={styles.label}>상품 코드</p>
