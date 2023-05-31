@@ -26,18 +26,17 @@ function ProductStatus() {
   return (
     <div>
       <div className={styles.activeItemContainer}>
-        <div className={styles.title}>활성화 상품</div>
-        <div className={styles.divider}></div>
+        <div>활성화 상품</div>
         <ul className={styles.activeItemList}>
           {activeItemList.map((item:any) => (
             <li className={styles.activeItem}>
               <img className={styles.activeImg}src={item.imageUrl} alt="" />
               <div className={styles.productCodeContainer}>
-                <p className={styles.label}>상품 코드</p>
+                <p>상품 코드</p>
                 <p>{item.product_code}</p>
               </div>
-              <div className={styles.productTitleContainer}>
-                <p className={styles.label}>제목</p>
+              <div className={styles.titleContainer}>
+                <p>제목</p>
                 <p>{item.title}</p>
               </div>
               
@@ -46,10 +45,8 @@ function ProductStatus() {
         </ul>
       </div>
 
-      <div className={styles.inActiveItemContainer}>
-        <div className={styles.title}>비활성화 상품</div>
-        <div className={styles.divider}></div>
-
+      <div>
+        <p>비활성화 상품</p>
       </div>
     </div>
   );

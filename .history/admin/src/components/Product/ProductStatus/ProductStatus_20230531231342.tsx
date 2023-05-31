@@ -46,10 +46,8 @@ function ProductStatus() {
         </ul>
       </div>
 
-      <div className={styles.inActiveItemContainer}>
+      <div className={styles.InActiveItemContainer}>
         <div className={styles.title}>비활성화 상품</div>
-        <div className={styles.divider}></div>
-
       </div>
     </div>
   );

@@ -27,7 +27,6 @@ function ProductStatus() {
     <div>
       <div className={styles.activeItemContainer}>
         <div className={styles.title}>활성화 상품</div>
-        <div className={styles.divider}></div>
         <ul className={styles.activeItemList}>
           {activeItemList.map((item:any) => (
             <li className={styles.activeItem}>
@@ -46,10 +45,8 @@ function ProductStatus() {
         </ul>
       </div>
 
-      <div className={styles.inActiveItemContainer}>
-        <div className={styles.title}>비활성화 상품</div>
-        <div className={styles.divider}></div>
-
+      <div>
+        <p>비활성화 상품</p>
       </div>
     </div>
   );
