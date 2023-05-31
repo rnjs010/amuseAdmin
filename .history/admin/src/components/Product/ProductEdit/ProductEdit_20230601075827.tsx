@@ -67,13 +67,18 @@ type Product = {
 
 function ProductEdit() {
   const params = useParams();
-  const productId = params.productId || '';
+  const productId = params.productId;
   useEffect(() => {
     axiosInstance.get(`/test/api/product/${productId}`)
       .then((res) => console.log(res));
   }, [])
-  
 
+  function ProductForm() {
+    const [productId, setProductId] = useState<string>('');
+  
+    const handleProductID = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setProductId(event.target.value);
+    }
   
     const [isConcierge ,setIsConcierge] = useState<boolean>(false);
   
@@ -270,7 +275,7 @@ function ProductEdit() {
     }
   
   return (
-    <div className={styles.productForm}>
+<div className={styles.productForm}>
         <div className={`${styles.container} ${styles.idAndCategory}`}>
           <div className={styles.category}>
             <span className={styles.title}>여행 카테고리</span>
@@ -286,7 +291,7 @@ function ProductEdit() {
           </div>
           <div className={styles.code}>
               <span className={styles.title}>상품 코드</span>
-              {/* <input className={styles.productId} type="text" onChange={handleProductID}/> */}
+              <input className={styles.productId} type="text" onChange={handleProductID}/>
           </div>
           <div className={styles.isConcierge}>
             <span>컨시어지 여부</span>
@@ -379,5 +384,6 @@ function ProductEdit() {
     </div>
   );
   }
+}
 
 export default ProductEdit;
