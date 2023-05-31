@@ -14,7 +14,6 @@
 }
 
 .dropdownContainer{
-    margin-bottom: 30px;
 }
 
 .dropdownHeader{
@@ -54,6 +53,14 @@
     flex-direction: row;
     flex-wrap: wrap;
     margin-top: 5px;
+}
+
+.searchTextInput{
+    border: 1px solid;
+}
+
+.searchTextInput:focus-visible{
+    border: 1px solid;
 }
 
 
