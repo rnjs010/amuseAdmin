@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom';
 
 interface Props {
 	setStateValue: Dispatch<SetStateAction<any>>;
-	value: any[];
+	value: any[] | number | null;
 	route: string;
 	columns: any[];
 	data: any[];

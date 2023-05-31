@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState, ChangeEvent} from "react";
 
 import styles from '../../components/ComponentManage/ComponentManage.module.css'
 
@@ -19,29 +19,57 @@ type ProductItem = {
 	updatedBy: string
 }
 
+interface TileData {
+	tileName: string;
+	tileFileName: string | null;
+	tileBase64: string | null;
+	itemCode: number | null;
+}
+
 const MainPageComponentAdd = () => {
 	
 	const [category, setCategory] = useState<string[]>([]);
-	const [component, setComponent] = useState<string>("")
-	const [componentType, setComponentType] = useState<string>("리스트");
-	
 	const [productListArr, setProductListArr] = useState<any>([]);
 	
+	const [component, setComponent] = useState<string>("")
+	
+	const [componentType, setComponentType] = useState<string>("리스트");
+	
+	// 리스트, 타일
 	const [selected, setSelected] = useState<any[]>([]);
 	
+	// 배너
 	const [bannerTitle, setBannerTitle] = useState<string>("");
-	const [parsedHTML, setParsedHTML] = useState<string>("");
-	const parsedHTMLRef = useRef<Editor>(null);
-	const [pcBannerFileName, setPcBannerFileName] = useState("");
-	const [pcBanner, setPcBanner] = useState("");
+	
 	const pcBannerRef = useRef<HTMLInputElement | null>(null);
 	const [pcBannerUrl, setPcBannerUrl] = useState<string>("");
-	const [mobileBannerFileName, setMobileBannerFileName] = useState("");
-	const [mobileBanner, setMobileBanner] = useState("");
+	const [pcBanner, setPcBanner] = useState("");
+	const [pcBannerLink, setPcBannerLink] = useState("");
+	const [pcBannerFileName, setPcBannerFileName] = useState("");
+	
 	const mobileBannerRef = useRef<HTMLInputElement | null>(null);
 	const [mobileBannerUrl, setMobileBannerUrl] = useState<string>("");
-	const [pcBannerLink, setPcBannerLink] = useState("");
+	const [mobileBanner, setMobileBanner] = useState("");
 	const [mobileBannerLink, setMobileBannerLink] = useState("");
+	const [mobileBannerFileName, setMobileBannerFileName] = useState("");
+	
+	const [parsedHTML, setParsedHTML] = useState<string>("");
+	const parsedHTMLRef = useRef<Editor>(null);
+	
+	// 배너
+	const [tileCount, setTileCount] = useState<number>(1);
+	const [tileData, setTileData] = useState<TileData[]>([]); // 타일 데이터 배열
+	
+	const [isOpen, setIsOpen] = React.useState<boolean>(false);
+	const onToggle = () => setIsOpen(!isOpen);
+	const onOptionClicked = (value: string, index: number) => () => {
+		console.log(value);
+		setIsOpen(false);
+	};
+	
+	const radioComponentTypeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setComponentType(event.target.value);
+	};
 	
 	const saveImgFile = (ref: any, setBannerFileName: any, setBanner: any,) => {
 		try {
@@ -61,8 +89,102 @@ const MainPageComponentAdd = () => {
 		}
 	};
 	
-	const radioComponentTypeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setComponentType(event.target.value);
+	const renderTileBlock = (index: number) => (
+		<div key={index}>
+			<div className={styles.pTitle}>
+				<strong>타일명</strong>
+			</div>
+			<input
+				className={styles.textInput}
+				type="text"
+				name="tileName"
+				placeholder="타일 이름을 입력하세요"
+				value={tileData[index]?.tileName || ""}
+				onChange={(event) => handleTileNameChange(index, event)}
+			/>
+			<p className={styles.p}>
+				<strong>타일 사진 추가</strong>
+				<input
+					type="file"
+					accept="image/*"
+					onChange={(event) => handleImageUpload(index, event)}
+				/>
+			
+			</p>
+			<p className={styles.p}>
+				<strong>상품 목록</strong>
+			</p>
+			<SelectableTable
+				route={""}
+				columns={ProductTableColumns}
+				data={productListArr}
+				setStateValue={(itemCode) => handleProductSelect(index, itemCode)}
+				value={tileData[index]?.itemCode || null}
+			/>
+		</div>
+	);
+	
+	const DropDown = () => {
+		return (
+			<div className={styles.dropdownContainer}>
+				<div className={styles.dropdownHeader} onClick={onToggle}>
+					<p>검색 조건 ▼</p>
+				</div>
+				<div
+				>
+					<ul>
+						{isOpen && (
+							<>
+								<li className={styles.li} onClick={onOptionClicked("상품코드", 1)}>상품코드 검색</li>
+								<li className={styles.li} onClick={onOptionClicked("카테고리", 2)}>카테고리 검색</li>
+								<li className={styles.li} onClick={onOptionClicked("제목", 2)}>제목 검색</li>
+								<li className={styles.li} onClick={onOptionClicked("내용", 2)}>내용 검색</li>
+							</>
+						)}
+					</ul>
+				</div>
+			</div>
+		);
+	};
+	
+	const handleTileNameChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
+		const {value} = event.target;
+		const newData = [...tileData];
+		newData[index] = {...newData[index], tileName: value};
+		setTileData(newData);
+	};
+	
+	
+	const handleImageUpload = (index: number, event: ChangeEvent<HTMLInputElement>) => {
+		const file = event.target.files?.[0] || null;
+		const reader = new FileReader();
+		
+		if (file) {
+			reader.onloadend = () => {
+				const base64 = reader.result as string;
+				const fileName = file.name;
+				const newData = [...tileData];
+				newData[index] = {...newData[index], tileFileName: fileName, tileBase64: base64};
+				setTileData(newData);
+			};
+			
+			reader.readAsDataURL(file);
+		} else {
+			const newData = [...tileData];
+			newData[index] = {...newData[index], tileFileName: null, tileBase64: null};
+			setTileData(newData);
+		}
+	};
+	
+	const handleProductSelect = (index: number, itemCode: number) => {
+		const newData = [...tileData];
+		newData[index] = {...newData[index], itemCode};
+		setTileData(newData);
+	};
+	
+	const handleSave = () => {
+		// 타일 데이터 저장 처리
+		console.log(tileData);
 	};
 	
 	const componentSubmit = async () => {
@@ -75,6 +197,11 @@ const MainPageComponentAdd = () => {
 				sequence: 3,
 				itemCode: selected
 			})
+				.then(() => {
+					window.confirm("등록되었습니다.");
+					window.history.back();
+				})
+				.catch(e => window.confirm(e))
 			console.log(response)
 			return;
 		}
@@ -94,9 +221,41 @@ const MainPageComponentAdd = () => {
 				mobileBannerLink: mobileBannerLink,
 				content: parsedHTML,
 			})
+				.then(() => {
+					window.confirm("등록되었습니다.");
+					window.history.back();
+				})
+				.catch(e => window.confirm(e))
 			console.log(response)
 			return;
 		}
+		
+		if (componentType == "타일") {
+			const response = await ComponentManageLogic.postComponent({
+				title: component,
+				type: "타일",
+				createBy: "daw916@naver.com",
+				sequence: 3,
+				tile: tileData
+			})
+				.then(() => {
+					window.confirm("등록되었습니다.");
+					window.history.back();
+				})
+				.catch(e => window.confirm(e))
+			console.log(response)
+		}
+		
+		console.log(JSON.stringify(
+			{
+				title: component,
+				type: "타일",
+				createBy: "daw916@naver.com",
+				sequence: 3,
+				tile: tileData
+			}
+			, null, 4));
+		
 	};
 	
 	useEffect(() => {
@@ -108,7 +267,7 @@ const MainPageComponentAdd = () => {
 		(async () => {
 			const response = await ItemLogic.getProductItems({
 				"option": 1,
-				"page": 0,
+				"page": 1,
 				"limit": 100,
 				"categoryNames": category
 			})
@@ -117,10 +276,6 @@ const MainPageComponentAdd = () => {
 		
 		
 	}, [])
-	
-	useEffect(() => {
-	
-	}, [componentType]);
 	
 	return (
 		<div className={styles.container}>
@@ -196,9 +351,12 @@ const MainPageComponentAdd = () => {
 								>
 									<strong>상품목록</strong>
 								</div>
-							
-							
 							</p>
+							
+							<div>
+								<DropDown/>
+							</div>
+							
 							<SelectableTable
 								route={""} columns={ProductTableColumns} data={productListArr}
 								setStateValue={setSelected} value={selected}
@@ -386,106 +544,61 @@ const MainPageComponentAdd = () => {
 				{
 					(componentType == "타일") ? (
 						<div>
-							{/*타일 개수 3개로 가정한 것*/}
-							{/*n 개의 타일 개수 입력받아서 아래 형식 n개로 나타낼 예정*/}
-							{/*테이블마다 검색기능 필요*/}
 							<p className={styles.p}>
 								<div
 									className={styles.pTitle}
 								>
-									<strong>타일명</strong>
+									<strong>추가할 타일 개수</strong>
 								</div>
 								
-								<input className={styles.textInput}
-									   type="text"
-									   name="tileName"
-									   placeholder="타일 이름을 입력하세요"
-								/>
-								
-								<p className={styles.p}>
-									<strong>타일 사진 추가</strong>
-									<input
-										type="file"
-										accept="image/*"
-									/>
-								
-								</p>
-								
-								
-								<p className={styles.p}>
-									<strong>상품 목록</strong>
-								</p>
-								<SelectableTable
-									route={""} columns={ProductTableColumns} data={productListArr}
-									setStateValue={setSelected} value={selected}
-								/>
-							</p>
-							
-							<p className={styles.p}>
 								<div
-									className={styles.pTitle}
+									style={{display: "flex", flexDirection: "row", alignItems: "center"}}
 								>
-									<strong>타일명</strong>
-								</div>
-								
-								<input className={styles.textInput}
-									   type="text"
-									   name="tileName"
-									   placeholder="타일 이름을 입력하세요"
-								/>
-								
-								<p className={styles.p}>
-									<strong>타일 사진 추가</strong>
-									<input
-										type="file"
-										accept="image/*"
+									<input className={styles.textInput}
+										   type="text"
+										   name="tileCount"
+										   value={tileCount}
 									/>
-								
-								</p>
-								
-								
-								<p className={styles.p}>
-									<strong>상품 목록</strong>
-								</p>
-								<SelectableTable
-									route={""} columns={ProductTableColumns} data={productListArr}
-									setStateValue={setSelected} value={selected}
-								/>
+									
+									<button
+										style={{
+											display: "flex",
+											alignItems: "center",
+											justifyContent: "center",
+											width: 30,
+											height: 30,
+											border: "1px solid"
+										}}
+										onClick={() => setTileCount(tileCount + 1)}
+									>
+										<div>
+											+
+										</div>
+									</button>
+									
+									<button
+										style={{
+											display: "flex",
+											alignItems: "center",
+											justifyContent: "center",
+											width: 30,
+											height: 30,
+											border: "1px solid"
+										}}
+										onClick={() => setTileCount(tileCount - 1)}
+									>
+										<div>
+											-
+										</div>
+									</button>
+								</div>
 							</p>
 							
-							
-							<p className={styles.p}>
-								<div
-									className={styles.pTitle}
-								>
-									<strong>타일명</strong>
-								</div>
-								
-								<input className={styles.textInput}
-									   type="text"
-									   name="tileName"
-									   placeholder="타일 이름을 입력하세요"
-								/>
-								
-								<p className={styles.p}>
-									<strong>타일 사진 추가</strong>
-									<input
-										type="file"
-										accept="image/*"
-									/>
-								
-								</p>
-								
-								<p className={styles.p}>
-									<strong>상품 목록</strong>
-								</p>
-								
-								<SelectableTable
-									route={""} columns={ProductTableColumns} data={productListArr}
-									setStateValue={setSelected} value={selected}
-								/>
-							</p>
-						
+							{
+								Array(tileCount)
+									.fill([])
+									.map((_, index) => renderTileBlock(index))
+							}
 						
 						</div>
 					) : ("")
