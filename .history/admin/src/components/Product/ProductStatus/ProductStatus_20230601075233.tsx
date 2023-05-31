@@ -33,11 +33,9 @@ function ProductStatus() {
           {activeItemList.map((item:any) => (
             <li className={styles.activeItem}>
               <img className={styles.activeImg}src={item.imageUrl} alt="" />
-              <div className={styles.btnContainer}>
-                <button onClick={() => navigate(`/product/edit/${item.product_code}`)}>수정</button>
-                <button>삭제</button>
-                <button>비활성화</button>
-              </div>
+              <button onClick={() => navigate(`/product/edit/${item.product_code}`)}>수정</button>
+              <button>삭제</button>
+              <button>비활성화</button>
               <div className={styles.productCodeContainer}>
                 <p className={styles.label}>상품 코드</p>
                 <p>{item.product_code}</p>

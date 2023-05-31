@@ -18,7 +18,6 @@
 
 .btnContainer {
   display: flex;
-  justify-content: space-around;
 }
 .title {
   font-size: 20px;
