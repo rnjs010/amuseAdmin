@@ -62,10 +62,14 @@ const MainPageComponentAdd = () => {
 	
 	const [isOpen, setIsOpen] = React.useState<boolean>(false);
 	const onToggle = () => setIsOpen(!isOpen);
+	const [option, setOption] = useState<string>("검색조건")
 	const onOptionClicked = (value: string, index: number) => () => {
 		console.log(value);
+		setOption(value)
 		setIsOpen(false);
 	};
+	
+	const [keyword, setKeyword] = useState<string>("");
 	
 	const radioComponentTypeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setComponentType(event.target.value);
@@ -124,29 +128,6 @@ const MainPageComponentAdd = () => {
 		</div>
 	);
 	
-	const DropDown = () => {
-		return (
-			<div className={styles.dropdownContainer}>
-				<div className={styles.dropdownHeader} onClick={onToggle}>
-					<p>검색 조건 ▼</p>
-				</div>
-				<div
-				>
-					<ul>
-						{isOpen && (
-							<>
-								<li className={styles.li} onClick={onOptionClicked("상품코드", 1)}>상품코드 검색</li>
-								<li className={styles.li} onClick={onOptionClicked("카테고리", 2)}>카테고리 검색</li>
-								<li className={styles.li} onClick={onOptionClicked("제목", 2)}>제목 검색</li>
-								<li className={styles.li} onClick={onOptionClicked("내용", 2)}>내용 검색</li>
-							</>
-						)}
-					</ul>
-				</div>
-			</div>
-		);
-	};
-	
 	const handleTileNameChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
 		const {value} = event.target;
 		const newData = [...tileData];
@@ -186,6 +167,84 @@ const MainPageComponentAdd = () => {
 		// 타일 데이터 저장 처리
 		console.log(tileData);
 	};
+	
+	const DropDown = () => {
+		return (
+			<div className={styles.dropdownContainer}>
+				<div className={styles.dropdownHeader} onClick={onToggle}>
+					<p>{option} ▼</p>
+				</div>
+				<div
+				>
+					<ul>
+						{isOpen && (
+							<>
+								<li className={styles.li} onClick={onOptionClicked("상품코드", 1)}>상품코드 검색</li>
+								<li className={styles.li} onClick={onOptionClicked("카테고리", 2)}>카테고리 검색</li>
+								<li className={styles.li} onClick={onOptionClicked("제목", 3)}>제목 검색</li>
+								<li className={styles.li} onClick={onOptionClicked("내용", 4)}>내용 검색</li>
+							</>
+						)}
+					</ul>
+				</div>
+			</div>
+		);
+	};
+	
+	const onSubmitSearchKeyword = () => {
+		
+		if (keyword == "") {
+			(async () => {
+				const response = await ItemLogic.getProductItems({
+					"option": 1,
+					"page": 1,
+					"limit": 100,
+					"categoryNames": category
+				})
+				setProductListArr(response);
+			})();
+			return;
+		}
+		
+		if (option == "상품코드") {
+			(async () => {
+				const response = await ItemLogic.getProductItemsFromItemCode(keyword)
+					.then((r) => {
+						setProductListArr([{
+							id: r.itemCode,
+							title: r.title,
+							categoryNames: r.category,
+							createdAt: "daw916@naver.com",
+							createdBy: "2023-05-31"
+						}]);
+					})
+					.catch((e) => window.confirm("해당 제목의 상품이 존재하지 않습니다."))
+			})()
+			return;
+		}
+		if (option == "카테고리") {
+			return;
+		}
+		if (option == "제목") {
+			(async () => {
+				const response = await ItemLogic.getProductItemsFromTitle(1, keyword)
+					.then((r) => {
+						setProductListArr([{
+							id: r.itemCode,
+							title: r.title,
+							categoryNames: r.category,
+							createdAt: "daw916@naver.com",
+							createdBy: "2023-05-31"
+						}]);
+					})
+					.catch((e) => window.confirm("해당 코드와 일치하는 상품이 존재하지 않습니다."))
+			})()
+			return;
+		}
+		if (option == "내용") {
+			return;
+		}
+	}
 	
 	const componentSubmit = async () => {
 		
@@ -273,9 +332,20 @@ const MainPageComponentAdd = () => {
 			})
 			setProductListArr(response);
 		})();
-		
-		
 	}, [])
+	
+	useEffect(() => {
+		setKeyword("");
+		(async () => {
+				const response = await ItemLogic.getProductItems({
+					"option": 1,
+					"page": 1,
+					"limit": 100,
+					"categoryNames": category
+				})
+				setProductListArr(response);
+		})();
+	}, [componentType])
 	
 	return (
 		<div className={styles.container}>
@@ -353,8 +423,23 @@ const MainPageComponentAdd = () => {
 								</div>
 							</p>
 							
-							<div>
+							<div
+								style={{display: "flex", flexDirection: "row", marginBottom: 30}}
+							>
 								<DropDown/>
+								<form
+									onSubmit={(e) => {
+										e.preventDefault();
+										onSubmitSearchKeyword();
+									}}
+								>
+									<input
+										className={styles.searchTextInput}
+										placeholder={"검색어를 입력하세요"}
+										onChange={(e) => setKeyword(e.target.value)}
+									/>
+								</form>
+							
 							</div>
 							
 							<SelectableTable
