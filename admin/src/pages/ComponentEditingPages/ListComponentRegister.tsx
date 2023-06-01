@@ -13,7 +13,9 @@ const ListComponentRegister = () => {
 	
 	return (
 		<div className={styles.container}>
-			<div>
+			<div
+				className={styles.body}
+			>
 				<p className={styles.p}>
 					<div
 						className={styles.pTitle}
@@ -39,10 +41,9 @@ const ListComponentRegister = () => {
 							placeholder={"검색어를 입력하세요"}
 						/>
 					</form>
-					
 				</div>
-
 			</div>
+		
 		</div>
 	
 	
