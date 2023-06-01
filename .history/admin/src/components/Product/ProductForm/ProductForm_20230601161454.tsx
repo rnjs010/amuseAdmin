@@ -358,7 +358,7 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
 
         <MainImage option={"create"} mainImgProp={mainImg} onAdd={handleMainImg} onRemove={removeMainImg}/>
 
-        <TicketInfo ticketProps={ticket} onAdd={handleTicket} onRemove={removeTicket}/>
+        <TicketInfo onAdd={handleTicket} onRemove={removeTicket}/>
 
         <MainInfo onChange={handleMainInfo}/>
 

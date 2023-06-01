@@ -25,7 +25,6 @@ interface Ticket {
 type Price = {
   startDate: string,
   endDate: string,
-  quantity: string,
   weekdayPrices: {
     [key: string]: string
   }
@@ -358,7 +357,7 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
 
         <MainImage option={"create"} mainImgProp={mainImg} onAdd={handleMainImg} onRemove={removeMainImg}/>
 
-        <TicketInfo ticketProps={ticket} onAdd={handleTicket} onRemove={removeTicket}/>
+        <TicketInfo onAdd={handleTicket} onRemove={removeTicket}/>
 
         <MainInfo onChange={handleMainInfo}/>
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './TicketInfo.module.css';
 import TicketModal from '../../Modal/TicketModal';
 import {IoMdRemoveCircle} from 'react-icons/io';
@@ -26,18 +26,8 @@ interface TicketInfoProps {
 }
 
 function TicketInfo({ticketProps, onAdd, onRemove}: TicketInfoProps) {
-
-  const [ticketList, setTicketList] = useState<Ticket[]>([]);
-
   const [ticketModalOpen, setTicketModalOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    setTicketList(ticketProps);
-  }, [])
-
-  useEffect(() => {
-    console.log('🚗', ticketList);
-  }, [ticketList])
+  const [ticketList, setTicketList] = useState<Ticket[]>([]);
 
   const toggleTicketModal = () => {
     setTicketModalOpen((prev) => !prev);

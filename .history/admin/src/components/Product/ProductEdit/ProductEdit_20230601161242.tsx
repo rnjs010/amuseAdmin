@@ -24,7 +24,6 @@ interface Ticket {
 type Price = {
   startDate: string,
   endDate: string,
-  quantity: string,
   weekdayPrices: {
     [key: string]: string
   }
@@ -430,7 +429,7 @@ function ProductEdit() {
 
         <MainImage option={"edit"} mainImgProp={mainImg} onAdd={handleMainImg} onRemove={removeMainImg}/>
 
-        <TicketInfo ticketProps={ticket} onAdd={handleTicket} onRemove={removeTicket}/>
+        <TicketInfo onAdd={handleTicket} onRemove={removeTicket}/>
 
         <MainInfo onChange={handleMainInfo}/>
 
