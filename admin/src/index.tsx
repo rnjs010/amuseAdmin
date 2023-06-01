@@ -34,6 +34,9 @@ import ProductManage from './components/Product/ProductManage/ProductManage';
 import ProductStatus from './components/Product/ProductStatus/ProductStatus';
 import Component from "./pages/ComponentEditingPages/Component";
 import Page from "./pages/PageEditingPages/Page";
+import ListComponentRegister from "./pages/ComponentEditingPages/ListComponentRegister";
+import BannerComponentRegister from "./pages/ComponentEditingPages/BannerComponentRegister";
+import TileComponentRegister from "./pages/ComponentEditingPages/TileComponentRegister";
 
 const router = createBrowserRouter([
     {
@@ -72,6 +75,11 @@ const router = createBrowserRouter([
             {path: '/staff', element: <StaffDetail/>},
             
             {path: '/componentv2', element: <Component/>},
+            {path: '/componentv2/listcomponent/register', element: <ListComponentRegister/>},
+            {path: '/componentv2/bannercomponent/register', element: <BannerComponentRegister/>},
+            {path: '/componentv2/tilecomponent/register', element: <TileComponentRegister/>},
+            
+            
             
             {path: '/page', element: <Page/>},
         ]
