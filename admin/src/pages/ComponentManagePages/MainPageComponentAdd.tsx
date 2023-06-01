@@ -435,6 +435,12 @@ const MainPageComponentAdd = () => {
 				</p>
 				
 				<p>
+					
+					<div
+						className={styles.pTitle}
+					>
+						<strong>컴포넌트 순서 목록</strong>
+					</div>
 					<div style={{paddingTop: 30}}>
 						<Table route={""} columns={ComponentListSeqTableColumn} data={mainPageComponenetsListArr}/>
 					</div>
@@ -444,7 +450,7 @@ const MainPageComponentAdd = () => {
 					<div
 						className={styles.pTitle}
 					>
-						<strong>순서</strong>
+						<strong>등록할 순서</strong>
 					</div>
 					
 					
