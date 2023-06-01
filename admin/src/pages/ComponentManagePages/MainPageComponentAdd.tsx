@@ -8,6 +8,8 @@ import {Editor} from "@toast-ui/react-editor";
 import {CategoryLogic} from "../../logics/CategoryLogic";
 import {ItemLogic} from "../../logics/ItemLogic";
 import {ComponentManageLogic} from "../../logics/ComponentManageLogic";
+import Table from "../../components/Table/Table";
+import {ComponentListSeqTableColumn} from "../../components/Table/ComponentListSeqTableColumn";
 
 type ProductItem = {
 	id: number
@@ -34,6 +36,9 @@ const MainPageComponentAdd = () => {
 	const [component, setComponent] = useState<string>("")
 	
 	const [componentType, setComponentType] = useState<string>("리스트");
+	
+	const [mainPageComponenetsListArr, setMainPageComponenetsListArr] = useState<any[]>([]);
+	const [seq, setSeq] = useState<number>(0);
 	
 	// 리스트, 타일
 	const [selected, setSelected] = useState<any[]>([]);
@@ -263,7 +268,7 @@ const MainPageComponentAdd = () => {
 				title: component,
 				type: "리스트",
 				createBy: "daw916@naver.com",
-				sequence: 3,
+				sequence: seq,
 				itemCode: selected
 			})
 				.then(() => {
@@ -281,7 +286,7 @@ const MainPageComponentAdd = () => {
 				title: component,
 				type: "배너",
 				createBy: "daw916@naver.com",
-				sequence: 3,
+				sequence: seq,
 				pcBannerFileName: pcBannerFileName,
 				pcBannerBase64: pcBanner,
 				pcBannerLink: pcBannerLink,
@@ -304,7 +309,7 @@ const MainPageComponentAdd = () => {
 				title: component,
 				type: "타일",
 				createBy: "daw916@naver.com",
-				sequence: 3,
+				sequence: seq,
 				tile: tileData
 			})
 				.then(() => {
@@ -328,6 +333,13 @@ const MainPageComponentAdd = () => {
 	};
 	
 	useEffect(() => {
+		
+		(async () => {
+			const response = await ComponentManageLogic.getMainPageComponentList();
+			console.log(response)
+			setMainPageComponenetsListArr(response);
+		})();
+		
 		(async () => {
 			const response = await CategoryLogic.getCategoryArr();
 			setCategory(response.map((v: any) => (v.displayHashTag)));
@@ -347,13 +359,13 @@ const MainPageComponentAdd = () => {
 	useEffect(() => {
 		setKeyword("");
 		(async () => {
-				const response = await ItemLogic.getProductItems({
-					"option": 1,
-					"page": 1,
-					"limit": 100,
-					"categoryNames": category
-				})
-				setProductListArr(response);
+			const response = await ItemLogic.getProductItems({
+				"option": 1,
+				"page": 1,
+				"limit": 100,
+				"categoryNames": category
+			})
+			setProductListArr(response);
 		})();
 	}, [componentType])
 	
@@ -419,6 +431,62 @@ const MainPageComponentAdd = () => {
 								   onChange={radioComponentTypeHandler}/>
 							<div> 타일</div>
 						</div>
+					</div>
+				</p>
+				
+				<p>
+					<div style={{paddingTop: 30}}>
+						<Table route={""} columns={ComponentListSeqTableColumn} data={mainPageComponenetsListArr}/>
+					</div>
+				</p>
+				
+				<p>
+					<div
+						className={styles.pTitle}
+					>
+						<strong>순서</strong>
+					</div>
+					
+					
+					<div
+						style={{display: "flex", flexDirection: "row", alignItems: "center"}}
+					>
+						<input className={styles.textInput}
+							   type="number"
+							   value={seq}
+							   id={"number"}
+						/>
+						<button
+							style={{
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
+								width: 30,
+								height: 30,
+								border: "1px solid"
+							}}
+							onClick={() => setSeq(seq + 1)}
+						>
+							<div>
+								+
+							</div>
+						</button>
+						
+						<button
+							style={{
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
+								width: 30,
+								height: 30,
+								border: "1px solid"
+							}}
+							onClick={() => setSeq(seq - 1)}
+						>
+							<div>
+								-
+							</div>
+						</button>
 					</div>
 				</p>
 				
