@@ -255,7 +255,7 @@ function ProductEdit() {
   
     const removeMainImg = (imageFile: ImageFile) => {
       setMainImg((prev) => prev.filter(
-        (img) => img.imgUrl !== imageFile.imgUrl
+        (img) => img.fileName !== imageFile.fileName
       ));
     }
     

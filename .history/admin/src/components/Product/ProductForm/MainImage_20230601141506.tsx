@@ -12,10 +12,9 @@ interface ExtraInfoProps {
   onAdd(image: ImageFile[]): void,
   onRemove(image: ImageFile): void,
   mainImgProp: ImageFile[]
-  option: string
 }
 
-function MainImage({option, mainImgProp, onAdd, onRemove}:ExtraInfoProps) {
+function MainImage({mainImgProp, onAdd, onRemove}:ExtraInfoProps) {
   useEffect(() => {
     setMainImg(mainImgProp);
   }, [mainImgProp])
@@ -51,14 +50,8 @@ function MainImage({option, mainImgProp, onAdd, onRemove}:ExtraInfoProps) {
     })
   }
 
-  const removeMainImg = (file: ImageFile) => {  
-    if(option === "create"){
-      setMainImg((prevImages) => prevImages.filter((img) => img.fileName !== file.fileName));
-    }
-    else if(option === "edit"){
-      console.log('🔥', file.imgUrl);
-      setMainImg((prevImages) => prevImages.filter((img) => img.imgUrl !== file.imgUrl));
-    }
+  const removeMainImg = (file: ImageFile) => {    
+    setMainImg((prevImages) => prevImages.filter((img) => img.fileName !== file.fileName));
     onRemove(file);
   }
 
@@ -70,7 +63,7 @@ function MainImage({option, mainImgProp, onAdd, onRemove}:ExtraInfoProps) {
                   <div className={styles.renderedImg}>
                     <img 
                       key={file.fileName}
-                      src={file.imgUrl || file.base64Data}
+                      src={file.imgUrl}
                       alt={file.fileName}
                       className={styles.img}                  
                     />

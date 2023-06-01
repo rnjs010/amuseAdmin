@@ -255,7 +255,7 @@ function ProductEdit() {
   
     const removeMainImg = (imageFile: ImageFile) => {
       setMainImg((prev) => prev.filter(
-        (img) => img.imgUrl !== imageFile.imgUrl
+        (img) => img.fileName !== imageFile.fileName
       ));
     }
     
@@ -426,7 +426,7 @@ function ProductEdit() {
             </div>
         </div>
 
-        <MainImage option={"edit"} mainImgProp={mainImg} onAdd={handleMainImg} onRemove={removeMainImg}/>
+        <MainImage mainImgProp={mainImg} onAdd={handleMainImg} onRemove={removeMainImg}/>
 
         <TicketInfo onAdd={handleTicket} onRemove={removeTicket}/>
 

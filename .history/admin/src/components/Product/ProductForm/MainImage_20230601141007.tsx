@@ -4,28 +4,20 @@ import {IoMdRemoveCircle} from 'react-icons/io';
 
 interface ImageFile {
   fileName: string,
-  base64Data: string,
-  imgUrl: string | undefined
+  base64Data: string
 }
 
 interface ExtraInfoProps {
   onAdd(image: ImageFile[]): void,
   onRemove(image: ImageFile): void,
   mainImgProp: ImageFile[]
-  option: string
 }
 
-function MainImage({option, mainImgProp, onAdd, onRemove}:ExtraInfoProps) {
+function MainImage({mainImgProp, onAdd, onRemove}:ExtraInfoProps) {
   useEffect(() => {
     setMainImg(mainImgProp);
-  }, [mainImgProp])
-
+  }, [])
   const [mainImg, setMainImg] = useState <ImageFile[]>([]);
-
-  useEffect(() => {
-    console.log('✅', mainImg);
-  }, [mainImg])
-  
   const handleMainImg = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
 
@@ -37,7 +29,7 @@ function MainImage({option, mainImgProp, onAdd, onRemove}:ExtraInfoProps) {
         new Promise <ImageFile>((resolve) => {
           const reader = new FileReader();
           reader.onloadend = () => {
-            resolve({fileName: file.name, base64Data: reader.result as string, imgUrl: ''});
+            resolve({fileName: file.name, base64Data: reader.result as string});
           };
           reader.readAsDataURL(file);
         })
@@ -51,14 +43,8 @@ function MainImage({option, mainImgProp, onAdd, onRemove}:ExtraInfoProps) {
     })
   }
 
-  const removeMainImg = (file: ImageFile) => {  
-    if(option === "create"){
-      setMainImg((prevImages) => prevImages.filter((img) => img.fileName !== file.fileName));
-    }
-    else if(option === "edit"){
-      console.log('🔥', file.imgUrl);
-      setMainImg((prevImages) => prevImages.filter((img) => img.imgUrl !== file.imgUrl));
-    }
+  const removeMainImg = (file: ImageFile) => {    
+    setMainImg((prevImages) => prevImages.filter((img) => img.fileName !== file.fileName));
     onRemove(file);
   }
 
@@ -70,7 +56,7 @@ function MainImage({option, mainImgProp, onAdd, onRemove}:ExtraInfoProps) {
                   <div className={styles.renderedImg}>
                     <img 
                       key={file.fileName}
-                      src={file.imgUrl || file.base64Data}
+                      src={file.base64Data}
                       alt={file.fileName}
                       className={styles.img}                  
                     />

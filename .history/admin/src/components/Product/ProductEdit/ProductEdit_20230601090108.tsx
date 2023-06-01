@@ -37,8 +37,7 @@ interface Course {
 
 interface ImageFile {
   fileName: string,
-  base64Data: string,
-  imgUrl: string | undefined
+  base64Data: string
 }
 
 type Product = {
@@ -66,40 +65,12 @@ type Product = {
   extraInfo: HTML;
 };
 
-const userTierList = ['Bronze', 'Silver', 'Gold', 'Platinum'];
-
-
 function ProductEdit() {
   const params = useParams();
   const productId = params.productId || '';
 
-  const [category, setCategory] = useState<string[]>([]);
-  const [isConcierge ,setIsConcierge] = useState<boolean>(false);
-
-  const [productTitle, setProductTitle] = useState<string>('');
-  const [country, setCountry] = useState<string>('');
-
-  
-
-  const [accessibleTier, setAccessibleTier] = useState<string>('');
-  const [accessibleUserList, setAccessibleUserList] = useState<string[]>([]);
-  const [accessibleUser, setAccessibleUser] = useState<string>('');
-
-  const [city, setCity] = useState<string>('');
-  const [listingStartDate, setListingStartDate] = useState<string>('');
-  const [listingEndDate, setListingEndDate] = useState<string>('');
-  const [durationNights, setDurationNights] = useState<string>('');
-  const [durationDays, setDurationDays] = useState<string>('');
-  const [mainImg, setMainImg] = useState <ImageFile[]>([]);
-  const [ticket, setTicket] = useState<Ticket[]>([]);
-  const [course, setCourse] = useState<Course[]>([]);
-  const [mainInfo, setMainInfo] = useState<HTML>('');
-  const [extraInfo, setExtraInfo] = useState<HTML>('');
-
-
-
   const [product, setProduct] = useState({
-    productId: productId,
+    productId: '',
     option: "update",
     category: [],
     isConcierge: false,
@@ -130,38 +101,24 @@ function ProductEdit() {
         console.log(res);
         const product = res.data.data;
         setProduct(product);
-        setCategory(product.category);
-        setIsConcierge(product.isConcierge);
         setProductTitle(product.title);
-        setCountry(product.location.country);
-        setCity(product.location.city);
-        setAccessibleTier(product.accessAuthority.accessibleTier);
-        setAccessibleUserList(product.accessAuthority.accessibleUserList);
-        setDurationDays(product.duration);
-        setDurationNights((parseInt(product.duration) - 1).toString());
-        setListingStartDate(product.startDate.split(' ')[0]);
-        setListingEndDate(product.endDate.split(' ')[0]);
-        setMainImg(product.mainImg);
-        setTicket(product.ticket);
-        setMainInfo(product.mainInfo);
-        setCourse(product.course);
-        setExtraInfo(product.extraInfo);
+        setCategory(product.category);
+        
       });
   }, []);
 
   useEffect(() => {
     console.log(product);
-  }, [product]);
-
-  useEffect(() => {
-    console.log('mainImg', mainImg);
-  }, [mainImg]);
-
-
+  }, [product])
+  
+  
+    const [isConcierge ,setIsConcierge] = useState<boolean>(false);
+  
     const handleIsConciergeOrNot = () => {
       setIsConcierge((prev) => !prev);
     }
   
+    const userTierList = ['Bronze', 'Silver', 'Gold', 'Platinum'];
   
     const renderUserTierOptions = () => {
       return userTierList.map((userClass) => {
@@ -173,13 +130,15 @@ function ProductEdit() {
       });
     }
   
+  const [accessibleTier, setAccessibleTier] = useState<string>('');
   
   
     const handleAccessibleUserTier = (event: React.ChangeEvent<HTMLSelectElement>) => {
       setAccessibleTier(event.target.value);
     }
   
-
+    const [accessibleUserList, setAccessibleUserList] = useState<string[]>([]);
+    const [accessibleUser, setAccessibleUser] = useState<string>('');
     const handleAccessibleUser = (event: React.ChangeEvent<HTMLInputElement>) => {
       setAccessibleUser(event.target.value);
     }
@@ -189,6 +148,7 @@ function ProductEdit() {
       setAccessibleUser('');
     }
   
+    const [category, setCategory] = useState<string[]>([]);
     const [categoryList, setCategoryList] = useState<string[]>([]);
     useEffect(
       () => {
@@ -197,7 +157,8 @@ function ProductEdit() {
             setCategoryList(res.data);
           })
           .catch((err) => console.error(`failed to get categories: ${err}`));
-      }, []);
+      }, []
+    );
   
     const handleProductCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
       if(!category.includes(event.target.value)){
@@ -215,51 +176,53 @@ function ProductEdit() {
       });
     };
   
+    const [productTitle, setProductTitle] = useState<string>('');
     const handleProductName = (event: React.ChangeEvent<HTMLInputElement>) => {
       setProductTitle(event.target.value);
     };
   
+    const [country, setCountry] = useState<string>('');
     const handleCountry = (event: React.ChangeEvent<HTMLInputElement>) => {
       setCountry(event.target.value);
     };
   
-    
+    const [city, setCity] = useState<string>('');
     const handleCity = (event: React.ChangeEvent<HTMLInputElement>) => {
       setCity(event.target.value);
     };
   
-    
+    const [listingStartDate, setListingStartDate] = useState<string>('');
     const handleListingStartDate = (event: React.ChangeEvent<HTMLInputElement>) => {
       setListingStartDate(event.target.value);
     }
   
-    
+    const [listingEndDate, setListingEndDate] = useState<string>('');
     const handleListingEndDate = (event: React.ChangeEvent<HTMLInputElement>) => {
       setListingEndDate(event.target.value);
     }
   
-    
+    const [durationNights, setDurationNights] = useState<string>('');
     const handleDurationNights = (event: React.ChangeEvent<HTMLInputElement>) => {
       setDurationNights(event.target.value);
     }
   
-    
+    const [durationDays, setDurationDays] = useState<string>('');
     const handleDurationDays = (event: React.ChangeEvent<HTMLInputElement>) => {
       setDurationDays(event.target.value);
     }
   
-    
+    const [mainImg, setMainImg] = useState <ImageFile[]>([]);
     const handleMainImg = (imageFiles: ImageFile[]) => {
       setMainImg((prev) => [...prev, ...imageFiles]);
     }
   
     const removeMainImg = (imageFile: ImageFile) => {
       setMainImg((prev) => prev.filter(
-        (img) => img.imgUrl !== imageFile.imgUrl
+        (img) => img.fileName !== imageFile.fileName
       ));
     }
     
-    
+    const [ticket, setTicket] = useState<Ticket[]>([]);
     const handleTicket = (ticket:Ticket) => {
       setTicket((prev) => [...prev, ticket])
     }
@@ -275,7 +238,7 @@ function ProductEdit() {
       console.log(ticket);
     }, [ticket])
     
-    
+    const [course, setCourse] = useState<Course[]>([]);
     const handleCourse = (course:Course) => {
       setCourse((prev) => [...prev, course])
     }
@@ -286,12 +249,12 @@ function ProductEdit() {
       ));
     }
   
-    
+    const [mainInfo, setMainInfo] = useState<HTML>('');
     const handleMainInfo = (html:HTML) => {
       setMainInfo(html);
     }
   
-    
+    const [extraInfo, setExtraInfo] = useState<HTML>('');
     const handleExtraInfo = (html: HTML) => {
       setExtraInfo(html);
     }
@@ -426,7 +389,7 @@ function ProductEdit() {
             </div>
         </div>
 
-        <MainImage option={"edit"} mainImgProp={mainImg} onAdd={handleMainImg} onRemove={removeMainImg}/>
+        <MainImage onAdd={handleMainImg} onRemove={removeMainImg}/>
 
         <TicketInfo onAdd={handleTicket} onRemove={removeTicket}/>
 
