@@ -3,6 +3,16 @@
     flex-direction: column;
 }
 
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eb1749;
+    margin: 30px 50px 0px 50px;
+    padding-bottom: 10px;
+}
+
 .body{
     display: flex;
     width: 98%;
@@ -37,6 +47,7 @@
     height: 30px;
     color: #fff;
     border-radius: 10px;
+    margin-right: 10px;
 }
 
 .button:hover{
