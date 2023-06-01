@@ -2,8 +2,10 @@ import React from "react";
 import Table from "../../components/Table/Table";
 import styles from '../../components/ComponentEditing/component.module.css'
 
+import {useNavigate} from "react-router-dom";
 
 // To Extract
+// API 확정되면, Extract
 const ComponentTableColumns = [
 	{
 		Header: 'ID',
@@ -37,32 +39,38 @@ const ComponentTableColumns = [
 
 const Component = () => {
 	
+	const navigate = useNavigate();
+	
 	return (
 		<div className={styles.container}>
-			<div
-				style={{
-					display: "flex",
-					flexDirection: "row",
-					justifyContent: "space-between",
-					alignItems: "center",
-					borderBottom: "1px solid #eb1749",
-					margin: "30px 50px 0px 50px",
-					paddingBottom: 10
-				}}
-			>
+			<div className={styles.header}>
 				<h2> 컴포넌트 관리 </h2>
 				
-				<button className={styles.button}
-						onClick={() => console.log("추가하기")}
-				>
-					추가하기
-				</button>
+				<div>
+					<button className={styles.button}
+							onClick={() => navigate("/componentv2/listcomponent/register")}
+					>
+						리스트
+					</button>
+					
+					<button className={styles.button}
+							onClick={() => navigate("/componentv2/bannercomponent/register")}
+					>
+						배너
+					</button>
+					
+					<button className={styles.button}
+							onClick={() => navigate("/componentv2/tilecomponent/register")}
+					>
+						타일
+					</button>
+				</div>
 			</div>
 			
 			<div style={{paddingTop: 30}}>
 				<Table route={""} columns={ComponentTableColumns} data={[]}/>
 			</div>
-			
+		
 		</div>
 	)
 }
