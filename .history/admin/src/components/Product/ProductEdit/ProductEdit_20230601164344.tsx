@@ -31,6 +31,7 @@ type Price = {
 }
 
 interface Course {
+  sequenceId: number;
   title: string;
   timeCost: string;
   content: string;

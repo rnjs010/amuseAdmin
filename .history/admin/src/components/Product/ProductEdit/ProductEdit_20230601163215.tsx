@@ -160,11 +160,6 @@ function ProductEdit() {
   }, [ticket]);
 
 
-  useEffect(() => {
-    console.log('🔥🔥🔥🔥🔥🔥🔥🔥🔥', course);
-  }, [course])
-
-
     const handleIsConciergeOrNot = () => {
       setIsConcierge((prev) => !prev);
     }

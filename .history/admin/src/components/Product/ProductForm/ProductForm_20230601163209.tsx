@@ -32,7 +32,6 @@ type Price = {
 }
 
 interface Course {
-  sequenceId: number;
   title: string;
   timeCost: string;
   content: string;
@@ -201,6 +200,9 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
     ));
   }
 
+  useEffect(() => {
+    console.log(ticket);
+  }, [ticket])
   
   const [course, setCourse] = useState<Course[]>([]);
   const handleCourse = (course:Course) => {
