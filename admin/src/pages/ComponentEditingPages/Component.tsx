@@ -12,12 +12,8 @@ const ComponentTableColumns = [
 		accessor: 'id'
 	},
 	{
-		Header: '상품명',
+		Header: '컴포넌트',
 		accessor: 'title'
-	},
-	{
-		Header: '상품 코드',
-		accessor: 'code'
 	},
 	{
 		Header: '등록일',
