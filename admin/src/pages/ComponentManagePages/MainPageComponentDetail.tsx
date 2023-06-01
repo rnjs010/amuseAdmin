@@ -259,7 +259,7 @@ const MainPageComponentDetail = () => {
 			setComponent(response.title)
 			setComponentType(response.type)
 			setItemCode(response.itemCode)
-			
+			setSeq(response.sequence)
 			setPcBannerUrl(response.pcBannerImgUrl)
 			setMobileBannerUrl(response.mobileBannerImgUrl)
 		})();
