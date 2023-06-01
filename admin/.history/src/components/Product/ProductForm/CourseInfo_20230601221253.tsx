@@ -24,13 +24,13 @@ interface Course {
 interface MainInfoProps {
   onAdd(course: Course): void,
   onRemove(course: Course): void,
-  courseProps: Course[]
+  courseProps?: Course[]
 }
 
 
 function CourseInfo({courseProps, onAdd, onRemove} : MainInfoProps) {
   const [courseModalOpen, setCourseModalOpen] = useState<boolean>(false);
-  const [courseList, setCourseList] = useState<Course[]>([]);
+  const [courseList, setCourseList] = useState<Course[] | undefined>([]);
 
   useEffect(()=>{
     setCourseList(courseProps);

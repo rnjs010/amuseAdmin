@@ -31,7 +31,6 @@ type Price = {
 }
 
 interface Course {
-  id: number | null;
   sequenceId: number;
   title: string;
   timeCost: string;
@@ -436,7 +435,7 @@ function ProductEdit() {
 
         <MainInfo htmlProps={mainInfo} onChange={handleMainInfo}/>
 
-        <CourseInfo courseProps={course} onAdd={handleCourse} onRemove={removeCourse} />
+        <CourseInfo onAdd={handleCourse} onRemove={removeCourse} />
 
         <ExtraInfo htmlProps={extraInfo} onChange={handleExtraInfo} />
 

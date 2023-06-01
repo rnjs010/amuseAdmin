@@ -1,6 +1,6 @@
 import styles from './CourseInfo.module.css';
 import CourseModal from '../../Modal/CourseModal';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { IoMdRemoveCircle } from 'react-icons/io';
 
 interface ImageFile {
@@ -24,17 +24,13 @@ interface Course {
 interface MainInfoProps {
   onAdd(course: Course): void,
   onRemove(course: Course): void,
-  courseProps: Course[]
+  courseProps?: Course[]
 }
 
 
 function CourseInfo({courseProps, onAdd, onRemove} : MainInfoProps) {
   const [courseModalOpen, setCourseModalOpen] = useState<boolean>(false);
   const [courseList, setCourseList] = useState<Course[]>([]);
-
-  useEffect(()=>{
-    setCourseList(courseProps);
-  },[courseProps])
 
   const toggleCourseModal = () => {
     setCourseModalOpen((prev) => !prev);

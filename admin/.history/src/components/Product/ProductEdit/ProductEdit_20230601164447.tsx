@@ -31,16 +31,10 @@ type Price = {
 }
 
 interface Course {
-  id: number | null;
-  sequenceId: number;
   title: string;
   timeCost: string;
   content: string;
   image: ImageFile;
-  location: {
-    latitude: string;
-    longitude: string;
-  }
 }
 
 interface ImageFile {
@@ -161,6 +155,10 @@ function ProductEdit() {
     console.log(product);
   }, [product]);
 
+  useEffect(() => {
+    console.log('ticket', ticket);
+  }, [ticket]);
+
 
   useEffect(() => {
     console.log('🔥🔥🔥🔥🔥🔥🔥🔥🔥', course);
@@ -280,6 +278,11 @@ function ProductEdit() {
       ));
     }
   
+    useEffect(() => {
+      console.log(ticket);
+    }, [ticket])
+    
+    
     const handleCourse = (course:Course) => {
       setCourse((prev) => [...prev, course])
     }
@@ -436,7 +439,7 @@ function ProductEdit() {
 
         <MainInfo htmlProps={mainInfo} onChange={handleMainInfo}/>
 
-        <CourseInfo courseProps={course} onAdd={handleCourse} onRemove={removeCourse} />
+        <CourseInfo onAdd={handleCourse} onRemove={removeCourse} />
 
         <ExtraInfo htmlProps={extraInfo} onChange={handleExtraInfo} />
 
