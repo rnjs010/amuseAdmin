@@ -61,7 +61,7 @@ const MainPageComponentAdd = () => {
 	const [parsedHTML, setParsedHTML] = useState<string>("");
 	const parsedHTMLRef = useRef<Editor>(null);
 	
-	// 배너
+	// 타일
 	const [tileCount, setTileCount] = useState<number>(1);
 	const [tileData, setTileData] = useState<TileData[]>([]); // 타일 데이터 배열
 	
