@@ -38,8 +38,7 @@ interface Course {
 
 interface ImageFile {
   fileName: string,
-  base64Data: string,
-  imgUrl: string | undefined
+  base64Data: string
 }
 
 type Product = {
@@ -354,7 +353,7 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
             </div>
         </div>
 
-        <MainImage option={"create"} mainImgProp={mainImg} onAdd={handleMainImg} onRemove={removeMainImg}/>
+        <MainImage mainImgProp={mainImg} onAdd={handleMainImg} onRemove={removeMainImg}/>
 
         <TicketInfo onAdd={handleTicket} onRemove={removeTicket}/>
 

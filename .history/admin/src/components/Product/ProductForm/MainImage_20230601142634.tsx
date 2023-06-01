@@ -56,7 +56,7 @@ function MainImage({option, mainImgProp, onAdd, onRemove}:ExtraInfoProps) {
       setMainImg((prevImages) => prevImages.filter((img) => img.fileName !== file.fileName));
     }
     else if(option === "edit"){
-      console.log('🔥', file.imgUrl);
+      console.log(file.imgUrl);
       setMainImg((prevImages) => prevImages.filter((img) => img.imgUrl !== file.imgUrl));
     }
     onRemove(file);

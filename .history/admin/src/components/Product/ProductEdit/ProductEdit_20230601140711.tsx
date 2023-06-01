@@ -37,8 +37,7 @@ interface Course {
 
 interface ImageFile {
   fileName: string,
-  base64Data: string,
-  imgUrl: string | undefined
+  base64Data: string
 }
 
 type Product = {
@@ -255,7 +254,7 @@ function ProductEdit() {
   
     const removeMainImg = (imageFile: ImageFile) => {
       setMainImg((prev) => prev.filter(
-        (img) => img.imgUrl !== imageFile.imgUrl
+        (img) => img.fileName !== imageFile.fileName
       ));
     }
     
@@ -426,7 +425,7 @@ function ProductEdit() {
             </div>
         </div>
 
-        <MainImage option={"edit"} mainImgProp={mainImg} onAdd={handleMainImg} onRemove={removeMainImg}/>
+        <MainImage onAdd={handleMainImg} onRemove={removeMainImg}/>
 
         <TicketInfo onAdd={handleTicket} onRemove={removeTicket}/>
 

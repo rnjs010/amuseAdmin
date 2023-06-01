@@ -37,8 +37,7 @@ interface Course {
 
 interface ImageFile {
   fileName: string,
-  base64Data: string,
-  imgUrl: string | undefined
+  base64Data: string
 }
 
 type Product = {
@@ -138,9 +137,8 @@ function ProductEdit() {
         setAccessibleTier(product.accessAuthority.accessibleTier);
         setAccessibleUserList(product.accessAuthority.accessibleUserList);
         setDurationDays(product.duration);
-        setDurationNights((parseInt(product.duration) - 1).toString());
-        setListingStartDate(product.startDate.split(' ')[0]);
-        setListingEndDate(product.endDate.split(' ')[0]);
+        setListingStartDate(product.startDate);
+        setListingEndDate(product.endDate);
         setMainImg(product.mainImg);
         setTicket(product.ticket);
         setMainInfo(product.mainInfo);
@@ -154,10 +152,10 @@ function ProductEdit() {
   }, [product]);
 
   useEffect(() => {
-    console.log('mainImg', mainImg);
-  }, [mainImg]);
-
-
+    console.log(course);
+  }, [course]);
+  
+    
     const handleIsConciergeOrNot = () => {
       setIsConcierge((prev) => !prev);
     }
@@ -255,7 +253,7 @@ function ProductEdit() {
   
     const removeMainImg = (imageFile: ImageFile) => {
       setMainImg((prev) => prev.filter(
-        (img) => img.imgUrl !== imageFile.imgUrl
+        (img) => img.fileName !== imageFile.fileName
       ));
     }
     
@@ -426,7 +424,7 @@ function ProductEdit() {
             </div>
         </div>
 
-        <MainImage option={"edit"} mainImgProp={mainImg} onAdd={handleMainImg} onRemove={removeMainImg}/>
+        <MainImage onAdd={handleMainImg} onRemove={removeMainImg}/>
 
         <TicketInfo onAdd={handleTicket} onRemove={removeTicket}/>
 
