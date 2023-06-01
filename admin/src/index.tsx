@@ -32,6 +32,8 @@ import MainPageComponentAdd from "./pages/ComponentManagePages/MainPageComponent
 import MainPageComponentDetail from "./pages/ComponentManagePages/MainPageComponentDetail";
 import ProductManage from './components/Product/ProductManage/ProductManage';
 import ProductStatus from './components/Product/ProductStatus/ProductStatus';
+import Component from "./pages/ComponentEditingPages/Component";
+import PageEditingPage from "./pages/PageEditingPage";
 
 const router = createBrowserRouter([
     {
@@ -67,7 +69,11 @@ const router = createBrowserRouter([
             {path: '/notice/:id', element: <NoticeDetail/>},
             {path: '/notice/register', element: <NoticeRegister/>},
             
-            {path: '/staff', element: <StaffDetail/>}
+            {path: '/staff', element: <StaffDetail/>},
+            
+            {path: '/componentv2', element: <Component/>},
+            
+            {path: '/page', element: <PageEditingPage/>},
         ]
     }
 ])
