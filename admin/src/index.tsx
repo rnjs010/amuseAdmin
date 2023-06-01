@@ -33,7 +33,7 @@ import MainPageComponentDetail from "./pages/ComponentManagePages/MainPageCompon
 import ProductManage from './components/Product/ProductManage/ProductManage';
 import ProductStatus from './components/Product/ProductStatus/ProductStatus';
 import Component from "./pages/ComponentEditingPages/Component";
-import PageEditingPage from "./pages/PageEditingPage";
+import Page from "./pages/PageEditingPages/Page";
 
 const router = createBrowserRouter([
     {
@@ -73,7 +73,7 @@ const router = createBrowserRouter([
             
             {path: '/componentv2', element: <Component/>},
             
-            {path: '/page', element: <PageEditingPage/>},
+            {path: '/page', element: <Page/>},
         ]
     }
 ])
