@@ -1,0 +1,15 @@
+@import '../../../App.module.css';
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 80vh;
+}
+.routeBox {
+  width: 300px;
+  height: 300px;
+  border: 1px solid var(--color-pink);
+  border-radius: var(--border-radius);
+}

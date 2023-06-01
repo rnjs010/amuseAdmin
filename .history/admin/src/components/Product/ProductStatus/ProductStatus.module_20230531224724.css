@@ -1,0 +1,14 @@
+li {
+  list-style: none;
+}
+
+.container.activeItems {
+  display: flex;
+  flex-direction: row;
+  overflow: scroll;
+}
+.activeItem {
+  width: 600px;
+  height: 100px;
+  border: 1px solid black;
+}

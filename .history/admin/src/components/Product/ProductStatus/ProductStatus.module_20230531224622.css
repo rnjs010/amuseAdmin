@@ -1,0 +1,9 @@
+li {
+  list-style: none;
+}
+
+.activeItem {
+  width: 300px;
+  height: 100px;
+  border: 1px solid black;
+}

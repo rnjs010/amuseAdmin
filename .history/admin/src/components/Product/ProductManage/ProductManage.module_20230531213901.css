@@ -1,0 +1,11 @@
+@import '../../App.module.css';
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+.routeBox {
+  width: 300px;
+  height: 300px;
+  background-color: var(--color-pink);
+}

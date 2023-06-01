@@ -44,7 +44,7 @@ const router = createBrowserRouter([
             {path: 'product/status', element: <ProductStatus/>},
             {path: 'product/create', element: <ProductCreate/>},
             {path: 'product/delete', element: <ProductDelete/>},
-            {path: 'product/edit/:productId', element: <ProductEdit/>},
+            {path: 'product/eidt/*', element: <ProductEdit/>},
             
             {path: '/component', element: <ComponentManage/>},
             {path: '/component/mainpage', element: <MainPageComponentAdd/>},

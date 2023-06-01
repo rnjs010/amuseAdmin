@@ -5,7 +5,9 @@ import './index.css';
 import App from './App';
 import NotFound from './pages/NotFound';
 import DashBoard from './pages/DashBoard';
-import ProductDelete from './pages/ProductDelete';
+
+import ProductManage from './components/Product/ProductManage/ProductManage';
+import ProductStatus from './components/Product/ProductStatus/ProductStatus';
 import ProductCreate from './pages/ProductCreate';
 
 import ComponentManage from "./pages/ComponentManagePages/ComponentManage"
@@ -29,9 +31,6 @@ import NoticeRegister from "./pages/NoticePages/NoticeRegister";
 import StaffDetail from "./pages/StaffPages/StaffDetail";
 import MainPageComponentAdd from "./pages/ComponentManagePages/MainPageComponentAdd";
 import MainPageComponentDetail from "./pages/ComponentManagePages/MainPageComponentDetail";
-import ProductManage from './components/Product/ProductManage/ProductManage';
-import ProductStatus from './components/Product/ProductStatus/ProductStatus';
-import ProductEdit from './components/Product/ProductEdit/ProductEdit';
 
 const router = createBrowserRouter([
     {
@@ -43,8 +42,6 @@ const router = createBrowserRouter([
             {path: 'product', element: <ProductManage/>},
             {path: 'product/status', element: <ProductStatus/>},
             {path: 'product/create', element: <ProductCreate/>},
-            {path: 'product/delete', element: <ProductDelete/>},
-            {path: 'product/edit/:productId', element: <ProductEdit/>},
             
             {path: '/component', element: <ComponentManage/>},
             {path: '/component/mainpage', element: <MainPageComponentAdd/>},

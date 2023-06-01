@@ -1,0 +1,18 @@
+.activeItemContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.activeItemList {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px; 
+  width: 100%;
+}
+
+.activeItem {
+  width: 240px;
+  height: 240px;
+  border: 2px solid black;
+}

@@ -1,0 +1,16 @@
+.activeItemContainer {
+  width: 100%;
+}
+
+.activeItemList {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px; 
+  width: 100%;
+}
+
+.activeItem {
+  width: 200px;
+  height: 200px;
+  border: 2px solid black;
+}
