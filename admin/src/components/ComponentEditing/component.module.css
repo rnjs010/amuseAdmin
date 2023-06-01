@@ -31,6 +31,14 @@
     margin-bottom: 10px;
 }
 
+.searchTextInput{
+    border: 1px solid;
+}
+
+.searchTextInput:focus-visible{
+    border: 1px solid;
+}
+
 
 .textInput{
     width: 250px;
