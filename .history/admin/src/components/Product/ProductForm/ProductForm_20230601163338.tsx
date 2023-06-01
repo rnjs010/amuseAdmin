@@ -32,7 +32,6 @@ type Price = {
 }
 
 interface Course {
-  sequenceId: number;
   title: string;
   timeCost: string;
   content: string;
@@ -212,6 +211,10 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
       (course) => course.title !== selectedCourse.title
     ));
   }
+
+  useEffect(() => {
+    console.log(course);
+  }, [course])
 
   const [mainInfo, setMainInfo] = useState<HTML>('');
   const handleMainInfo = (html:HTML) => {

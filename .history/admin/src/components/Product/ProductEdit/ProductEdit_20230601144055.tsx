@@ -17,14 +17,12 @@ type Category = {
 interface Ticket {
   title: string,
   content: string,
-  count: number | null,
   priceList: Price[]
 };
 
 type Price = {
   startDate: string,
   endDate: string,
-  quantity: string,
   weekdayPrices: {
     [key: string]: string
   }
@@ -158,11 +156,6 @@ function ProductEdit() {
   useEffect(() => {
     console.log('ticket', ticket);
   }, [ticket]);
-
-
-  useEffect(() => {
-    console.log('🔥🔥🔥🔥🔥🔥🔥🔥🔥', course);
-  }, [course])
 
 
     const handleIsConciergeOrNot = () => {
@@ -435,13 +428,13 @@ function ProductEdit() {
 
         <MainImage option={"edit"} mainImgProp={mainImg} onAdd={handleMainImg} onRemove={removeMainImg}/>
 
-        <TicketInfo ticketProps={ticket} onAdd={handleTicket} onRemove={removeTicket}/>
+        <TicketInfo onAdd={handleTicket} onRemove={removeTicket}/>
 
-        <MainInfo htmlProps={mainInfo} onChange={handleMainInfo}/>
+        <MainInfo onChange={handleMainInfo}/>
 
         <CourseInfo onAdd={handleCourse} onRemove={removeCourse} />
 
-        <ExtraInfo htmlProps={extraInfo} onChange={handleExtraInfo} />
+        <ExtraInfo onChange={handleExtraInfo} />
 
         <div className={`${styles.container} ${styles.guide}`}>
               <div className={styles.guideProfile}>

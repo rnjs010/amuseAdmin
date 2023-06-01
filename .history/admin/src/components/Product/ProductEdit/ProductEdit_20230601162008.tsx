@@ -160,11 +160,6 @@ function ProductEdit() {
   }, [ticket]);
 
 
-  useEffect(() => {
-    console.log('🔥🔥🔥🔥🔥🔥🔥🔥🔥', course);
-  }, [course])
-
-
     const handleIsConciergeOrNot = () => {
       setIsConcierge((prev) => !prev);
     }
@@ -441,7 +436,7 @@ function ProductEdit() {
 
         <CourseInfo onAdd={handleCourse} onRemove={removeCourse} />
 
-        <ExtraInfo htmlProps={extraInfo} onChange={handleExtraInfo} />
+        <ExtraInfo onChange={handleExtraInfo} />
 
         <div className={`${styles.container} ${styles.guide}`}>
               <div className={styles.guideProfile}>

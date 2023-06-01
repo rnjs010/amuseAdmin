@@ -33,7 +33,7 @@ function TicketInfo({ticketProps, onAdd, onRemove}: TicketInfoProps) {
 
   useEffect(() => {
     setTicketList(ticketProps);
-  }, [ticketProps])
+  }, [])
 
   useEffect(() => {
     console.log('🚗', ticketList);

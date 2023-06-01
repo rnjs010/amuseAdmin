@@ -32,7 +32,6 @@ type Price = {
 }
 
 interface Course {
-  sequenceId: number;
   title: string;
   timeCost: string;
   content: string;
@@ -201,6 +200,9 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
     ));
   }
 
+  useEffect(() => {
+    console.log(ticket);
+  }, [ticket])
   
   const [course, setCourse] = useState<Course[]>([]);
   const handleCourse = (course:Course) => {
@@ -356,13 +358,13 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
 
         <MainImage option={"create"} mainImgProp={mainImg} onAdd={handleMainImg} onRemove={removeMainImg}/>
 
-        <TicketInfo ticketProps={ticket} onAdd={handleTicket} onRemove={removeTicket}/>
+        <TicketInfo onAdd={handleTicket} onRemove={removeTicket}/>
 
-        <MainInfo htmlProps={mainInfo} onChange={handleMainInfo}/>
+        <MainInfo onChange={handleMainInfo}/>
 
         <CourseInfo onAdd={handleCourse} onRemove={removeCourse} />
 
-        <ExtraInfo htmlProps={extraInfo} onChange={handleExtraInfo} />
+        <ExtraInfo onChange={handleExtraInfo} />
 
         <div className={`${styles.container} ${styles.guide}`}>
               <div className={styles.guideProfile}>

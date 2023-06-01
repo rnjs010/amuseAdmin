@@ -1,6 +1,6 @@
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { EditorState, convertToRaw, convertFromHTML, ContentState } from 'draft-js';
+import { EditorState, convertToRaw } from 'draft-js';
 import draftjsToHtml from "draftjs-to-html";
 import styles from './ExtraInfo.module.css';
 import { useEffect, useState } from 'react';
@@ -9,19 +9,10 @@ type HTML = string;
 
 interface ExtraInfoProps {
   onChange(html: HTML): void,
-  htmlProps: HTML
 }
 
-function ExtraInfo({htmlProps, onChange}: ExtraInfoProps) {
+function ExtraInfo({onChange}: ExtraInfoProps) {
   const [extraInfoState, setExtraInfoState] = useState<EditorState>(EditorState.createEmpty());
-
-  useEffect(() => {
-    console.log('⭐⭐⭐⭐⭐', htmlProps)
-    const contentBlock = convertFromHTML(htmlProps);
-    const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-    const initialEditorState = EditorState.createWithContent(contentState);
-    setExtraInfoState(initialEditorState);
-  }, [htmlProps])
 
   const updateExtraInfoState = (extraInfoState: EditorState) => {
     setExtraInfoState(extraInfoState);
