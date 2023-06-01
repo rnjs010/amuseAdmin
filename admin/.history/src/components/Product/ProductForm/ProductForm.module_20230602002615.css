@@ -71,6 +71,7 @@ input, select {
   display: flex;
   min-height: 300px;
   overflow: auto;
+  background-color: transparent;
 }
 
 

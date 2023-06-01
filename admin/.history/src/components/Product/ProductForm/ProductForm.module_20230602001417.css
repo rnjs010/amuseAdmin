@@ -7,7 +7,7 @@ input, select {
 .sectionTitle {
   font-size: 20px;
   font-weight: bold;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .sectionDivider {
@@ -38,6 +38,7 @@ input, select {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background-color: #C5C5C5;
 }
 
 .controller.accessAuthority {
@@ -52,11 +53,13 @@ input, select {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  background-color: skyblue;
   padding-top: 20px;
   padding-bottom: 20px;
 }
 
 .container.locationAndDuration{
+  background-color: lightsalmon;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -68,11 +71,11 @@ input, select {
 }
 
 .container.mainImg{
+  background-color: lightgoldenrodyellow;
   display: flex;
   min-height: 300px;
   overflow: auto;
 }
-
 
 .container.submit {
   display: flex;
@@ -104,8 +107,8 @@ input, select {
   margin-top: 20px;
   padding: 10px;
   min-height: 60px;
-  border: 1px solid black;
   border-radius: var(--border-radius);
+  background-color: lightblue;
   overflow: auto;
 }
 
@@ -180,6 +183,11 @@ input, select {
   align-items: center;
 }
 
+
+.mainImgInput {
+  padding: 0;
+  text-decoration: none;
+}
 
 .mainImgList {
   width: 200px;

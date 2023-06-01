@@ -68,11 +68,11 @@ input, select {
 }
 
 .container.mainImg{
+  background-color: lightgoldenrodyellow;
   display: flex;
   min-height: 300px;
   overflow: auto;
 }
-
 
 .container.submit {
   display: flex;
@@ -180,6 +180,11 @@ input, select {
   align-items: center;
 }
 
+
+.mainImgInput {
+  padding: 0;
+  text-decoration: none;
+}
 
 .mainImgList {
   width: 200px;

@@ -181,6 +181,13 @@ input, select {
 }
 
 
+.mainImgInput {
+  padding: 0;
+  text-decoration: none;
+  border: none;
+  width: 100px;
+}
+
 .mainImgList {
   width: 200px;
   height: 200px;

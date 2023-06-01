@@ -90,7 +90,7 @@ input, select {
 }
 
 .container.guide {
-  background-color: indianred;
+  /* background-color: indianred; */
   display: flex;
   flex-direction: column;
   padding-bottom: 20px;

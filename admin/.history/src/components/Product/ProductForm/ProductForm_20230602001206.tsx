@@ -279,7 +279,7 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
   return (
     <div className={styles.productForm}>
         <section>
-          <div className={styles.sectionTitle}>상품 분류</div>
+          <div>기본 사항</div>
           <div className={styles.sectionDivider}></div>
           <div className={`${styles.container} ${styles.idAndCategory}`}>
             <div className={styles.category}>
@@ -303,13 +303,11 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
               <input className={styles.isConciergeCheck} type="checkbox" onChange={handleIsConciergeOrNot}/>
             </div>
           </div>
-        </section>        
+        </section>
+        
 
         {isConcierge && (
-          <section>
-            <div className={styles.sectionTitle}>접근 권한 설정</div>
-            <div className={styles.sectionDivider}></div>
-            <div className={`${styles.container} ${styles.accessAuthority}`}>
+          <div className={`${styles.container} ${styles.accessAuthority}`}>
               <div className={`${styles.controller } ${styles.accessAuthority}`}>
                 <div className={styles.accessibleUser}>
                   <span className={styles.title}>접근 가능 회원 ID</span>
@@ -334,18 +332,15 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
                 )
               }
           </div>
-          </section>
           )
         }
 
-        <section>
-          <div className={styles.sectionTitle}>기본 사항</div>
-          <div className={styles.sectionDivider}></div>
-          <div className={`${styles.container} ${styles.name}`}>
-              <span className={` ${styles.title} ${styles.name}`}>여행 상품명</span>
-              <input className={`${styles.nameInput}`} value={productTitle} onChange={handleProductName} type="text"/>
-          </div>
-          <div className={`${styles.container} ${styles.locationAndDuration}`}>
+        <div className={`${styles.container} ${styles.name}`}>
+            <span className={` ${styles.title} ${styles.name}`}>여행 상품명</span>
+            <input className={`${styles.nameInput}`} value={productTitle} onChange={handleProductName} type="text"/>
+        </div>
+
+        <div className={`${styles.container} ${styles.locationAndDuration}`}>
             <div className={styles.country}>
               <span className={styles.title}>국가</span>
               <input value={country} onChange={handleCountry} type="text"/>
@@ -367,21 +362,11 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
               <input className={styles.duration_input} value={durationDays} onChange={handleDurationDays} type="text" placeholder='' maxLength={2}/>
               <span className={styles.title}>일</span>
             </div>
-          </div>
-        </section>
-        
-        <section>
-          <div className={styles.sectionTitle}>메인 이미지</div>
-          <div className={styles.sectionDivider}></div>
-          <MainImage option={"create"} mainImgProp={mainImg} onAdd={handleMainImg} onRemove={removeMainImg}/>
-        </section>
-        
-        <section>
-          <div className={styles.sectionTitle}>티켓</div>
-          <div className={styles.sectionDivider}></div>
-          <TicketInfo ticketProps={ticket} onAdd={handleTicket} onRemove={removeTicket}/>
-        </section>
-        
+        </div>
+
+        <MainImage option={"create"} mainImgProp={mainImg} onAdd={handleMainImg} onRemove={removeMainImg}/>
+
+        <TicketInfo ticketProps={ticket} onAdd={handleTicket} onRemove={removeTicket}/>
 
         <MainInfo htmlProps={mainInfo} onChange={handleMainInfo}/>
 

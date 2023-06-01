@@ -73,7 +73,6 @@ input, select {
   overflow: auto;
 }
 
-
 .container.submit {
   display: flex;
   flex-direction: row;
@@ -180,6 +179,11 @@ input, select {
   align-items: center;
 }
 
+
+.mainImgInput {
+  padding: 0;
+  text-decoration: none;
+}
 
 .mainImgList {
   width: 200px;

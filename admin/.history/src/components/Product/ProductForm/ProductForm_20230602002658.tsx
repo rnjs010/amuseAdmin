@@ -376,12 +376,8 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
           <MainImage option={"create"} mainImgProp={mainImg} onAdd={handleMainImg} onRemove={removeMainImg}/>
         </section>
         
-        <section>
-          <div className={styles.sectionTitle}>티켓</div>
-          <div className={styles.sectionDivider}></div>
-          <TicketInfo ticketProps={ticket} onAdd={handleTicket} onRemove={removeTicket}/>
-        </section>
-        
+
+        <TicketInfo ticketProps={ticket} onAdd={handleTicket} onRemove={removeTicket}/>
 
         <MainInfo htmlProps={mainInfo} onChange={handleMainInfo}/>
 
