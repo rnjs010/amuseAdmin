@@ -26,7 +26,7 @@ function ProductStatus() {
   }, [])
 
   const handleDeleteProducts =  (itemCode: string) => {
-    setActiveItemList(activeItemList.filter((item) => {return item.product_code !== itemCode}))
+    setActiveItemList(activeItemList.filter((item) => {item.product_code !== itemCode}))
     axios.get('https://ammuse.store/test/api/product/delete', {
        params: {
          itemCode
@@ -51,7 +51,9 @@ function ProductStatus() {
               <img className={styles.activeImg}src={item.imageUrl} alt="" />
               <div className={styles.btnContainer}>
                 <button onClick={() => navigate(`/product/edit/${item.product_code}`)}>수정</button>
-                <button onClick={() => handleDeleteProducts(item.product_code)}>삭제</button>
+                <button onClick={() => {
+                  
+                }}>삭제</button>
                 <button>비활성화</button>
               </div>
               <div className={styles.productCodeContainer}>

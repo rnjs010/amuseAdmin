@@ -51,7 +51,7 @@ function ProductStatus() {
               <img className={styles.activeImg}src={item.imageUrl} alt="" />
               <div className={styles.btnContainer}>
                 <button onClick={() => navigate(`/product/edit/${item.product_code}`)}>수정</button>
-                <button onClick={() => handleDeleteProducts(item.product_code)}>삭제</button>
+                <button onClick={() => handleDeleteProducts}>삭제</button>
                 <button>비활성화</button>
               </div>
               <div className={styles.productCodeContainer}>

@@ -7,34 +7,19 @@ import { useNavigate } from 'react-router-dom';
 function ProductStatus() {
   const navigate = useNavigate();
 
-  const [activeItemList, setActiveItemList] = useState([{
-    product_code: '',
-    title: '',
-    imageUrl: ''
-  }]);
+  const [activeItemList, setActiveItemList] = useState([{}]);
   useEffect(() => {
     axiosInstance.get('/main/current-item')
-      .then((res) => {
-          const data = res.data.data.items;
-          const processedData = data.map((item: any) => ({
-            product_code: item.product_code,
-            title: item.title,
-            imageUrl: item.imageUrl
-          }))
-          setActiveItemList(processedData)
-        });
+  .then((res) => {
+      const data = res.data.data.items;
+      const processedData = data.map((item: any) => ({
+        product_code: item.product_code,
+        title: item.title,
+        imageUrl: item.imageUrl
+      }))
+      setActiveItemList(processedData)
+    });
   }, [])
-
-  const handleDeleteProducts =  (itemCode: string) => {
-    setActiveItemList(activeItemList.filter((item) => {return item.product_code !== itemCode}))
-    axios.get('https://ammuse.store/test/api/product/delete', {
-       params: {
-         itemCode
-       }
-    })
-    .then((res) => console.log(res))
-    .catch(console.error);
-  }
 
   useEffect(() => {
     console.log(activeItemList);
@@ -51,7 +36,15 @@ function ProductStatus() {
               <img className={styles.activeImg}src={item.imageUrl} alt="" />
               <div className={styles.btnContainer}>
                 <button onClick={() => navigate(`/product/edit/${item.product_code}`)}>수정</button>
-                <button onClick={() => handleDeleteProducts(item.product_code)}>삭제</button>
+                <button onClick={() => {
+                  axios.get('https://ammuse.store/test/api/product/delete', {
+                    params: {
+                      itemCode: item.product_code
+                    }
+                  })
+                  .then((res) => console.log(res))
+                  .catch(console.error)
+                }}>삭제</button>
                 <button>비활성화</button>
               </div>
               <div className={styles.productCodeContainer}>
