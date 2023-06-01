@@ -223,6 +223,16 @@ const MainPageComponentAdd = () => {
 			return;
 		}
 		if (option == "카테고리") {
+			(async () => {
+				const response = await ItemLogic.getProductItems({
+					"option": 1,
+					"page": 1,
+					"limit": 100,
+					"categoryNames": [keyword]
+				})
+				console.log(response)
+				setProductListArr(response);
+			})();
 			return;
 		}
 		if (option == "제목") {
