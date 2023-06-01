@@ -19,15 +19,14 @@ function MainInfo({htmlProps, onChange}: MainInfoProps) {
   const [mainInfoState, setMainInfoState] = useState<EditorState>(EditorState.createEmpty());
 
   useEffect(() => {
-    console.log('⭐⭐⭐⭐⭐', htmlProps)
     const contentBlock = convertFromHTML(htmlProps);
     const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
     const initialEditorState = EditorState.createWithContent(contentState);
     setMainInfoState(initialEditorState);
-  }, [htmlProps])
+  }, [])
 
   useEffect(() => {
-    console.log('🥝', mainInfoState);
+    console.log(mainInfoState);
   }, [mainInfoState])
 
 

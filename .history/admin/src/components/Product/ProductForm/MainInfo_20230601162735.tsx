@@ -24,7 +24,7 @@ function MainInfo({htmlProps, onChange}: MainInfoProps) {
     const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
     const initialEditorState = EditorState.createWithContent(contentState);
     setMainInfoState(initialEditorState);
-  }, [htmlProps])
+  }, [])
 
   useEffect(() => {
     console.log('🥝', mainInfoState);

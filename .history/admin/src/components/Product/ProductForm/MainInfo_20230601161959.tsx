@@ -1,6 +1,6 @@
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { EditorState, convertToRaw, convertFromHTML, ContentState } from 'draft-js';
+import { EditorState, convertToRaw } from 'draft-js';
 import draftjsToHtml from "draftjs-to-html";
 import { useEffect, useState } from 'react';
 import styles from './MainInfo.module.css';
@@ -14,22 +14,7 @@ interface MainInfoProps {
 
 
 function MainInfo({htmlProps, onChange}: MainInfoProps) {
-
-
   const [mainInfoState, setMainInfoState] = useState<EditorState>(EditorState.createEmpty());
-
-  useEffect(() => {
-    console.log('⭐⭐⭐⭐⭐', htmlProps)
-    const contentBlock = convertFromHTML(htmlProps);
-    const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-    const initialEditorState = EditorState.createWithContent(contentState);
-    setMainInfoState(initialEditorState);
-  }, [htmlProps])
-
-  useEffect(() => {
-    console.log('🥝', mainInfoState);
-  }, [mainInfoState])
-
 
   const updateMainInfoState = (mainInfoState: EditorState) => {
     setMainInfoState(mainInfoState);
