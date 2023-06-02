@@ -12,11 +12,16 @@ type Location  = {
 }
 
 interface Course {
+  id: number | null;
+  sequenceId: number;
   title: string;
   timeCost: string;
-  location: Location;
   content: string;
   image: ImageFile;
+  location: {
+    latitude: string;
+    longitude: string;
+  }
 }
 
 type MordalProps = {
@@ -25,6 +30,7 @@ type MordalProps = {
 };
 
 function CourseModal({onSave, onToggle}: MordalProps) {
+  const [courseCount, setCourseCount] = useState<number>(0);
   const [title, setTitle] = useState<string>('');
   const [timeCost, setTimeCost] = useState<string>('');
   const [location, setLocation] = useState<Location>({
@@ -88,6 +94,8 @@ function CourseModal({onSave, onToggle}: MordalProps) {
   const handleSave = () => {
     if(title.length > 0 && content.length && timeCost && image){
       const course:Course = {
+        id: null,
+        sequenceId: courseCount,
         title: title,
         timeCost: timeCost,
         location: location,
@@ -96,6 +104,7 @@ function CourseModal({onSave, onToggle}: MordalProps) {
       };
       console.log(course);
       onSave(course);
+      setCourseCount((prev) => prev + 1);
     }
   };
 

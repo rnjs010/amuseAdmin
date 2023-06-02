@@ -1,11 +1,27 @@
 import { useState } from 'react';
 import styles from './CourseModal.module.css';
 
+interface ImageFile {
+  fileName: string,
+  base64Data: string
+}
+
+type Location  = {
+  latitude: string,
+  longitude: string
+}
+
 interface Course {
+  id: number | null;
+  sequenceId: number;
   title: string;
   timeCost: string;
   content: string;
-  image: File;
+  image: ImageFile;
+  location: {
+    latitude: string;
+    longitude: string;
+  }
 }
 
 type MordalProps = {
@@ -14,10 +30,16 @@ type MordalProps = {
 };
 
 function CourseModal({onSave, onToggle}: MordalProps) {
+  const [courseCount, setCourseCount] = useState<number>(0);
   const [title, setTitle] = useState<string>('');
   const [timeCost, setTimeCost] = useState<string>('');
+  const [location, setLocation] = useState<Location>({
+    latitude: '',
+    longitude: ''
+  });
+
   const [content, setContent] = useState<string>('');
-  const [image, setImage] = useState<File | undefined>();
+  const [image, setImage] = useState<ImageFile | undefined>();
   
   const handleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.currentTarget.value);
@@ -31,26 +53,59 @@ function CourseModal({onSave, onToggle}: MordalProps) {
     setTimeCost(event.currentTarget.value);
   };
 
-  const handleImg = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLatitude = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLocation((prev) => ({
+      ...prev,
+      latitude: event.target.value
+    }))
+  }
+
+  const handleLongitude = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLocation((prev) => ({
+      ...prev,
+      longitude: event.target.value
+    }))
+  }
+
+  const handleImg = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setImage(file);
-    } else {
+      try {
+        const imageFile = await new Promise <ImageFile>((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            resolve({fileName: file.name, base64Data: reader.result as string});
+          };
+          reader.readAsDataURL(file);
+        });
+        setImage(imageFile);
+      }
+      catch(error) {
+        console.error("Error reading the image file: ", error);
+        setImage(undefined);
+      }
+    } 
+    else {
       setImage(undefined);
     }
   }
 
+
   const handleSave = () => {
     if(title.length > 0 && content.length && timeCost && image){
       const course:Course = {
+        id: null,
+        sequenceId: courseCount,
         title: title,
         timeCost: timeCost,
+        location: location,
         content: content,
         image: image
       };
       console.log(course);
       onSave(course);
     }
+    setCourseCount((prev) => prev + 1);
   };
 
   return (
@@ -67,7 +122,17 @@ function CourseModal({onSave, onToggle}: MordalProps) {
           </div>
           <div className={`${styles.container} ${styles.timeCost}`}>
             <p className={styles.label}>코스 소요시간</p>
-            <input className={`${styles.input} ${styles.timeCost}`} value={timeCost} onChange={handleTimeCost} type="text" />
+            <input className={`${styles.input} ${styles.timeCost}`} value={timeCost} onChange={handleTimeCost} type="text" placeholder='코스 소요시간을 입력하세요.' />
+          </div>
+          <div className={`${styles.container} ${styles.location}`}>
+            <div className={styles.latitude}>
+              <p className={styles.label}>위도값</p>
+              <input className={`${styles.input} ${styles.latitude}`} value={location.latitude} onChange={handleLatitude} type="text" placeholder='위도값을 입력하세요.' />
+            </div>
+            <div className={styles.longitude}>
+              <p className={styles.label}>경도값</p>
+              <input className={`${styles.input} ${styles.longitude}`} value={location.longitude} onChange={handleLongitude} type="text" placeholder='경도값을 입력하세요.' />
+            </div>
           </div>
           <div className={`${styles.container} ${styles.content}`}>
             <p className={styles.label}>코스 설명</p>
@@ -76,9 +141,8 @@ function CourseModal({onSave, onToggle}: MordalProps) {
           <div className={`${styles.container} ${styles.img}`}>
             <span className={` ${styles.label} ${styles.img}`}>코스 이미지</span>
             <input className={styles.imgInput} id="imgInput" onChange={handleImg} accept="image/png, image/jpeg" type="file"/>
-            {image && <img src={URL.createObjectURL(image)} alt="Course" />}
-          </div>
-        
+            {image && <img className={styles.currentImg} src={image.base64Data} alt="Course" />}
+          </div>       
         </div>
 
         <button className={styles.saveBtn} onClick={handleSave}>추가</button>

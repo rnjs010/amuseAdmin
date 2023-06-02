@@ -41,6 +41,7 @@ function MainImage({option, mainImgProp, onAdd, onRemove}:ExtraInfoProps) {
     }
 
     Promise.all(filePromise).then((base64Files) => {
+      console.log('✅',base64Files);
       setMainImg((prev) => [...prev, ...base64Files]);
       onAdd(base64Files)
     })
