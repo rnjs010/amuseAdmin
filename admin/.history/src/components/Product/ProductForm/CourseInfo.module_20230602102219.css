@@ -8,6 +8,9 @@
   padding-right: 60px;
 }
 
+.container.course {
+  background-color: lightsteelblue;
+}
 
 .title {
   padding-right: 10px;

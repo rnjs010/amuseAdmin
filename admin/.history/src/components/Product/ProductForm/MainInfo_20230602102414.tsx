@@ -69,7 +69,6 @@ function MainInfo({htmlProps, onChange}: MainInfoProps) {
           toolbarStyle={{
             borderRadius: "10px"
           }}
-          placeholder='내용을 입력하세요.'
           toolbar={{
             fontSize: {
               options: [8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48],

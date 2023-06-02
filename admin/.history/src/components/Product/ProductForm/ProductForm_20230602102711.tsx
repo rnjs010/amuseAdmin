@@ -401,7 +401,7 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
         </section>
         
         <section>
-          <div className={styles.sectionTitle}>담당 가이드</div>
+          <div className={styles.sectionTitle}>가이드</div>
           <div className={styles.sectionDivider}></div>
           <div className={`${styles.container} ${styles.guide}`}>
                 <div className={styles.guideProfile}>

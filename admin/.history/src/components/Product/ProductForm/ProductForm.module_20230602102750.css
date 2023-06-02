@@ -268,7 +268,7 @@ input, select {
 
 .guideTextArea {
   min-height: 60px;
-  border: 1px solid black;
+  border: 1px solid var(--color-light-grey);
 }
 
 .guideGetBtn {

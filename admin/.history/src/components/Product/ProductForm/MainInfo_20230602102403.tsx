@@ -62,14 +62,13 @@ function MainInfo({htmlProps, onChange}: MainInfoProps) {
             height: "400px",
             width: "100%",
             backgroundColor: "white",
-            border: "1px solid black",
+            border: "2px solid grey",
             borderRadius: "0px",
             padding: "10px",          
           }}
           toolbarStyle={{
             borderRadius: "10px"
           }}
-          placeholder='내용을 입력하세요.'
           toolbar={{
             fontSize: {
               options: [8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48],

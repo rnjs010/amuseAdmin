@@ -8,6 +8,9 @@
   padding-right: 60px;
 }
 
+.container.course {
+  background-color: lightsteelblue;
+}
 
 .title {
   padding-right: 10px;
@@ -26,7 +29,7 @@
   width: 100%;
   height: fit-content;
   min-height: 300px;
-  border: 2px solid var(--color-light-grey);
+  border: 1px solid var(--color-light-grey);
   border-radius: 10px;
   margin-top: 3%;
   overflow-y: scroll;
