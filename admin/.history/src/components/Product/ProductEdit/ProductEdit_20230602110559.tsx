@@ -368,7 +368,7 @@ function ProductEdit() {
           </div>
           <div className={styles.code}>
               <span className={styles.title}>상품 코드</span>
-              <input className={styles.productId} type="text" value={productId} readOnly/>
+              <input className={styles.productId} type="text" value={productId}/>
           </div>
           <div className={styles.isConcierge}>
             <span>컨시어지 여부</span>
