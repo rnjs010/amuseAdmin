@@ -18,17 +18,13 @@
 
 .btnContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   border-top: 1px solid black;
-  border-bottom: 1px solid black;
 }
 
 .btnContainer > button {
   color: white;
   background-color: var(--color-pink);
-  min-width: 60px;
-  padding: 2px;
-  border-radius: 4px;
 }
 
 .title {

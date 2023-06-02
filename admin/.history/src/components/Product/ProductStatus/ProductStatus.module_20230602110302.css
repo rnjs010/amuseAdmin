@@ -26,9 +26,7 @@
 .btnContainer > button {
   color: white;
   background-color: var(--color-pink);
-  min-width: 60px;
   padding: 2px;
-  border-radius: 4px;
 }
 
 .title {
