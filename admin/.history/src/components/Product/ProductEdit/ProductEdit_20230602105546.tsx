@@ -412,90 +412,60 @@ function ProductEdit() {
           )
         }
 
-        <section>
-          <div className={styles.sectionTitle}>기본 사항</div>
-          <div className={styles.sectionDivider}></div>
-          <div className={`${styles.container} ${styles.name}`}>
-                <span className={` ${styles.title} ${styles.name}`}>여행 상품명</span>
-                <input className={`${styles.nameInput}`} value={productTitle} onChange={handleProductName} type="text"/>
+        <div className={`${styles.container} ${styles.name}`}>
+            <span className={` ${styles.title} ${styles.name}`}>여행 상품명</span>
+            <input className={`${styles.nameInput}`} value={productTitle} onChange={handleProductName} type="text"/>
+        </div>
+
+        <div className={`${styles.container} ${styles.locationAndDuration}`}>
+            <div className={styles.country}>
+              <span className={styles.title}>국가</span>
+              <input value={country} onChange={handleCountry} type="text"/>
             </div>
-
-            <div className={`${styles.container} ${styles.locationAndDuration}`}>
-                <div className={styles.country}>
-                  <span className={styles.title}>국가</span>
-                  <input value={country} onChange={handleCountry} type="text"/>
-                </div>
-                <div className={styles.city}>
-                  <span className={styles.title}>도시</span>
-                  <input value={city} onChange={handleCity} type="text"/>
-                </div>
-                <div className={styles.productPeriod}>
-                  <span className={styles.title}>상품 게재 기간</span>
-                  <input value={listingStartDate} onChange={handleListingStartDate} type="date"/>
-                  <span> ~ </span>
-                  <input value={listingEndDate} onChange={handleListingEndDate} type="date"/>
-                </div>
-                <div className={styles.duration}>
-                  <span className={styles.title}>여행 기간</span>
-                  <input className={styles.duration_input} value={durationNights} onChange={handleDurationNights} type="text" placeholder='' maxLength={2}/>
-                  <span className={styles.title}>박</span>
-                  <input className={styles.duration_input} value={durationDays} onChange={handleDurationDays} type="text" placeholder='' maxLength={2}/>
-                  <span className={styles.title}>일</span>
-                </div>
+            <div className={styles.city}>
+              <span className={styles.title}>도시</span>
+              <input value={city} onChange={handleCity} type="text"/>
             </div>
-        </section>
-        
-        <section>
-            <div className={styles.sectionTitle}>메인 이미지</div>
-            <div className={styles.sectionDivider}></div>
-            <MainImage option={"edit"} mainImgProp={mainImg} onAdd={handleMainImg} onRemove={removeMainImg}/>
-        </section>    
-
-            <section>
-            <div className={styles.sectionTitle}>티켓</div>
-            <div className={styles.sectionDivider}></div>
-            <TicketInfo ticketProps={ticket} onAdd={handleTicket} onRemove={removeTicket}/>
-        </section>   
-
-            <section>
-          <div className={styles.sectionTitle}>상품 소개</div>
-          <div className={styles.sectionDivider}></div>
-          <MainInfo htmlProps={mainInfo} onChange={handleMainInfo}/>
-        </section> 
-
-        <section>
-          <div className={styles.sectionTitle}>여행 코스</div>
-          <div className={styles.sectionDivider}></div>
-          <CourseInfo courseProps={course} onAdd={handleCourse} onRemove={removeCourse} />
-        </section>
-
-
-            <section>
-            <div className={styles.sectionTitle}>추가 정보</div>
-            <div className={styles.sectionDivider}></div>
-            <ExtraInfo htmlProps={extraInfo} onChange={handleExtraInfo} />
-        </section>
-
-        <section>
-            <div className={styles.sectionTitle}>담당 가이드</div>
-            <div className={styles.sectionDivider}></div>
-            <div className={`${styles.container} ${styles.guide}`}>
-                  <div className={styles.guideProfile}>
-                    <div className={styles.guideImg}></div>
-                    <p className={styles.guideName}>name</p>
-                    <p className={styles.guideCode}>1234-1234-1234</p>
-                  </div>                  
-                  <div className={styles.divider}></div>
-                  <textarea className={styles.guideTextArea} placeholder='내용을 입력하세요.'></textarea>
-                  <button className={styles.guideGetBtn}>가이드 불러오기</button>
+            <div className={styles.productPeriod}>
+              <span className={styles.title}>상품 게재 기간</span>
+              <input value={listingStartDate} onChange={handleListingStartDate} type="date"/>
+              <span> ~ </span>
+              <input value={listingEndDate} onChange={handleListingEndDate} type="date"/>
             </div>
-        </section>
+            <div className={styles.duration}>
+              <span className={styles.title}>여행 기간</span>
+              <input className={styles.duration_input} value={durationNights} onChange={handleDurationNights} type="text" placeholder='' maxLength={2}/>
+              <span className={styles.title}>박</span>
+              <input className={styles.duration_input} value={durationDays} onChange={handleDurationDays} type="text" placeholder='' maxLength={2}/>
+              <span className={styles.title}>일</span>
+            </div>
+        </div>
+
+        <MainImage option={"edit"} mainImgProp={mainImg} onAdd={handleMainImg} onRemove={removeMainImg}/>
+
+        <TicketInfo ticketProps={ticket} onAdd={handleTicket} onRemove={removeTicket}/>
+
+        <MainInfo htmlProps={mainInfo} onChange={handleMainInfo}/>
+
+        <CourseInfo courseProps={course} onAdd={handleCourse} onRemove={removeCourse} />
+
+        <ExtraInfo htmlProps={extraInfo} onChange={handleExtraInfo} />
+
+        <div className={`${styles.container} ${styles.guide}`}>
+              <div className={styles.guideProfile}>
+                <div className={styles.guideImg}></div>
+                <p className={styles.guideName}>name</p>
+                <p className={styles.guideCode}>1234-1234-1234</p>
+              </div>                  
+              <div className={styles.divider}></div>
+              <textarea className={styles.guideTextArea} placeholder='내용을 입력하세요.'></textarea>
+              <button className={styles.guideGetBtn}>가이드 불러오기</button>
+        </div>
 
         <div className={`${styles.container} ${styles.submit}`}>
-            <button className={styles.submitBtn} onClick={handleAddProduct}>상품 수정하기</button>
+            <button className={styles.submitBtn} onClick={handleAddProduct}>상품 등록하기</button>
         </div>
     </div>
-    
   );
   }
 
