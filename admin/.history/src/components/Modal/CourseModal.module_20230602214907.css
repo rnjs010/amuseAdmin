@@ -91,18 +91,12 @@
   width: 100%;
 }
 
-.container.timeCostAndDay {
-  display: flex;
-  justify-content: space-between;
-}
-
 .input.timeCost{
   width: 200px;
 }
 
 .input.day {
-  width: 32px;
-  margin-right: 10px;
+  width: 40px;
 }
 
 .input.latitude, .input.longitude {

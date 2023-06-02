@@ -93,10 +93,6 @@ function CourseModal({onSave, onToggle}: MordalProps) {
 
   const [day, setDay] = useState<number>(0);
 
-  const handleDay = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDay(Number(event.target.value));
-  }
-  
   const handleSave = () => {
     if(title.length > 0 && content.length && timeCost && image){
       const course:Course = {
@@ -133,9 +129,9 @@ function CourseModal({onSave, onToggle}: MordalProps) {
               <input className={`${styles.input} ${styles.timeCost}`} value={timeCost} onChange={handleTimeCost} type="text" placeholder='코스 소요시간을 입력하세요.' />
             </div>
             <div>
-              <p className={styles.label}>시기</p>
-              <input className={`${styles.input} ${styles.day}`} value={day} onChange={handleDay} type="text" placeholder='코스 소요시간을 입력하세요.' />
-              <span>일차</span>
+              <span className={styles.label}>시기</span>
+              <input className={`${styles.input} ${styles.day}`} value={day} onChange={handleTimeCost} type="text" placeholder='코스 소요시간을 입력하세요.' />
+              <p>일차</p>
             </div>
           </div>
           <div className={`${styles.container} ${styles.location}`}>
