@@ -28,7 +28,7 @@
   z-index: 999;
 
   position: absolute;
-  top: 245%;
+  top: 190%;
   left: 50%;
   transform: translate(-50%, -50%);
 
@@ -84,7 +84,6 @@
 .container.img{
   display: flex;
   flex-direction: column;
-  min-height: 200px;
 }
 
 .input {
@@ -108,8 +107,6 @@
 .imgInput {
   border: none;
 }
-
-
 .currentImg{
   width: 200px;
   height: 200px;

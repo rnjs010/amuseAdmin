@@ -57,6 +57,7 @@ function MainInfo({htmlProps, onChange}: MainInfoProps) {
   return (
     <div className={`${styles.container} ${styles.mainInfo}`}>
       <div>
+        <span className={styles.title}>상품 소개 관리</span>
         <Editor
           editorState={draftState}
           onEditorStateChange={updateMainInfoState}

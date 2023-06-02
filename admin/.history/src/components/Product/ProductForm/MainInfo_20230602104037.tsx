@@ -50,13 +50,13 @@ function MainInfo({htmlProps, onChange}: MainInfoProps) {
     setMainInfoState(draftState);
     const html = draftjsToHtml(convertToRaw(draftState.getCurrentContent()));
     onChange(html);
-    alert('상품 소개 글이 저장되었습니다.');
   }
 
 
   return (
     <div className={`${styles.container} ${styles.mainInfo}`}>
       <div>
+        <span className={styles.title}>상품 소개 관리</span>
         <Editor
           editorState={draftState}
           onEditorStateChange={updateMainInfoState}
@@ -84,8 +84,8 @@ function MainInfo({htmlProps, onChange}: MainInfoProps) {
           }
         }        
         />
+        <button onClick={saveContent}>저장</button>
       </div>
-      <button className={styles.saveBtn} onClick={saveContent}>저장</button>
     </div>
   );
 }

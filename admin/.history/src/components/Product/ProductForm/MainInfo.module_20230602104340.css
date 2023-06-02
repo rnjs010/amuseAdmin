@@ -21,10 +21,8 @@
 }
 
 .saveBtn {
-  width: 100%;
-  max-width: 1140px;
+  width: 300px;
   height: 30px;
-  margin-top: 10px;
   margin-bottom: 10px;
   background-color: var(--color-pink);
   border-radius: 10px;

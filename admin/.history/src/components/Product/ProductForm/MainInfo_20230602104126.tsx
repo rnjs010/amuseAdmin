@@ -57,6 +57,7 @@ function MainInfo({htmlProps, onChange}: MainInfoProps) {
   return (
     <div className={`${styles.container} ${styles.mainInfo}`}>
       <div>
+        <span className={styles.title}>상품 소개 관리</span>
         <Editor
           editorState={draftState}
           onEditorStateChange={updateMainInfoState}
@@ -84,8 +85,8 @@ function MainInfo({htmlProps, onChange}: MainInfoProps) {
           }
         }        
         />
+        <button className={styles.saveBtn} onClick={saveContent}>저장</button>
       </div>
-      <button className={styles.saveBtn} onClick={saveContent}>저장</button>
     </div>
   );
 }
