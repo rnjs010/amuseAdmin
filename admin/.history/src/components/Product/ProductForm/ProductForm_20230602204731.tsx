@@ -54,6 +54,7 @@ type Product = {
   productId: string;
   option: string;
   category: string[];
+  isConcierge: boolean;
   title: string;
   startPrice: number;
   admin: string;
@@ -123,20 +124,13 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
   const [categoryList, setCategoryList] = useState<string[]>([]);
   useEffect(
     () => {
-      axiosInstance.get('/test/api/category/list')
+      axios.get('/data/category.json')
         .then((res) => {
-          console.log('🐴',res.data.data);
-          setCategoryList(res.data.data);
+          setCategoryList(res.data);
         })
         .catch((err) => console.error(`failed to get categories: ${err}`));
     }, []
   );
-
-  useEffect(() => {
-    if(categoryList.includes('컨시어지')){
-      setIsConcierge(true);
-    }
-  }, [categoryList])
 
   const handleProductCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
     if(!category.includes(event.target.value)){
@@ -239,6 +233,7 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
         productId,
         option: "create",
         category,
+        isConcierge: false,
         title: productTitle,
         startPrice: 9999,
         admin: 'daw916@naver.com',
@@ -302,6 +297,10 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
             <div className={styles.code}>
                 <span className={styles.title}>상품 코드</span>
                 <input className={styles.productId} type="text" onChange={handleProductID}/>
+            </div>
+            <div className={styles.isConcierge}>
+              <span>컨시어지 여부</span>
+              <input className={styles.isConciergeCheck} type="checkbox" onChange={handleIsConciergeOrNot}/>
             </div>
           </div>
         </section>        

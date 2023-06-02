@@ -125,8 +125,8 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
     () => {
       axiosInstance.get('/test/api/category/list')
         .then((res) => {
-          console.log('🐴',res.data.data);
-          setCategoryList(res.data.data);
+          console.log('🐴',res);
+          // setCategoryList(res.data);
         })
         .catch((err) => console.error(`failed to get categories: ${err}`));
     }, []

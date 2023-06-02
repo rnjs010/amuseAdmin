@@ -123,10 +123,9 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
   const [categoryList, setCategoryList] = useState<string[]>([]);
   useEffect(
     () => {
-      axiosInstance.get('/test/api/category/list')
+      axios.get('/data/category.json')
         .then((res) => {
-          console.log('🐴',res.data.data);
-          setCategoryList(res.data.data);
+          setCategoryList(res.data);
         })
         .catch((err) => console.error(`failed to get categories: ${err}`));
     }, []
