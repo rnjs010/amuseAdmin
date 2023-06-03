@@ -164,6 +164,10 @@ function ProductEdit() {
   }, [product]);
 
 
+  useEffect(() => {
+    console.log('🔥🔥🔥🔥🔥🔥🔥🔥🔥', course);
+  }, [course])
+
   
     const renderUserTierOptions = () => {
       return userTierList.map((userClass) => {
@@ -463,7 +467,7 @@ function ProductEdit() {
             <TicketInfo ticketProps={ticket} onAdd={handleTicket} onRemove={removeTicket}/>
         </section>   
 
-        <section>
+            <section>
           <div className={styles.sectionTitle}>상품 소개</div>
           <div className={styles.sectionDivider}></div>
           <MainInfo htmlProps={mainInfo} onChange={handleMainInfo}/>

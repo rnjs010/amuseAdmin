@@ -164,6 +164,10 @@ function ProductEdit() {
   }, [product]);
 
 
+  useEffect(() => {
+    console.log('🔥🔥🔥🔥🔥🔥🔥🔥🔥', course);
+  }, [course])
+
   
     const renderUserTierOptions = () => {
       return userTierList.map((userClass) => {
