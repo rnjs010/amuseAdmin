@@ -62,8 +62,12 @@
   font-weight: bold;
 }
 
-.textInfo > p {
-  font-weight: bold;
-  margin-top: 10px;
-}
 
+.courseTitle {
+  background-color: var(--color-white);
+  border-radius: var(--border-radius);
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
+  margin-bottom: 10px;
+}

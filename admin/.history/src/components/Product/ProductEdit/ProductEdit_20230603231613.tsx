@@ -7,8 +7,6 @@ import TicketInfo from '../ProductForm/TicketInfo';
 import MainInfo from '../ProductForm/MainInfo';
 import CourseInfo from '../ProductForm/CourseInfo';
 import ExtraInfo from '../ProductForm/ExtraInfo';
-import { IoMdRemoveCircle } from 'react-icons/io';
-
 
 type HTML = string;
 
@@ -142,6 +140,7 @@ function ProductEdit() {
         const product = res.data.data;
         setProduct(product);
         setCategory(product.category);
+        setIsConcierge(product.isConcierge);
         setProductTitle(product.title);
         setCountry(product.location.country);
         setCity(product.location.city);
@@ -168,6 +167,11 @@ function ProductEdit() {
     console.log('🔥🔥🔥🔥🔥🔥🔥🔥🔥', course);
   }, [course])
 
+
+    const handleIsConciergeOrNot = () => {
+      setIsConcierge((prev) => !prev);
+    }
+  
   
     const renderUserTierOptions = () => {
       return userTierList.map((userClass) => {
@@ -220,19 +224,6 @@ function ProductEdit() {
         );
       });
     };
-
-    useEffect(() => {
-      if(category.includes('컨시어지')){
-        setIsConcierge(true);
-      } else{
-        setIsConcierge(false);
-      }
-    }, [category]);
-
-    const handleDeleteCategory = (clickedCategory: string) => {
-      setCategory(category.filter((category) => category !== clickedCategory));
-  }
-
   
     const handleProductName = (event: React.ChangeEvent<HTMLInputElement>) => {
       setProductTitle(event.target.value);
@@ -372,16 +363,17 @@ function ProductEdit() {
             </select>
             <div className={styles.categoryStatus}>
               {category.map(categoryName => 
-                  <li key={categoryName}>
-                    <span>{categoryName}</span>
-                    <button className={styles.removeBtn} onClick={() => handleDeleteCategory(categoryName)}><IoMdRemoveCircle/></button>
-                  </li> 
-                )}
+                <li key={categoryName}>{categoryName}</li>
+              )}
             </div>
           </div>
           <div className={styles.code}>
               <span className={styles.title}>상품 코드</span>
               <input className={styles.productId} type="text" value={productId} readOnly/>
+          </div>
+          <div className={styles.isConcierge}>
+            <span>컨시어지 여부</span>
+            <input className={styles.isConciergeCheck} type="checkbox" onChange={handleIsConciergeOrNot}/>
           </div>
           </div>
         </section>

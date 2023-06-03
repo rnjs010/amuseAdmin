@@ -58,11 +58,11 @@ function CourseInfo({courseProps, onAdd, onRemove} : MainInfoProps) {
             <li className={styles.courseBox} key={course.title}>
               <button className={styles.removeBtn} onClick={() => removeCourse(course)}><IoMdRemoveCircle/></button>
               <div className={styles.textInfo}>
-                <p>제목</p>
+                <p className={styles.courseLabel}>제목</p>
                 <span>{course.title}</span>
-                <p>소요시간</p>
+                <p className={styles.courseLabel}>소요시간</p>
                 <span>{course.timeCost}</span>
-                <p>설명</p>
+                <p className={styles.courseLabel}>설명</p>
                 <span>{course.content}</span>
               </div>
               <img className={styles.courseImg} src={course.image.base64Data} alt="Course" />

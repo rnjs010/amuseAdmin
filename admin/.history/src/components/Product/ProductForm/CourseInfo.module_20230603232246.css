@@ -58,12 +58,6 @@
   background-color: transparent;
 }
 
-.courseLabel {
-  font-weight: bold;
-}
-
 .textInfo > p {
   font-weight: bold;
-  margin-top: 10px;
 }
-
