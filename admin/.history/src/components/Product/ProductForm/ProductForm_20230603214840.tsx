@@ -133,8 +133,6 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
   useEffect(() => {
     if(category.includes('컨시어지')){
       setIsConcierge(true);
-    } else{
-      setIsConcierge(false);
     }
   }, [category]);
 
@@ -144,8 +142,11 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
     }    
   }
 
-  const handleDeleteCategory = (clickedCategory: string) => {
-      setCategory(category.filter((category) => category !== clickedCategory));
+  const handleDeleteCategory = (event: React.ChangeEvent<HTMLButtonElement>) => {
+      // setCategory(
+      //   category.filter()
+      // )
+      console.log('✅✅✅', event);
   }
 
 
@@ -302,7 +303,7 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
                 {category.map(categoryName => 
                   <li key={categoryName}>
                     <span>{categoryName}</span>
-                    <button className={styles.removeBtn} onClick={() => handleDeleteCategory(categoryName)}><IoMdRemoveCircle/></button>
+                    <button className={styles.removeBtn} onClick={handleDeleteCategory}><IoMdRemoveCircle/></button>
                   </li> 
                 )}
               </div>

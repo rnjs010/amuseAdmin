@@ -133,8 +133,6 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
   useEffect(() => {
     if(category.includes('컨시어지')){
       setIsConcierge(true);
-    } else{
-      setIsConcierge(false);
     }
   }, [category]);
 
@@ -143,11 +141,6 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
       setCategory((prev) => [...prev, event.target.value]);
     }    
   }
-
-  const handleDeleteCategory = (clickedCategory: string) => {
-      setCategory(category.filter((category) => category !== clickedCategory));
-  }
-
 
   const renderCategoryOptions = () => {
     return categoryList.map((category) => {
@@ -286,6 +279,10 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
     );
   }
 
+  const removeCategory = () => {
+    
+  }
+
   return (
     <div className={styles.productForm}>
         <section>
@@ -302,8 +299,8 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
                 {category.map(categoryName => 
                   <li key={categoryName}>
                     <span>{categoryName}</span>
-                    <button className={styles.removeBtn} onClick={() => handleDeleteCategory(categoryName)}><IoMdRemoveCircle/></button>
-                  </li> 
+                    <button className={styles.removeBtn} onClick={removeCategory}><IoMdRemoveCircle/></button>
+                  </li>
                 )}
               </div>
             </div>

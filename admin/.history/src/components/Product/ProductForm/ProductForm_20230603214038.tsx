@@ -8,7 +8,6 @@ import MainInfo from './MainInfo';
 import CourseInfo from './CourseInfo';
 import TicketInfo from './TicketInfo';
 import MainImage from './MainImage';
-import { IoMdRemoveCircle } from 'react-icons/io';
 
 type HTML = string;
 
@@ -133,8 +132,6 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
   useEffect(() => {
     if(category.includes('컨시어지')){
       setIsConcierge(true);
-    } else{
-      setIsConcierge(false);
     }
   }, [category]);
 
@@ -143,11 +140,6 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
       setCategory((prev) => [...prev, event.target.value]);
     }    
   }
-
-  const handleDeleteCategory = (clickedCategory: string) => {
-      setCategory(category.filter((category) => category !== clickedCategory));
-  }
-
 
   const renderCategoryOptions = () => {
     return categoryList.map((category) => {
@@ -302,8 +294,7 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
                 {category.map(categoryName => 
                   <li key={categoryName}>
                     <span>{categoryName}</span>
-                    <button className={styles.removeBtn} onClick={() => handleDeleteCategory(categoryName)}><IoMdRemoveCircle/></button>
-                  </li> 
+                  </li>
                 )}
               </div>
             </div>

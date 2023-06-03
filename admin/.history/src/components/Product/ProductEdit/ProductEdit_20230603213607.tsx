@@ -359,7 +359,13 @@ function ProductEdit() {
             <span className={styles.title}>여행 카테고리</span>
             <select className={styles.categorySelect} onChange={handleProductCategory}>
               <option value="">카테고리 선택</option>
-              {renderCategoryOptions()}
+              {categoryList.map((category) => {
+                 return (
+                   <option key={category} value={category}>
+                     {category}
+                   </option>
+                 );
+               })}
             </select>
             <div className={styles.categoryStatus}>
               {category.map(categoryName => 

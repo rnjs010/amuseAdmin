@@ -129,6 +129,7 @@ input, select, textarea {
   transform: translate(10%, 10%);
   font-size: 17px;
   color: var(--color-white);
+  background-color: var(--color-white);
 }
 
 .categoryStatus {

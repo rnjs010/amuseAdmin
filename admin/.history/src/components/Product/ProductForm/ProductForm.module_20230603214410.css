@@ -125,10 +125,11 @@ input, select, textarea {
 
 .removeBtn {
   right: 0;
-  margin-left: 4px;
+  margin: 10px;
   transform: translate(10%, 10%);
   font-size: 17px;
   color: var(--color-white);
+  background-color: transparent;
 }
 
 .categoryStatus {

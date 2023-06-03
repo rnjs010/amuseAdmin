@@ -133,8 +133,6 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
   useEffect(() => {
     if(category.includes('컨시어지')){
       setIsConcierge(true);
-    } else{
-      setIsConcierge(false);
     }
   }, [category]);
 

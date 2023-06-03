@@ -124,11 +124,11 @@ input, select, textarea {
 
 
 .removeBtn {
+  position: absolute;
   right: 0;
-  margin-left: 4px;
-  transform: translate(10%, 10%);
-  font-size: 17px;
-  color: var(--color-white);
+  font-size: 20px;
+  color: red;
+  background-color: transparent;
 }
 
 .categoryStatus {
@@ -139,7 +139,6 @@ input, select, textarea {
 }
 
 .categoryStatus > li {
-  position: relative;
   margin: 2px;
   background-color: var(--color-pink);
   color: var(--color-white);

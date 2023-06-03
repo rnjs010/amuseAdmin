@@ -133,8 +133,6 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
   useEffect(() => {
     if(category.includes('컨시어지')){
       setIsConcierge(true);
-    } else{
-      setIsConcierge(false);
     }
   }, [category]);
 
@@ -144,8 +142,8 @@ const [accessibleTier, setAccessibleTier] = useState<string>('');
     }    
   }
 
-  const handleDeleteCategory = (clickedCategory: string) => {
-      setCategory(category.filter((category) => category !== clickedCategory));
+  const handleDeleteCategory = (categoryName: string) => {
+      console.log(categoryName);
   }
 
 
