@@ -54,7 +54,6 @@ interface ImageFile {
 }
 
 type Product = {
-  id: null | number;
   productId: string;
   option: string;
   category: string[];
@@ -113,8 +112,6 @@ function ProductEdit() {
     extraInfo: '' 
   })
 
-  const [dbId, setDbId] = useState<number>(0);
-
   const [category, setCategory] = useState<string[]>([]);
   const [isConcierge ,setIsConcierge] = useState<boolean>(false);
 
@@ -143,7 +140,6 @@ function ProductEdit() {
         console.log('🔥',res);
         const product = res.data.data;
         setProduct(product);
-        setDbId(product.id);
         setCategory(product.category);
         setAccessibleTier(product.accessAuthority.accessibleTier);
         setAccessibleUserList(product.accessAuthority.accessibleUserList);
@@ -334,7 +330,6 @@ const handleExtraInfo = (html: HTML) => {
   
 const handleAddProduct = () => {
     const product: Product = {
-      id: dbId,
       productId,
       option: "update",
       category,
