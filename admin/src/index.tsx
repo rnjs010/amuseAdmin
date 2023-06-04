@@ -37,6 +37,7 @@ import Page from "./pages/PageEditingPages/Page";
 import ListComponentRegister from "./pages/ComponentEditingPages/ListComponentRegister";
 import BannerComponentRegister from "./pages/ComponentEditingPages/BannerComponentRegister";
 import TileComponentRegister from "./pages/ComponentEditingPages/TileComponentRegister";
+import PageDetail from "./pages/PageEditingPages/PageDetail";
 
 const router = createBrowserRouter([
     {
@@ -82,6 +83,7 @@ const router = createBrowserRouter([
             
             
             {path: '/page', element: <Page/>},
+            {path: '/page/:id', element: <PageDetail/>}
         ]
     }
 ])
