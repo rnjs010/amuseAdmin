@@ -4,6 +4,8 @@ import styles from '../../components/ComponentEditing/component.module.css'
 import {Editor} from "@toast-ui/react-editor";
 
 const BannerComponentRegister = () => {
+
+	const [title, setTitle] = useState<string>("")
 	
 	const [bannerTitle, setBannerTitle] = useState<string>("");
 	
@@ -43,6 +45,22 @@ const BannerComponentRegister = () => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.body}>
+				
+				<p className={styles.p}>
+					<div
+						className={styles.pTitle}
+					>
+						<strong>컴포넌트 명</strong>
+					</div>
+					
+					<input className={styles.textInput}
+						   type="text"
+						   name="componentTitle"
+						   placeholder="컴포넌트 이름을 입력하세요"
+						   onChange={(e) => setTitle(e.target.value)}
+					/>
+				</p>
+				
 				<p className={styles.p}>
 					<div
 						className={styles.pTitle}
