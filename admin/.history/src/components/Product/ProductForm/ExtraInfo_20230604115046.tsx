@@ -30,7 +30,7 @@ function ExtraInfo({htmlProps, onChange}: ExtraInfoProps) {
   
   const saveContent = () => {
     setExtraInfoState(draftState);
-    const html = draftjsToHtml(convertToRaw(draftState.getCurrentContent()));
+    const html = draftjsToHtml(convertToRaw(extraInfoState.getCurrentContent()));
     onChange(html);
     alert('추가 정보 글이 저장되었습니다.');
   }

@@ -137,7 +137,7 @@ function ProductEdit() {
   useEffect(() => {
     axiosInstance.get(`/test/api/product/${productId}`)
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         const product = res.data.data;
         setProduct(product);
         setCategory(product.category);
@@ -158,9 +158,9 @@ function ProductEdit() {
       });
   }, []);
 
-  // useEffect(() => {
-  //   console.log('product', product);
-  // }, [product]);
+  useEffect(() => {
+    console.log('product', product);
+  }, [product]);
 
 // ---Category
   const [categoryList, setCategoryList] = useState<string[]>([]);
@@ -291,6 +291,11 @@ const removeMainImg = (imageFile: ImageFile) => {
 //---Main Images 
 
 //---Ticket
+
+useEffect(() => {
+  console.log('ticket', ticket);
+}, [ticket])
+
 const handleTicket = (ticket:Ticket) => {
   setTicket((prev) => [...prev, ticket])
 }
@@ -312,6 +317,10 @@ const handleMainInfo = (html:HTML) => {
 //---Main Info
 
 //---Course
+
+useEffect(()=>{
+  console.log('course', course);
+}, [course])
 const handleCourse = (course:Course) => {
   setCourse((prev) => [...prev, course])
 }

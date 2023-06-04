@@ -40,10 +40,6 @@ function CourseInfo({option, courseProps, onAdd, onRemove} : MainInfoProps) {
     setCourseList(courseProps);
   },[courseProps])
 
-  useEffect(() => {
-    setCourseCount(courseList.length);
-  }, [courseList])
-
   const toggleCourseModal = () => {
     setCourseModalOpen((prev) => !prev);
   }

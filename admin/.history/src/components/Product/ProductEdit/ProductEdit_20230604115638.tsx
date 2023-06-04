@@ -158,9 +158,9 @@ function ProductEdit() {
       });
   }, []);
 
-  // useEffect(() => {
-  //   console.log('product', product);
-  // }, [product]);
+  useEffect(() => {
+    console.log('product', product);
+  }, [product]);
 
 // ---Category
   const [categoryList, setCategoryList] = useState<string[]>([]);

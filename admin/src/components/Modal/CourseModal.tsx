@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './CourseModal.module.css';
 
 interface ImageFile {
@@ -27,11 +27,15 @@ interface Course {
 
 type MordalProps = {
   onSave(course:Course): void,
-  onToggle(): void
+  onToggle(): void,
+  courseCount: number
 };
 
-function CourseModal({onSave, onToggle}: MordalProps) {
-  const [courseCount, setCourseCount] = useState<number>(0);
+function CourseModal({courseCount, onSave, onToggle}: MordalProps) {
+  const [sequenceId, setSequenceId] = useState<number>(0);
+  useEffect(() => {
+    setSequenceId(courseCount);
+  },[courseCount])
   const [title, setTitle] = useState<string>('');
   const [timeCost, setTimeCost] = useState<string>('');
   const [location, setLocation] = useState<Location>({
@@ -101,7 +105,7 @@ function CourseModal({onSave, onToggle}: MordalProps) {
     if(title.length > 0 && content.length && timeCost && image){
       const course:Course = {
         id: null,
-        sequenceId: courseCount,
+        sequenceId,
         day: day,
         title: title,
         timeCost: timeCost,
@@ -111,7 +115,6 @@ function CourseModal({onSave, onToggle}: MordalProps) {
       };
       console.log(course);
       onSave(course);
-      setCourseCount((prev) => prev + 1);
     }
   };
 

@@ -137,7 +137,7 @@ function ProductEdit() {
   useEffect(() => {
     axiosInstance.get(`/test/api/product/${productId}`)
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         const product = res.data.data;
         setProduct(product);
         setCategory(product.category);
@@ -158,9 +158,9 @@ function ProductEdit() {
       });
   }, []);
 
-  // useEffect(() => {
-  //   console.log('product', product);
-  // }, [product]);
+  useEffect(() => {
+    console.log('product', product);
+  }, [product]);
 
 // ---Category
   const [categoryList, setCategoryList] = useState<string[]>([]);
