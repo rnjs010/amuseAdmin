@@ -1,0 +1,10 @@
+@import '../../../App.module.css';;
+.container {
+  display: flex;
+  justify-content: space-around;
+
+}
+
+.routeBox {
+  border: 2px solid var(--color-pink);
+}

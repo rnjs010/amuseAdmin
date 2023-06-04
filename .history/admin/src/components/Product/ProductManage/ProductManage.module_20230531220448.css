@@ -1,0 +1,17 @@
+@import '../../../App.module.css';;
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 83vh;
+  background-color: red;
+}
+
+.routeBox {
+  width: 300px;
+  height: 300px;
+  border: 2px solid var(--color-pink);
+  text-align: center;
+  line-height: 300px;
+
+}

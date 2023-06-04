@@ -1,0 +1,14 @@
+li {
+  list-style: none;
+}
+
+.container.activeItems {
+
+  width: 100%;
+  height: 83vh;
+}
+.activeItem {
+  width: 240px;
+  height: 240px;
+  border: 1px solid black;
+}

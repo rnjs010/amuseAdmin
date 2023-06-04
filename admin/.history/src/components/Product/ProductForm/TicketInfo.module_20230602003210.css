@@ -1,0 +1,106 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.container.ticket {
+  height: fit-content;
+  min-height: 400px;
+  max-height: 635px;
+}
+
+
+.title {
+  padding-right: 10px;
+  white-space: nowrap;
+ }
+
+ 
+ .addBtn {
+  width: 100px;
+  height: 30px;
+  background-color: var(--color-pink);
+  border-radius: 10px;
+  color: var(--color-white);
+}
+
+.status {
+  width: 100%;
+  height: fit-content;
+  min-height: 300px;
+  border: 3px solid var(--color-light-grey);
+  border-radius: 10px;
+  margin-top: 3%;
+  overflow-y: scroll;
+}
+
+.status.ticket{
+  display: flex;
+  flex-direction: column;
+}
+
+.ticketTitle {
+  background-color: var(--color-white);
+  border-radius: var(--border-radius);
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
+  margin-bottom: 10px;
+}
+
+.ticketContent {
+  background-color: var(--color-white);
+  border-radius: var(--border-radius);
+  min-height: 30px;
+  margin-bottom: 10px;
+}
+
+.ticketList {
+  position: relative;
+  background-color: var(--color-light-grey);
+  border-radius: var(--border-radius);
+  width: 94%;
+  height: fit-content;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 20px;
+}
+
+.ticketLabel{
+  font-weight: bolder;
+}
+
+.ticketPriceList {
+  background-color: var(--color-white);
+  border-radius: var(--border-radius);
+}
+
+.priceStatusDate {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  border-bottom: 3px solid var(--color-light-grey);
+  padding: 10px;
+}
+
+.priceStatusWeekDayPrice {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  text-align: center;
+  padding: 10px;
+}
+
+.removeBtn {
+  position: absolute;
+  right: 0;
+  font-size: 20px;
+  color: red;
+  background-color: transparent;
+}

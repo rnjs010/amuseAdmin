@@ -10,7 +10,16 @@ import {ItemLogic} from "../../logics/ItemLogic";
 
 import {Editor} from "@toast-ui/react-editor";
 import {ComponentManageLogic} from "../../logics/ComponentManageLogic";
+import Table from "../../components/Table/Table";
+import {ComponentListSeqTableColumn} from "../../components/Table/ComponentListSeqTableColumn";
 
+
+interface TileData {
+	tileName: string;
+	tileFileName: string | null;
+	tileBase64: string | null;
+	itemCode: number | null;
+}
 
 const MainPageComponentDetail = () => {
 	
@@ -20,6 +29,9 @@ const MainPageComponentDetail = () => {
 	const [category, setCategory] = useState<string[]>([]);
 	const [component, setComponent] = useState<string>("")
 	const [componentType, setComponentType] = useState<string>("리스트");
+	
+	const [mainPageComponenetsListArr, setMainPageComponenetsListArr] = useState<any[]>([]);
+	const [seq, setSeq] = useState<number>(0);
 	
 	const [productListArr, setProductListArr] = useState<any>([]);
 	
@@ -38,6 +50,220 @@ const MainPageComponentDetail = () => {
 	const [mobileBannerLink, setMobileBannerLink] = useState("");
 	
 	const [selected, setSelected] = useState<any[]>([]);
+	
+	const [itemCode, setItemCode] = useState<any[]>([]);
+	
+	const [tileCount, setTileCount] = useState<number>(1);
+	const [tileData, setTileData] = useState<TileData[]>([]); // 타일 데이터 배열
+	
+	const [isOpen, setIsOpen] = React.useState<boolean>(false);
+	const onToggle = () => setIsOpen(!isOpen);
+	const [option, setOption] = useState<string>("검색조건")
+	const onOptionClicked = (value: string, index: number) => () => {
+		console.log(value);
+		setOption(value)
+		setIsOpen(false);
+	};
+	
+	const [keyword, setKeyword] = useState<string>("");
+	
+	const DropDown = () => {
+		return (
+			<div className={styles.dropdownContainer}>
+				<div className={styles.dropdownHeader} onClick={onToggle}>
+					<p>{option} ▼</p>
+				</div>
+				<div
+				>
+					<ul>
+						{isOpen && (
+							<>
+								<li className={styles.li} onClick={onOptionClicked("상품코드", 1)}>상품코드 검색</li>
+								<li className={styles.li} onClick={onOptionClicked("카테고리", 2)}>카테고리 검색</li>
+								<li className={styles.li} onClick={onOptionClicked("제목", 3)}>제목 검색</li>
+								<li className={styles.li} onClick={onOptionClicked("내용", 4)}>내용 검색</li>
+							</>
+						)}
+					</ul>
+				</div>
+			</div>
+		);
+	};
+	
+	const onSubmitSearchKeyword = () => {
+		
+		if (keyword == "") {
+			(async () => {
+				const response = await ItemLogic.getProductItems({
+					"option": 1,
+					"page": 1,
+					"limit": 100,
+					"categoryNames": category
+				})
+				setProductListArr(response);
+			})();
+			return;
+		}
+		
+		if (option == "상품코드") {
+			(async () => {
+				const response = await ItemLogic.getProductItemsFromItemCode(keyword)
+					.then((r) => {
+						setProductListArr([{
+							id: r.itemCode,
+							title: r.title,
+							categoryNames: r.category,
+							createdAt: "daw916@naver.com",
+							createdBy: "2023-05-31"
+						}]);
+					})
+					.catch((e) => window.confirm("해당 제목의 상품이 존재하지 않습니다."))
+			})()
+			return;
+		}
+		if (option == "카테고리") {
+			(async () => {
+				const response = await ItemLogic.getProductItems({
+					"option": 1,
+					"page": 1,
+					"limit": 100,
+					"categoryNames": [keyword]
+				})
+				console.log(response)
+				setProductListArr(response);
+			})();
+			return;
+		}
+		if (option == "제목") {
+			(async () => {
+				const response = await ItemLogic.getProductItemsFromTitle(1, keyword)
+					.then((r) => {
+						setProductListArr([{
+							id: r.itemCode,
+							title: r.title,
+							categoryNames: r.category,
+							createdAt: "daw916@naver.com",
+							createdBy: "2023-05-31"
+						}]);
+					})
+					.catch((e) => window.confirm("해당 코드와 일치하는 상품이 존재하지 않습니다."))
+			})()
+			return;
+		}
+		if (option == "내용") {
+			return;
+		}
+	}
+	
+	const componentSubmit = async () => {
+		
+		if (componentType == "리스트") {
+			const response = await ComponentManageLogic.postComponent({
+				id,
+				title: component,
+				type: "리스트",
+				createBy: "daw916@naver.com",
+				sequence: seq,
+				itemCode: selected
+			})
+				.then(() => {
+					window.confirm("등록되었습니다.");
+					window.history.back();
+				})
+				.catch(e => window.confirm(e))
+			console.log(response)
+			return;
+		}
+		
+		
+		if (componentType == "배너") {
+			const response = await ComponentManageLogic.postComponent({
+				id,
+				title: component,
+				type: "배너",
+				createBy: "daw916@naver.com",
+				sequence: seq,
+				pcBannerFileName: pcBannerFileName,
+				pcBannerBase64: pcBanner,
+				pcBannerLink: pcBannerLink,
+				mobileBannerFileName: mobileBannerFileName,
+				mobileBannerBase64: mobileBanner,
+				mobileBannerLink: mobileBannerLink,
+				content: parsedHTML,
+			})
+				.then(() => {
+					window.confirm("등록되었습니다.");
+					window.history.back();
+				})
+				.catch(e => window.confirm(e))
+			console.log(response)
+			return;
+		}
+		
+		if (componentType == "타일") {
+			const response = await ComponentManageLogic.postComponent({
+				id,
+				title: component,
+				type: "타일",
+				createBy: "daw916@naver.com",
+				sequence: seq,
+				tile: tileData
+			})
+				.then(() => {
+					window.confirm("등록되었습니다.");
+					window.history.back();
+				})
+				.catch(e => window.confirm(e))
+			console.log(response)
+		}
+		
+		console.log(JSON.stringify(
+			{
+				title: component,
+				type: "타일",
+				createBy: "daw916@naver.com",
+				sequence: 3,
+				tile: tileData
+			}
+			, null, 4));
+		
+	};
+	
+	useEffect(() => {
+		
+		(async () => {
+			const response = await ComponentManageLogic.getMainPageComponentList();
+			console.log(response)
+			setMainPageComponenetsListArr(response);
+		})();
+		
+		(async () => {
+			const response = await CategoryLogic.getCategoryArr();
+			setCategory(response.map((v: any) => (v.displayHashTag)));
+		})();
+		
+		(async () => {
+			const response = await ItemLogic.getProductItems({
+				"option": 1,
+				"page": 1,
+				"limit": 100,
+				"categoryNames": category
+			})
+			setProductListArr(response);
+			
+		})();
+		
+		(async () => {
+			const response = await ComponentManageLogic.getMainPageComponentDetail(id);
+			console.log(response)
+			setComponent(response.title)
+			setComponentType(response.type)
+			setItemCode(response.itemCode)
+			setSeq(response.sequence)
+			setPcBannerUrl(response.pcBannerImgUrl)
+			setMobileBannerUrl(response.mobileBannerImgUrl)
+		})();
+	}, [])
 	
 	const saveImgFile = (ref: any, setBannerFileName: any, setBanner: any,) => {
 		try {
@@ -62,25 +288,10 @@ const MainPageComponentDetail = () => {
 	};
 	
 	useEffect(() => {
-		
-		(async () => {
-			const response = await ComponentManageLogic.getMainPageComponentDetail(id);
-			console.log(response)
-			setComponent(response.title)
-			setComponentType(response.type)
-			setProductListArr(response.itemCode)
-			
-			setPcBannerUrl(response.pcBannerImgUrl)
-			setMobileBannerUrl(response.mobileBannerImgUrl)
-		})();
-		
-		
-	}, [])
-	
-	useEffect(() => {
 		console.log(selected)
 	}, [selected]);
 	
+	// @ts-ignore
 	return (
 		<div className={styles.container}>
 			
@@ -124,6 +335,68 @@ const MainPageComponentDetail = () => {
 				
 				</p>
 				
+				<p>
+					
+					<div
+						className={styles.pTitle}
+					>
+						<strong>컴포넌트 순서 목록</strong>
+					</div>
+					<div style={{paddingTop: 30}}>
+						<Table route={""} columns={ComponentListSeqTableColumn} data={mainPageComponenetsListArr}/>
+					</div>
+				</p>
+				
+				<p>
+					<div
+						className={styles.pTitle}
+					>
+						<strong>등록할 순서</strong>
+					</div>
+					
+					
+					<div
+						style={{display: "flex", flexDirection: "row", alignItems: "center"}}
+					>
+						<input className={styles.textInput}
+							   type="number"
+							   value={seq}
+							   id={"number"}
+						/>
+						<button
+							style={{
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
+								width: 30,
+								height: 30,
+								border: "1px solid"
+							}}
+							onClick={() => setSeq(seq + 1)}
+						>
+							<div>
+								+
+							</div>
+						</button>
+						
+						<button
+							style={{
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
+								width: 30,
+								height: 30,
+								border: "1px solid"
+							}}
+							onClick={() => setSeq(seq - 1)}
+						>
+							<div>
+								-
+							</div>
+						</button>
+					</div>
+				</p>
+				
 				{
 					(componentType == "리스트") ? (
 						<div>
@@ -133,16 +406,30 @@ const MainPageComponentDetail = () => {
 								>
 									<strong>상품목록</strong>
 								</div>
-							
-							
 							</p>
-							{
-								productListArr.map((v: any, i: any) => (
-									<div key={i}>
-										상품코드: {v}
-									</div>
-								))
-							}
+							
+							<div
+								style={{display: "flex", flexDirection: "row", marginBottom: 30}}
+							>
+								<DropDown/>
+								<form
+									onSubmit={(e) => {
+										e.preventDefault();
+										onSubmitSearchKeyword();
+									}}
+								>
+									<input
+										className={styles.searchTextInput}
+										placeholder={"검색어를 입력하세요"}
+										onChange={(e) => setKeyword(e.target.value)}
+									/>
+								</form>
+							
+							</div>
+							<SelectableTable
+								route={""} columns={ProductTableColumns} data={productListArr}
+								setStateValue={setSelected} value={selected}
+							/>
 						</div>
 					) : ("")
 				}
@@ -326,9 +613,6 @@ const MainPageComponentDetail = () => {
 				{
 					(componentType == "타일") ? (
 						<div>
-							{/*타일 개수 3개로 가정한 것*/}
-							{/*n 개의 타일 개수 입력받아서 아래 형식 n개로 나타낼 예정*/}
-							{/*테이블마다 검색기능 필요*/}
 							<p className={styles.p}>
 								<div
 									className={styles.pTitle}
@@ -355,152 +639,13 @@ const MainPageComponentDetail = () => {
 								<p className={styles.p}>
 									<strong>상품 목록</strong>
 								</p>
+								
 								<SelectableTable
-									route={""} columns={ProductTableColumns} data={[
-									{
-										id: 1,
-										product: "[2박 3일] 김에 바다의 역사에 대해서 알아볼까요?",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									},
-									{
-										id: 2,
-										product: "[2박 3일] 낭만 가득한 여수 여행",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									},
-									{
-										id: 3,
-										product: "[3박 4일] 청춘 가득한 제주 여행",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									},
-									{
-										id: 4,
-										product: "[2박 3일] 낭만 가득한 여수 여행",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									}]}
+									route={""} columns={ProductTableColumns} data={[]}
 									setStateValue={setSelected}
 									value={selected}
 								/>
 							</p>
-							
-							<p className={styles.p}>
-								<div
-									className={styles.pTitle}
-								>
-									<strong>타일명</strong>
-								</div>
-								
-								<input className={styles.textInput}
-									   type="text"
-									   name="tileName"
-									   placeholder="타일 이름을 입력하세요"
-								/>
-								
-								<p className={styles.p}>
-									<strong>타일 사진 추가</strong>
-									<input
-										type="file"
-										accept="image/*"
-									/>
-								
-								</p>
-								
-								
-								<p className={styles.p}>
-									<strong>상품 목록</strong>
-								</p>
-								<SelectableTable
-									route={""} columns={ProductTableColumns} data={[
-									{
-										id: 1,
-										product: "[2박 3일] 김에 바다의 역사에 대해서 알아볼까요?",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									},
-									{
-										id: 2,
-										product: "[2박 3일] 낭만 가득한 여수 여행",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									},
-									{
-										id: 3,
-										product: "[3박 4일] 청춘 가득한 제주 여행",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									},
-									{
-										id: 4,
-										product: "[2박 3일] 낭만 가득한 여수 여행",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									}]}
-									setStateValue={setSelected}
-									value={selected}
-								/>
-							</p>
-							
-							
-							<p className={styles.p}>
-								<div
-									className={styles.pTitle}
-								>
-									<strong>타일명</strong>
-								</div>
-								
-								<input className={styles.textInput}
-									   type="text"
-									   name="tileName"
-									   placeholder="타일 이름을 입력하세요"
-								/>
-								
-								<p className={styles.p}>
-									<strong>타일 사진 추가</strong>
-									<input
-										type="file"
-										accept="image/*"
-									/>
-								
-								</p>
-								
-								<p className={styles.p}>
-									<strong>상품 목록</strong>
-								</p>
-								
-								<SelectableTable
-									route={""} columns={ProductTableColumns} data={[
-									{
-										id: 1,
-										product: "[2박 3일] 김에 바다의 역사에 대해서 알아볼까요?",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									},
-									{
-										id: 2,
-										product: "[2박 3일] 낭만 가득한 여수 여행",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									},
-									{
-										id: 3,
-										product: "[3박 4일] 청춘 가득한 제주 여행",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									},
-									{
-										id: 4,
-										product: "[2박 3일] 낭만 가득한 여수 여행",
-										createdAt: "2023-05-17T17:30:47.55265",
-										createdBy: "daw916@naver.com",
-									}]}
-									setStateValue={setSelected}
-									value={selected}
-								/>
-							</p>
-						
 						
 						</div>
 					) : ("")
@@ -510,6 +655,7 @@ const MainPageComponentDetail = () => {
 					style={{marginBottom: 10}}
 				>
 					<button className={styles.button}
+							onClick={componentSubmit}
 					>
 						등록하기
 					</button>
