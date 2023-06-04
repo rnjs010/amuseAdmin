@@ -1,5 +1,9 @@
-import React, {useState, ChangeEvent} from "react";
+import React, {useState, ChangeEvent, useEffect} from "react";
 import styles from '../../components/ComponentEditing/component.module.css'
+import {CategoryLogic} from "../../logics/CategoryLogic";
+import {ItemLogic} from "../../logics/ItemLogic";
+import SelectableTable from "../../components/Table/SelectableTable";
+import {ProductTableColumns} from "../../components/Table/ProductTableColumns";
 
 interface TileData {
 	tileName: string;
@@ -10,8 +14,34 @@ interface TileData {
 
 const TileComponentRegister = () => {
 	
+	const [title, setTitle] = useState<string>("");
+	
 	const [tileCount, setTileCount] = useState<number>(1);
 	const [tileData, setTileData] = useState<TileData[]>([]); // 타일 데이터 배열
+	
+	const [category, setCategory] = useState<string[]>([]);
+	const [productListArr, setProductListArr] = useState<any>([]);
+	
+	const [selected, setSelected] = useState<any[]>([]);
+	
+	useEffect(() => {
+		
+		(async () => {
+			const response = await CategoryLogic.getCategoryArr();
+			setCategory(response.map((v: any) => (v.displayHashTag)));
+		})();
+		
+		(async () => {
+			const response = await ItemLogic.getProductItems({
+				"option": 1,
+				"page": 1,
+				"limit": 100,
+				"categoryNames": category
+			})
+			setProductListArr(response);
+		})();
+		
+	}, [])
 	
 	
 	const handleTileNameChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +86,9 @@ const TileComponentRegister = () => {
 	
 	const renderTileBlock = (index: number) => (
 		<div key={index}>
+			<hr
+				style={{marginBottom: 20}}
+			/>
 			<div className={styles.pTitle}>
 				<strong>타일명</strong>
 			</div>
@@ -79,12 +112,34 @@ const TileComponentRegister = () => {
 			<p className={styles.p}>
 				<strong>상품 목록</strong>
 			</p>
+			
+			<SelectableTable
+				route={""} columns={ProductTableColumns} data={productListArr}
+				setStateValue={setSelected} value={selected}
+			/>
 		</div>
 	);
 	
 	return (
 		<div className={styles.container}>
 			<div className={styles.body}>
+				
+				
+				<p className={styles.p}>
+					<div
+						className={styles.pTitle}
+					>
+						<strong>컴포넌트 명</strong>
+					</div>
+					
+					<input className={styles.textInput}
+						   type="text"
+						   name="componentTitle"
+						   placeholder="컴포넌트 이름을 입력하세요"
+						   onChange={(e) => setTitle(e.target.value)}
+					/>
+				</p>
+				
 				<p className={styles.p}>
 					<div
 						className={styles.pTitle}
