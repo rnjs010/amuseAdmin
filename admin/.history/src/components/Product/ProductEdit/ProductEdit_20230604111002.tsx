@@ -310,6 +310,10 @@ const removeTicket = (selectedTicket: Ticket) => {
 
 //---Main Info
 
+useEffect(() => {
+  console.log('mainInfo', mainInfo);
+}, [mainInfo])
+
 const handleMainInfo = (html:HTML) => {
   setMainInfo(html);
 }
@@ -318,11 +322,7 @@ const handleMainInfo = (html:HTML) => {
 
 /* ⭐ ⭐ ⭐ ⭐ ⭐ 완성 ⭐ ⭐ ⭐ ⭐ ⭐ */
 
-//---Course
 
-useEffect(()=>{
-  console.log('course', course);
-}, [course])
 const handleCourse = (course:Course) => {
   setCourse((prev) => [...prev, course])
 }
@@ -331,7 +331,7 @@ const removeCourse = (selectedCourse:Course) => {
     (course) => course.title !== selectedCourse.title
   ));
 }
-//---Course
+
 
 
 const handleExtraInfo = (html: HTML) => {
@@ -503,7 +503,7 @@ const handleExtraInfo = (html: HTML) => {
         <section>
           <div className={styles.sectionTitle}>여행 코스</div>
           <div className={styles.sectionDivider}></div>
-          <CourseInfo option={"edit"} courseProps={course} onAdd={handleCourse} onRemove={removeCourse} />
+          <CourseInfo courseProps={course} onAdd={handleCourse} onRemove={removeCourse} />
         </section>
 
 

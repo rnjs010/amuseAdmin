@@ -5,8 +5,7 @@ import { IoMdRemoveCircle } from 'react-icons/io';
 
 interface ImageFile {
   fileName: string,
-  base64Data: string,
-  imgUrl: string | undefined,
+  base64Data: string
 }
 
 interface Course {
@@ -31,7 +30,7 @@ interface MainInfoProps {
 }
 
 
-function CourseInfo({option, courseProps, onAdd, onRemove} : MainInfoProps) {
+function CourseInfo({courseProps, onAdd, onRemove} : MainInfoProps) {
   const [courseModalOpen, setCourseModalOpen] = useState<boolean>(false);
   const [courseList, setCourseList] = useState<Course[]>([]);
 
@@ -67,7 +66,7 @@ function CourseInfo({option, courseProps, onAdd, onRemove} : MainInfoProps) {
                 <p>설명</p>
                 <span>{course.content}</span>
               </div>
-              <img className={styles.courseImg} src={course.image.imgUrl ? course.image.imgUrl: course.image.base64Data} alt="Course" />
+              <img className={styles.courseImg} src={course.image.base64Data} alt="Course" />
             </li>
           )
         })}

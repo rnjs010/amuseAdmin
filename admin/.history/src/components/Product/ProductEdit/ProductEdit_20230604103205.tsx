@@ -47,7 +47,6 @@ interface Course {
 }
 
 interface ImageFile {
-  id: number | null,
   fileName: string,
   base64Data: string,
   imgUrl: string | undefined
@@ -141,11 +140,11 @@ function ProductEdit() {
         const product = res.data.data;
         setProduct(product);
         setCategory(product.category);
-        setAccessibleTier(product.accessAuthority.accessibleTier);
-        setAccessibleUserList(product.accessAuthority.accessibleUserList);
         setProductTitle(product.title);
         setCountry(product.location.country);
         setCity(product.location.city);
+        setAccessibleTier(product.accessAuthority.accessibleTier);
+        setAccessibleUserList(product.accessAuthority.accessibleUserList);
         setDurationDays(product.duration);
         setDurationNights((parseInt(product.duration) - 1).toString());
         setListingStartDate(product.startDate.split(' ')[0]);
@@ -162,181 +161,152 @@ function ProductEdit() {
     console.log('product', product);
   }, [product]);
 
-// ---Category
-  const [categoryList, setCategoryList] = useState<string[]>([]);
-  useEffect(
-    () => {
-      axiosInstance.get('/test/api/category/list')
-        .then((res) => {
-          setCategoryList(res.data.data);
-        })
-        .catch((err) => console.error(`failed to get categories: ${err}`));
-    }, []
-  );
-
-  const handleProductCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    if(!category.includes(event.target.value)){
-      setCategory((prev) => [...prev, event.target.value]);
-    }    
-  }
-
-  const renderCategoryOptions = () => {
-    return categoryList.map((category) => {
-      return (
-        <option key={category} value={category}>
-          {category}
-        </option>
-      );
-    });
-  };
-
   useEffect(() => {
-    if(category.includes('컨시어지')){
-      setIsConcierge(true);
-    } else{
-      setIsConcierge(false);
-      setAccessibleTier('');
-      setAccessibleUserList([]);
-    }
+    console.log('category', category);
   }, [category]);
 
-  const handleDeleteCategory = (clickedCategory: string) => {
-    setCategory(category.filter((category) => category !== clickedCategory));
-}
+  
+    const renderUserTierOptions = () => {
+      return userTierList.map((userClass) => {
+        return (
+          <option key={userClass} value={userClass}>
+            {userClass}
+          </option>
+        );
+      });
+    }
+  
+  
+  
+    const handleAccessibleUserTier = (event: React.ChangeEvent<HTMLSelectElement>) => {
+      setAccessibleTier(event.target.value);
+    }
+  
 
-//---Category
-
-
-//---Access Authority
-const renderUserTierOptions = () => {
-  return userTierList.map((userClass) => {
-    return (
-      <option key={userClass} value={userClass}>
-        {userClass}
-      </option>
+    const handleAccessibleUser = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setAccessibleUser(event.target.value);
+    }
+  
+    const handleAddAccessibleUser = () => {
+      setAccessibleUserList((prev) => [...prev, accessibleUser]);
+      setAccessibleUser('');
+    }
+  
+    const [categoryList, setCategoryList] = useState<string[]>([]);
+    useEffect(
+      () => {
+        axiosInstance.get('/test/api/category/list')
+          .then((res) => {
+            setCategoryList(res.data.data);
+          })
+          .catch((err) => console.error(`failed to get categories: ${err}`));
+      }, []
     );
-  });
-}
   
-const handleAccessibleUserTier = (event: React.ChangeEvent<HTMLSelectElement>) => {
-  setAccessibleTier(event.target.value);
-}
-
-const handleAccessibleUser = (event: React.ChangeEvent<HTMLInputElement>) => {
-  setAccessibleUser(event.target.value);
-}
-
-const handleAddAccessibleUser = () => {
-  setAccessibleUserList((prev) => {
-    if(prev === null){
-      return [accessibleUser]
-    } else{
-      return [...prev, accessibleUser]
-    }    
-  });
-  setAccessibleUser('');
-}
-
-//---Access Authority  
-
-//---Title
-const handleProductName = (event: React.ChangeEvent<HTMLInputElement>) => {
-  setProductTitle(event.target.value);
-};
-//---Title
-
-//---Location
-const handleCountry = (event: React.ChangeEvent<HTMLInputElement>) => {
-  setCountry(event.target.value);
-};
-
-const handleCity = (event: React.ChangeEvent<HTMLInputElement>) => {
-  setCity(event.target.value);
-};
-//---Location
-
-//---Listing Date
-const handleListingStartDate = (event: React.ChangeEvent<HTMLInputElement>) => {
-  setListingStartDate(event.target.value);
-}
-
-const handleListingEndDate = (event: React.ChangeEvent<HTMLInputElement>) => {
-  setListingEndDate(event.target.value);
-}
-//---Listing Date
-
-//---Duration
-
-const handleDurationNights = (event: React.ChangeEvent<HTMLInputElement>) => {
-  setDurationNights(event.target.value);
-}
-
-const handleDurationDays = (event: React.ChangeEvent<HTMLInputElement>) => {
-  setDurationDays(event.target.value);
-}
-
-//---Duration
-
-//---Main Images
-
-const handleMainImg = (imageFiles: ImageFile[]) => {
-  setMainImg((prev) => [...prev, ...imageFiles]);
-}
-
-const removeMainImg = (imageFile: ImageFile) => {
-  setMainImg((prev) => prev.filter(
-    (img) => img.imgUrl !== imageFile.imgUrl
-  ));
-}
-//---Main Images 
-
-//---Ticket
-
-useEffect(() => {
-  console.log('ticket', ticket);
-}, [ticket])
-
-const handleTicket = (ticket:Ticket) => {
-  setTicket((prev) => [...prev, ticket])
-}
-const removeTicket = (selectedTicket: Ticket) => {
+    const handleProductCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
+      if(!category.includes(event.target.value)){
+        setCategory((prev) => [...prev, event.target.value]);
+      }    
+    }
   
-  setTicket((prev) => prev.filter(
-    (ticket) => ticket.title !== selectedTicket.title
-  ));
-}
+    const renderCategoryOptions = () => {
+      return categoryList.map((category) => {
+        return (
+          <option key={category} value={category}>
+            {category}
+          </option>
+        );
+      });
+    };
 
-//---Ticket
+    useEffect(() => {
+      if(category.includes('컨시어지')){
+        setIsConcierge(true);
+      } else{
+        setIsConcierge(false);
+      }
+    }, [category]);
 
-//---Main Info
+    const handleDeleteCategory = (clickedCategory: string) => {
+      setCategory(category.filter((category) => category !== clickedCategory));
+  }
 
-const handleMainInfo = (html:HTML) => {
-  setMainInfo(html);
-}
-
-//---Main Info
-
-/* ⭐ ⭐ ⭐ ⭐ ⭐ 완성 ⭐ ⭐ ⭐ ⭐ ⭐ */
-
-//---Course
-
-useEffect(()=>{
-  console.log('course', course);
-}, [course])
-const handleCourse = (course:Course) => {
-  setCourse((prev) => [...prev, course])
-}
-const removeCourse = (selectedCourse:Course) => {
-  setCourse((prev) => prev.filter(
-    (course) => course.title !== selectedCourse.title
-  ));
-}
-//---Course
-
-
-const handleExtraInfo = (html: HTML) => {
-  setExtraInfo(html);
-}
+  
+    const handleProductName = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setProductTitle(event.target.value);
+    };
+  
+    const handleCountry = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setCountry(event.target.value);
+    };
+  
+    
+    const handleCity = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setCity(event.target.value);
+    };
+  
+    
+    const handleListingStartDate = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setListingStartDate(event.target.value);
+    }
+  
+    
+    const handleListingEndDate = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setListingEndDate(event.target.value);
+    }
+  
+    
+    const handleDurationNights = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setDurationNights(event.target.value);
+    }
+  
+    
+    const handleDurationDays = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setDurationDays(event.target.value);
+    }
+  
+    
+    const handleMainImg = (imageFiles: ImageFile[]) => {
+      setMainImg((prev) => [...prev, ...imageFiles]);
+    }
+  
+    const removeMainImg = (imageFile: ImageFile) => {
+      setMainImg((prev) => prev.filter(
+        (img) => img.imgUrl !== imageFile.imgUrl
+      ));
+    }
+    
+    
+    const handleTicket = (ticket:Ticket) => {
+      setTicket((prev) => [...prev, ticket])
+    }
+  
+    const removeTicket = (selectedTicket: Ticket) => {
+      
+      setTicket((prev) => prev.filter(
+        (ticket) => ticket.title !== selectedTicket.title
+      ));
+    }
+  
+    const handleCourse = (course:Course) => {
+      setCourse((prev) => [...prev, course])
+    }
+  
+    const removeCourse = (selectedCourse:Course) => {
+      setCourse((prev) => prev.filter(
+        (course) => course.title !== selectedCourse.title
+      ));
+    }
+  
+    
+    const handleMainInfo = (html:HTML) => {
+      setMainInfo(html);
+    }
+  
+    
+    const handleExtraInfo = (html: HTML) => {
+      setExtraInfo(html);
+    }
   
     const handleAddProduct = () => {
         const product: Product = {
@@ -503,7 +473,7 @@ const handleExtraInfo = (html: HTML) => {
         <section>
           <div className={styles.sectionTitle}>여행 코스</div>
           <div className={styles.sectionDivider}></div>
-          <CourseInfo option={"edit"} courseProps={course} onAdd={handleCourse} onRemove={removeCourse} />
+          <CourseInfo courseProps={course} onAdd={handleCourse} onRemove={removeCourse} />
         </section>
 
 

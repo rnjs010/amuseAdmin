@@ -47,7 +47,6 @@ interface Course {
 }
 
 interface ImageFile {
-  id: number | null,
   fileName: string,
   base64Data: string,
   imgUrl: string | undefined
@@ -207,7 +206,7 @@ function ProductEdit() {
 //---Category
 
 
-//---Access Authority
+//---AccessAuthority
 const renderUserTierOptions = () => {
   return userTierList.map((userClass) => {
     return (
@@ -237,7 +236,7 @@ const handleAddAccessibleUser = () => {
   setAccessibleUser('');
 }
 
-//---Access Authority  
+//---AccessAuthority  
 
 //---Title
 const handleProductName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -255,7 +254,13 @@ const handleCity = (event: React.ChangeEvent<HTMLInputElement>) => {
 };
 //---Location
 
-//---Listing Date
+
+/* 완성 */
+
+useEffect(() => {
+  console.log('listingEndDate', listingEndDate);
+}, [listingEndDate]);
+
 const handleListingStartDate = (event: React.ChangeEvent<HTMLInputElement>) => {
   setListingStartDate(event.target.value);
 }
@@ -263,9 +268,6 @@ const handleListingStartDate = (event: React.ChangeEvent<HTMLInputElement>) => {
 const handleListingEndDate = (event: React.ChangeEvent<HTMLInputElement>) => {
   setListingEndDate(event.target.value);
 }
-//---Listing Date
-
-//---Duration
 
 const handleDurationNights = (event: React.ChangeEvent<HTMLInputElement>) => {
   setDurationNights(event.target.value);
@@ -275,26 +277,15 @@ const handleDurationDays = (event: React.ChangeEvent<HTMLInputElement>) => {
   setDurationDays(event.target.value);
 }
 
-//---Duration
-
-//---Main Images
-
 const handleMainImg = (imageFiles: ImageFile[]) => {
   setMainImg((prev) => [...prev, ...imageFiles]);
 }
-
 const removeMainImg = (imageFile: ImageFile) => {
   setMainImg((prev) => prev.filter(
     (img) => img.imgUrl !== imageFile.imgUrl
   ));
 }
-//---Main Images 
 
-//---Ticket
-
-useEffect(() => {
-  console.log('ticket', ticket);
-}, [ticket])
 
 const handleTicket = (ticket:Ticket) => {
   setTicket((prev) => [...prev, ticket])
@@ -305,24 +296,6 @@ const removeTicket = (selectedTicket: Ticket) => {
     (ticket) => ticket.title !== selectedTicket.title
   ));
 }
-
-//---Ticket
-
-//---Main Info
-
-const handleMainInfo = (html:HTML) => {
-  setMainInfo(html);
-}
-
-//---Main Info
-
-/* ⭐ ⭐ ⭐ ⭐ ⭐ 완성 ⭐ ⭐ ⭐ ⭐ ⭐ */
-
-//---Course
-
-useEffect(()=>{
-  console.log('course', course);
-}, [course])
 const handleCourse = (course:Course) => {
   setCourse((prev) => [...prev, course])
 }
@@ -331,8 +304,10 @@ const removeCourse = (selectedCourse:Course) => {
     (course) => course.title !== selectedCourse.title
   ));
 }
-//---Course
 
+const handleMainInfo = (html:HTML) => {
+  setMainInfo(html);
+}
 
 const handleExtraInfo = (html: HTML) => {
   setExtraInfo(html);
@@ -503,7 +478,7 @@ const handleExtraInfo = (html: HTML) => {
         <section>
           <div className={styles.sectionTitle}>여행 코스</div>
           <div className={styles.sectionDivider}></div>
-          <CourseInfo option={"edit"} courseProps={course} onAdd={handleCourse} onRemove={removeCourse} />
+          <CourseInfo courseProps={course} onAdd={handleCourse} onRemove={removeCourse} />
         </section>
 
 

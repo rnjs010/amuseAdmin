@@ -207,7 +207,7 @@ function ProductEdit() {
 //---Category
 
 
-//---Access Authority
+//---AccessAuthority
 const renderUserTierOptions = () => {
   return userTierList.map((userClass) => {
     return (
@@ -237,7 +237,7 @@ const handleAddAccessibleUser = () => {
   setAccessibleUser('');
 }
 
-//---Access Authority  
+//---AccessAuthority  
 
 //---Title
 const handleProductName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -277,8 +277,15 @@ const handleDurationDays = (event: React.ChangeEvent<HTMLInputElement>) => {
 
 //---Duration
 
+/* 완성 */
+
 //---Main Images
 
+useEffect(() => {
+  console.log('mainImg', mainImg);
+}, [mainImg])
+
+// 🔥 새로운 mainImg는 id를 갖지 않아도 되는지?
 const handleMainImg = (imageFiles: ImageFile[]) => {
   setMainImg((prev) => [...prev, ...imageFiles]);
 }
@@ -288,13 +295,7 @@ const removeMainImg = (imageFile: ImageFile) => {
     (img) => img.imgUrl !== imageFile.imgUrl
   ));
 }
-//---Main Images 
 
-//---Ticket
-
-useEffect(() => {
-  console.log('ticket', ticket);
-}, [ticket])
 
 const handleTicket = (ticket:Ticket) => {
   setTicket((prev) => [...prev, ticket])
@@ -305,24 +306,6 @@ const removeTicket = (selectedTicket: Ticket) => {
     (ticket) => ticket.title !== selectedTicket.title
   ));
 }
-
-//---Ticket
-
-//---Main Info
-
-const handleMainInfo = (html:HTML) => {
-  setMainInfo(html);
-}
-
-//---Main Info
-
-/* ⭐ ⭐ ⭐ ⭐ ⭐ 완성 ⭐ ⭐ ⭐ ⭐ ⭐ */
-
-//---Course
-
-useEffect(()=>{
-  console.log('course', course);
-}, [course])
 const handleCourse = (course:Course) => {
   setCourse((prev) => [...prev, course])
 }
@@ -331,8 +314,10 @@ const removeCourse = (selectedCourse:Course) => {
     (course) => course.title !== selectedCourse.title
   ));
 }
-//---Course
 
+const handleMainInfo = (html:HTML) => {
+  setMainInfo(html);
+}
 
 const handleExtraInfo = (html: HTML) => {
   setExtraInfo(html);
@@ -503,7 +488,7 @@ const handleExtraInfo = (html: HTML) => {
         <section>
           <div className={styles.sectionTitle}>여행 코스</div>
           <div className={styles.sectionDivider}></div>
-          <CourseInfo option={"edit"} courseProps={course} onAdd={handleCourse} onRemove={removeCourse} />
+          <CourseInfo courseProps={course} onAdd={handleCourse} onRemove={removeCourse} />
         </section>
 
 

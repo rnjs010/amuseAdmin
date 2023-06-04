@@ -31,10 +31,6 @@ function TicketInfo({ticketProps, onAdd, onRemove}: TicketInfoProps) {
 
   const [ticketModalOpen, setTicketModalOpen] = useState<boolean>(false);
 
-  useEffect(() => {
-    setTicketList(ticketProps);
-  }, [ticketProps]);
-
   const toggleTicketModal = () => {
     setTicketModalOpen((prev) => !prev);
   }

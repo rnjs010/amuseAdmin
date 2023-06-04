@@ -6,7 +6,7 @@ import { IoMdRemoveCircle } from 'react-icons/io';
 interface ImageFile {
   fileName: string,
   base64Data: string,
-  imgUrl: string | undefined,
+  imgUrl: string | null,
 }
 
 interface Course {
