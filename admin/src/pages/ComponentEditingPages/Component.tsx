@@ -25,11 +25,11 @@ const ComponentTableColumns = [
 	},
 	{
 		Header: '수정일',
-		accessor: 'updatedAdDate'
+		accessor: 'updatedAt'
 	},
 	{
 		Header: '수정자',
-		accessor: 'updatedAd'
+		accessor: 'updatedBy'
 	},
 ];
 
