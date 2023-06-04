@@ -16,6 +16,10 @@ const ComponentTableColumns = [
 		accessor: 'title'
 	},
 	{
+		Header: '타입',
+		accessor: 'type'
+	},
+	{
 		Header: '등록일',
 		accessor: 'createdAt'
 	},
