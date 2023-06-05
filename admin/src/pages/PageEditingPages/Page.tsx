@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 import Table from "../../components/Table/Table";
 import styles from "../../components/PageEditing/page.module.css"
+import {PageLogic} from "../../logics/PageLogic";
 
 // To Extract
 // API 확정되면, Extract
@@ -41,6 +42,16 @@ const PageTableColumns = [
 ];
 
 const Page = () => {
+	
+	useEffect(() => {
+		
+		(async () => {
+			const response = await PageLogic.getPageList();
+			console.log(response)
+		})()
+		
+	}, [])
+	
 	return (
 		<div className={styles.container}>
 			<div className={styles.header}>
@@ -51,19 +62,19 @@ const Page = () => {
 				<Table route={"page"}
 					   columns={PageTableColumns}
 					   data={[
-								{
-									id: 1,
-									title: "메인페이지"
-								},
-								{
-									id: 2,
-									title: "컨시어지"
-								},
-								{
-									id: 3,
-									title: "아이돌봄"
-								},
-							]}
+						   {
+							   id: 1,
+							   title: "메인페이지"
+						   },
+						   {
+							   id: 2,
+							   title: "컨시어지"
+						   },
+						   {
+							   id: 3,
+							   title: "아이돌봄"
+						   },
+					   ]}
 				/>
 			</div>
 		</div>
