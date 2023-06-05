@@ -84,6 +84,10 @@ const TileComponentRegister = () => {
 		console.log(tileData);
 	};
 	
+	useEffect(() => {
+		console.log(tileData)
+	}, [tileData])
+	
 	const renderTileBlock = (index: number) => (
 		<div key={index}>
 			<hr
@@ -115,7 +119,8 @@ const TileComponentRegister = () => {
 			
 			<SelectableTable
 				route={""} columns={ProductTableColumns} data={productListArr}
-				setStateValue={setSelected} value={selected}
+				setStateValue={(itemCode) => handleProductSelect(index, itemCode)}
+				value={tileData[index]?.itemCode || null}
 			/>
 		</div>
 	);
