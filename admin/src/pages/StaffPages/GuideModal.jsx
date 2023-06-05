@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import styles from './GuideModal.module.css';
+import axios from 'axios';
+import { getGuideInfo } from './StaffDetail';
 
 export default function GuideModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,6 +11,7 @@ export default function GuideModal() {
   const [guideCode, setGuideCode] = useState('');
   const [guideImg, setGuideImg] = useState();
   const [previewImg, setPreviewImg] = useState('');
+  const [fileName, setFileName] = useState('');
 
   const openModal = () => {
     setIsOpen(true);
@@ -26,6 +29,7 @@ export default function GuideModal() {
         setGuideImg(event.target.result);
       };
       reader.readAsDataURL(file);
+      setFileName(file.name);
     }
   };
 
@@ -33,9 +37,30 @@ export default function GuideModal() {
     setPreviewImg(guideImg);
   };
 
+  const handleAddGuide = () => {
+    axios.post(`https://ammuse.store/test/api/crate/guide`, {
+      name: name,
+      email: email,
+      guideCode: guideCode,
+      introduce: introduction,
+      fileName: fileName,
+      base64Data: guideImg
+    })
+    .then((res)=>{
+      console.log(res);
+      setName('');
+      setEmail('');
+      setGuideCode('');
+      setIntroduction('');
+      setGuideImg();
+      closeModal();
+    })
+    .catch((err) => console.log(err))
+  }
+
   return (
     <div>
-      <button onClick={openModal} className={styles.guideBtn}>가이드 추가하기</button>
+      <button onClick={openModal} className={styles.guideBtn}>추가하기</button>
       {isOpen && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
@@ -75,7 +100,7 @@ export default function GuideModal() {
                 onChange={(e)=>setIntroduction(e.target.value)}
                 placeholder='직원 소개'/>
             </div>
-            <button className={styles.modalClose} onClick={closeModal}>
+            <button className={styles.modalClose} onClick={handleAddGuide}>
                 추가하기
             </button>
             <button className={styles.modalClose} onClick={closeModal}>
