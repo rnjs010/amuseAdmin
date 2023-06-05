@@ -37,13 +37,13 @@ function ProductStatus() {
         console.log(res);
           const data = res.data.data.data;
           const processedData = data.map((item: any) => ({
-            itemCode: item.itemCode,
+            product_code: item.itemCode,
             title: item.title,
-            imgUrl: item.imgUrl
+            imageUrl: item.imgUrl
           }))
           setActiveItemList(processedData)
         });
-  }, [])
+  }, [activeItemList])
 
   useEffect(() => {
     axios.get('https://ammuse.store/test/api/product/getList/byDisplay', {
@@ -57,13 +57,13 @@ function ProductStatus() {
         console.log(res);
           const data = res.data.data.data;
           const processedData = data.map((item: any) => ({
-            itemCode: item.itemCode,
+            product_code: item.itemCode,
             title: item.title,
-            imgUrl: item.imgUrl
+            imageUrl: item.imgUrl
           }))
           setInActiveItemList(processedData)
         });
-  }, [])
+  }, [inActiveItemList])
 
   const handleDeleteProducts =  (itemCode: string) => {
     setActiveItemList(activeItemList.filter((item) => {return item.itemCode !== itemCode}))
@@ -77,33 +77,27 @@ function ProductStatus() {
   }
 
   const handleInActivateProduct = (item: Item) => {
+    setActiveItemList(activeItemList.filter((activeItem) => {return activeItem.itemCode !== item.itemCode}));
+    setInActiveItemList((prev) => [...prev, item])
     axios.get('https://ammuse.store/test/api/change/displayStatus', {
       params: {
         status: 'HIDDEN',
         itemCode: item.itemCode
       }
     })
-    .then((res) => {
-      console.log(res);
-      setActiveItemList(activeItemList.filter((activeItem) => {return activeItem.itemCode !== item.itemCode}));
-      setInActiveItemList((prev) => [...prev, item]);
-    })
+    .then((res) => console.log(res))
     .catch(console.error);
   }
 
   const handleActivateProduct = (item: Item) => {
+    setInActiveItemList(inActiveItemList.filter((inActiveItem) => {reutrn inActiveItem.itemCode !== item.itemCode}));
+    setActiveItemList((prev) => [...prev, item]);
     axios.get('https://ammuse.store/test/api/change/displayStatus', {
       params: {
         status: 'DISPLAY',
         itemCode: item.itemCode
       }
     })
-    .then((res) => {
-      console.log(res);
-      setInActiveItemList(inActiveItemList.filter((inActiveItem) => {return inActiveItem.itemCode !== item.itemCode}));
-      setActiveItemList((prev) => [...prev, item]);
-    })
-    .catch(console.error);
   }
 
   return (
@@ -113,8 +107,8 @@ function ProductStatus() {
         <div className={styles.divider}></div>
         <ul className={styles.activeItemList}>
           {activeItemList.map((item:any) => (
-            <li className={styles.activeItem} key={item.itemCode}>
-              <img className={styles.activeImg}src={item.imgUrl} alt="" />
+            <li className={styles.activeItem}>
+              <img className={styles.activeImg}src={item.imageUrl} alt="" />
               <div className={styles.btnContainer}>
                 <button onClick={() => navigate(`/product/edit/${item.itemCode}`)}>수정</button>
                 <button onClick={() => handleDeleteProducts(item.itemCode)}>삭제</button>
@@ -140,8 +134,8 @@ function ProductStatus() {
         <div className={styles.divider}></div>
         <ul className={styles.inActiveItemList}>
           {inActiveItemList.map((item:any) => (
-            <li className={styles.activeItem} key={item.itemCode}>
-              <img className={styles.activeImg}src={item.imgUrl} alt="" />
+            <li className={styles.activeItem}>
+              <img className={styles.activeImg}src={item.imageUrl} alt="" />
               <div className={styles.btnContainer}>
                 <button onClick={() => navigate(`/product/edit/${item.itemCode}`)}>수정</button>
                 <button onClick={() => handleDeleteProducts(item.itemCode)}>삭제</button>

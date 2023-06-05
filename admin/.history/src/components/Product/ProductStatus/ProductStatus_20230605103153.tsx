@@ -37,9 +37,9 @@ function ProductStatus() {
         console.log(res);
           const data = res.data.data.data;
           const processedData = data.map((item: any) => ({
-            itemCode: item.itemCode,
+            product_code: item.itemCode,
             title: item.title,
-            imgUrl: item.imgUrl
+            imageUrl: item.imgUrl
           }))
           setActiveItemList(processedData)
         });
@@ -57,9 +57,9 @@ function ProductStatus() {
         console.log(res);
           const data = res.data.data.data;
           const processedData = data.map((item: any) => ({
-            itemCode: item.itemCode,
+            product_code: item.itemCode,
             title: item.title,
-            imgUrl: item.imgUrl
+            imageUrl: item.imgUrl
           }))
           setInActiveItemList(processedData)
         });
@@ -114,7 +114,7 @@ function ProductStatus() {
         <ul className={styles.activeItemList}>
           {activeItemList.map((item:any) => (
             <li className={styles.activeItem} key={item.itemCode}>
-              <img className={styles.activeImg}src={item.imgUrl} alt="" />
+              <img className={styles.activeImg}src={item.imageUrl} alt="" />
               <div className={styles.btnContainer}>
                 <button onClick={() => navigate(`/product/edit/${item.itemCode}`)}>수정</button>
                 <button onClick={() => handleDeleteProducts(item.itemCode)}>삭제</button>
@@ -141,7 +141,7 @@ function ProductStatus() {
         <ul className={styles.inActiveItemList}>
           {inActiveItemList.map((item:any) => (
             <li className={styles.activeItem} key={item.itemCode}>
-              <img className={styles.activeImg}src={item.imgUrl} alt="" />
+              <img className={styles.activeImg}src={item.imageUrl} alt="" />
               <div className={styles.btnContainer}>
                 <button onClick={() => navigate(`/product/edit/${item.itemCode}`)}>수정</button>
                 <button onClick={() => handleDeleteProducts(item.itemCode)}>삭제</button>
