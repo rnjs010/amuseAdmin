@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './GuideModal.module.css';
 import axios from 'axios';
 import { getGuideInfo } from './StaffDetail';
 
-export default function GuideModal() {
+export default function GuideModal({ getGuideInfo, setAllGuide}) {
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState('');
   const [introduction, setIntroduction] = useState('');
@@ -32,6 +32,10 @@ export default function GuideModal() {
       setFileName(file.name);
     }
   };
+
+  useEffect(()=>{
+    getGuideInfo(setAllGuide);
+  }, [isOpen])
 
   const handlePreview = () => {
     setPreviewImg(guideImg);

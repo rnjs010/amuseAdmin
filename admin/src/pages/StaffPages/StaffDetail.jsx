@@ -37,13 +37,13 @@ const StaffDetail = () => {
 				}}
 			>
 				<h2> 가이드 관리 </h2>
-				<GuideModal />
+				<GuideModal getGuideInfo={getGuideInfo} setAllGuide={setAllGuide}/>
 			</div>
 			<div style={{marginTop: '30px'}}>
 			{allGuide && allGuide.length > 0 ? (
         		<Table columns={GuideTableCloumns(setAllGuide)} data={allGuide} />
       			) : (
-        		<p>No data available.</p>
+        		<p>가이드 불러오는 중</p>
       		)}
 			</div>
 		</div>

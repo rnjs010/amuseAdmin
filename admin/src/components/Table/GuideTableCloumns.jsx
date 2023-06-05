@@ -31,6 +31,7 @@ export const GuideTableCloumns = (setAllGuide) => [
               .get(`https://ammuse.store/test/api/delete/guide/${guideCode}`)
               .then((res) => {
                 console.log(res);
+                getGuideInfo(setAllGuide);
               })
               .catch((err) => console.log(err));
           };
