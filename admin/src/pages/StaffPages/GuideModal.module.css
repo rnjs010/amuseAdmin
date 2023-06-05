@@ -59,6 +59,14 @@
   .previewImage {
     border-radius: 100%;
   }
+  
+  .guideBtn{
+    background: #eb1749;
+    width: 80px;
+    height: 30px;
+    color: #fff;
+    border-radius: 10px;
+}
 
   .guideBtn {
     background-color: #4CAF50;
@@ -73,6 +81,7 @@
     cursor: pointer;
     border-radius: 4px;
   }
+
 
   .guideBtn:hover {
     background-color: #45a049;
