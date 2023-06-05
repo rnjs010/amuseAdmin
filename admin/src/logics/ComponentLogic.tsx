@@ -7,6 +7,10 @@ export const ComponentLogic = {
 		return response.data.data;
 	}),
 	
+	getComponentDetail: (async (id: string) => {
+		const response = await axios.get(`https://ammuse.store/test/api/component/${id}`)
+		return response.data.data;
+	}),
 	
 }
 

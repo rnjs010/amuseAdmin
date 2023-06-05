@@ -1,5 +1,5 @@
 @import '../../../App.module.css';;
-.container.productAdmin {
+.container {
   display: flex;
   justify-content: space-around;
   align-items: center;

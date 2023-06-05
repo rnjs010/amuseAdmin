@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './GuideModal.module.css';
-import axios from 'axios';
-import { getGuideInfo } from './StaffDetail';
 
-export default function GuideModal({ getGuideInfo, setAllGuide}) {
+export default function GuideModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState('');
   const [introduction, setIntroduction] = useState('');
@@ -11,7 +9,6 @@ export default function GuideModal({ getGuideInfo, setAllGuide}) {
   const [guideCode, setGuideCode] = useState('');
   const [guideImg, setGuideImg] = useState();
   const [previewImg, setPreviewImg] = useState('');
-  const [fileName, setFileName] = useState('');
 
   const openModal = () => {
     setIsOpen(true);
@@ -29,42 +26,16 @@ export default function GuideModal({ getGuideInfo, setAllGuide}) {
         setGuideImg(event.target.result);
       };
       reader.readAsDataURL(file);
-      setFileName(file.name);
     }
   };
-
-  useEffect(()=>{
-    getGuideInfo(setAllGuide);
-  }, [isOpen])
 
   const handlePreview = () => {
     setPreviewImg(guideImg);
   };
 
-  const handleAddGuide = () => {
-    axios.post(`https://ammuse.store/test/api/crate/guide`, {
-      name: name,
-      email: email,
-      guideCode: guideCode,
-      introduce: introduction,
-      fileName: fileName,
-      base64Data: guideImg
-    })
-    .then((res)=>{
-      console.log(res);
-      setName('');
-      setEmail('');
-      setGuideCode('');
-      setIntroduction('');
-      setGuideImg();
-      closeModal();
-    })
-    .catch((err) => console.log(err))
-  }
-
   return (
     <div>
-      <button onClick={openModal} className={styles.guideBtn}>추가하기</button>
+      <button onClick={openModal} className={styles.guideBtn}>가이드 추가하기</button>
       {isOpen && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
@@ -104,7 +75,7 @@ export default function GuideModal({ getGuideInfo, setAllGuide}) {
                 onChange={(e)=>setIntroduction(e.target.value)}
                 placeholder='직원 소개'/>
             </div>
-            <button className={styles.modalClose} onClick={handleAddGuide}>
+            <button className={styles.modalClose} onClick={closeModal}>
                 추가하기
             </button>
             <button className={styles.modalClose} onClick={closeModal}>
