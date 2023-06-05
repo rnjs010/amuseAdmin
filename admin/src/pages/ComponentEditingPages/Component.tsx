@@ -80,7 +80,7 @@ const Component = () => {
 			</div>
 			
 			<div style={{paddingTop: 30}}>
-				<Table route={""} columns={ComponentTableColumns} data={componentListArr}/>
+				<Table route={"componentv2"} columns={ComponentTableColumns} data={componentListArr}/>
 			</div>
 		
 		</div>
