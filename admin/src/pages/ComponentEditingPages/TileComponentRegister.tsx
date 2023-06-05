@@ -79,6 +79,19 @@ const TileComponentRegister = () => {
 		setTileData(newData);
 	};
 	
+	const handleTileCount = (upDown: string) => {
+		if(upDown == "down"){
+			if(tileCount - 1 > 0){
+				setTileData(tileData.splice(tileCount, 1));
+				setTileCount(tileCount - 1);
+				return;
+			}
+			window.confirm("타일 개수는 1개보다 적을 수 없습니다.");
+			return;
+		}
+		setTileCount(tileCount + 1);
+	}
+	
 	const handleSave = () => {
 		// 타일 데이터 저장 처리
 		console.log(tileData);
@@ -170,7 +183,7 @@ const TileComponentRegister = () => {
 								height: 30,
 								border: "1px solid"
 							}}
-							onClick={() => setTileCount(tileCount + 1)}
+							onClick={() => handleTileCount("up")}
 						>
 							<div>
 								+
@@ -186,7 +199,7 @@ const TileComponentRegister = () => {
 								height: 30,
 								border: "1px solid"
 							}}
-							onClick={() => setTileCount(tileCount - 1)}
+							onClick={() => handleTileCount("down")}
 						>
 							<div>
 								-
