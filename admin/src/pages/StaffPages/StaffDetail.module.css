@@ -1,0 +1,9 @@
+.guideWrap {
+    display: flex;
+    margin: 20px;
+}
+
+.guideInfo {
+    font-size: 14px;
+    margin: 4px 12px;
+};

@@ -28,6 +28,7 @@
     cursor: pointer;
     font-size: 16px;
     padding: 5px 10px;
+
   }
   
   /* 모달 내용 스타일링 */
@@ -60,16 +61,16 @@
     border-radius: 100%;
   }
 
-  .guideBtn {
-    background-color: lightsalmon;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 4px;
-  }
+  .guideBtn{
+    background: #eb1749;
+    width: 80px;
+    height: 30px;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.guideBtn:hover{
+    border: 1px solid #eb1749;
+    background: #fff;
+    color: #eb1749;
+}

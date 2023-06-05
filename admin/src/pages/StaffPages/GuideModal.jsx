@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from './GuideModal.module.css';
 import axios from 'axios';
+import { getGuideInfo } from './StaffDetail';
 
 export default function GuideModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -59,7 +60,7 @@ export default function GuideModal() {
 
   return (
     <div>
-      <button onClick={openModal} className={styles.guideBtn}>가이드 추가하기</button>
+      <button onClick={openModal} className={styles.guideBtn}>추가하기</button>
       {isOpen && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
