@@ -38,6 +38,7 @@ import ListComponentRegister from "./pages/ComponentEditingPages/ListComponentRe
 import BannerComponentRegister from "./pages/ComponentEditingPages/BannerComponentRegister";
 import TileComponentRegister from "./pages/ComponentEditingPages/TileComponentRegister";
 import PageDetail from "./pages/PageEditingPages/PageDetail";
+import ListComponentDatail from "./pages/ComponentEditingPages/ListComponentDatail";
 
 const router = createBrowserRouter([
     {
@@ -76,7 +77,10 @@ const router = createBrowserRouter([
             {path: '/staff', element: <StaffDetail/>},
             
             {path: '/componentv2', element: <Component/>},
+            
             {path: '/componentv2/listcomponent/register', element: <ListComponentRegister/>},
+            {path: '/componentv2/listcomponent/:id', element: <ListComponentDatail/>},
+            
             {path: '/componentv2/bannercomponent/register', element: <BannerComponentRegister/>},
             {path: '/componentv2/tilecomponent/register', element: <TileComponentRegister/>},
             
