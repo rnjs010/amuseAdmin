@@ -12,13 +12,6 @@ function ProductStatus() {
     title: '',
     imageUrl: ''
   }]);
-
-  const [inActiveItemList, setInActiveItemList] = useState([{
-    product_code: '',
-    title: '',
-    imageUrl: ''
-  }]);
-
   useEffect(() => {
     axios.get('https://ammuse.store/test/api/product/getList/byDisplay', {
       params: {
@@ -36,26 +29,6 @@ function ProductStatus() {
             imageUrl: item.imgUrl
           }))
           setActiveItemList(processedData)
-        });
-  }, [])
-
-  useEffect(() => {
-    axios.get('https://ammuse.store/test/api/product/getList/byDisplay', {
-      params: {
-        limit: 8,
-        page: 1,
-        displayStatus: 'HIDDEN'
-      }
-    })
-      .then((res) => {
-        console.log(res);
-          const data = res.data.data.data;
-          const processedData = data.map((item: any) => ({
-            product_code: item.itemCode,
-            title: item.title,
-            imageUrl: item.imgUrl
-          }))
-          setInActiveItemList(processedData)
         });
   }, [])
 
@@ -113,28 +86,7 @@ function ProductStatus() {
       <div className={styles.inActiveItemContainer}>
         <div className={styles.title}>비활성화 상품</div>
         <div className={styles.divider}></div>
-        <ul className={styles.inActiveItemList}>
-          {inActiveItemList.map((item:any) => (
-            <li className={styles.activeItem}>
-              <img className={styles.activeImg}src={item.imageUrl} alt="" />
-              <div className={styles.btnContainer}>
-                <button onClick={() => navigate(`/product/edit/${item.product_code}`)}>수정</button>
-                <button onClick={() => handleDeleteProducts(item.product_code)}>삭제</button>
-                <button onClick={() => handleInActivateProduct(item.product_code)}>비활성화</button>
-                <button>복사</button>
-              </div>
-              <div className={styles.productCodeContainer}>
-                <p className={styles.label}>상품 코드</p>
-                <p>{item.product_code}</p>
-              </div>
-              <div className={styles.productTitleContainer}>
-                <p className={styles.label}>제목</p>
-                <p>{item.title}</p>
-              </div>
-              
-            </li>
-          ))}
-        </ul>
+
       </div>
     </div>
   );
