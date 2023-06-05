@@ -72,18 +72,12 @@
   font-weight: bold;
 }
 .pageBtnContainer {
-  width: fit-content;
-  max-width: 60%;
-  
-  margin: auto;
-  border: 1px solid lightgrey;
-  border-radius: 10px;
-
+  width: 60%;
+  background: red;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  overflow: auto;
 }
 .pageBtn {
   width: 30px;

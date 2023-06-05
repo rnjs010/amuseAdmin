@@ -71,24 +71,11 @@
 .label {
   font-weight: bold;
 }
-.pageBtnContainer {
-  width: fit-content;
-  max-width: 60%;
-  
-  margin: auto;
-  border: 1px solid lightgrey;
-  border-radius: 10px;
 
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  overflow: auto;
-}
 .pageBtn {
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   background-color: var(--color-pink);
   color: var(--color-white);
-  border-radius: 2px;
+  border-radius: var(--border-radius);
 }

@@ -48,7 +48,7 @@ function ProductStatus() {
           }))
           setActiveItemList(processedData)
         });
-  }, [currentActivePage])
+  }, [])
 
   useEffect(() => {
     axios.get('https://ammuse.store/test/api/product/getList/byDisplay', {
@@ -68,7 +68,7 @@ function ProductStatus() {
           }))
           setInActiveItemList(processedData)
         });
-  }, [currentInActivePage])
+  }, [])
 
   const handleDeleteProducts =  (itemCode: string) => {
     setActiveItemList(activeItemList.filter((item) => {return item.itemCode !== itemCode}))
