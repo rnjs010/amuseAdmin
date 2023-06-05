@@ -28,18 +28,9 @@ const Table = ({route = "", columns, data, pageCount = 1}) => {
 	};
 	
 	const getComponentType = (type: string) => {
-		if(type  == "리스트"){
-			return "listcomponent";
-		}
-		
-		// TODO
-		if(type  == "배너"){
-		
-		}
-		
-		if(type  == "타일"){
-		
-		}
+		if(type  == "리스트") return "listcomponent";
+		if(type  == "배너") return "bannercomponent";
+		if(type  == "타일") return "tilecomponent";
 	}
 	
 	const {

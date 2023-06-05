@@ -39,6 +39,8 @@ import BannerComponentRegister from "./pages/ComponentEditingPages/BannerCompone
 import TileComponentRegister from "./pages/ComponentEditingPages/TileComponentRegister";
 import PageDetail from "./pages/PageEditingPages/PageDetail";
 import ListComponentDatail from "./pages/ComponentEditingPages/ListComponentDatail";
+import BannerComponentDetail from "./pages/ComponentEditingPages/BannerComponentDetail";
+import TileComponentDetail from "./pages/ComponentEditingPages/TileComponentDetail";
 
 const router = createBrowserRouter([
     {
@@ -82,7 +84,10 @@ const router = createBrowserRouter([
             {path: '/componentv2/listcomponent/:id', element: <ListComponentDatail/>},
             
             {path: '/componentv2/bannercomponent/register', element: <BannerComponentRegister/>},
+            {path: '/componentv2/bannercomponent/:id', element: <BannerComponentDetail/>},
+            
             {path: '/componentv2/tilecomponent/register', element: <TileComponentRegister/>},
+            {path: '/componentv2/tilecomponent/:id', element: <TileComponentDetail/>},
             
             
             
