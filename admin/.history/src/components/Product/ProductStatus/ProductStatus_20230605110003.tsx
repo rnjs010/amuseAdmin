@@ -34,7 +34,7 @@ function ProductStatus() {
     axios.get('https://ammuse.store/test/api/product/getList/byDisplay', {
       params: {
         limit: 8,
-        page: currentActivePage,
+        page: 1,
         displayStatus: 'DISPLAY'
       }
     })
@@ -48,13 +48,13 @@ function ProductStatus() {
           }))
           setActiveItemList(processedData)
         });
-  }, [currentActivePage])
+  }, [])
 
   useEffect(() => {
     axios.get('https://ammuse.store/test/api/product/getList/byDisplay', {
       params: {
         limit: 8,
-        page: currentInActivePage,
+        page: 1,
         displayStatus: 'HIDDEN'
       }
     })
@@ -68,7 +68,7 @@ function ProductStatus() {
           }))
           setInActiveItemList(processedData)
         });
-  }, [currentInActivePage])
+  }, [])
 
   const handleDeleteProducts =  (itemCode: string) => {
     setActiveItemList(activeItemList.filter((item) => {return item.itemCode !== itemCode}))
@@ -166,14 +166,10 @@ function ProductStatus() {
                 <p className={styles.label}>제목</p>
                 <p>{item.title}</p>
               </div>
+              
             </li>
           ))}
         </ul>
-        <div className={styles.pageBtnContainer}>
-          {[...Array(inActivePageCount)].map((e, idx) => 
-            <button className={styles.pageBtn} key={idx} onClick={() => setCurrentInActivePage(idx+1)}>{idx+1}</button>
-          )}
-        </div>
       </div>
     </div>
   );
