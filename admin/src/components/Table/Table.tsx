@@ -10,9 +10,28 @@ const Table = ({route = "", columns, data, pageCount = 1}) => {
 	
 	const navigate = useNavigate();
 	
-	const onClickRow = (id: number) => {
-		if (route !== "") navigate(`/${route}/${id}`);
+	const onClickRow = (row: any) => {
+		
+		const id = row.original.id;
+		const type = row.original.type;
+		
+		if (route == "componentv2") {
+			const componentRoutePath = getComponentType(type)
+			navigate(`/${route}/${componentRoutePath}/${id}`);
+			return;
+		}
+		
+		if (route !== "") {
+			navigate(`/${route}/${id}`);
+			return;
+		}
 	};
+	
+	const getComponentType = (type: string) => {
+		if(type  == "리스트") return "listcomponent";
+		if(type  == "배너") return "bannercomponent";
+		if(type  == "타일") return "tilecomponent";
+	}
 	
 	const {
 		getTableProps,
@@ -58,7 +77,7 @@ const Table = ({route = "", columns, data, pageCount = 1}) => {
 					{page.map((row: any) => {
 						prepareRow(row)
 						return (
-							<tr {...row.getRowProps()} onClick={() => onClickRow(row.original.id)}>
+							<tr {...row.getRowProps()} onClick={() => onClickRow(row)}>
 								{row.cells.map((cell: any) => {
 									return (
 										<td {...cell.getCellProps()}>{cell.render('Cell')}</td>

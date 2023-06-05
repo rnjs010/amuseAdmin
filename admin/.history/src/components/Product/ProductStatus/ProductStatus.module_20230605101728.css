@@ -45,7 +45,7 @@
   padding: 10px;
 }
 
-.activeItem, .inActiveItem {
+.activeItem {
   width: 100%;
   height: 100%;
   border: 2px solid black;
@@ -53,7 +53,7 @@
   border-radius: var(--border-radius);
 }
 
-.activeImg, .inActiveImg {
+.activeImg {
   width: 100%;
   height: 60%;
   border-top-left-radius: var(--border-radius);
@@ -70,25 +70,4 @@
 
 .label {
   font-weight: bold;
-}
-.pageBtnContainer {
-  width: fit-content;
-  max-width: 60%;
-  
-  margin: auto;
-  border: 1px solid lightgrey;
-  border-radius: 10px;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  overflow: auto;
-}
-.pageBtn {
-  width: 30px;
-  height: 30px;
-  background-color: var(--color-pink);
-  color: var(--color-white);
-  border-radius: 2px;
 }
