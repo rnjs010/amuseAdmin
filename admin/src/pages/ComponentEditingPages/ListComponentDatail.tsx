@@ -6,6 +6,8 @@ import {CategoryLogic} from "../../logics/CategoryLogic";
 import SelectableTable from "../../components/Table/SelectableTable";
 import {ProductTableColumns} from "../../components/Table/ProductTableColumns";
 import {useParams} from "react-router-dom";
+import {ComponentLogic} from "../../logics/ComponentLogic";
+import TestSelectableTable from "../../components/Table/TestSelectableTable";
 
 
 const ListComponentDatail = () => {
@@ -20,6 +22,16 @@ const ListComponentDatail = () => {
 	const [selected, setSelected] = useState<any[]>([]);
 	
 	useEffect(() => {
+		
+		(async () => {
+			if (id != null) {
+				const response = await ComponentLogic.getComponentDetail(id);
+				// console.log(response.productList)
+				const productList = response.productList
+				const itemCodeArr = productList.map((v: any) => v.itemCode)
+				setSelected(itemCodeArr);
+			}
+		})();
 		
 		(async () => {
 			const response = await CategoryLogic.getCategoryArr();
@@ -38,18 +50,12 @@ const ListComponentDatail = () => {
 		
 	}, [])
 	
-	
 	return (
 		<div className={styles.container}>
-			<div
-				className={styles.body}
-			>
-				
-				{ id }
+			<div className={styles.body}>
+				{id}
 				<p className={styles.p}>
-					<div
-						className={styles.pTitle}
-					>
+					<div className={styles.pTitle}>
 						<strong>컴포넌트 명</strong>
 					</div>
 					
@@ -62,17 +68,14 @@ const ListComponentDatail = () => {
 				</p>
 				
 				<p className={styles.p}>
-					<div
-						className={styles.pTitle}
-					>
+					<div className={styles.pTitle}>
 						<strong>상품목록</strong>
 					</div>
 				</p>
-			
 				
-				<SelectableTable
-								route={""} columns={ProductTableColumns} data={productListArr}
-								setStateValue={setSelected} value={selected}
+				<TestSelectableTable
+					route={""} columns={ProductTableColumns} data={productListArr}
+					setStateValue={setSelected} value={selected} id={id ?? ""}
 				/>
 			</div>
 		
