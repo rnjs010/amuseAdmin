@@ -43,8 +43,6 @@ function ProductStatus() {
         itemCode
       }
     })
-    .then((res) => console.log(res))
-    .catch(console.error);
   }
 
   return (
