@@ -2,8 +2,11 @@ import React, {useRef, useState} from "react";
 import styles from '../../components/ComponentEditing/component.module.css'
 
 import {Editor} from "@toast-ui/react-editor";
+import {useParams} from "react-router-dom";
 
-const BannerComponentRegister = () => {
+const BannerComponentDetail = () => {
+	
+	const {id} = useParams();
 
 	const [title, setTitle] = useState<string>("")
 	
@@ -45,7 +48,7 @@ const BannerComponentRegister = () => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.body}>
-				
+				{id}
 				<p className={styles.p}>
 					<div
 						className={styles.pTitle}
@@ -235,5 +238,5 @@ const BannerComponentRegister = () => {
 	)
 }
 
-export default BannerComponentRegister;
+export default BannerComponentDetail;
 

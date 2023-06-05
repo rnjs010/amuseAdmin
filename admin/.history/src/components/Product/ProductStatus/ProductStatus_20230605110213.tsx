@@ -124,7 +124,7 @@ function ProductStatus() {
                 <button onClick={() => navigate(`/product/edit/${item.itemCode}`)}>수정</button>
                 <button onClick={() => handleDeleteProducts(item.itemCode)}>삭제</button>
                 <button onClick={() => handleInActivateProduct(item)}>비활성화</button>
-                <button onClick={() => navigate(`/product/copy/${item.itemCode}`)}>복사</button>
+                <button>복사</button>
               </div>
               <div className={styles.productCodeContainer}>
                 <p className={styles.label}>상품 코드</p>
@@ -156,7 +156,7 @@ function ProductStatus() {
                 <button onClick={() => navigate(`/product/edit/${item.itemCode}`)}>수정</button>
                 <button onClick={() => handleDeleteProducts(item.itemCode)}>삭제</button>
                 <button onClick={() => handleActivateProduct(item)}>활성화</button>
-                <button onClick={() => navigate(`/product/copy/${item.itemCode}`)}>복사</button>
+                <button>복사</button>
               </div>
               <div className={styles.productCodeContainer}>
                 <p className={styles.label}>상품 코드</p>

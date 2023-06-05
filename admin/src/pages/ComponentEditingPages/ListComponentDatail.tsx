@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from "react";
 import styles from '../../components/ComponentEditing/component.module.css'
 
-import DropDown from "../../components/DropDown";
 import {ItemLogic} from "../../logics/ItemLogic";
 import {CategoryLogic} from "../../logics/CategoryLogic";
 import SelectableTable from "../../components/Table/SelectableTable";
 import {ProductTableColumns} from "../../components/Table/ProductTableColumns";
+import {useParams} from "react-router-dom";
 
-const ListComponentRegister = () => {
+
+const ListComponentDatail = () => {
+	
+	const {id} = useParams();
 	
 	const [title, setTitle] = useState<string>("")
 	
@@ -42,6 +45,7 @@ const ListComponentRegister = () => {
 				className={styles.body}
 			>
 				
+				{ id }
 				<p className={styles.p}>
 					<div
 						className={styles.pTitle}
@@ -78,4 +82,4 @@ const ListComponentRegister = () => {
 	)
 }
 
-export default ListComponentRegister;
+export default ListComponentDatail;

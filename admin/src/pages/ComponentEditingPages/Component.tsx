@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Table from "../../components/Table/Table";
 import styles from '../../components/ComponentEditing/component.module.css'
 
 import {useNavigate} from "react-router-dom";
+import {ComponentLogic} from "../../logics/ComponentLogic";
 
 // To Extract
 // API 확정되면, Extract
@@ -16,26 +17,41 @@ const ComponentTableColumns = [
 		accessor: 'title'
 	},
 	{
+		Header: '타입',
+		accessor: 'type'
+	},
+	{
 		Header: '등록일',
-		accessor: 'createdAt'
+		accessor: 'createAt'
 	},
 	{
 		Header: '등록자',
-		accessor: 'createdBy'
+		accessor: 'createBy'
 	},
 	{
 		Header: '수정일',
-		accessor: 'updatedAdDate'
+		accessor: 'updateAt'
 	},
 	{
 		Header: '수정자',
-		accessor: 'updatedAd'
+		accessor: 'updateBy'
 	},
 ];
 
 const Component = () => {
 	
 	const navigate = useNavigate();
+	
+	const [componentListArr, setComponentListArr] = useState<any>([]);
+	
+	useEffect(() => {
+		
+		(async () => {
+			const response  = await ComponentLogic.getComponentList();
+			setComponentListArr(response);
+		})()
+		
+	}, []);
 	
 	return (
 		<div className={styles.container}>
@@ -64,7 +80,7 @@ const Component = () => {
 			</div>
 			
 			<div style={{paddingTop: 30}}>
-				<Table route={""} columns={ComponentTableColumns} data={[]}/>
+				<Table route={"componentv2"} columns={ComponentTableColumns} data={componentListArr}/>
 			</div>
 		
 		</div>

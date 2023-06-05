@@ -25,50 +25,45 @@ function ProductStatus() {
     imgUrl: ''
   }]);
 
-  const [activePageCount, setActivePageCount] = useState<number>(1);
-  const [currentActivePage, setCurrentActivePage] = useState<number>(1);
-  const [inActivePageCount, setInActivePageCount] = useState<number>(1);
-  const [currentInActivePage, setCurrentInActivePage] = useState<number>(1);
-  
   useEffect(() => {
     axios.get('https://ammuse.store/test/api/product/getList/byDisplay', {
       params: {
         limit: 8,
-        page: currentActivePage,
+        page: 1,
         displayStatus: 'DISPLAY'
       }
     })
       .then((res) => {
-          setActivePageCount(res.data.data.pageCount);
+        console.log(res);
           const data = res.data.data.data;
           const processedData = data.map((item: any) => ({
-            itemCode: item.itemCode,
+            product_code: item.itemCode,
             title: item.title,
-            imgUrl: item.imgUrl
+            imageUrl: item.imgUrl
           }))
           setActiveItemList(processedData)
         });
-  }, [currentActivePage])
+  }, [])
 
   useEffect(() => {
     axios.get('https://ammuse.store/test/api/product/getList/byDisplay', {
       params: {
         limit: 8,
-        page: currentInActivePage,
+        page: 1,
         displayStatus: 'HIDDEN'
       }
     })
       .then((res) => {
-          setInActivePageCount(res.data.data.pageCount);
+        console.log(res);
           const data = res.data.data.data;
           const processedData = data.map((item: any) => ({
-            itemCode: item.itemCode,
+            product_code: item.itemCode,
             title: item.title,
-            imgUrl: item.imgUrl
+            imageUrl: item.imgUrl
           }))
           setInActiveItemList(processedData)
         });
-  }, [currentInActivePage])
+  }, [])
 
   const handleDeleteProducts =  (itemCode: string) => {
     setActiveItemList(activeItemList.filter((item) => {return item.itemCode !== itemCode}))
@@ -82,33 +77,27 @@ function ProductStatus() {
   }
 
   const handleInActivateProduct = (item: Item) => {
+    setActiveItemList(activeItemList.filter((activeItem) => {return activeItem.itemCode !== item.itemCode}));
+    setInActiveItemList((prev) => [...prev, item])
     axios.get('https://ammuse.store/test/api/change/displayStatus', {
       params: {
         status: 'HIDDEN',
         itemCode: item.itemCode
       }
     })
-    .then((res) => {
-      console.log(res);
-      setActiveItemList(activeItemList.filter((activeItem) => {return activeItem.itemCode !== item.itemCode}));
-      setInActiveItemList((prev) => [...prev, item]);
-    })
+    .then((res) => console.log(res))
     .catch(console.error);
   }
 
   const handleActivateProduct = (item: Item) => {
+    setInActiveItemList(inActiveItemList.filter((inActiveItem) => {return inActiveItem.itemCode !== item.itemCode}));
+    setActiveItemList((prev) => [...prev, item]);
     axios.get('https://ammuse.store/test/api/change/displayStatus', {
       params: {
         status: 'DISPLAY',
         itemCode: item.itemCode
       }
     })
-    .then((res) => {
-      console.log(res);
-      setInActiveItemList(inActiveItemList.filter((inActiveItem) => {return inActiveItem.itemCode !== item.itemCode}));
-      setActiveItemList((prev) => [...prev, item]);
-    })
-    .catch(console.error);
   }
 
   return (
@@ -119,12 +108,12 @@ function ProductStatus() {
         <ul className={styles.activeItemList}>
           {activeItemList.map((item:any) => (
             <li className={styles.activeItem} key={item.itemCode}>
-              <img className={styles.activeImg}src={item.imgUrl} alt="" />
+              <img className={styles.activeImg}src={item.imageUrl} alt="" />
               <div className={styles.btnContainer}>
                 <button onClick={() => navigate(`/product/edit/${item.itemCode}`)}>수정</button>
                 <button onClick={() => handleDeleteProducts(item.itemCode)}>삭제</button>
                 <button onClick={() => handleInActivateProduct(item)}>비활성화</button>
-                <button onClick={() => navigate(`/product/copy/${item.itemCode}`)}>복사</button>
+                <button>복사</button>
               </div>
               <div className={styles.productCodeContainer}>
                 <p className={styles.label}>상품 코드</p>
@@ -138,11 +127,6 @@ function ProductStatus() {
             </li>
           ))}
         </ul>
-        <div className={styles.pageBtnContainer}>
-          {[...Array(activePageCount)].map((e, idx) => 
-            <button className={styles.pageBtn} key={idx} onClick={() => setCurrentActivePage(idx+1)}>{idx+1}</button>
-          )}
-        </div>
       </div>
 
       <div className={styles.inActiveItemContainer}>
@@ -150,13 +134,13 @@ function ProductStatus() {
         <div className={styles.divider}></div>
         <ul className={styles.inActiveItemList}>
           {inActiveItemList.map((item:any) => (
-            <li className={styles.inActiveItem} key={item.itemCode}>
-              <img className={styles.inActiveImg}src={item.imgUrl} alt="" />
+            <li className={styles.activeItem} key={item.itemCode}>
+              <img className={styles.activeImg}src={item.imageUrl} alt="" />
               <div className={styles.btnContainer}>
                 <button onClick={() => navigate(`/product/edit/${item.itemCode}`)}>수정</button>
                 <button onClick={() => handleDeleteProducts(item.itemCode)}>삭제</button>
                 <button onClick={() => handleActivateProduct(item)}>활성화</button>
-                <button onClick={() => navigate(`/product/copy/${item.itemCode}`)}>복사</button>
+                <button>복사</button>
               </div>
               <div className={styles.productCodeContainer}>
                 <p className={styles.label}>상품 코드</p>
@@ -166,14 +150,10 @@ function ProductStatus() {
                 <p className={styles.label}>제목</p>
                 <p>{item.title}</p>
               </div>
+              
             </li>
           ))}
         </ul>
-        <div className={styles.pageBtnContainer}>
-          {[...Array(inActivePageCount)].map((e, idx) => 
-            <button className={styles.pageBtn} key={idx} onClick={() => setCurrentInActivePage(idx+1)}>{idx+1}</button>
-          )}
-        </div>
       </div>
     </div>
   );
