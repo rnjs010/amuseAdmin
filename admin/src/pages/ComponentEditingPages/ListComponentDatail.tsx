@@ -164,7 +164,7 @@ const ListComponentDatail = () => {
 				{/* 순서 목록 */}
 				<div className="component-order">
 					<p className={styles.p}>
-						<div className={styles.pTitle}>순서 목록</div>
+						<div className={styles.pTitle}>상품 순서</div>
 					</p>
 	
 					<div className="component-check-list">
