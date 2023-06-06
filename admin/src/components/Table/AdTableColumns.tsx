@@ -1,5 +1,3 @@
-import { ReactElement, JSXElementConstructor, ReactFragment, ReactPortal } from "react";
-
 export const AdTableColumns = [
     {
         Header: 'ID',
