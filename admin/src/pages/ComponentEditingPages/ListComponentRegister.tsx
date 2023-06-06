@@ -5,7 +5,7 @@ import "./ComponentStyle/ListComponentRegister.scss";
 import Swal from "sweetalert2";
 import axios from "axios";
 
-interface ComponentData {
+interface ItemData {
   item_db_id: number;
   product_code: string;
   startPrice: number;
@@ -17,15 +17,15 @@ const ListComponentRegister = () => {
   const [itemCode, setItemCode] = useState<string[]>([]);
   
   /**
-   * Component API
+   * Item API
    */
-  const [componentData, setComponentData] = useState<ComponentData[]>([]);
+  const [itemData, setItemData] = useState<ItemData[]>([]);
   useEffect(() => {
     axios
       .get("http://ammuse.store/item/search?page=1")
       .then((response) => {
-        const responseComponent = response.data.data.items;
-        setComponentData(responseComponent);
+        const responseItem = response.data.data.items;
+        setItemData(responseItem);
       })
       .catch((error) => {
         console.log("연결 실패");
@@ -35,13 +35,13 @@ const ListComponentRegister = () => {
   /**
    * Component Item Handler
    */
-  const [selected, setSelected] = useState<ComponentData[]>([]);
-  const handleCheckboxChange = (itemComponent: ComponentData, checked: boolean) => {
+  const [selected, setSelected] = useState<ItemData[]>([]);
+  const handleCheckboxChange = (checkedItem: ItemData, checked: boolean) => {
 	if (checked) {
-	  setSelected((prevSelected) => [...prevSelected, itemComponent]);
+	  setSelected((prevSelected) => [...prevSelected, checkedItem]);
 	} else {
 	  setSelected((prevSelected) =>
-		prevSelected.filter((component) => component.item_db_id !== itemComponent.item_db_id)
+		prevSelected.filter((item) => item.item_db_id !== checkedItem.item_db_id)
 	  );
 	}
   };
@@ -109,7 +109,7 @@ const ListComponentRegister = () => {
   return (
     <div className="ListComponentRegister">
       	<div className={styles.body}>
-			<div className="component-list-title">리스트 컴포넌트 생성</div>
+			<div className="component-list-title">📍 리스트 컴포넌트 생성</div>
 
 			<div className="component-name">
 				<p className={styles.p}>
@@ -177,20 +177,20 @@ const ListComponentRegister = () => {
 				</p>
 
 				<div className="component-list">
-					{componentData.map((component) => (
-						<div className="component-item" key={component.item_db_id}>
+					{itemData.map((item) => (
+						<div className="component-item" key={item.item_db_id}>
 							<input
 								className="component-check"
 								type="checkbox"
 								onChange={(e) =>
-									handleCheckboxChange(component, e.target.checked)
+									handleCheckboxChange(item, e.target.checked)
 								}
-								checked={selected.includes(component)}
+								checked={selected.includes(item)}
 							/>
-							<div className="component">{component.item_db_id}</div>
-							<div className="component">{component.product_code}</div>
-							<div className="component">{component.title}</div>
-							<div className="component">{component.startPrice}원</div>
+							<div className="item">{item.item_db_id}</div>
+							<div className="item">{item.product_code}</div>
+							<div className="item">{item.title}</div>
+							<div className="item">{item.startPrice}원</div>
 						</div>
 					))}
 				</div>
