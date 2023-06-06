@@ -1,0 +1,41 @@
+.BannerComponentRegister{
+    .component-list-title{
+        padding: 30px 0 30px 0;
+        font-family: "Apple SD Gothic Neo";
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .component-name{
+        font-family: "Apple SD Gothic Neo";
+        font-size: 18px;
+        font-weight: 600;
+
+        .component-name-input{
+            border: 1px solid #E9ECEF;
+            border-radius: 0px;
+            background-color: #F8F9FA;
+            padding: 25px;
+            width: 100%;
+            color: #343A40;
+        }
+    }
+
+    .banner-name{
+        font-family: "Apple SD Gothic Neo";
+        font-size: 18px;
+        font-weight: 600;
+
+        .banner-name-input{
+            border: 1px solid #E9ECEF;
+            border-radius: 0px;
+            background-color: #F8F9FA;
+            padding: 25px;
+            width: 100%;
+            color: #343A40;
+        }
+    }
+
+
+
+}

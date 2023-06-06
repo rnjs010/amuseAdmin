@@ -44,7 +44,7 @@ const ListComponentDatail = () => {
 		.catch((error) => {
 		  console.log("연결 실패");
 		});
-	}, []);
+	}, [id]);
 
 	/**
 	 * Component API
@@ -57,7 +57,6 @@ const ListComponentDatail = () => {
 		  const responseComponent = response.data.data;
 		  setComponentData(responseComponent);
 		  setSelected(responseComponent?.productList || []);
-		  console.log("테스트", selected)
 		})
 		.catch((error) => {
 		  console.log("연결 실패");
@@ -217,10 +216,8 @@ const ListComponentDatail = () => {
 								<input
 									className="component-check"
 									type="checkbox"
-									onChange={(e) =>
-										handleCheckboxChange(item, e.target.checked)
-									}
-									checked={selected.includes(item)}
+									onChange={(e) => handleCheckboxChange(item, e.target.checked)}
+									checked={selected.some((selectedItem) => selectedItem.item_db_id === item.item_db_id)}
 								/>
 								<div className="item">{item.item_db_id}</div>
 								<div className="item">{item.product_code}</div>

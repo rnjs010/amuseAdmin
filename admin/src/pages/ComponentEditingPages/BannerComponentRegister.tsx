@@ -1,14 +1,60 @@
 import React, {useRef, useState} from "react";
 import styles from '../../components/ComponentEditing/component.module.css'
-
+import "./ComponentStyle/BannerComponentRegister.scss";
 import {Editor} from "@toast-ui/react-editor";
 
-const BannerComponentRegister = () => {
+import Swal from "sweetalert2";
+import axios from "axios";
 
+const BannerComponentRegister = () => {
 	const [title, setTitle] = useState<string>("")
-	
 	const [bannerTitle, setBannerTitle] = useState<string>("");
+
+	/**
+	 * Register API
+	 
+	const handleRegister = () => {
+		// 등록할 데이터를 정리합니다.
 	
+		setItemCode(selected.map((select) => select.product_code));
+		
+		const postData = {
+		  "title": title,
+		  "type": "리스트",
+		  "createdBy": "daw916@naver.com",
+		  "itemCode": itemCode,
+		};
+	  
+		// POST 요청을 보냅니다.
+		axios
+		  .post("https://ammuse.store/test/api/component/register/list", postData, {
+			headers: {
+			  Authorization: process.env.REACT_APP_COMPONENT_API_KEY,
+			},
+		  })
+		  .then((response) => {
+			Swal.fire({
+				icon: "success",
+				title: "리스트 컴포넌트 생성",
+				confirmButtonText: "확인",
+				confirmButtonColor: "#F184A1"
+			});
+			console.log(response)
+		  })
+		  .catch((error) => {
+			Swal.fire({
+				icon: "error",
+				title: "리스트 컴포넌트 생성 오류",
+				confirmButtonText: "확인",
+				confirmButtonColor: "#F184A1"
+			});
+			console.log("등록 실패");
+		  });
+	  };
+
+	  */
+	
+	///////
 	const pcBannerRef = useRef<HTMLInputElement | null>(null);
 	const [pcBannerUrl, setPcBannerUrl] = useState<string>("");
 	const [pcBanner, setPcBanner] = useState("");
@@ -42,40 +88,40 @@ const BannerComponentRegister = () => {
 		}
 	};
 	
+	//
+
+
 	return (
-		<div className={styles.container}>
+		<div className="BannerComponentRegister">
 			<div className={styles.body}>
-				
-				<p className={styles.p}>
-					<div
-						className={styles.pTitle}
-					>
-						<strong>컴포넌트 명</strong>
-					</div>
-					
-					<input className={styles.textInput}
-						   type="text"
-						   name="componentTitle"
-						   placeholder="컴포넌트 이름을 입력하세요"
-						   onChange={(e) => setTitle(e.target.value)}
+				<div className="component-list-title">📍 배너 컴포넌트 생성</div>
+
+				<div className="component-name">
+					<p className={styles.p}>
+						<div className={styles.pTitle}>컴포넌트 이름</div>
+					</p>
+					<input
+						className="component-name-input"
+						type="text"
+						name="componentTitle"
+						placeholder="컴포넌트 이름을 입력하세요"
+						onChange={(e) => setTitle(e.target.value)}
 					/>
-				</p>
+				</div>
 				
-				<p className={styles.p}>
-					<div
-						className={styles.pTitle}
-					>
-						<strong>배너 제목</strong>
-					</div>
-					
-					<input className={styles.textInput}
-						   type="text"
-						   name="adName"
-						   placeholder="등록할 광고의 이름을 입력해주세요."
-						   onChange={(e) => setBannerTitle(e.target.value)}
+				<div className="banner-name">
+					<p className={styles.p}>
+						<div className={styles.pTitle}>배너 제목</div>
+					</p>
+					<input className="banner-name-input"
+						type="text"
+						name="adName"
+						placeholder="등록할 배너의 제목을 입력해주세요."
+						onChange={(e) => setBannerTitle(e.target.value)}
 					/>
-				</p>
+				</div>
 				
+				{/* */}
 				<p className={styles.p}>
 					<strong>PC 배너</strong>
 					<input
@@ -230,6 +276,14 @@ const BannerComponentRegister = () => {
 						></Editor>
 					</div>
 				</p>
+				{/* */}
+
+				{/*			
+				<div className="component-make">
+					<button className="component-button" onClick={handleRegister}>등록 하기</button>
+				</div>
+				*/}
+
 			</div>
 		</div>
 	)

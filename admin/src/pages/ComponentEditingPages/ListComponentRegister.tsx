@@ -94,6 +94,7 @@ const ListComponentRegister = () => {
 			confirmButtonText: "확인",
 			confirmButtonColor: "#F184A1"
 		});
+		console.log(response)
 	  })
 	  .catch((error) => {
 		Swal.fire({
