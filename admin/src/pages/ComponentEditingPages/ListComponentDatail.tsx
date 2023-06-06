@@ -229,7 +229,7 @@ const ListComponentDatail = () => {
 				</div>
 				
 				<div className="component-make">
-					<button className="component-button" onClick={handleRegister}>수정 하기</button>
+					<button className="component-button" onClick={handleRegister}>수정하기</button>
 				</div>
 				
 			  </div>

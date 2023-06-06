@@ -68,11 +68,14 @@ const ListComponentRegister = () => {
   /**
    * Register API
    */
+
+  useEffect(() => {
+	setItemCode(selected.map((select) => select.product_code));
+  }, [selected]); 
+  
   const handleRegister = () => {
 	// 등록할 데이터를 정리합니다.
 
-	setItemCode(selected.map((select) => select.product_code));
-	
 	const postData = {
 	  "title": title,
 	  "type": "리스트",
