@@ -88,7 +88,7 @@ const BannerComponentRegister = () => {
 		}
 	};
 	
-	//
+	//////////
 
 
 	return (
@@ -116,119 +116,82 @@ const BannerComponentRegister = () => {
 					<input className="banner-name-input"
 						type="text"
 						name="adName"
-						placeholder="등록할 배너의 제목을 입력해주세요."
+						placeholder="배너의 제목을 입력하세요"
 						onChange={(e) => setBannerTitle(e.target.value)}
 					/>
 				</div>
 				
-				{/* */}
-				<p className={styles.p}>
-					<strong>PC 배너</strong>
-					<input
-						type="file"
-						accept="image/*"
-						id="pcBanner"
-						onChange={() => saveImgFile(pcBannerRef, setPcBannerFileName, setPcBanner)}
-						ref={pcBannerRef}
-					/>
-				</p>
-				
-				<p className={styles.p}>
-					{
-						(pcBannerUrl) ? (
-							<img
-								src={pcBannerUrl}
-								width={200}
-								alt="pcBannerUrl"
+				<div className="banner-pc-image">
+					<p className={styles.p}>
+						<div className={styles.pTitle}>PC 배너</div>
+					</p>
+
+					<div className="banner-pc-input">
+						<div className="banner-pc-image">
+							<label className="banner-pc-image-label" htmlFor="pcBanner">사진 첨부</label>
+							<input className="banner-pc-image-input"
+								type="file"
+								accept="image/*"
+								id="pcBanner"
+								onChange={() => saveImgFile(pcBannerRef, setPcBannerFileName, setPcBanner)}
+								ref={pcBannerRef}
 							/>
-						) : (
-							(
-								pcBanner
-							) ? (
-								<img
-									src={pcBanner}
-									width={200}
-									alt="pcBanner"
-								/>
-							) : (
-								""
-							)
-						)
-					}
-				</p>
-				
-				<p className={styles.p}>
-					<div
-						className={styles.pTitle}
-					>
-						<strong>PC 배너 링크</strong>
+
+							<p className={styles.p}>
+								{(pcBannerUrl) ? (<img src={pcBannerUrl} width={300} alt="pcBannerUrl" />) : (
+									(pcBanner) ? (<img src={pcBanner} width={300} alt="pcBanner" />) : ("")
+								)}
+							</p>
+						</div>
+						
+						<input className="banner-pc-link-input"
+							type="text"
+							name="pcBannerLink"
+							placeholder="PC 배너의 링크를 입력하세요"
+							onChange={e => setPcBannerLink(e.target.value)}
+							value={pcBannerLink}
+						/>
 					</div>
-					
-					<input className={styles.textInput}
-						   type="text"
-						   name="pcBannerLink"
-						   placeholder="PC 배너의 링크를 입력해주세요."
-						   onChange={e => setPcBannerLink(e.target.value)}
-						   value={pcBannerLink}
-					/>
-				</p>
+				</div>
 				
-				<p className={styles.p}>
-					<strong>모바일 배너</strong>
-					<input
-						type="file"
-						accept="image/*"
-						id="mobileBanner"
-						onChange={() => saveImgFile(mobileBannerRef, setMobileBannerFileName, setMobileBanner)}
-						ref={mobileBannerRef}
-					/>
-				
-				</p>
-				
-				<p className={styles.p}>
-					{
-						(mobileBannerUrl) ? (
-							<img
-								src={mobileBannerUrl}
-								width={200}
-								alt="mobileBannerUrl"
+				<div className="banner-mobile-image">
+					<p className={styles.p}>
+						<div className={styles.pTitle}>모바일 배너</div>
+					</p>
+
+					<div className="banner-mobile-input">
+						<div className="banner-mobile-image">
+							<label className="banner-mobile-image-label" htmlFor="mobileBanner">사진 첨부</label>
+							<input className="banner-mobile-image-input"
+								type="file"
+								accept="image/*"
+								id="mobileBanner"
+								onChange={() => saveImgFile(mobileBannerRef, setMobileBannerFileName, setMobileBanner)}
+								ref={mobileBannerRef}
 							/>
-						) : (
-							(
-								mobileBanner
-							) ? (
-								<img
-									src={mobileBanner}
-									width={200}
-									alt="mobileBanner"
-								/>
-							) : (
-								""
-							)
-						)
-					}
-				</p>
-				
-				<p className={styles.p}>
-					<div
-						className={styles.pTitle}
-					>
-						<strong>모바일 배너 링크</strong>
+
+							<p className={styles.p}>
+								{(mobileBannerUrl) ? (<img src={mobileBannerUrl} width={300} alt="mobileBannerUrl" />) : (
+									(mobileBanner) ? (<img src={mobileBanner} width={300} alt="mobileBanner" />) : ("")
+								)}
+							</p>
+						</div>
+
+						<input className="banner-mobile-link-input"
+							type="text"
+							name="mobileBannerLink"
+							placeholder="모바일 배너의 링크를 입력하세요"
+							onChange={e => setMobileBannerLink(e.target.value)}
+						   	value={mobileBannerLink}
+						/>
 					</div>
-					
-					<input className={styles.textInput}
-						   type="text"
-						   name="mobileBannerLink"
-						   onChange={e => setMobileBannerLink(e.target.value)}
-						   value={mobileBannerLink}
-					/>
-				</p>
+				</div>
 				
-				<p className={styles.p}>
-					<strong>배너 내용</strong>
-					<div
-						style={{marginTop: 20}}
-					>
+				<div className="banner-content">
+					<p className={styles.p}>
+						<div className={styles.pTitle}>배너 내용</div>
+					</p>
+					<div style={{marginTop: 20}}>
 						<Editor
 							previewStyle="tab"
 							initialEditType="markdown"
@@ -243,20 +206,18 @@ const BannerComponentRegister = () => {
 								['code', 'codeblock']
 							]}
 							customHTMLRenderer={{
-								// 구글 맵 삽입을 위한
-								// iframe 태그 커스텀 코드
+							// 구글 맵 삽입을 위한
+							// iframe 태그 커스텀 코드
 								htmlBlock: {
 									iframe(node: any) {
-										return [
-											{
-												type: 'openTag',
-												tagName: 'iframe',
-												outerNewLine: true,
-												attributes: node.attrs
+										return [{
+											type: 'openTag',
+											tagName: 'iframe',
+											outerNewLine: true,
+											attributes: node.attrs
 											},
 											{type: 'html', content: node.childrenHTML},
-											{type: 'closeTag', tagName: 'iframe', outerNewLine: true}
-										];
+											{type: 'closeTag', tagName: 'iframe', outerNewLine: true}];
 									}
 								}
 							}}
@@ -275,9 +236,11 @@ const BannerComponentRegister = () => {
 							}}
 						></Editor>
 					</div>
-				</p>
-				{/* */}
-
+				</div>
+				
+				<div className="component-make">
+					<button className="component-button">등록 하기</button>
+				</div>
 				{/*			
 				<div className="component-make">
 					<button className="component-button" onClick={handleRegister}>등록 하기</button>
