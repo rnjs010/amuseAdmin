@@ -96,7 +96,7 @@ const BannerComponentDetail = () => {
 	return (
 		<div className="BannerComponentRegister">
 			<div className={styles.body}>
-				<div className="component-list-title">📍 배너 컴포넌트 생성</div>
+				<div className="component-list-title">📍 배너 컴포넌트 수정</div>
 
 				<div className="component-name">
 					<p className={styles.p}>
@@ -241,7 +241,7 @@ const BannerComponentDetail = () => {
 				</div>
 				
 				<div className="component-make">
-					<button className="component-button">등록 하기</button>
+					<button className="component-button">수정하기</button>
 				</div>
 				{/*			
 				<div className="component-make">
