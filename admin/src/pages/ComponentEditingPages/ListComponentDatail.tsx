@@ -57,12 +57,13 @@ const ListComponentDatail = () => {
 		  const responseComponent = response.data.data;
 		  setComponentData(responseComponent);
 		  setSelected(responseComponent?.productList || []);
+		  setTitle(responseComponent?.title || "");
 		})
 		.catch((error) => {
 		  console.log("연결 실패");
 		});
 	}, []);
-	
+
 	/**
 	 * Component Item Handler
 	 */
@@ -99,11 +100,13 @@ const ListComponentDatail = () => {
 	/**
 	 * Register API
 	 */
+	useEffect(() => {
+		setItemCode(selected.map((select) => select.product_code));
+	}, [selected]);
+
 	const handleRegister = () => {
 	  // 변경할 데이터를 정리합니다.
-  
-	  setItemCode(selected.map((select) => select.product_code));
-	  
+		
 	  const postData = {
 		"id" : id,
 		"title": title,
@@ -115,7 +118,7 @@ const ListComponentDatail = () => {
 	
 	  // POST 요청을 보냅니다.
 	  axios
-		.post("https://ammuse.store/test/api/component/edit", postData, {
+		.post("https://ammuse.store/test/api/component/edit/list", postData, {
 		  headers: {
 			Authorization: process.env.REACT_APP_COMPONENT_API_KEY,
 		  },
@@ -153,7 +156,7 @@ const ListComponentDatail = () => {
 						type="text"
 						name="componentTitle"
 						placeholder="컴포넌트 이름을 입력하세요"
-						value={componentData?.title}
+						value={title}
 						onChange={(e) => setTitle(e.target.value)}
 					/>
 				</div>
