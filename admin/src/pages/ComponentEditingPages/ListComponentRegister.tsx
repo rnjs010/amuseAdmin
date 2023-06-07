@@ -68,11 +68,14 @@ const ListComponentRegister = () => {
   /**
    * Register API
    */
+
+  useEffect(() => {
+	setItemCode(selected.map((select) => select.product_code));
+  }, [selected]); 
+
   const handleRegister = () => {
 	// 등록할 데이터를 정리합니다.
 
-	setItemCode(selected.map((select) => select.product_code));
-	
 	const postData = {
 	  "title": title,
 	  "type": "리스트",
@@ -128,7 +131,7 @@ const ListComponentRegister = () => {
 			{/* 순서 목록 */}
 			<div className="component-order">
 				<p className={styles.p}>
-					<div className={styles.pTitle}>순서 목록</div>
+					<div className={styles.pTitle}>상품 순서</div>
 				</p>
 
 				<div className="component-check-list">
@@ -198,7 +201,7 @@ const ListComponentRegister = () => {
 			</div>
 			
 			<div className="component-make">
-				<button className="component-button" onClick={handleRegister}>등록 하기</button>
+				<button className="component-button" onClick={handleRegister}>등록하기</button>
 			</div>
 			
       	</div>

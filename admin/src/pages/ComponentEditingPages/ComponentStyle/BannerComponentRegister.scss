@@ -36,6 +36,114 @@
         }
     }
 
+    .banner-pc-image{
+        font-family: "Apple SD Gothic Neo";
+        font-size: 18px;
+        font-weight: 600;
+        
+        .banner-pc-input{
+            display: flex;
+            flex-direction: row;
+
+            .banner-pc-image{
+                .banner-pc-image-label{
+                    font-size: 14px;
+                    font-weight: 600;
+                    padding: 16.5px;
+                    border: 1px solid #E9ECEF;
+                    background-color: #F184A1;
+                    color: #FFF;
+                    margin-right: 10px;
+                    width: 300px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+        
+                .banner-pc-image-label:hover {
+                    background-color: #FFF;
+                    color: #343A40;
+                }
+        
+                .banner-pc-image-input{
+                    display: none;
+                }
+            }
+
+            .banner-pc-link-input{
+                border: 1px solid #E9ECEF;
+                border-radius: 0px;
+                background-color: #F8F9FA;
+                padding: 25px;
+                width: 100%;
+                color: #343A40;
+            }
+        }
+    }
+
+    .banner-mobile-image{
+        font-family: "Apple SD Gothic Neo";
+        font-size: 18px;
+        font-weight: 600;
+        
+        .banner-mobile-input{
+            display: flex;
+            flex-direction: row;
+
+            .banner-mobile-image{
+                .banner-mobile-image-label{
+                    font-size: 14px;
+                    font-weight: 600;
+                    padding: 16.5px;
+                    border: 1px solid #E9ECEF;
+                    background-color: #F184A1;
+                    color: #FFF;
+                    margin-right: 10px;
+                    width: 300px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+        
+                .banner-mobile-image-label:hover {
+                    background-color: #FFF;
+                    color: #343A40;
+                }
+        
+                .banner-mobile-image-input{
+                    display: none;
+                }
+            }
+    
+            .banner-mobile-link-input{
+                border: 1px solid #E9ECEF;
+                border-radius: 0px;
+                background-color: #F8F9FA;
+                padding: 25px;
+                width: 100%;
+                color: #343A40;
+            }
+        }
+    }
+
+    .banner-content{
+        font-family: "Apple SD Gothic Neo";
+        font-size: 18px;
+        font-weight: 600;
+    }
 
 
+    .component-make{
+        padding: 30px 0 30px 0;
+
+        .component-button{
+            width: 100%;
+            background-color: #F184A1;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+    }
 }
