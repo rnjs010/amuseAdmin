@@ -12,22 +12,27 @@ const BannerComponentRegister = () => {
 
 	/**
 	 * Register API
-	 
+	 */
+
 	const handleRegister = () => {
 		// 등록할 데이터를 정리합니다.
 	
-		setItemCode(selected.map((select) => select.product_code));
-		
 		const postData = {
-		  "title": title,
-		  "type": "리스트",
-		  "createdBy": "daw916@naver.com",
-		  "itemCode": itemCode,
+			"title": "실시간 best 상품",
+			"type" : "배너",
+			"createdBy" :"daw916@naver.com",
+			"pcBannerFileName": "val_batch2_labels.jpg",
+			"pcBannerBase64": "data:image/jpeg;base64,iVBORw0KGgoAAAANSUh",
+			"pcBannerLink": "example.com/ad/1",
+			"mobileBannerFileName": "val_batch2_labels.jpg",
+			"mobileBannerBase64": "data:image/jpeg;base64,iVBORw0KGgoAAAANSUh",
+			"mobileBannerLink": "example.com/ad/1",
+			"content" : "<p>asdafsdfadfafasdfsafds</p>\n"
 		};
 	  
 		// POST 요청을 보냅니다.
 		axios
-		  .post("https://ammuse.store/test/api/component/register/list", postData, {
+		  .post("https://ammuse.store/test/api/component/register/banner", postData, {
 			headers: {
 			  Authorization: process.env.REACT_APP_COMPONENT_API_KEY,
 			},
@@ -51,9 +56,7 @@ const BannerComponentRegister = () => {
 			console.log("등록 실패");
 		  });
 	  };
-
-	  */
-	
+	  
 	///////
 	const pcBannerRef = useRef<HTMLInputElement | null>(null);
 	const [pcBannerUrl, setPcBannerUrl] = useState<string>("");
@@ -239,13 +242,8 @@ const BannerComponentRegister = () => {
 				</div>
 				
 				<div className="component-make">
-					<button className="component-button">등록하기</button>
+					<button className="component-button" onClick={handleRegister}>등록하기</button>
 				</div>
-				{/*			
-				<div className="component-make">
-					<button className="component-button" onClick={handleRegister}>등록 하기</button>
-				</div>
-				*/}
 
 			</div>
 		</div>

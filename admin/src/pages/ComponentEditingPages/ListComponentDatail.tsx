@@ -130,6 +130,7 @@ const ListComponentDatail = () => {
 			  confirmButtonText: "확인",
 			  confirmButtonColor: "#F184A1"
 		  });
+
 		})
 		.catch((error) => {
 		  Swal.fire({
@@ -138,7 +139,31 @@ const ListComponentDatail = () => {
 			  confirmButtonText: "확인",
 			  confirmButtonColor: "#F184A1"
 		  });
-		  console.log("수정 실패");
+		});
+	};
+
+	/**
+	 * Delete API
+	 */
+
+	const handleDelete = () => {
+	  axios
+	  	.get(`http://ammuse.store/test/api/component/delete/${id}`)
+		.then((response) => {
+		  Swal.fire({
+			  icon: "success",
+			  title: "리스트 컴포넌트 삭제",
+			  confirmButtonText: "확인",
+			  confirmButtonColor: "#F184A1"
+		  }).then(() => (window.location.href='http://localhost:3000/componentV2'));
+		})
+		.catch((error) => {
+		  Swal.fire({
+			  icon: "error",
+			  title: "리스트 컴포넌트 삭제 오류",
+			  confirmButtonText: "확인",
+			  confirmButtonColor: "#F184A1"
+		  });
 		});
 	};
 
@@ -231,10 +256,16 @@ const ListComponentDatail = () => {
 					</div>
 				</div>
 				
-				<div className="component-make">
-					<button className="component-button" onClick={handleRegister}>수정하기</button>
+				<div className="make-delete-button">
+					<div className="component-make">
+						<button className="component-button" onClick={handleRegister}>수정하기</button>
+					</div>
+
+					<div className="component-delete" onClick={handleDelete}>
+						<button className="component-button">삭제하기</button>
+					</div>
 				</div>
-				
+
 			  </div>
 		</div>
 	);

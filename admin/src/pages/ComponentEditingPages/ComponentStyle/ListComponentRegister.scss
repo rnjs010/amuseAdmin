@@ -77,17 +77,37 @@
         }
     }
 
-    .component-make{
-        padding-bottom: 30px;
 
-        .component-button{
-            width: 100%;
-            background-color: #F184A1;
-            padding: 20px;
-            border-radius: 15px;
-            font-size: 15px;
-            font-weight: 600;
-            color: #FFFFFF;
+    .make-delete-button{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+
+        .component-make{
+            padding-bottom: 30px;
+            padding-right: 10px;
+    
+            .component-button{
+                background-color: #F184A1;
+                padding: 20px;
+                border-radius: 15px;
+                font-size: 15px;
+                font-weight: 600;
+                color: #FFFFFF;
+            }
+        }
+    
+        .component-delete{
+            padding-bottom: 30px;
+    
+            .component-button{
+                background-color: #E6003D;
+                padding: 20px;
+                border-radius: 15px;
+                font-size: 15px;
+                font-weight: 600;
+                color: #FFFFFF;
+            }
         }
     }
 

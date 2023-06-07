@@ -200,8 +200,10 @@ const ListComponentRegister = () => {
 				</div>
 			</div>
 			
-			<div className="component-make">
-				<button className="component-button" onClick={handleRegister}>등록하기</button>
+			<div className="make-delete-button">
+				<div className="component-make">
+					<button className="component-button" onClick={handleRegister}>등록하기</button>
+				</div>
 			</div>
 			
       	</div>
