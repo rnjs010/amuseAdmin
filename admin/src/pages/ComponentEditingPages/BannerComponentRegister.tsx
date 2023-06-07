@@ -10,51 +10,6 @@ const BannerComponentRegister = () => {
 	const [title, setTitle] = useState<string>("")
 	const [bannerTitle, setBannerTitle] = useState<string>("");
 
-	/**
-	 * Register API
-	 
-	const handleRegister = () => {
-		// 등록할 데이터를 정리합니다.
-	
-		setItemCode(selected.map((select) => select.product_code));
-		
-		const postData = {
-		  "title": title,
-		  "type": "리스트",
-		  "createdBy": "daw916@naver.com",
-		  "itemCode": itemCode,
-		};
-	  
-		// POST 요청을 보냅니다.
-		axios
-		  .post("https://ammuse.store/test/api/component/register/list", postData, {
-			headers: {
-			  Authorization: process.env.REACT_APP_COMPONENT_API_KEY,
-			},
-		  })
-		  .then((response) => {
-			Swal.fire({
-				icon: "success",
-				title: "리스트 컴포넌트 생성",
-				confirmButtonText: "확인",
-				confirmButtonColor: "#F184A1"
-			});
-			console.log(response)
-		  })
-		  .catch((error) => {
-			Swal.fire({
-				icon: "error",
-				title: "리스트 컴포넌트 생성 오류",
-				confirmButtonText: "확인",
-				confirmButtonColor: "#F184A1"
-			});
-			console.log("등록 실패");
-		  });
-	  };
-
-	  */
-	
-	///////
 	const pcBannerRef = useRef<HTMLInputElement | null>(null);
 	const [pcBannerUrl, setPcBannerUrl] = useState<string>("");
 	const [pcBanner, setPcBanner] = useState("");
@@ -70,6 +25,10 @@ const BannerComponentRegister = () => {
 	const [parsedHTML, setParsedHTML] = useState<string>("");
 	const parsedHTMLRef = useRef<Editor>(null);
 	
+
+	/**
+	 * Image Save
+	 */
 	const saveImgFile = (ref: any, setBannerFileName: any, setBanner: any,) => {
 		try {
 			if (ref != null) {
@@ -87,9 +46,52 @@ const BannerComponentRegister = () => {
 		
 		}
 	};
-	
-	//////////
 
+	/**
+	 * Register API
+	 */
+
+	const handleRegister = () => {
+		// 등록할 데이터를 정리합니다.
+	
+		const postData = {
+			"title": title,
+			"type" : "배너",
+			"createdBy" :"daw916@naver.com",
+			"pcBannerFileName": pcBannerFileName,
+			"pcBannerBase64": pcBanner,
+			"pcBannerLink": pcBannerLink,
+			"mobileBannerFileName": mobileBannerFileName,
+			"mobileBannerBase64": mobileBanner,
+			"mobileBannerLink": mobileBannerLink,
+			"content" : "<p>banner test</p>\n"
+		};
+	  
+		// POST 요청을 보냅니다.
+		axios
+		  .post("https://ammuse.store/test/api/component/register/banner", postData, {
+			headers: {
+			  Authorization: process.env.REACT_APP_COMPONENT_API_KEY,
+			},
+		  })
+		  .then((response) => {
+			Swal.fire({
+				icon: "success",
+				title: "배너 컴포넌트 생성",
+				confirmButtonText: "확인",
+				confirmButtonColor: "#F184A1"
+			}).then(() => (window.location.href='/componentV2'));
+		  })
+		  .catch((error) => {
+			Swal.fire({
+				icon: "error",
+				title: "배너 컴포넌트 생성 오류",
+				confirmButtonText: "확인",
+				confirmButtonColor: "#F184A1"
+			});
+			console.log("등록 실패");
+		  });
+	  };
 
 	return (
 		<div className="BannerComponentRegister">
@@ -106,18 +108,6 @@ const BannerComponentRegister = () => {
 						name="componentTitle"
 						placeholder="컴포넌트 이름을 입력하세요"
 						onChange={(e) => setTitle(e.target.value)}
-					/>
-				</div>
-				
-				<div className="banner-name">
-					<p className={styles.p}>
-						<div className={styles.pTitle}>배너 제목</div>
-					</p>
-					<input className="banner-name-input"
-						type="text"
-						name="adName"
-						placeholder="배너의 제목을 입력하세요"
-						onChange={(e) => setBannerTitle(e.target.value)}
 					/>
 				</div>
 				
@@ -238,15 +228,12 @@ const BannerComponentRegister = () => {
 					</div>
 				</div>
 				
-				<div className="component-make">
-					<button className="component-button">등록하기</button>
+				<div className="make-delete-button">
+					<div className="component-make">
+						<button className="component-button" onClick={handleRegister}>등록하기</button>
+					</div>
 				</div>
-				{/*			
-				<div className="component-make">
-					<button className="component-button" onClick={handleRegister}>등록 하기</button>
-				</div>
-				*/}
-
+				
 			</div>
 		</div>
 	)

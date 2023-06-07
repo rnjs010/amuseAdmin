@@ -96,8 +96,7 @@ const ListComponentRegister = () => {
 			title: "리스트 컴포넌트 생성",
 			confirmButtonText: "확인",
 			confirmButtonColor: "#F184A1"
-		});
-		console.log(response)
+		}).then(() => (window.location.href='/componentV2'));
 	  })
 	  .catch((error) => {
 		Swal.fire({
@@ -200,8 +199,10 @@ const ListComponentRegister = () => {
 				</div>
 			</div>
 			
-			<div className="component-make">
-				<button className="component-button" onClick={handleRegister}>등록하기</button>
+			<div className="make-delete-button">
+				<div className="component-make">
+					<button className="component-button" onClick={handleRegister}>등록하기</button>
+				</div>
 			</div>
 			
       	</div>
