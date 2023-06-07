@@ -96,8 +96,7 @@ const ListComponentRegister = () => {
 			title: "리스트 컴포넌트 생성",
 			confirmButtonText: "확인",
 			confirmButtonColor: "#F184A1"
-		});
-		console.log(response)
+		}).then(() => (window.location.href='/componentV2'));
 	  })
 	  .catch((error) => {
 		Swal.fire({

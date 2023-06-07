@@ -129,7 +129,7 @@ const ListComponentDatail = () => {
 			  title: "리스트 컴포넌트 수정",
 			  confirmButtonText: "확인",
 			  confirmButtonColor: "#F184A1"
-		  });
+		  }).then(() => (window.location.href='/componentV2'));
 
 		})
 		.catch((error) => {
@@ -155,7 +155,7 @@ const ListComponentDatail = () => {
 			  title: "리스트 컴포넌트 삭제",
 			  confirmButtonText: "확인",
 			  confirmButtonColor: "#F184A1"
-		  }).then(() => (window.location.href='http://localhost:3000/componentV2'));
+		  }).then(() => (window.location.href='/componentV2'));
 		})
 		.catch((error) => {
 		  Swal.fire({
