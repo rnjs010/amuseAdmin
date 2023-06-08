@@ -78,6 +78,18 @@ const PageDetail = () => {
 			window.confirm("등록되었습니다.");
 			window.history.back();
 		}).catch(e => window.confirm(e))
+	}
+	
+	const deletePage = async () => {
+		
+		if (!validationCheck()) return;
+		
+		const response = await PageLogic.deletePage(id)
+			.then(() => {
+			window.confirm("삭제되었습니다.");
+			window.history.back();
+			})
+			.catch(e => window.confirm(e))
 		
 	}
 	
@@ -361,6 +373,12 @@ const PageDetail = () => {
 							onClick={submitPage}
 					>
 						수정하기
+					</button>
+					
+					<button className={styles.button}
+							onClick={deletePage}
+					>
+						삭제하기
 					</button>
 				</div>
 			</div>
