@@ -273,9 +273,13 @@ const TileComponentRegister = () => {
 					</div>
 				</p>
 				{Array.from({length: tileCount}).map((_, index) => renderTileBlock(index))}
-				<button className={styles.saveButton} onClick={handleSave}>
-					저장
-				</button>
+				<div className={styles.p}>
+					<button className={styles.button}
+							onClick={handleSave}
+					>
+						등록하기
+					</button>
+				</div>
 			</div>
 		</div>
 	);
