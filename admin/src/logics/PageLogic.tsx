@@ -37,6 +37,10 @@ export const PageLogic = {
 		return response;
 	}),
 	
+	deletePage: (async (id: any) => {
+		const response = await axios.delete(`https://ammuse.store/test/api/delete/page/${id}`);
+		return response;
+	}),
 	
 	
 }
