@@ -30,3 +30,20 @@
 .pTitle{
     margin-bottom: 10px;
 }
+
+
+.componentListCell{
+    display: flex;
+    align-items: center;
+    border: 1px solid;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.button{
+    background: #eb1749;
+    width: 80px;
+    height: 30px;
+    color: #fff;
+    border-radius: 10px;
+}

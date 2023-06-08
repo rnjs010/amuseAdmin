@@ -42,6 +42,7 @@ import ListComponentDatail from "./pages/ComponentEditingPages/ListComponentData
 import BannerComponentDetail from "./pages/ComponentEditingPages/BannerComponentDetail";
 import TileComponentDetail from "./pages/ComponentEditingPages/TileComponentDetail";
 import ProductCopy from './components/Product/ProductCopy/ProductCopy';
+import PageRegister from "./pages/PageEditingPages/PageRegister";
 import ManagerDetail from './pages/ManagerPages/ManagerDetail';
 
 const router = createBrowserRouter([
@@ -98,7 +99,8 @@ const router = createBrowserRouter([
             
             
             {path: '/page', element: <Page/>},
-            {path: '/page/:id', element: <PageDetail/>}
+            {path: '/page/:id', element: <PageDetail/>},
+            {path: '/page/register', element: <PageRegister/>}
         ]
     }
 ])
