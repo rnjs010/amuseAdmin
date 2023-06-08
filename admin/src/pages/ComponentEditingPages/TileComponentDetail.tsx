@@ -18,7 +18,7 @@ interface TileData {
 
 const TileComponentDetail = () => {
 	
-	const {id} = useParams()
+	const {id} = useParams();
 	
 	const [title, setTitle] = useState<string>("");
 	const [tileCount, setTileCount] = useState<number>(1);
@@ -169,6 +169,16 @@ const TileComponentDetail = () => {
 		})()
 	};
 	
+	const handleDelete = () => {
+		(async () => {
+			const response = await ComponentLogic.deleteTileComponent(id).then(() => {
+				window.confirm("삭제되었습니다.");
+				window.history.back();
+			}).catch(e => window.confirm(e));
+			console.log(response)
+		})()
+	};
+	
 	useEffect(() => {
 		(async () => {
 			const response = await ComponentLogic.getComponentDetail(id);
@@ -241,7 +251,7 @@ const TileComponentDetail = () => {
 							value={v.id}
 							checked={tileData[index]?.products?.some((p) =>
 								(p.id) ? (p.id == v.id) : (p.product_code == v.id)
-								)}
+							)}
 						/>
 						<div style={{marginLeft: 10, width: "auto"}}> id: {v.id} </div>
 						<div style={{marginLeft: 10, width: "auto"}}> title: {v.title} </div>
@@ -257,6 +267,8 @@ const TileComponentDetail = () => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.body}>
+				
+				{id}
 				<p className={styles.p}>
 					<div className={styles.pTitle}>
 						<strong>컴포넌트 명</strong>
@@ -315,9 +327,21 @@ const TileComponentDetail = () => {
 					</div>
 				</p>
 				{Array.from({length: tileCount}).map((_, index) => renderTileBlock(index))}
-				<button className={styles.saveButton} onClick={handleSave}>
-					저장
-				</button>
+				
+				
+				<div className={styles.p}>
+					<button className={styles.button}
+							onClick={handleSave}
+					>
+						수정하기
+					</button>
+					
+					<button className={styles.button}
+							onClick={handleDelete}
+					>
+						삭제하기
+					</button>
+				</div>
 			</div>
 		</div>
 	);
