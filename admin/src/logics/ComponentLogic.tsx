@@ -33,7 +33,12 @@ export const ComponentLogic = {
 			})
 		return response.data.data;
 	}),
-
-
+	
+	deleteTileComponent: (async (id: any) => {
+		const response = await axios.get(`https://ammuse.store/test/api/component/delete/${id}`)
+		return response.data.data;
+	}),
+	
+	
 }
 
