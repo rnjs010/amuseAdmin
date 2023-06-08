@@ -93,16 +93,16 @@ const BannerComponentDetail = () => {
 		// 등록할 데이터를 정리합니다.
 	
 		const postData = {
+			"id": id,
 			"title": title,
 			"type" : "배너",
-			"createdBy" :"daw916@naver.com",
-			"pcBannerFileName": pcBannerFileName,
-			"pcBannerBase64": pcBanner,
+			"createdBy": "daw916@naver.com",
+        	"updatedBy": "daw916@naver.com",
+			"pcBannerImgUrl": pcBannerUrl,
 			"pcBannerLink": pcBannerLink,
-			"mobileBannerFileName": mobileBannerFileName,
-			"mobileBannerBase64": mobileBanner,
+			"mobileBannerImgUrl": mobileBannerUrl,
 			"mobileBannerLink": mobileBannerLink,
-			"content" : "<p>banner test</p>\n"
+			"content" : ""
 		};
 	  
 		// POST 요청을 보냅니다.
@@ -119,6 +119,8 @@ const BannerComponentDetail = () => {
 				confirmButtonText: "확인",
 				confirmButtonColor: "#F184A1"
 			}).then(() => (window.location.href='/componentV2'));
+
+			console.log(response)
 		  })
 		  .catch((error) => {
 			Swal.fire({
