@@ -19,6 +19,14 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
+        
+      - name: .env Setting # 환경변수 설정
+        env:
+          REACT_APP_COMPONENT_API_KEY: ${{ secrets.REACT_APP_COMPONENT_API_KEY }}
+        run: |
+          cd admin
+          echo "REACT_APP_COMPONENT_API_KEY=$REACT_APP_COMPONENT_API_KEY" >> .env
+          cat .env
 
       - name: Install Dependencies # 의존 파일 설치
         run: |

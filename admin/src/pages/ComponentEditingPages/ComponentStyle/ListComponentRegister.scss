@@ -1,0 +1,114 @@
+.ListComponentRegister{
+    .component-list-title{
+        padding: 30px 0 30px 0;
+        font-family: "Apple SD Gothic Neo";
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .component-name{
+        font-family: "Apple SD Gothic Neo";
+        font-size: 18px;
+        font-weight: 600;
+
+        .component-name-input{
+            border: 1px solid #E9ECEF;
+            border-radius: 0px;
+            background-color: #F8F9FA;
+            padding: 25px;
+            width: 100%;
+            color: #343A40;
+        }
+
+    }
+
+    .component-order{
+        font-family: "Apple SD Gothic Neo";
+        font-size: 18px;
+        font-weight: 600;
+
+        .component-check-list{
+            display: flex;
+            flex-direction: column;
+            font-size: 14px;
+            font-weight: 600;
+            
+            .component-check-item {
+                font-family: "Apple SD Gothic Neo";
+              display: grid;
+              grid-template-columns : 0.1fr 0.5fr 1fr 0.5fr;
+              column-gap: 20px;
+              align-items: center;
+              padding: 15px;
+              border: 1px solid #E9ECEF;
+              background-color: #F8F9FA;
+              color: #343A40;
+              margin: 5px;
+
+            }
+        }
+    }
+
+    .component-item-list{
+        font-family: "Apple SD Gothic Neo";
+        font-size: 18px;
+        font-weight: 600;
+        padding-bottom: 30px;
+
+        .component-list{
+            display: flex;
+            flex-direction: column;
+            font-size: 14px;
+            font-weight: 600;
+            
+            .component-item {
+                font-family: "Apple SD Gothic Neo";
+                display: grid;
+                grid-template-columns : 0fr 0.1fr 0.5fr 1fr 0.5fr;
+                column-gap: 20px;
+                align-items: center;
+                padding: 10px;
+                border: 1px solid #E9ECEF;
+                background-color: #F8F9FA;
+                color: #343A40;
+                margin: 5px;
+
+            }
+        }
+    }
+
+
+    .make-delete-button{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+
+        .component-make{
+            padding-bottom: 30px;
+            padding-right: 10px;
+    
+            .component-button{
+                background-color: #F184A1;
+                padding: 20px;
+                border-radius: 15px;
+                font-size: 15px;
+                font-weight: 600;
+                color: #FFFFFF;
+            }
+        }
+    
+        .component-delete{
+            padding-bottom: 30px;
+    
+            .component-button{
+                background-color: #E6003D;
+                padding: 20px;
+                border-radius: 15px;
+                font-size: 15px;
+                font-weight: 600;
+                color: #FFFFFF;
+            }
+        }
+    }
+
+}

@@ -1,17 +1,32 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import styles from '../../components/ComponentEditing/component.module.css'
-
+import "./ComponentStyle/BannerComponentRegister.scss";
 import {Editor} from "@toast-ui/react-editor";
 import {useParams} from "react-router-dom";
 
-const BannerComponentDetail = () => {
-	
-	const {id} = useParams();
+import Swal from "sweetalert2";
+import axios from "axios";
 
+interface ComponentData {
+	content: string;
+	createdBy: string;
+	createdAt: string;
+	id: number;
+	mobileBannerImgUrl: string;
+	mobileBannerLink: string;
+	pcBannerImgUrl: string;
+	pcBannerLink: string;
+	title: string;
+	type: string;
+	updatedBy: string;
+	updatedAt: string;
+}
+
+const BannerComponentDetail = () => {
+	const {id} = useParams();
 	const [title, setTitle] = useState<string>("")
-	
 	const [bannerTitle, setBannerTitle] = useState<string>("");
-	
+
 	const pcBannerRef = useRef<HTMLInputElement | null>(null);
 	const [pcBannerUrl, setPcBannerUrl] = useState<string>("");
 	const [pcBanner, setPcBanner] = useState("");
@@ -27,6 +42,10 @@ const BannerComponentDetail = () => {
 	const [parsedHTML, setParsedHTML] = useState<string>("");
 	const parsedHTMLRef = useRef<Editor>(null);
 	
+
+	/**
+	 * Image Save
+	 */
 	const saveImgFile = (ref: any, setBannerFileName: any, setBanner: any,) => {
 		try {
 			if (ref != null) {
@@ -44,148 +63,188 @@ const BannerComponentDetail = () => {
 		
 		}
 	};
+
+	/**
+	 * Component API
+	 */
+	const [componentData, setComponentData] = useState<ComponentData | null>(null);
+	useEffect(() => {
+	  axios
+		.get(`http://ammuse.store/test/api/component/${id}`)
+		.then((response) => {
+		  const responseComponent = response.data.data;
+		  setComponentData(responseComponent);
+		  setTitle(responseComponent?.title || "");
+		  setPcBanner(responseComponent?.pcBanner || "");
+		  setPcBannerUrl(responseComponent?.pcBannerUrl || "");
+		  setPcBannerLink(responseComponent?.pcBannerLink || "");
+		  setMobileBannerLink(responseComponent?.mobileBannerLink || "");
+		})
+		.catch((error) => {
+		  console.log("연결 실패");
+		});
+	}, []);
+
+	/**
+	 * Register API
+	 */
+
+	const handleRegister = () => {
+		// 등록할 데이터를 정리합니다.
 	
+		const postData = {
+			"title": title,
+			"type" : "배너",
+			"createdBy" :"daw916@naver.com",
+			"pcBannerFileName": pcBannerFileName,
+			"pcBannerBase64": pcBanner,
+			"pcBannerLink": pcBannerLink,
+			"mobileBannerFileName": mobileBannerFileName,
+			"mobileBannerBase64": mobileBanner,
+			"mobileBannerLink": mobileBannerLink,
+			"content" : "<p>banner test</p>\n"
+		};
+	  
+		// POST 요청을 보냅니다.
+		axios
+		  .post("https://ammuse.store/test/api/component/edit/banner", postData, {
+			headers: {
+			  Authorization: process.env.REACT_APP_COMPONENT_API_KEY,
+			},
+		  })
+		  .then((response) => {
+			Swal.fire({
+				icon: "success",
+				title: "배너 컴포넌트 수정",
+				confirmButtonText: "확인",
+				confirmButtonColor: "#F184A1"
+			}).then(() => (window.location.href='/componentV2'));
+		  })
+		  .catch((error) => {
+			Swal.fire({
+				icon: "error",
+				title: "배너 컴포넌트 수정 오류",
+				confirmButtonText: "확인",
+				confirmButtonColor: "#F184A1"
+			});
+		  });
+	  };
+
+	/**
+	 * Delete API
+	 */
+
+	const handleDelete = () => {
+		axios
+			.get(`http://ammuse.store/test/api/component/delete/${id}`)
+		  .then((response) => {
+			Swal.fire({
+				icon: "success",
+				title: "배너 컴포넌트 삭제",
+				confirmButtonText: "확인",
+				confirmButtonColor: "#F184A1"
+			}).then(() => (window.location.href='/componentV2'));
+		  })
+		  .catch((error) => {
+			Swal.fire({
+				icon: "error",
+				title: "배너 컴포넌트 삭제 오류",
+				confirmButtonText: "확인",
+				confirmButtonColor: "#F184A1"
+			});
+		  });
+	};
+
 	return (
-		<div className={styles.container}>
+		<div className="BannerComponentRegister">
 			<div className={styles.body}>
-				{id}
-				<p className={styles.p}>
-					<div
-						className={styles.pTitle}
-					>
-						<strong>컴포넌트 명</strong>
-					</div>
-					
-					<input className={styles.textInput}
-						   type="text"
-						   name="componentTitle"
-						   placeholder="컴포넌트 이름을 입력하세요"
-						   onChange={(e) => setTitle(e.target.value)}
-					/>
-				</p>
-				
-				<p className={styles.p}>
-					<div
-						className={styles.pTitle}
-					>
-						<strong>배너 제목</strong>
-					</div>
-					
-					<input className={styles.textInput}
-						   type="text"
-						   name="adName"
-						   placeholder="등록할 광고의 이름을 입력해주세요."
-						   onChange={(e) => setBannerTitle(e.target.value)}
-					/>
-				</p>
-				
-				<p className={styles.p}>
-					<strong>PC 배너</strong>
+				<div className="component-list-title">📍 배너 컴포넌트 생성</div>
+
+				<div className="component-name">
+					<p className={styles.p}>
+						<div className={styles.pTitle}>컴포넌트 이름</div>
+					</p>
 					<input
-						type="file"
-						accept="image/*"
-						id="pcBanner"
-						onChange={() => saveImgFile(pcBannerRef, setPcBannerFileName, setPcBanner)}
-						ref={pcBannerRef}
+						className="component-name-input"
+						type="text"
+						name="componentTitle"
+						placeholder="컴포넌트 이름을 입력하세요"
+						value={title}
+						onChange={(e) => setTitle(e.target.value)}
 					/>
-				</p>
+				</div>
 				
-				<p className={styles.p}>
-					{
-						(pcBannerUrl) ? (
-							<img
-								src={pcBannerUrl}
-								width={200}
-								alt="pcBannerUrl"
+				<div className="banner-pc-image">
+					<p className={styles.p}>
+						<div className={styles.pTitle}>PC 배너</div>
+					</p>
+
+					<div className="banner-pc-input">
+						<div className="banner-pc-image">
+							<label className="banner-pc-image-label" htmlFor="pcBanner">사진 첨부</label>
+							<input className="banner-pc-image-input"
+								type="file"
+								accept="image/*"
+								id="pcBanner"
+								onChange={() => saveImgFile(pcBannerRef, setPcBannerFileName, setPcBanner)}
+								ref={pcBannerRef}
 							/>
-						) : (
-							(
-								pcBanner
-							) ? (
-								<img
-									src={pcBanner}
-									width={200}
-									alt="pcBanner"
-								/>
-							) : (
-								""
-							)
-						)
-					}
-				</p>
-				
-				<p className={styles.p}>
-					<div
-						className={styles.pTitle}
-					>
-						<strong>PC 배너 링크</strong>
+
+							<p className={styles.p}>
+								{(pcBannerUrl) ? (<img src={pcBannerUrl} width={300} alt="pcBannerUrl" />) : (
+									(pcBanner) ? (<img src={pcBanner} width={300} alt="pcBanner" />) : ("")
+								)}
+							</p>
+						</div>
+						
+						<input className="banner-pc-link-input"
+							type="text"
+							name="pcBannerLink"
+							placeholder="PC 배너의 링크를 입력하세요"
+							value={pcBannerLink}
+							onChange={e => setPcBannerLink(e.target.value)}
+						/>
 					</div>
-					
-					<input className={styles.textInput}
-						   type="text"
-						   name="pcBannerLink"
-						   placeholder="PC 배너의 링크를 입력해주세요."
-						   onChange={e => setPcBannerLink(e.target.value)}
-						   value={pcBannerLink}
-					/>
-				</p>
+				</div>
 				
-				<p className={styles.p}>
-					<strong>모바일 배너</strong>
-					<input
-						type="file"
-						accept="image/*"
-						id="mobileBanner"
-						onChange={() => saveImgFile(mobileBannerRef, setMobileBannerFileName, setMobileBanner)}
-						ref={mobileBannerRef}
-					/>
-				
-				</p>
-				
-				<p className={styles.p}>
-					{
-						(mobileBannerUrl) ? (
-							<img
-								src={mobileBannerUrl}
-								width={200}
-								alt="mobileBannerUrl"
+				<div className="banner-mobile-image">
+					<p className={styles.p}>
+						<div className={styles.pTitle}>모바일 배너</div>
+					</p>
+
+					<div className="banner-mobile-input">
+						<div className="banner-mobile-image">
+							<label className="banner-mobile-image-label" htmlFor="mobileBanner">사진 첨부</label>
+							<input className="banner-mobile-image-input"
+								type="file"
+								accept="image/*"
+								id="mobileBanner"
+								onChange={() => saveImgFile(mobileBannerRef, setMobileBannerFileName, setMobileBanner)}
+								ref={mobileBannerRef}
 							/>
-						) : (
-							(
-								mobileBanner
-							) ? (
-								<img
-									src={mobileBanner}
-									width={200}
-									alt="mobileBanner"
-								/>
-							) : (
-								""
-							)
-						)
-					}
-				</p>
-				
-				<p className={styles.p}>
-					<div
-						className={styles.pTitle}
-					>
-						<strong>모바일 배너 링크</strong>
+
+							<p className={styles.p}>
+								{(mobileBannerUrl) ? (<img src={mobileBannerUrl} width={300} alt="mobileBannerUrl" />) : (
+									(mobileBanner) ? (<img src={mobileBanner} width={300} alt="mobileBanner" />) : ("")
+								)}
+							</p>
+						</div>
+
+						<input className="banner-mobile-link-input"
+							type="text"
+							name="mobileBannerLink"
+							placeholder="모바일 배너의 링크를 입력하세요"
+							onChange={e => setMobileBannerLink(e.target.value)}
+						   	value={mobileBannerLink}
+						/>
 					</div>
-					
-					<input className={styles.textInput}
-						   type="text"
-						   name="mobileBannerLink"
-						   onChange={e => setMobileBannerLink(e.target.value)}
-						   value={mobileBannerLink}
-					/>
-				</p>
+				</div>
 				
-				<p className={styles.p}>
-					<strong>배너 내용</strong>
-					<div
-						style={{marginTop: 20}}
-					>
+				<div className="banner-content">
+					<p className={styles.p}>
+						<div className={styles.pTitle}>배너 내용</div>
+					</p>
+					<div style={{marginTop: 20}}>
 						<Editor
 							previewStyle="tab"
 							initialEditType="markdown"
@@ -200,20 +259,18 @@ const BannerComponentDetail = () => {
 								['code', 'codeblock']
 							]}
 							customHTMLRenderer={{
-								// 구글 맵 삽입을 위한
-								// iframe 태그 커스텀 코드
+							// 구글 맵 삽입을 위한
+							// iframe 태그 커스텀 코드
 								htmlBlock: {
 									iframe(node: any) {
-										return [
-											{
-												type: 'openTag',
-												tagName: 'iframe',
-												outerNewLine: true,
-												attributes: node.attrs
+										return [{
+											type: 'openTag',
+											tagName: 'iframe',
+											outerNewLine: true,
+											attributes: node.attrs
 											},
 											{type: 'html', content: node.childrenHTML},
-											{type: 'closeTag', tagName: 'iframe', outerNewLine: true}
-										];
+											{type: 'closeTag', tagName: 'iframe', outerNewLine: true}];
 									}
 								}
 							}}
@@ -232,7 +289,18 @@ const BannerComponentDetail = () => {
 							}}
 						></Editor>
 					</div>
-				</p>
+				</div>
+				
+				<div className="make-delete-button">
+					<div className="component-make">
+						<button className="component-button" onClick={handleRegister}>수정하기</button>
+					</div>
+
+					<div className="component-delete">
+						<button className="component-button" onClick={handleDelete}>삭제하기</button>
+					</div>
+				</div>
+				
 			</div>
 		</div>
 	)
