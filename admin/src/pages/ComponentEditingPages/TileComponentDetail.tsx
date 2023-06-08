@@ -106,9 +106,14 @@ const TileComponentDetail = () => {
 	};
 	
 	const handleProductSelect = (index: number, product: any) => {
+		
 		const newData = [...tileData];
 		const selectedProducts = newData[index]?.products || [];
-		const productIndex = selectedProducts.findIndex((p) => p.id === product.id ?? product.product_code);
+		
+		console.log(selectedProducts)
+		console.log(product)
+		
+		const productIndex = selectedProducts.findIndex((p) => (p.id) ? (p.id == product.id) : (p.product_code == product.id));
 		
 		if (productIndex !== -1) selectedProducts.splice(productIndex, 1);
 		else selectedProducts.push(product);
@@ -218,7 +223,9 @@ const TileComponentDetail = () => {
 					<div key={i} className={styles.componentListCell}>
 						<div style={{marginLeft: 10, width: "auto"}}> id: {v.product_code ?? v.id} </div>
 						<div style={{marginLeft: 10, width: "auto"}}> title: {v.title} </div>
-						<div style={{marginLeft: 10, width: "auto"}}> category: {v.category ?? v.categoryNames} </div>
+						<div style={{marginLeft: 10, width: "auto"}}>
+							category: {JSON.stringify(v.category, null, 4) ?? JSON.stringify(v.categoryNames, null, 4)}
+						</div>
 					</div>
 				))}
 			</p>
@@ -233,12 +240,14 @@ const TileComponentDetail = () => {
 							onChange={(e) => handleProductSelect(index, v)}
 							value={v.id}
 							checked={tileData[index]?.products?.some((p) =>
-								(p.id) ? (p.id == v.product_code) : (p.id == v.id)
+								(p.id) ? (p.id == v.id) : (p.product_code == v.id)
 								)}
 						/>
 						<div style={{marginLeft: 10, width: "auto"}}> id: {v.id} </div>
 						<div style={{marginLeft: 10, width: "auto"}}> title: {v.title} </div>
-						<div style={{marginLeft: 10, width: "auto"}}> category: {v.categoryNames ?? v.category} </div>
+						<div style={{marginLeft: 10, width: "auto"}}>
+							category: {JSON.stringify(v.category, null, 4) ?? JSON.stringify(v.categoryNames, null, 4)}
+						</div>
 					</div>
 				))}
 			</p>
