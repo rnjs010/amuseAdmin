@@ -1,0 +1,31 @@
+.guideWrap {
+  display: flex;
+  margin: 20px;
+}
+
+.guideInfo {
+  font-size: 14px;
+  margin: 4px 12px;
+};
+
+.guideBtn{
+  background: #eb1749;
+  width: 80px;
+  height: 30px;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.guideBtn {
+  background: #eb1749;
+  width: 80px;
+  height: 30px;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.guideBtn:hover {
+  border: 1px solid #eb1749;
+  background: #fff;
+  color: #eb1749;
+}

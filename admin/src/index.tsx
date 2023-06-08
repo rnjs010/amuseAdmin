@@ -42,6 +42,7 @@ import ListComponentDatail from "./pages/ComponentEditingPages/ListComponentData
 import BannerComponentDetail from "./pages/ComponentEditingPages/BannerComponentDetail";
 import TileComponentDetail from "./pages/ComponentEditingPages/TileComponentDetail";
 import ProductCopy from './components/Product/ProductCopy/ProductCopy';
+import ManagerDetail from './pages/ManagerPages/ManagerDetail';
 
 const router = createBrowserRouter([
     {
@@ -78,7 +79,10 @@ const router = createBrowserRouter([
             {path: '/notice/:id', element: <NoticeDetail/>},
             {path: '/notice/register', element: <NoticeRegister/>},
             
+            //가이드 관리
             {path: '/staff', element: <StaffDetail/>},
+            // 권한 관리
+            {path: '/manager', element: <ManagerDetail/>},
             
             {path: '/componentv2', element: <Component/>},
             
