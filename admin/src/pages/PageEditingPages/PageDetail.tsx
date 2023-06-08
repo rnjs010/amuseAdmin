@@ -82,8 +82,6 @@ const PageDetail = () => {
 	
 	const deletePage = async () => {
 		
-		if (!validationCheck()) return;
-		
 		const response = await PageLogic.deletePage(id)
 			.then(() => {
 			window.confirm("삭제되었습니다.");
