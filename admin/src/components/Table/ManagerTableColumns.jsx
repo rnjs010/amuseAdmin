@@ -20,6 +20,10 @@ export const ManagerTableColumns = () => [
       accessor: 'user_db_id'
     },
     {
+      Header: '구분',
+      accessor: 'providerType'
+    },
+    {
       Header: 'Actions',
       Cell: ({ row }) => {
         const user_db_id = row.original.user_db_id;
