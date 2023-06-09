@@ -63,7 +63,6 @@ const ManagerDetail = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 />
                 <button className={styles.guideBtn} style={{marginLeft: '20px'}} onClick={checkManager}>이메일 확인</button>
-                {emailExists && <button className={styles.guideBtn} style={{marginLeft: '20px'}} onClick={addManager}>권한 추가</button>}
             </div>
             <div>
             {info && info.length > 0 ? (
