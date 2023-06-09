@@ -168,7 +168,7 @@ const PageDetail = () => {
 					>
 						<strong>페이지 목록</strong>
 					</div>
-					<Table route={"page"}
+					<Table route={""}
 						   columns={PageTableColumns}
 						   data={pageListArr}
 					/>
