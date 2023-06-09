@@ -19,6 +19,7 @@ export const ComponentLogic = {
 					"Content-Type": "application/json",
 					"Authorization": process.env.REACT_APP_COMPONENT_API_KEY
 				}
+				
 			})
 		return response.data.data;
 	}),
