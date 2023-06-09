@@ -226,7 +226,7 @@ const TileComponentDetail = () => {
 			</p>
 			<p className={styles.p}>
 				<div className={styles.pTitle}>
-					<strong>등록된 컴포넌트</strong>
+					<strong>등록된 상품</strong>
 				</div>
 				
 				{tileData[index]?.products.map((v: any, i: any) => (
@@ -241,7 +241,7 @@ const TileComponentDetail = () => {
 			</p>
 			<p className={styles.p}>
 				<div className={styles.pTitle}>
-					<strong>컴포넌트 목록</strong>
+					<strong>상품 목록</strong>
 				</div>
 				{productListArr.map((v: any, i: any) => (
 					<div key={i} className={styles.componentListCell}>
