@@ -64,7 +64,7 @@ const BannerComponentRegister = () => {
 			"mobileBannerFileName": mobileBannerFileName,
 			"mobileBannerBase64": mobileBanner,
 			"mobileBannerLink": mobileBannerLink,
-			"content" : "<p>banner test</p>\n"
+			"content" : ""
 		};
 	  
 		// POST 요청을 보냅니다.

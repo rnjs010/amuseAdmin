@@ -63,3 +63,11 @@
     background: #fff;
     color: #eb1749;
 }
+
+.componentListCell{
+    display: flex;
+    align-items: center;
+    border: 1px solid;
+    margin-bottom: 10px;
+    padding: 5px;
+}

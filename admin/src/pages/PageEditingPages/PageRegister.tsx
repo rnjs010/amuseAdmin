@@ -8,9 +8,7 @@ import {ComponentLogic} from "../../logics/ComponentLogic";
 import Table from "../../components/Table/Table";
 import {PageTableColumns} from "../../components/Table/PageTableColumns";
 
-const PageDetail = () => {
-	
-	const {id} = useParams();
+const PageRegister = () => {
 	
 	const [name, setName] = useState<string>("");
 	const [sequence, setSequence] = useState<number>(0);
@@ -65,7 +63,7 @@ const PageDetail = () => {
 		
 		if (!validationCheck()) return;
 		
-		const response = await PageLogic.editPage(id, {
+		const response = await PageLogic.registerPage({
 			name: name,
 			fileName: categoryImageFileName,
 			base64Data: categoryImage,
@@ -78,30 +76,11 @@ const PageDetail = () => {
 			window.confirm("등록되었습니다.");
 			window.history.back();
 		}).catch(e => window.confirm(e))
-	}
-	
-	const deletePage = async () => {
-		
-		const response = await PageLogic.deletePage(id)
-			.then(() => {
-			window.confirm("삭제되었습니다.");
-			window.history.back();
-			})
-			.catch(e => window.confirm(e))
 		
 	}
 	
 	useEffect(() => {
-		(async () => {
-			const response = await PageLogic.getPageDetail(id);
-			setName(response.name);
-			setSequence(response.sequence);
-			setCategoryImage(response.imgUrl);
-			setMainDescription(response.mainDescription);
-			setSubDescription(response.subDescription);
-			setPageComponentListArr(response.pageComponentInfos);
-		})();
-		
+
 		(async () => {
 			const response = await PageLogic.getPageListNotDisable();
 			setPageListArr(response);
@@ -168,7 +147,7 @@ const PageDetail = () => {
 					>
 						<strong>페이지 목록</strong>
 					</div>
-					<Table route={""}
+					<Table route={"page"}
 						   columns={PageTableColumns}
 						   data={pageListArr}
 					/>
@@ -370,13 +349,7 @@ const PageDetail = () => {
 					<button className={styles.button}
 							onClick={submitPage}
 					>
-						수정하기
-					</button>
-					
-					<button className={styles.button}
-							onClick={deletePage}
-					>
-						삭제하기
+						등록하기
 					</button>
 				</div>
 			</div>
@@ -386,4 +359,4 @@ const PageDetail = () => {
 	
 }
 
-export default PageDetail;
+export default PageRegister;

@@ -7,7 +7,7 @@ function Header() {
 	return (
 		<div className={styles.header}>
 			<div className={styles.logoAndLogin}>
-				<img className={styles.logo} src="/logo.png" alt="Logo"/>
+				<p onClick={() => navigate('/')}><img src="/data/logo.png" alt="Logo"/></p>
 				<p>admin123</p>
 			</div>
 			<div className={styles.category}>

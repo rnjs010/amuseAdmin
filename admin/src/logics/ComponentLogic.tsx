@@ -12,5 +12,34 @@ export const ComponentLogic = {
 		return response.data.data;
 	}),
 	
+	postTileComponent: (async (data: any) => {
+		const response = await axios.post(`https://ammuse.store/test/api/component/register/tile`, data,
+			{
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": process.env.REACT_APP_COMPONENT_API_KEY
+				}
+				
+			})
+		return response.data.data;
+	}),
+	
+	editTileComponent: (async (data: any) => {
+		const response = await axios.post(`https://ammuse.store/test/api/component/edit/tile`, data,
+			{
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": process.env.REACT_APP_COMPONENT_API_KEY
+				}
+			})
+		return response.data.data;
+	}),
+	
+	deleteTileComponent: (async (id: any) => {
+		const response = await axios.get(`https://ammuse.store/test/api/component/delete/${id}`)
+		return response.data.data;
+	}),
+	
+	
 }
 
