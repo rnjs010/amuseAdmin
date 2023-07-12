@@ -26,7 +26,7 @@ function ProductStatus() {
   }]);
 
   useEffect(() => {
-    axios.get('https://ammuse.store/test/api/product/getList/byDisplay', {
+    axios.get('http://43.200.171.174/test/api/product/getList/byDisplay', {
       params: {
         limit: 8,
         page: 1,
@@ -46,7 +46,7 @@ function ProductStatus() {
   }, [activeItemList])
 
   useEffect(() => {
-    axios.get('https://ammuse.store/test/api/product/getList/byDisplay', {
+    axios.get('http://43.200.171.174/test/api/product/getList/byDisplay', {
       params: {
         limit: 8,
         page: 1,
@@ -67,7 +67,7 @@ function ProductStatus() {
 
   const handleDeleteProducts =  (itemCode: string) => {
     setActiveItemList(activeItemList.filter((item) => {return item.itemCode !== itemCode}))
-    axios.get('https://ammuse.store/test/api/product/delete', {
+    axios.get('http://43.200.171.174/test/api/product/delete', {
        params: {
          itemCode
        }
@@ -79,7 +79,7 @@ function ProductStatus() {
   const handleInActivateProduct = (item: Item) => {
     setActiveItemList(activeItemList.filter((activeItem) => {return activeItem.itemCode !== item.itemCode}));
     setInActiveItemList((prev) => [...prev, item])
-    axios.get('https://ammuse.store/test/api/change/displayStatus', {
+    axios.get('http://43.200.171.174/test/api/change/displayStatus', {
       params: {
         status: 'HIDDEN',
         itemCode: item.itemCode
@@ -92,7 +92,7 @@ function ProductStatus() {
   const handleActivateProduct = (item: Item) => {
     setInActiveItemList(inActiveItemList.filter((inActiveItem) => {reutrn inActiveItem.itemCode !== item.itemCode}));
     setActiveItemList((prev) => [...prev, item]);
-    axios.get('https://ammuse.store/test/api/change/displayStatus', {
+    axios.get('http://43.200.171.174/test/api/change/displayStatus', {
       params: {
         status: 'DISPLAY',
         itemCode: item.itemCode

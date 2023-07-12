@@ -1,25 +1,24 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import axiosInstance from '../../../services/axiosInstance';
-import styles from './ProductStatus.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import axiosInstance from "../../../services/axiosInstance";
+import styles from "./ProductStatus.module.css";
+import { useNavigate } from "react-router-dom";
 
 function ProductStatus() {
   const navigate = useNavigate();
 
   const [activeItemList, setActiveItemList] = useState([{}]);
   useEffect(() => {
-    axiosInstance.get('/main/current-item')
-  .then((res) => {
+    axiosInstance.get("/main/current-item").then((res) => {
       const data = res.data.data.items;
       const processedData = data.map((item: any) => ({
         product_code: item.product_code,
         title: item.title,
-        imageUrl: item.imageUrl
-      }))
-      setActiveItemList(processedData)
+        imageUrl: item.imageUrl,
+      }));
+      setActiveItemList(processedData);
     });
-  }, [])
+  }, []);
 
   useEffect(() => {
     console.log(activeItemList);
@@ -31,20 +30,25 @@ function ProductStatus() {
         <div className={styles.title}>활성화 상품</div>
         <div className={styles.divider}></div>
         <ul className={styles.activeItemList}>
-          {activeItemList.map((item:any) => (
+          {activeItemList.map((item: any) => (
             <li className={styles.activeItem}>
-              <img className={styles.activeImg}src={item.imageUrl} alt="" />
+              <img className={styles.activeImg} src={item.imageUrl} alt="" />
               <div className={styles.btnContainer}>
                 <button onClick={() => navigate(`/product/edit/${item.product_code}`)}>수정</button>
-                <button onClick={() => {
-                  axios.delete('https://ammuse.store/test/api/product/delete', {
-                    params: {
-                      itemCode: item.product_code
-                    }
-                  })
-                  .then((res) => console.log(res))
-                  .catch(console.error)
-                }}>삭제</button>
+                <button
+                  onClick={() => {
+                    axios
+                      .delete("http://43.200.171.174/test/api/product/delete", {
+                        params: {
+                          itemCode: item.product_code,
+                        },
+                      })
+                      .then((res) => console.log(res))
+                      .catch(console.error);
+                  }}
+                >
+                  삭제
+                </button>
                 <button>비활성화</button>
               </div>
               <div className={styles.productCodeContainer}>
@@ -55,7 +59,6 @@ function ProductStatus() {
                 <p className={styles.label}>제목</p>
                 <p>{item.title}</p>
               </div>
-              
             </li>
           ))}
         </ul>
@@ -64,7 +67,6 @@ function ProductStatus() {
       <div className={styles.inActiveItemContainer}>
         <div className={styles.title}>비활성화 상품</div>
         <div className={styles.divider}></div>
-
       </div>
     </div>
   );

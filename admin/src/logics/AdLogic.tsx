@@ -1,22 +1,20 @@
 import axios from "axios";
 
-
 export const AdLogic = {
-	
-	getAdArr: (async (offset: number, limit: number, page: number) => {
-		const response = await axios.get(`https://ammuse.store/test/api/ad/getList?offset=${offset}&limit=${limit}&page=${page}`)
-		return response.data.data;
-	}),
-	
-	getAdDetail: (async (id: number) => {
-		const response = await axios.get(`https://ammuse.store/test/api/ad/${id}`)
-		return response.data.data;
-	}),
-	
-	updateAdDetail: (async (data: any) => {
-		const response = await axios.post(`https://ammuse.store/test/api/ad/edit`, data)
-		return response;
-	}),
-	
-}
+  getAdArr: async (offset: number, limit: number, page: number) => {
+    const response = await axios.get(
+      `http://43.200.171.174/test/api/ad/getList?offset=${offset}&limit=${limit}&page=${page}`
+    );
+    return response.data.data;
+  },
 
+  getAdDetail: async (id: number) => {
+    const response = await axios.get(`http://43.200.171.174/test/api/ad/${id}`);
+    return response.data.data;
+  },
+
+  updateAdDetail: async (data: any) => {
+    const response = await axios.post(`http://43.200.171.174/test/api/ad/edit`, data);
+    return response;
+  },
+};
