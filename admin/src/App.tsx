@@ -1,14 +1,17 @@
-import { Outlet } from 'react-router-dom';
-import './App.module.css';
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
+import { Outlet } from "react-router-dom";
+import "./App.module.css";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import { RecoilRoot } from "recoil";
 
 function App() {
   return (
     <>
-     <Header/>
-     <Outlet/>
-     <Footer/>
+      <RecoilRoot>
+        <Header />
+        <Outlet />
+        <Footer />
+      </RecoilRoot>
     </>
   );
 }
