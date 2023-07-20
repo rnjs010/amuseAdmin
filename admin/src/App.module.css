@@ -1,6 +1,6 @@
 :root {
   /* Colors */
-  --color-pink: #EB3E6C;
+  --color-pink: #eb3e6c;
   --color-white: #ffffff;
   --color-light-grey: #f5f5f5;
 
@@ -14,8 +14,7 @@
 }
 
 * {
-
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 
   box-sizing: border-box;
 
@@ -35,7 +34,7 @@ input {
   padding: 10px;
   border: none;
   outline: none;
-  box-shadow: none;  
+  box-shadow: none;
 }
 
 select {
@@ -57,9 +56,13 @@ textarea {
   padding: 10px;
 }
 
-input, textarea, select {
-  border: var(--border-width-medium) solid transparent
+input,
+textarea,
+select {
+  border: var(--border-width-medium) solid transparent;
 }
-input:focus, textarea:focus, select:focus{
-  border: var(--border-width-medium) solid var(--color-pink)
+input:focus,
+textarea:focus,
+select:focus {
+  border: var(--border-width-medium) solid var(--color-pink);
 }
