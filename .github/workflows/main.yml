@@ -46,4 +46,4 @@ jobs:
           aws s3 cp \
             --recursive \
             --region ap-northeast-2 \
-            admin/build s3://amuse-admin
+            admin/build s3://vikrant.store
