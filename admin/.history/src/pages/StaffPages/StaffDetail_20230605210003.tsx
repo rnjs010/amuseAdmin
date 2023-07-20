@@ -8,7 +8,7 @@ import { GuideTableCloumns } from "../../components/Table/GuideTableCloumns";
 
 export const getGuideInfo = (setAllGuide) => {
   axios
-    .get(`http://43.200.171.174/test/api/list/guide?page=1&limit=200`)
+    .get(`http://vikrant.store/test/api/list/guide?page=1&limit=200`)
     .then((res) => {
       console.log(res);
       setAllGuide(res.data.data.guideInfo);

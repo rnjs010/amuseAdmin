@@ -33,7 +33,7 @@ function ProductStatus() {
       })
     );
     axios
-      .get("http://43.200.171.174/test/api/product/delete", {
+      .get("http://vikrant.store/test/api/product/delete", {
         params: {
           itemCode,
         },
@@ -43,7 +43,7 @@ function ProductStatus() {
   };
 
   const handleInActivateProduct = (itemCode: string) => {
-    axios.get("http://43.200.171.174/test/api/change/displayStatus", {
+    axios.get("http://vikrant.store/test/api/change/displayStatus", {
       params: {
         status: "HIDDEN",
         itemCode,

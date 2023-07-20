@@ -22,7 +22,7 @@ const Notice = () => {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`http://43.200.171.174/test/api/notice/getList?offset=0&limit=10&page=1`)
+        .get(`http://vikrant.store/test/api/notice/getList?offset=0&limit=10&page=1`)
         .then((r) => {
           const res = r.data.data;
           setNoticeListArr(res.data);

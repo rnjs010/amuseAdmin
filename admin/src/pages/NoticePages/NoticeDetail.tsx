@@ -22,7 +22,7 @@ const NoticeDetail = () => {
   const editNotice = () => {
     (async () => {
       await axios
-        .post("http://43.200.171.174/test/api/notice/edit", {
+        .post("http://vikrant.store/test/api/notice/edit", {
           id: id,
           title: title,
           updatedBy: "daw916@naver.com",
@@ -38,7 +38,7 @@ const NoticeDetail = () => {
 
   useEffect(() => {
     (async () => {
-      await axios.get(`http://43.200.171.174/test/api/notice/${id}`).then((r) => {
+      await axios.get(`http://vikrant.store/test/api/notice/${id}`).then((r) => {
         const res = r.data.data;
         setTitle(res.title);
         setContent(res.content);

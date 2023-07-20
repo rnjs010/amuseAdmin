@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: "http://43.200.171.174",
+  baseURL: "http://vikrant.store",
 });
 
 export default axiosInstance;

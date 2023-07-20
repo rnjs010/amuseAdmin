@@ -12,7 +12,7 @@ const NoticeRegister = () => {
   const registerNotice = () => {
     (async () => {
       await axios
-        .post("http://43.200.171.174/test/api/notice/register", {
+        .post("http://vikrant.store/test/api/notice/register", {
           title: title,
           content: content,
           createdBy: "daw916@naver.com",

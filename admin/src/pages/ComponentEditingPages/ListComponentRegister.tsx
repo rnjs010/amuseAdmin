@@ -83,7 +83,7 @@ const ListComponentRegister = () => {
 
     // POST 요청을 보냅니다.
     axios
-      .post("http://43.200.171.174/test/api/component/register/list", postData, {
+      .post("http://vikrant.store/test/api/component/register/list", postData, {
         headers: {
           Authorization: process.env.REACT_APP_COMPONENT_API_KEY,
         },

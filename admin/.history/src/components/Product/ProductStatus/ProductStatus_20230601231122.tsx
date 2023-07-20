@@ -38,7 +38,7 @@ function ProductStatus() {
                 <button
                   onClick={() => {
                     axios
-                      .delete("http://43.200.171.174/test/api/product", {
+                      .delete("http://vikrant.store/test/api/product", {
                         params: {
                           itemCode: item.product_code,
                         },

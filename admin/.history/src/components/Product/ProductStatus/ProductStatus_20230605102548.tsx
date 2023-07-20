@@ -31,7 +31,7 @@ function ProductStatus() {
 
   useEffect(() => {
     axios
-      .get("http://43.200.171.174/test/api/product/getList/byDisplay", {
+      .get("http://vikrant.store/test/api/product/getList/byDisplay", {
         params: {
           limit: 8,
           page: 1,
@@ -52,7 +52,7 @@ function ProductStatus() {
 
   useEffect(() => {
     axios
-      .get("http://43.200.171.174/test/api/product/getList/byDisplay", {
+      .get("http://vikrant.store/test/api/product/getList/byDisplay", {
         params: {
           limit: 8,
           page: 1,
@@ -78,7 +78,7 @@ function ProductStatus() {
       })
     );
     axios
-      .get("http://43.200.171.174/test/api/product/delete", {
+      .get("http://vikrant.store/test/api/product/delete", {
         params: {
           itemCode,
         },
@@ -95,7 +95,7 @@ function ProductStatus() {
     );
     setInActiveItemList((prev) => [...prev, item]);
     axios
-      .get("http://43.200.171.174/test/api/change/displayStatus", {
+      .get("http://vikrant.store/test/api/change/displayStatus", {
         params: {
           status: "HIDDEN",
           itemCode: item.itemCode,
@@ -106,7 +106,7 @@ function ProductStatus() {
   };
 
   const handleActivateProduct = (item: Item) => {
-    axios.get("http://43.200.171.174/test/api/change/displayStatus", {
+    axios.get("http://vikrant.store/test/api/change/displayStatus", {
       params: {
         status: "DISPLAY",
         itemCode: item.itemCode,

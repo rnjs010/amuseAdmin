@@ -43,7 +43,7 @@ export default function GuideModal({ getGuideInfo, setAllGuide }) {
 
   const handleAddGuide = () => {
     axios
-      .post(`http://43.200.171.174/test/api/crate/guide`, {
+      .post(`http://vikrant.store/test/api/crate/guide`, {
         name: name,
         email: email,
         guideCode: guideCode,

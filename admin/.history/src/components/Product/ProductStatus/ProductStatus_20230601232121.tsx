@@ -33,7 +33,7 @@ function ProductStatus() {
       })
     );
     axios
-      .get("http://43.200.171.174/test/api/product/delete", {
+      .get("http://vikrant.store/test/api/product/delete", {
         params: {
           itemCode,
         },

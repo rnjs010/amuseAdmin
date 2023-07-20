@@ -28,7 +28,7 @@ export const GuideTableCloumns = (setAllGuide) => [
       const handleDeleteGuide = (guideCode) => {
         console.log(guideCode);
         axios
-          .get(`http://43.200.171.174/test/api/delete/guide/${guideCode}`)
+          .get(`http://vikrant.store/test/api/delete/guide/${guideCode}`)
           .then((res) => {
             console.log(res);
             getGuideInfo(setAllGuide);

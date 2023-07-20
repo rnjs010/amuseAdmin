@@ -89,7 +89,7 @@ const AdRegister = () => {
     }
 
     await axios
-      .post(`http://43.200.171.174/test/api/ad/register`, {
+      .post(`http://vikrant.store/test/api/ad/register`, {
         title: title,
         startDate: startDate.toISOString().split("T")[0],
         endDate: endDate.toISOString().split("T")[0],
