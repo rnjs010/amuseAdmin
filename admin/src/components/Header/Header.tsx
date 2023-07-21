@@ -2,13 +2,14 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
 import { isLoggedIn } from "../../pages/atoms";
 import { useRecoilState } from "recoil";
+import Cookies from "js-cookie";
 
 function Header() {
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useRecoilState(isLoggedIn);
   console.log("로그인 여부", loggedIn);
   const allCookies = document.cookie;
-  console.log("내가만든쿠키", allCookies);
+  console.log("내가만든쿠키", Cookies);
   return (
     <div className={styles.header}>
       <div className={styles.logoAndLogin}>

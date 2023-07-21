@@ -11,9 +11,7 @@ function DashBoard() {
   //     localStorage.setItem("loginToken", token);
   //   }
   // }, [])
-  const [loggedIn, setLoggedIn] = useRecoilState(isLoggedIn);
-  setLoggedIn(false);
-  return <div>DashBoard - 로그아웃됨</div>;
+  return <div>DashBoard</div>;
 }
 
 export default DashBoard;

@@ -15,7 +15,7 @@ const LoginDetail = () => {
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useRecoilState(isLoggedIn);
   const navigate = useNavigate();
-  const redirectU = "http://13.125.82.58/product";
+  const redirectU = "http://myadmin.wheelgo.net/product";
 
   useEffect(() => {
     let token = new URL(window.location.href).searchParams.get("token");
