@@ -22,7 +22,7 @@ const Notice = () => {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`http://vikrant.store/test/api/notice/getList?offset=0&limit=10&page=1`)
+        .get(`http://amuseapi.wheelgo.net/test/api/notice/getList?offset=0&limit=10&page=1`)
         .then((r) => {
           const res = r.data.data;
           setNoticeListArr(res.data);

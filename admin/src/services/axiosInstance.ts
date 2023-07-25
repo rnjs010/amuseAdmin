@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: "http://vikrant.store",
+  baseURL: "http://amuseapi.wheelgo.net",
 });
 
 export default axiosInstance;

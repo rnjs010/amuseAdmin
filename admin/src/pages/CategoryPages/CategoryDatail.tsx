@@ -26,7 +26,7 @@ const CategoryDetail = () => {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`http://vikrant.store/test/api/category/${id}`)
+        .get(`http://amuseapi.wheelgo.net/test/api/category/${id}`)
         // .then(r => setProductListArr(r.data.data.data))
         .then((r) => {
           const res = r.data.data;
@@ -59,7 +59,7 @@ const CategoryDetail = () => {
   const editCategory = () => {
     (async () => {
       await axios
-        .post("http://vikrant.store/test/api/category/edit", {
+        .post("http://amuseapi.wheelgo.net/test/api/category/edit", {
           id: id,
           category: categoryTitle,
           fileName: categoryImageFileName,

@@ -89,7 +89,7 @@ const AdRegister = () => {
     }
 
     await axios
-      .post(`http://vikrant.store/test/api/ad/register`, {
+      .post(`http://amuseapi.wheelgo.net/test/api/ad/register`, {
         title: title,
         startDate: startDate.toISOString().split("T")[0],
         endDate: endDate.toISOString().split("T")[0],

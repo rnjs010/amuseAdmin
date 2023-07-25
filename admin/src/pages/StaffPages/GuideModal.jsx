@@ -43,7 +43,7 @@ export default function GuideModal({ getGuideInfo, setAllGuide }) {
 
   const handleAddGuide = () => {
     axios
-      .post(`http://vikrant.store/test/api/crate/guide`, {
+      .post(`http://amuseapi.wheelgo.net/test/api/crate/guide`, {
         name: name,
         email: email,
         guideCode: guideCode,

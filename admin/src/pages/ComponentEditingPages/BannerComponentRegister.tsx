@@ -66,7 +66,7 @@ const BannerComponentRegister = () => {
 
     // POST 요청을 보냅니다.
     axios
-      .post("http://vikrant.store/test/api/component/register/banner", postData, {
+      .post("http://amuseapi.wheelgo.net/test/api/component/register/banner", postData, {
         headers: {
           Authorization: process.env.REACT_APP_COMPONENT_API_KEY,
         },

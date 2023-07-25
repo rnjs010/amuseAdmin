@@ -13,7 +13,7 @@ const ManagerDetail = () => {
   const checkManager = () => {
     const accessToken = localStorage.getItem("loginToken");
     axios
-      .get(`http://vikrant.store/api/v1/admin/search/users?email=${email}`, {
+      .get(`http://amuseapi.wheelgo.net/api/v1/admin/search/users?email=${email}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
