@@ -117,7 +117,7 @@ const PageRegister = () => {
   return (
     <div className={styles.container}>
       <div className={styles.body}>
-        <p className={styles.p}>
+        <div className={styles.p}>
           <div className={styles.pTitle}>
             <strong>페이지</strong>
           </div>
@@ -130,16 +130,16 @@ const PageRegister = () => {
             placeholder="페이지 이름을 입력하세요"
             onChange={(e) => setName(e.target.value)}
           />
-        </p>
+        </div>
 
-        <p className={styles.p}>
+        <div className={styles.p}>
           <div className={styles.pTitle}>
             <strong>페이지 목록</strong>
           </div>
           <Table route={"page"} columns={PageTableColumns} data={pageListArr} />
-        </p>
+        </div>
 
-        <p className={styles.p}>
+        <div className={styles.p}>
           <div className={styles.pTitle}>
             <strong>배치 순서</strong>
           </div>
@@ -181,9 +181,9 @@ const PageRegister = () => {
               <div>-</div>
             </button>
           </div>
-        </p>
+        </div>
 
-        <p className={styles.p}>
+        <div className={styles.p}>
           <div className={styles.pTitle}>
             <strong> 카테고리 활성화 </strong>
           </div>
@@ -211,18 +211,20 @@ const PageRegister = () => {
               <div> 비활성화</div>
             </div>
           </div>
-        </p>
+        </div>
 
-        <p className={styles.p}>
+        <div className={styles.p}>
           <div className={styles.pTitle}>
             <strong>대표 이미지</strong>
           </div>
           <input type="file" accept="image/*" id="categoryImage" onChange={saveImgFile} ref={categoryImageRef} />
-        </p>
+        </div>
 
-        <p className={styles.p}>{!categoryImage ? "" : <img src={categoryImage} width={200} alt="categoryImage" />}</p>
+        <div className={styles.p}>
+          {!categoryImage ? "" : <img src={categoryImage} width={200} alt="categoryImage" />}
+        </div>
 
-        <p className={styles.p}>
+        <div className={styles.p}>
           <div className={styles.pTitle}>
             <strong>대표 설명</strong>
           </div>
@@ -235,9 +237,9 @@ const PageRegister = () => {
               onChange={(e) => setMainDescription(e.target.value)}
             ></textarea>
           </div>
-        </p>
+        </div>
 
-        <p className={styles.p}>
+        <div className={styles.p}>
           <div className={styles.pTitle}>
             <strong>부가 설명</strong>
           </div>
@@ -250,9 +252,9 @@ const PageRegister = () => {
               onChange={(e) => setSubDescription(e.target.value)}
             ></textarea>
           </div>
-        </p>
+        </div>
 
-        <p className={styles.p}>
+        <div className={styles.p}>
           <div className={styles.pTitle}>
             <strong>등록된 컴포넌트</strong>
           </div>
@@ -264,9 +266,9 @@ const PageRegister = () => {
               <div style={{ marginLeft: 10, width: 150 }}> type: {v.type} </div>
             </div>
           ))}
-        </p>
+        </div>
 
-        <p className={styles.p}>
+        <div className={styles.p}>
           <div className={styles.pTitle}>
             <strong>컴포넌트 목록</strong>
           </div>
@@ -283,7 +285,7 @@ const PageRegister = () => {
               <div style={{ marginLeft: 10, width: 150 }}> type: {v.type} </div>
             </div>
           ))}
-        </p>
+        </div>
         <div className={styles.p}>
           <button className={styles.button} onClick={submitPage}>
             등록하기

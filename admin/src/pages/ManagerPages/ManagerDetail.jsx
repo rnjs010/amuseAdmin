@@ -34,7 +34,7 @@ const ManagerDetail = () => {
     event.preventDefault();
     console.log(email, password);
 
-    const apiUrl = "https://ammuse.store/api/v1/auth/signup";
+    const apiUrl = "https://amuseapi.wheelgo.net/api/v1/auth/signup";
     const requestData = {
       id: email,
       password: password,
