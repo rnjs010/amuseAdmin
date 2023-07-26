@@ -29,28 +29,29 @@ const LoginDetail = () => {
   const loginEvent = async (event) => {
     event.preventDefault();
 
-    const apiUrl = `https://amuseapi.wheelgo.net/api/v1/auth/login?id=${email}&password=${password}`;
+    const apiUrl = `http://amuseapi.wheelgo.net/api/v1/auth/login?id=${email}&password=${password}`;
 
-    try {
-      const response = await axios.get(apiUrl);
-      const data = response.data;
-      console.log(email, password);
-      if (data.code === 1000) {
-        // 로그인에 성공한 경우
-        setLoggedIn(true);
-        alert("로그인 성공!");
-        window.location.href = redirectU;
-      } else if (data.status === 302) {
-        setLoggedIn(false);
-        alert(`${data.message}`); // 아이디 존재 x
-      } else {
-        setLoggedIn(false);
-        alert(`${data.message}`); // 비번 틀림
-      }
-    } catch (error) {
-      console.error("API 요청 에러:", error);
-      // Handle API request error here
-    }
+    // try {
+    const response = await axios.get(apiUrl);
+    console.log(response);
+    //   const data = response.data;
+    //   console.log(email, password);
+    //   if (data.code === 1000) {
+    //     // 로그인에 성공한 경우
+    //     setLoggedIn(true);
+    //     alert("로그인 성공!");
+    //     window.location.href = redirectU;
+    //   } else if (data.status === 302) {
+    //     setLoggedIn(false);
+    //     alert(`${data.message}`); // 아이디 존재 x
+    //   } else {
+    //     setLoggedIn(false);
+    //     alert(`${data.message}`); // 비번 틀림
+    //   }
+    // } catch (error) {
+    //   console.error("API 요청 에러:", error);
+    //   // Handle API request error here
+    // }
   };
 
   const handleChangeEmail = (e) => {
