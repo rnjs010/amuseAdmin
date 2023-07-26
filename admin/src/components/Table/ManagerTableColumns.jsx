@@ -7,22 +7,22 @@ export const ManagerTableColumns = () => [
     Header: "ID",
     accessor: "email",
   },
-  {
-    Header: "유저 이름",
-    accessor: "userName",
-  },
-  {
-    Header: "권한",
-    accessor: "roleType",
-  },
-  {
-    Header: "고유번호",
-    accessor: "user_db_id",
-  },
-  {
-    Header: "구분",
-    accessor: "providerType",
-  },
+  // {
+  //   Header: "유저 이름",
+  //   accessor: "userName",
+  // },
+  // {
+  //   Header: "권한",
+  //   accessor: "roleType",
+  // },
+  // {
+  //   Header: "고유번호",
+  //   accessor: "user_db_id",
+  // },
+  // {
+  //   Header: "구분",
+  //   accessor: "providerType",
+  // },
   {
     Header: "Actions",
     Cell: ({ row }) => {

@@ -47,7 +47,7 @@ const ManagerDetail = () => {
       setEmail("");
       setPassword("");
       if (data.code === 1000) {
-        // 로그인에 성공한 경우
+        // 등록에 성공한 경우
         setInfo(email);
         alert("계정 추가 성공!");
         window.location.href = redirectU;
@@ -61,6 +61,7 @@ const ManagerDetail = () => {
       // Handle API request error here
     }
   };
+
   const columns = ManagerTableColumns();
   return (
     <div style={{ margin: "18px" }}>

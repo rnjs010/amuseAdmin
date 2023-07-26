@@ -9,12 +9,16 @@ function Header() {
   const [loggedIn, setLoggedIn] = useRecoilState(isLoggedIn);
   console.log("로그인 여부", loggedIn);
   const allCookies = document.cookie;
-  console.log("내가만든쿠키", Cookies);
+  // console.log("내가만든쿠키", Cookies);
+
+  const logoutEvent = () => {
+    setLoggedIn(false);
+  };
   return (
     <div className={styles.header}>
       <div className={styles.logoAndLogin}>
         <img className={styles.logo} src="/logo.png" alt="Logo" />
-        <p>admin123</p>
+        {loggedIn && <button onClick={logoutEvent}>로그아웃</button>}
       </div>
       <div className={styles.category}>
         <button onClick={() => navigate("/product")}>여행 상품 관리</button>
