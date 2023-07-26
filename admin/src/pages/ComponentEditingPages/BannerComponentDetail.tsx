@@ -67,7 +67,7 @@ const BannerComponentDetail = () => {
   const [componentData, setComponentData] = useState<ComponentData | null>(null);
   useEffect(() => {
     axios
-      .get(`http://amuseapi.wheelgo.net/test/api/component/${id}`)
+      .get(`https://amuseapi.wheelgo.net/test/api/component/${id}`)
       .then((response) => {
         const responseComponent = response.data.data;
         setComponentData(responseComponent);
@@ -104,7 +104,7 @@ const BannerComponentDetail = () => {
 
     // POST 요청을 보냅니다.
     axios
-      .post("http://amuseapi.wheelgo.net/test/api/component/edit/banner", postData, {
+      .post("https://amuseapi.wheelgo.net/test/api/component/edit/banner", postData, {
         headers: {
           Authorization: process.env.REACT_APP_COMPONENT_API_KEY,
         },
@@ -135,7 +135,7 @@ const BannerComponentDetail = () => {
 
   const handleDelete = () => {
     axios
-      .get(`http://amuseapi.wheelgo.net/test/api/component/delete/${id}`)
+      .get(`https://amuseapi.wheelgo.net/test/api/component/delete/${id}`)
       .then((response) => {
         Swal.fire({
           icon: "success",

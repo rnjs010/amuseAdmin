@@ -7,37 +7,61 @@ import Table from "../../components/Table/Table";
 
 const ManagerDetail = () => {
   const [email, setEmail] = useState("");
-  const [emailExists, setEmailExists] = useState(false);
+  const [password, setPassword] = useState("");
   const [info, setInfo] = useState();
 
-  const checkManager = () => {
-    const accessToken = localStorage.getItem("loginToken");
-    axios
-      .get(`http://amuseapi.wheelgo.net/api/v1/admin/search/users?email=${email}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-      .then((response) => {
-        console.log(response.data.data);
-        setEmailExists(true);
-        alert("관리자로 추가 가능한 이메일 입니다.");
-        setInfo(response.data.data);
-      })
-      .catch((error) => {
-        alert("존재하지 않는 이메일 입니다.");
-        console.error(error);
-        setEmailExists(false);
-      });
-  };
+  // const addManager = () => {
+  //   const accessToken = localStorage.getItem("loginToken");
 
-  const addManager = () => {
-    setEmailExists(false);
-  };
+  // axios
+  //   .get(`https://amuseapi.wheelgo.net/api/v1/admin/search/users?email=${email}`, {
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${accessToken}`,
+  //     },
+  //   })
+  //   .then((response) => {
+  //     console.log(response.data.data);
+  //     setEmailExists(true);
+  //     alert("관리자로 추가합니다.");
+  //     setInfo(response.data.data);
+  //   });
+  // };
 
+  const redirectU = "https://myadmin.wheelgo.net/manager";
+
+  const addManager = async (event) => {
+    event.preventDefault();
+    console.log(email, password);
+
+    const apiUrl = "https://ammuse.store/api/v1/auth/signup";
+    const requestData = {
+      id: email,
+      password: password,
+    };
+
+    try {
+      const response = await axios.post(apiUrl, requestData);
+      const data = response.data;
+      console.log(data);
+      setEmail("");
+      setPassword("");
+      if (data.code === 1000) {
+        // 로그인에 성공한 경우
+        setInfo(email);
+        alert("계정 추가 성공!");
+        window.location.href = redirectU;
+      } else if (data.status === 302) {
+        alert(`${data.message}`); // 아이디 존재
+      } else {
+        alert(`${data.message}`);
+      }
+    } catch (error) {
+      console.error("API 요청 에러:", error);
+      // Handle API request error here
+    }
+  };
   const columns = ManagerTableColumns();
-
   return (
     <div style={{ margin: "18px" }}>
       <div
@@ -51,13 +75,15 @@ const ManagerDetail = () => {
           paddingBottom: 10,
         }}
       >
-        <h2> 권한 관리 </h2>
+        <h2> Admin 계정 관리 </h2>
       </div>
-      <div>{/* {info && } */}</div>
+      {/* info 상태값으로 받아온 데이터 출력 */}
+
       <div style={{ padding: "20px" }}>
         <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <button className={styles.guideBtn} style={{ marginLeft: "20px" }} onClick={checkManager}>
-          이메일 확인
+        <input placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <button className={styles.guideBtn} style={{ marginLeft: "20px" }} onClick={addManager}>
+          관리자로 추가
         </button>
       </div>
       <div>{info && info.length > 0 ? <Table columns={columns} data={info} /> : <p>정보 없음.</p>}</div>

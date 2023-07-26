@@ -33,7 +33,7 @@ export const ManagerTableColumns = () => [
         console.log(accessToken);
         axios
           .post(
-            `http://amuseapi.wheelgo.net/api/v1/admin/update-role/${user_db_id}`,
+            `https://amuseapi.wheelgo.net/api/v1/admin/update-role/${user_db_id}`,
             {
               roleType: "ADMIN",
             },

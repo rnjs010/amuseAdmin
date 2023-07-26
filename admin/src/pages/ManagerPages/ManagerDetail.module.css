@@ -6,9 +6,9 @@
 .guideInfo {
   font-size: 14px;
   margin: 4px 12px;
-};
+}
 
-.guideBtn{
+.guideBtn {
   background: #eb1749;
   width: 80px;
   height: 30px;
@@ -18,7 +18,7 @@
 
 .guideBtn {
   background: #eb1749;
-  width: 80px;
+  width: 100px;
   height: 30px;
   color: #fff;
   border-radius: 10px;

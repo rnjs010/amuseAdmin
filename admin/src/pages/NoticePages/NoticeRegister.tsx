@@ -12,7 +12,7 @@ const NoticeRegister = () => {
   const registerNotice = () => {
     (async () => {
       await axios
-        .post("http://amuseapi.wheelgo.net/test/api/notice/register", {
+        .post("https://amuseapi.wheelgo.net/test/api/notice/register", {
           title: title,
           content: content,
           createdBy: "daw916@naver.com",

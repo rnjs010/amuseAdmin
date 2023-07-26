@@ -3,18 +3,18 @@ import axios from "axios";
 export const AdLogic = {
   getAdArr: async (offset: number, limit: number, page: number) => {
     const response = await axios.get(
-      `http://amuseapi.wheelgo.net/test/api/ad/getList?offset=${offset}&limit=${limit}&page=${page}`
+      `https://amuseapi.wheelgo.net/test/api/ad/getList?offset=${offset}&limit=${limit}&page=${page}`
     );
     return response.data.data;
   },
 
   getAdDetail: async (id: number) => {
-    const response = await axios.get(`http://amuseapi.wheelgo.net/test/api/ad/${id}`);
+    const response = await axios.get(`https://amuseapi.wheelgo.net/test/api/ad/${id}`);
     return response.data.data;
   },
 
   updateAdDetail: async (data: any) => {
-    const response = await axios.post(`http://amuseapi.wheelgo.net/test/api/ad/edit`, data);
+    const response = await axios.post(`https://amuseapi.wheelgo.net/test/api/ad/edit`, data);
     return response;
   },
 };
