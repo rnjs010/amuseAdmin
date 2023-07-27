@@ -22,7 +22,7 @@ const LoginDetail = () => {
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useRecoilState(isLoggedIn);
   const navigate = useNavigate();
-  const redirectU = "http://localhost:3000/"; //"https://myadmin.wheelgo.net/product";
+  const redirectU = "https://myadmin.wheelgo.net";
   const [cookies, setCookie, removeCookie] = useCookies(["id"]);
   const axiosWithRedirects = axios.create({
     maxRedirects: 10, // 리다이렉션 허용 설정
