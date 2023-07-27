@@ -4,33 +4,21 @@ import axios from "axios";
 import styles from "./ManagerDetail.module.css";
 import { ManagerTableColumns } from "../../components/Table/ManagerTableColumns";
 import Table from "../../components/Table/Table";
+import { Cookies, useCookies } from "react-cookie";
 
 const ManagerDetail = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [info, setInfo] = useState();
-
-  // const addManager = () => {
-  //   const accessToken = localStorage.getItem("loginToken");
-
-  // axios
-  //   .get(`https://amuseapi.wheelgo.net/api/v1/admin/search/users?email=${email}`, {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${accessToken}`,
-  //     },
-  //   })
-  //   .then((response) => {
-  //     console.log(response.data.data);
-  //     setEmailExists(true);
-  //     alert("관리자로 추가합니다.");
-  //     setInfo(response.data.data);
-  //   });
-  // };
-
+  const [info, setInfo] = useState([]);
+  const [cookies, setCookie, removeCookie] = useCookies(["id"]);
+  // console.log("쿠키", cookies.id);
   const redirectU = "https://myadmin.wheelgo.net/manager";
 
   const addManager = async (event) => {
+    if (email === "" || password === "") {
+      alert("이메일과 비밀번호를 입력해주세요.");
+      return;
+    }
     event.preventDefault();
     console.log(email, password);
 
@@ -62,7 +50,66 @@ const ManagerDetail = () => {
     }
   };
 
-  const columns = ManagerTableColumns();
+  const checkAdminAccounts = async (accessToken) => {
+    try {
+      const apiU = "https://ammuse.store/api/v1/auth/refresh";
+      const response = await axios.get(apiU, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${accessToken}`,
+        },
+      });
+      console.log("요청보낸 토큰:", accessToken);
+      const data = response.data;
+      if (data.code === 1000 && data.data) {
+        setCookie(data.data.newAccessToken.token);
+        console.log(data.data.newAccessToken.token);
+      }
+    } catch (error) {
+      console.error("토큰 만료되지 않음:", error);
+    }
+  };
+
+  const fetchAdminAccounts = async (accessToken) => {
+    console.log("fetch");
+    try {
+      const apiU = "https://amuseapi.wheelgo.net/api/v1/admin/accounts/all";
+      const response = await axios.get(apiU, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${accessToken}`,
+        },
+      });
+      console.log("요청보낸 토큰:", accessToken);
+      const data = response.data;
+      if (data.code === 1000 && data.data && data.data.accounts) {
+        setInfo(data.data.accounts);
+        setColumns(ManagerTableColumns(data.data.accounts));
+        console.log(data.data.accounts);
+      } else {
+        // No accounts or other error
+        setInfo([]);
+      }
+    } catch (error) {
+      console.error("API 요청 에러:", error);
+      setInfo([]);
+    }
+  };
+
+  useEffect(() => {
+    // 컴포넌트가 마운트되면 관리자 계정을 가져옵니다.
+    checkAdminAccounts(cookies.id);
+    const accessToken = cookies.id;
+    if (accessToken) {
+      fetchAdminAccounts(accessToken);
+    }
+  }, []);
+
+  const [columns, setColumns] = useState(ManagerTableColumns(info));
+  const data = info.map((email, index) => ({
+    id: index,
+    email: email,
+  }));
   return (
     <div style={{ margin: "18px" }}>
       <div
@@ -87,7 +134,7 @@ const ManagerDetail = () => {
           관리자로 추가
         </button>
       </div>
-      <div>{info && info.length > 0 ? <Table columns={columns} data={info} /> : <p>정보 없음.</p>}</div>
+      <div>{info && Array.isArray(info) ? <Table columns={columns} data={data} /> : <p>정보 없음.</p>}</div>
     </div>
   );
 };
