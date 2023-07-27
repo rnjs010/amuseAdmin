@@ -9,23 +9,21 @@ import GoogleIcon from "@mui/icons-material/Google";
 import { useRecoilState } from "recoil";
 import { isLoggedIn } from "../atoms";
 import { useNavigate } from "react-router-dom";
-import { Cookies } from "react-cookie";
+import { Cookies, useCookies } from "react-cookie";
 import EmailInput from "./EmailInput";
 import PasswordInput from "./PasswordInput";
 
-const cookies = new Cookies();
-
-export const getCookie = (token) => {
-  return cookies.get(token);
-};
+// export const getCookie = (token) => {
+//   return cookies.get(token);
+// };
 
 const LoginDetail = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useRecoilState(isLoggedIn);
   const navigate = useNavigate();
-  const redirectU = "https://myadmin.wheelgo.net/product";
-
+  const redirectU = "http://localhost:3000/"; //"https://myadmin.wheelgo.net/product";
+  const [cookies, setCookie, removeCookie] = useCookies(["id"]);
   const axiosWithRedirects = axios.create({
     maxRedirects: 10, // 리다이렉션 허용 설정
   });
@@ -44,6 +42,10 @@ const LoginDetail = () => {
         // 로그인에 성공한 경우
         setLoggedIn(true);
         alert("로그인 성공!");
+        setCookie("id", data.data.accessToken); // "accessToken" 쿠키에 데이터의 accessToken 값을 설정
+
+        console.log("로그인 성공 쿠키 값:", cookies.id);
+
         window.location.href = redirectU;
       } else if (data.status === 451) {
         alert("비밀번호가 틀렸습니다.");

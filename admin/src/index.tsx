@@ -46,19 +46,21 @@ import PageRegister from "./pages/PageEditingPages/PageRegister";
 import ManagerDetail from "./pages/ManagerPages/ManagerDetail";
 import LoginDetail from "./pages/LoginPages/LoginDetail";
 
+import { CookiesProvider } from "react-cookie";
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     errorElement: <NotFound />,
     children: [
-      { index: true, element: <DashBoard /> },
-      { path: "product", element: <ProductManage /> },
-      { path: "product/status", element: <ProductStatus /> },
-      { path: "product/create", element: <ProductCreate /> },
-      { path: "product/delete", element: <ProductDelete /> },
-      { path: "product/edit/:productId", element: <ProductEdit /> },
-      { path: "product/copy/:productId", element: <ProductCopy /> },
+      // { index: true, element: <DashBoard /> },
+      { index: true, element: <ProductManage /> },
+      { path: "/status", element: <ProductStatus /> },
+      { path: "/create", element: <ProductCreate /> },
+      { path: "/delete", element: <ProductDelete /> },
+      { path: "/edit/:productId", element: <ProductEdit /> },
+      { path: "/copy/:productId", element: <ProductCopy /> },
 
       { path: "/component", element: <ComponentManage /> },
       { path: "/component/mainpage", element: <MainPageComponentAdd /> },
@@ -107,7 +109,9 @@ const router = createBrowserRouter([
 
 ReactDOM.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <CookiesProvider>
+      <RouterProvider router={router} />
+    </CookiesProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
