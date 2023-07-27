@@ -67,7 +67,7 @@ function Header() {
         )}
       </div>
       <div className={styles.category}>
-        <button onClick={() => navigate("/product")}>여행 상품 관리</button>
+        <button onClick={() => navigate("/")}>여행 상품 관리</button>
         <button onClick={() => navigate("/staff")}>가이드 관리</button>
         <button onClick={() => navigate("/componentV2")}>컴포넌트 관리(V2)</button>
         <button onClick={() => navigate("/page")}>페이지 관리</button>
