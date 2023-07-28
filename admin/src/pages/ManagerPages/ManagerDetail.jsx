@@ -64,7 +64,7 @@ const ManagerDetail = () => {
           Authorization: cookies.id,
         },
       });
-      console.log("요청보낸 토큰:", token);
+      console.log("manager detail 토큰:", token);
       const data = response.data;
       if (data.code === 1000 && data.data && data.data.accounts) {
         setInfo(data.data.accounts);

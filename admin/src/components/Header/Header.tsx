@@ -15,15 +15,22 @@ function Header() {
   // console.log("로그인 여부", loggedIn);
   // console.log("accessToken 쿠키 값:", cookies.id);
 
-  const [remainingTime, setRemainingTime] = useState(0);
+  const [remainingTime, setRemainingTime] = useState(() => {
+    const storedTime = localStorage.getItem("remainingTime");
+    return storedTime ? parseInt(storedTime, 10) : 0;
+  });
 
   useEffect(() => {
     if (loggedIn) {
       setRemainingTime(3600);
 
-      // Start the countdown timer
+      // 타이머 시작
       const timer = setInterval(() => {
-        setRemainingTime((prevTime) => prevTime - 1);
+        setRemainingTime((prevTime) => {
+          // remainingTime을 로컬 스토리지에 저장
+          localStorage.setItem("remainingTime", String(prevTime));
+          return prevTime - 1;
+        });
       }, 1000);
 
       return () => {
@@ -33,6 +40,7 @@ function Header() {
   }, [loggedIn]);
 
   const checkAdminAccounts = async (token: any) => {
+    console.log("요청보낸 토큰:", token);
     try {
       const apiU = "https://ammuse.store/api/v1/auth/refresh";
       const response = await axios.get(apiU, {
@@ -41,10 +49,12 @@ function Header() {
           Authorization: token,
         },
       });
-      console.log("요청보낸 토큰:", accessToken);
+
       const data = response.data;
+      console.log(data);
       if (data.code === 1000 && data.data) {
-        setToken(data.data);
+        setToken(data.data.token);
+        console.log("새로운 토큰", data.data.token);
         return true;
       }
       return false;
@@ -64,12 +74,7 @@ function Header() {
       }
     };
     refreshAdminToken();
-    const interval = setInterval(refreshAdminToken, 60000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [token, setCookie]);
+  }, []);
 
   useEffect(() => {
     if (remainingTime < 0 && loggedIn) {

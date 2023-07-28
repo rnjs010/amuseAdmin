@@ -255,7 +255,7 @@ function ProductForm() {
   // useEffect(() => {
   //   checkAdminAccounts(cookies.id);
   // }, []);
-  const handleAddProduct = async () => {
+  const handleAddProduct = () => {
     try {
       // checkAdminAccounts(cookies.id);
 
@@ -289,11 +289,11 @@ function ProductForm() {
       const jsonString = JSON.stringify(product);
       const byteSize = new Blob([jsonString], { type: "application/json" }).size;
       console.log("byteSize: ", byteSize);
-      console.log("현재 access토큰:", cookies.id);
+      console.log("현재 access토큰:", token);
       const res = axiosInstance.post("/test/api/product/insert", product, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: cookies.id,
+          Authorization: token,
         },
       });
       console.log(JSON.stringify(res));
