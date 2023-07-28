@@ -1,5 +1,8 @@
 import axios from "axios";
 import { Cookies, useCookies } from "react-cookie";
+import Modal from "react-modal";
+import { useState } from "react";
+
 const accessToken = localStorage.getItem("loginToken");
 
 export const ManagerTableColumns = (info) => [
@@ -16,54 +19,56 @@ export const ManagerTableColumns = (info) => [
     Cell: ({ row }) => <button onClick={() => handleDeleteAccount(row.original.email)}>삭제</button>,
   },
 ];
+
 const handleChangePassword = async (email) => {
   try {
-    // TODO: 비밀번호 변경 API 호출 및 처리
+    // setNewPasswordModalOpen(true);
     console.log("비밀번호 변경 클릭: ", email);
   } catch (error) {
     console.error("비밀번호 변경 에러:", error);
-    // TODO: 에러 처리
   }
 };
 
 const handleDeleteAccount = async (email) => {
   try {
-    // TODO: 계정 삭제 API 호출 및 처리
     console.log("삭제 클릭: ", email);
+
+    const apiUrl = `https://amuseapi.wheelgo.net/api/v1/auth/withdraw?id=${email}`;
+    const response = await axios.delete(apiUrl);
+
+    console.log("삭제 응답 데이터:", response.data);
   } catch (error) {
     console.error("계정 삭제 에러:", error);
-    // TODO: 에러 처리
   }
 };
 
-// {
-//   Header: "Actions",
-//   Cell: ({ row }) => {
-//     const user_db_id = row.original.user_db_id;
-//     const [cookies, setCookie, removeCookie] = useCookies(["id"]);
-//     const handleAddManager = (user_db_id) => {
-//       console.log(user_db_id);
-//       console.log(accessToken);
-//       axios
-//         .get(
-//           `https://amuseapi.wheelgo.net/api/v1/admin/accounts/all`,
-//           {
-//             roleType: "ADMIN",
-//           },
-//           {
-//             headers: {
-//               "Content-Type": "application/json",
-//               Authorization: cookies.id,
-//             },
-//           }
-//         )
-//         .then((res) => {
-//           console.log(res);
-//           alert("추가 성공");
-//         })
-//         .catch((err) => console.log(err));
-//     };
+function ManagerTable() {
+  const [newPasswordModalOpen, setNewPasswordModalOpen] = useState(false);
+  const [newPassword, setNewPassword] = useState(""); // 새 비밀번호 상태 관리
+  const handleNewPasswordChange = (event) => {
+    setNewPassword(event.target.value);
+  };
 
-//   return <button onClick={() => handleAddManager(user_db_id)}>추가하기</button>;
-// },
-// },
+  const handleSaveNewPassword = async () => {
+    try {
+      const apiUrl = "https://amuseapi.wheelgo.net/api/v1/auth/password/change";
+      const requestBody = { password: newPassword };
+      const response = await axios.post(apiUrl, requestBody);
+
+      setNewPasswordModalOpen(false);
+    } catch (error) {
+      console.error("새 비밀번호 저장 에러:", error);
+    }
+  };
+
+  return (
+    <div>
+      <Modal isOpen={newPasswordModalOpen} onRequestClose={() => setNewPasswordModalOpen(false)}>
+        <h2>새로운 비밀번호 입력</h2>
+        <input type="password" value={newPassword} onChange={handleNewPasswordChange} />
+        <button onClick={handleSaveNewPassword}>저장</button>
+        <button onClick={() => setNewPasswordModalOpen(false)}>취소</button>
+      </Modal>
+    </div>
+  );
+}
