@@ -11,6 +11,9 @@ import MainImage from "./MainImage";
 import { IoMdRemoveCircle } from "react-icons/io";
 import { useCookies } from "react-cookie";
 
+import { isLoggedIn, accessToken } from "../../../pages/atoms";
+import { useRecoilState } from "recoil";
+
 type HTML = string;
 
 type Category = {
@@ -226,59 +229,85 @@ function ProductForm() {
   const handleExtraInfo = (html: HTML) => {
     setExtraInfo(html);
   };
-  const [cookies] = useCookies(["id"]);
-  const accessToken = cookies.id;
+  const [cookies, setCookie] = useCookies(["id"]);
+  const [token, setToken] = useRecoilState(accessToken);
+  // const checkAdminAccounts = async (accessToken: any) => {
+  //   console.log("check");
+  //   try {
+  //     const apiU = "https://ammuse.store/api/v1/auth/refresh";
+  //     const response = await axios.get(apiU, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `${accessToken}`,
+  //       },
+  //     });
+  //     console.log("갱신요청보낸 토큰:", accessToken);
+  //     const data = response.data;
+  //     if (data.code === 1000 && data.data) {
+  //       setCookie("id", data.data.newAccessToken.token);
+  //       console.log(data.data.newAccessToken.token);
+  //       setAccessToken(data.data.newAccessToken.token);
+  //     }
+  //   } catch (error) {
+  //     console.error("토큰 만료되지 않음:", error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   checkAdminAccounts(cookies.id);
+  // }, []);
+  const handleAddProduct = async () => {
+    try {
+      // checkAdminAccounts(cookies.id);
 
-  const handleAddProduct = () => {
-    const product: Product = {
-      productId,
-      option: "create",
-      category,
-      title: productTitle,
-      startPrice: 9999,
-      admin: "daw916@naver.com",
-      location: {
-        country,
-        city,
-      },
-      accessAuthority: {
-        accessibleUserList,
-        accessibleTier,
-      },
-      duration: `${durationNights}박 ${durationDays}일`,
-      startDate: listingStartDate,
-      endDate: listingEndDate,
-      mainImg,
-      ticket,
-      mainInfo,
-      course,
-      extraInfo,
-    };
-    console.log(product);
-    const jsonString = JSON.stringify(product);
-    const byteSize = new Blob([jsonString], { type: "application/json" }).size;
-    console.log("byteSize: ", byteSize);
-    axiosInstance
-      .post("/test/api/product/insert", product, {
+      console.log("productform 현재 토큰:", cookies.id);
+      const product: Product = {
+        productId,
+        option: "create",
+        category,
+        title: productTitle,
+        startPrice: 9999,
+        admin: "daw916@naver.com",
+        location: {
+          country,
+          city,
+        },
+        accessAuthority: {
+          accessibleUserList,
+          accessibleTier,
+        },
+        duration: `${durationNights}박 ${durationDays}일`,
+        startDate: listingStartDate,
+        endDate: listingEndDate,
+        mainImg,
+        ticket,
+        mainInfo,
+        course,
+        extraInfo,
+      };
+
+      console.log(product);
+      const jsonString = JSON.stringify(product);
+      const byteSize = new Blob([jsonString], { type: "application/json" }).size;
+      console.log("byteSize: ", byteSize);
+      console.log("현재 access토큰:", cookies.id);
+      const res = axiosInstance.post("/test/api/product/insert", product, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: accessToken,
+          Authorization: cookies.id,
         },
-      })
-      .then((res) => {
-        console.log(JSON.stringify(res));
-        alert(`
-        여행 상품 등록에 성공했습니다.
-        ${JSON.stringify(res)}
-      `);
-      })
-      .catch((err) => {
-        console.error(err);
-        alert(`
-        여행 상품 등록에 실패했습니다.
-        ${err}
-      `);
       });
+      console.log(JSON.stringify(res));
+      alert(`
+      여행 상품 등록에 성공했습니다.
+      ${JSON.stringify(res)}
+    `);
+    } catch (err) {
+      console.error(err);
+      alert(`
+      여행 상품 등록에 실패했습니다.
+      ${err}
+    `);
+    }
   };
 
   return (

@@ -5,12 +5,15 @@ import styles from "./ManagerDetail.module.css";
 import { ManagerTableColumns } from "../../components/Table/ManagerTableColumns";
 import Table from "../../components/Table/Table";
 import { Cookies, useCookies } from "react-cookie";
+import { useRecoilState } from "recoil";
+import { isLoggedIn, accessToken } from "../../pages/atoms";
 
 const ManagerDetail = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [info, setInfo] = useState([]);
   const [cookies, setCookie, removeCookie] = useCookies(["id"]);
+  const [token, setToken] = useRecoilState(accessToken);
   // console.log("쿠키", cookies.id);
   const redirectU = "https://myadmin.wheelgo.net/manager";
 
@@ -50,37 +53,18 @@ const ManagerDetail = () => {
     }
   };
 
-  const checkAdminAccounts = async (accessToken) => {
-    try {
-      const apiU = "https://ammuse.store/api/v1/auth/refresh";
-      const response = await axios.get(apiU, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `${accessToken}`,
-        },
-      });
-      console.log("요청보낸 토큰:", accessToken);
-      const data = response.data;
-      if (data.code === 1000 && data.data) {
-        setCookie(data.data.newAccessToken.token);
-        console.log(data.data.newAccessToken.token);
-      }
-    } catch (error) {
-      console.error("토큰 만료되지 않음:", error);
-    }
-  };
-
-  const fetchAdminAccounts = async (accessToken) => {
+  const fetchAdminAccounts = async (token) => {
+    setToken(cookies.id);
     console.log("fetch");
     try {
       const apiU = "https://amuseapi.wheelgo.net/api/v1/admin/accounts/all";
       const response = await axios.get(apiU, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${accessToken}`,
+          Authorization: cookies.id,
         },
       });
-      console.log("요청보낸 토큰:", accessToken);
+      console.log("요청보낸 토큰:", token);
       const data = response.data;
       if (data.code === 1000 && data.data && data.data.accounts) {
         setInfo(data.data.accounts);
@@ -97,11 +81,9 @@ const ManagerDetail = () => {
   };
 
   useEffect(() => {
-    // 컴포넌트가 마운트되면 관리자 계정을 가져옵니다.
-    checkAdminAccounts(cookies.id);
-    const accessToken = cookies.id;
-    if (accessToken) {
-      fetchAdminAccounts(accessToken);
+    // const accessToken = cookies.id;
+    if (token) {
+      fetchAdminAccounts(token);
     }
   }, []);
 

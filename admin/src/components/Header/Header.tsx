@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
-import { isLoggedIn } from "../../pages/atoms";
+import { isLoggedIn, accessToken } from "../../pages/atoms";
 import { useRecoilState } from "recoil";
 import { Cookies, useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
@@ -11,6 +11,7 @@ function Header() {
   const [userID, setUserId] = useState(null);
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useRecoilState(isLoggedIn);
+  const [token, setToken] = useRecoilState(accessToken);
   // console.log("로그인 여부", loggedIn);
   // console.log("accessToken 쿠키 값:", cookies.id);
 
@@ -30,6 +31,45 @@ function Header() {
       };
     }
   }, [loggedIn]);
+
+  const checkAdminAccounts = async (token: any) => {
+    try {
+      const apiU = "https://ammuse.store/api/v1/auth/refresh";
+      const response = await axios.get(apiU, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
+      console.log("요청보낸 토큰:", accessToken);
+      const data = response.data;
+      if (data.code === 1000 && data.data) {
+        setToken(data.data);
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.log("토큰 만료되지 않음:", error);
+      console.log(token);
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    const refreshAdminToken = async () => {
+      const tokenRefreshed = await checkAdminAccounts(token);
+
+      if (tokenRefreshed) {
+        setCookie("id", token);
+      }
+    };
+    refreshAdminToken();
+    const interval = setInterval(refreshAdminToken, 60000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [token, setCookie]);
 
   useEffect(() => {
     if (remainingTime < 0 && loggedIn) {
