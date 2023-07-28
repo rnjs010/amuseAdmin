@@ -14,3 +14,9 @@ export const isManager = atom<boolean>({
   default: false,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const accessToken = atom<string>({
+  key: "accessToken",
+  default: "e",
+  effects_UNSTABLE: [persistAtom],
+});

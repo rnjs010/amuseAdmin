@@ -43,7 +43,7 @@ export default function GuideModal({ getGuideInfo, setAllGuide }) {
 
   const handleAddGuide = () => {
     axios
-      .post(`https://amuseapi.wheelgo.net/test/api/crate/guide`, {
+      .post(`https://amuseapi.wheelgo.net/test/api/create/guide`, {
         name: name,
         email: email,
         guideCode: guideCode,

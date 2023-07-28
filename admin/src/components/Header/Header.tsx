@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
-import { isLoggedIn } from "../../pages/atoms";
+import { isLoggedIn, accessToken } from "../../pages/atoms";
 import { useRecoilState } from "recoil";
 import { Cookies, useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
@@ -11,18 +11,26 @@ function Header() {
   const [userID, setUserId] = useState(null);
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useRecoilState(isLoggedIn);
+  const [token, setToken] = useRecoilState(accessToken);
   // console.log("로그인 여부", loggedIn);
   // console.log("accessToken 쿠키 값:", cookies.id);
 
-  const [remainingTime, setRemainingTime] = useState(0);
+  const [remainingTime, setRemainingTime] = useState(() => {
+    const storedTime = localStorage.getItem("remainingTime");
+    return storedTime ? parseInt(storedTime, 10) : 0;
+  });
 
   useEffect(() => {
     if (loggedIn) {
       setRemainingTime(3600);
 
-      // Start the countdown timer
+      // 타이머 시작
       const timer = setInterval(() => {
-        setRemainingTime((prevTime) => prevTime - 1);
+        setRemainingTime((prevTime) => {
+          // remainingTime을 로컬 스토리지에 저장
+          localStorage.setItem("remainingTime", String(prevTime));
+          return prevTime - 1;
+        });
       }, 1000);
 
       return () => {
@@ -30,6 +38,43 @@ function Header() {
       };
     }
   }, [loggedIn]);
+
+  const checkAdminAccounts = async (token: any) => {
+    console.log("요청보낸 토큰:", token);
+    try {
+      const apiU = "https://ammuse.store/api/v1/auth/refresh";
+      const response = await axios.get(apiU, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
+
+      const data = response.data;
+      console.log(data);
+      if (data.code === 1000 && data.data) {
+        setToken(data.data.token);
+        console.log("새로운 토큰", data.data.token);
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.log("토큰 만료되지 않음:", error);
+      console.log(token);
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    const refreshAdminToken = async () => {
+      const tokenRefreshed = await checkAdminAccounts(token);
+
+      if (tokenRefreshed) {
+        setCookie("id", token);
+      }
+    };
+    refreshAdminToken();
+  }, []);
 
   useEffect(() => {
     if (remainingTime < 0 && loggedIn) {
