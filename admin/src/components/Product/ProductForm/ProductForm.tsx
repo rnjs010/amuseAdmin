@@ -13,6 +13,7 @@ import { useCookies } from "react-cookie";
 
 import { isLoggedIn, accessToken } from "../../../pages/atoms";
 import { useRecoilState } from "recoil";
+import ModalComponent from "./ModalComponent";
 
 type HTML = string;
 
@@ -79,6 +80,8 @@ type Product = {
   mainInfo: string;
   course: Course[];
   extraInfo: HTML;
+  guide_code: string;
+  guide_comment: string;
 };
 
 function ProductForm() {
@@ -231,30 +234,52 @@ function ProductForm() {
   };
   const [cookies, setCookie] = useCookies(["id"]);
   const [token, setToken] = useRecoilState(accessToken);
-  // const checkAdminAccounts = async (accessToken: any) => {
-  //   console.log("check");
-  //   try {
-  //     const apiU = "https://ammuse.store/api/v1/auth/refresh";
-  //     const response = await axios.get(apiU, {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `${accessToken}`,
-  //       },
-  //     });
-  //     console.log("갱신요청보낸 토큰:", accessToken);
-  //     const data = response.data;
-  //     if (data.code === 1000 && data.data) {
-  //       setCookie("id", data.data.newAccessToken.token);
-  //       console.log(data.data.newAccessToken.token);
-  //       setAccessToken(data.data.newAccessToken.token);
-  //     }
-  //   } catch (error) {
-  //     console.error("토큰 만료되지 않음:", error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   checkAdminAccounts(cookies.id);
-  // }, []);
+
+  type GuideData = {
+    guide_db_id: number;
+    guideCode: string;
+    userName: string;
+    email: string;
+    profileImageUrl: string;
+    introduce: string;
+  };
+
+  // Now use the custom type for guideSelected state
+  const [guideSelected, setGuideSelected] = useState<GuideData>();
+  const [guide_code, setGuideCode] = useState<HTML>("");
+  const [guide_comment, setGuideComment] = useState<HTML>("");
+  const [guideInfos, setGuideInfos] = useState([]); // 가이드 모달창에 불러올 정보들
+
+  const handleGuideComment = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setGuideComment(event.target.value);
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 여부를 관리하는 상태
+
+  const loadGuide = async () => {
+    try {
+      const response = await axiosInstance.get(`https://amuseapi.wheelgo.net/test/api/list/guide?page=1&limit=4`);
+      const guideInfoData = response.data.data.guideInfo;
+      console.log(response.data.data.guideInfo);
+      setGuideInfos(guideInfoData);
+      setIsModalOpen(true); // 가이드 정보를 불러오는 버튼을 누르면 모달을 엽니다.
+    } catch (error) {
+      console.error(error);
+      // 에러 처리
+    }
+  };
+  const handleGuideCodeSelect = (selectedGuide: GuideData) => {
+    setGuideSelected(selectedGuide);
+    setGuideCode(selectedGuide.guideCode);
+    console.log("가이드값", selectedGuide);
+  };
+
+  // console.log("가이드 코드 ", guide_code);
+
+  const closeModal = () => {
+    setIsModalOpen(false); // 모달을 닫습니다.
+  };
+
   const handleAddProduct = () => {
     try {
       // checkAdminAccounts(cookies.id);
@@ -283,17 +308,19 @@ function ProductForm() {
         mainInfo,
         course,
         extraInfo,
+        guide_code: guideSelected!.guideCode,
+        guide_comment,
       };
 
       console.log(product);
       const jsonString = JSON.stringify(product);
       const byteSize = new Blob([jsonString], { type: "application/json" }).size;
       console.log("byteSize: ", byteSize);
-      console.log("현재 access토큰:", token);
+      console.log("현재 access토큰:", cookies.id);
       const res = axiosInstance.post("/test/api/product/insert", product, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: token,
+          Authorization: cookies.id,
         },
       });
       console.log(JSON.stringify(res));
@@ -452,7 +479,20 @@ function ProductForm() {
       <section>
         <div className={styles.sectionTitle}>추가 정보</div>
         <div className={styles.sectionDivider}></div>
-        <ExtraInfo htmlProps={extraInfo} onChange={handleExtraInfo} />
+        {isModalOpen ? (
+          <div
+            style={{
+              height: "400px",
+              width: "100%",
+              backgroundColor: "white",
+              // border: "1px solid black",
+              borderRadius: "0px",
+              padding: "20px",
+            }}
+          ></div>
+        ) : (
+          <ExtraInfo htmlProps={extraInfo} onChange={handleExtraInfo} />
+        )}
       </section>
 
       <section>
@@ -460,13 +500,31 @@ function ProductForm() {
         <div className={styles.sectionDivider}></div>
         <div className={`${styles.container} ${styles.guide}`}>
           <div className={styles.guideProfile}>
-            <div className={styles.guideImg}></div>
-            <p className={styles.guideName}>name</p>
-            <p className={styles.guideCode}>1234-1234-1234</p>
+            {guideSelected && guideSelected.profileImageUrl && (
+              <>
+                <img src={guideSelected.profileImageUrl} alt="Guide Profile" className={styles.guideImg} />
+                <p className={styles.guideName}>{guideSelected.userName}</p>
+                <p className={styles.guideCode}>{guideSelected.email}</p>
+              </>
+            )}
           </div>
           <div className={styles.divider}></div>
-          <textarea className={styles.guideTextArea} placeholder="내용을 입력하세요."></textarea>
-          <button className={styles.guideGetBtn}>가이드 불러오기</button>
+          <textarea
+            className={styles.guideTextArea}
+            placeholder="내용을 입력하세요."
+            onChange={handleGuideComment}
+          ></textarea>
+          <button className={styles.guideGetBtn} onClick={loadGuide}>
+            가이드 불러오기
+          </button>
+          {isModalOpen && ( // ModalComponent를 조건부 렌더링
+            <ModalComponent
+              guideInfo={guideInfos}
+              isOpen={isModalOpen}
+              closeModal={closeModal}
+              onSelectGuide={handleGuideCodeSelect}
+            />
+          )}
         </div>
       </section>
 

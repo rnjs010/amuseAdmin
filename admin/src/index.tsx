@@ -45,6 +45,7 @@ import ProductCopy from "./components/Product/ProductCopy/ProductCopy";
 import PageRegister from "./pages/PageEditingPages/PageRegister";
 import ManagerDetail from "./pages/ManagerPages/ManagerDetail";
 import LoginDetail from "./pages/LoginPages/LoginDetail";
+import Modal from "react-modal";
 
 import { CookiesProvider } from "react-cookie";
 
@@ -106,7 +107,7 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-
+Modal.setAppElement("#root");
 ReactDOM.render(
   <React.StrictMode>
     <CookiesProvider>
