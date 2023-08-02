@@ -28,7 +28,7 @@ export const GuideTableCloumns = (setAllGuide) => [
       const handleDeleteGuide = (guideCode) => {
         console.log(guideCode);
         axios
-          .get(`https://amuseapi.wheelgo.net/test/api/delete/guide/${guideCode}`)
+          .get(`https://devapi.wheelgo.net/test/api/delete/guide/${guideCode}`)
           .then((res) => {
             console.log(res);
             getGuideInfo(setAllGuide);

@@ -42,7 +42,7 @@ function Header() {
   const checkAdminAccounts = async (token: any) => {
     console.log("요청보낸 토큰:", token);
     try {
-      const apiU = "https://amuseapi.wheelgo.net/api/v1/auth/refresh";
+      const apiU = "https://devapi.wheelgo.net/api/v1/auth/refresh";
       const response = await axios.get(apiU, {
         headers: {
           "Content-Type": "application/json",

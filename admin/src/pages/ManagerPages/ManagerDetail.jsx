@@ -25,7 +25,7 @@ const ManagerDetail = () => {
     event.preventDefault();
     console.log(email, password);
 
-    const apiUrl = "https://amuseapi.wheelgo.net/api/v1/auth/signup";
+    const apiUrl = "https://devapi.wheelgo.net/api/v1/auth/signup";
     const requestData = {
       id: email,
       password: password,
@@ -57,7 +57,7 @@ const ManagerDetail = () => {
     setToken(cookies.id);
     console.log("fetch");
     try {
-      const apiU = "https://amuseapi.wheelgo.net/api/v1/admin/accounts/all";
+      const apiU = "https://devapi.wheelgo.net/api/v1/admin/accounts/all";
       const response = await axios.get(apiU, {
         headers: {
           "Content-Type": "application/json",

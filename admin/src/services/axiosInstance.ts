@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: "https://amuseapi.wheelgo.net",
+  baseURL: "https://devapi.wheelgo.net",
 });
 
 export default axiosInstance;

@@ -89,7 +89,7 @@ const AdRegister = () => {
     }
 
     await axios
-      .post(`https://amuseapi.wheelgo.net/test/api/ad/register`, {
+      .post(`https://devapi.wheelgo.net/test/api/ad/register`, {
         title: title,
         startDate: startDate.toISOString().split("T")[0],
         endDate: endDate.toISOString().split("T")[0],

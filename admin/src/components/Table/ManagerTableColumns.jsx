@@ -33,7 +33,7 @@ const handleDeleteAccount = async (email) => {
   try {
     console.log("삭제 클릭: ", email);
 
-    const apiUrl = `https://amuseapi.wheelgo.net/api/v1/auth/withdraw?id=${email}`;
+    const apiUrl = `https://devapi.wheelgo.net/api/v1/auth/withdraw?id=${email}`;
     const response = await axios.delete(apiUrl);
 
     console.log("삭제 응답 데이터:", response.data);
@@ -51,7 +51,7 @@ function ManagerTable() {
 
   const handleSaveNewPassword = async () => {
     try {
-      const apiUrl = "https://amuseapi.wheelgo.net/api/v1/auth/password/change";
+      const apiUrl = "https://devapi.wheelgo.net/api/v1/auth/password/change";
       const requestBody = { password: newPassword };
       const response = await axios.post(apiUrl, requestBody);
 

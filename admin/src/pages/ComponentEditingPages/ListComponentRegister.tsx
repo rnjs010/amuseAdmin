@@ -22,7 +22,7 @@ const ListComponentRegister = () => {
   const [itemData, setItemData] = useState<ItemData[]>([]);
   useEffect(() => {
     axios
-      .get("https://amuseapi.wheelgo.net/item/search?page=1")
+      .get("https://devapi.wheelgo.net/item/search?page=1")
       .then((response) => {
         const responseItem = response.data.data.items;
         setItemData(responseItem);
@@ -83,7 +83,7 @@ const ListComponentRegister = () => {
 
     // POST 요청을 보냅니다.
     axios
-      .post("https://amuseapi.wheelgo.net/test/api/component/register/list", postData, {
+      .post("https://devapi.wheelgo.net/test/api/component/register/list", postData, {
         headers: {
           Authorization: process.env.REACT_APP_COMPONENT_API_KEY,
         },

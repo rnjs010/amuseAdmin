@@ -31,7 +31,7 @@ const LoginDetail = () => {
   const loginEvent = async (event) => {
     event.preventDefault();
 
-    const apiUrl = `https://amuseapi.wheelgo.net/api/v1/auth/login?id=${email}&password=${password}`;
+    const apiUrl = `https://devapi.wheelgo.net/api/v1/auth/login?id=${email}&password=${password}`;
 
     try {
       const response = await axiosWithRedirects.get(apiUrl);

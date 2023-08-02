@@ -36,7 +36,7 @@ function ProductStatus() {
 
   useEffect(() => {
     axios
-      .get("https://amuseapi.wheelgo.net/test/api/product/getList/byDisplay", {
+      .get("https://devapi.wheelgo.net/test/api/product/getList/byDisplay", {
         params: {
           limit: 8,
           page: currentActivePage,
@@ -57,7 +57,7 @@ function ProductStatus() {
 
   useEffect(() => {
     axios
-      .get("https://amuseapi.wheelgo.net/test/api/product/getList/byDisplay", {
+      .get("https://devapi.wheelgo.net/test/api/product/getList/byDisplay", {
         params: {
           limit: 8,
           page: currentInActivePage,
@@ -83,7 +83,7 @@ function ProductStatus() {
       })
     );
     axios
-      .get("https://amuseapi.wheelgo.net/test/api/product/delete", {
+      .get("https://devapi.wheelgo.net/test/api/product/delete", {
         params: {
           itemCode,
         },
@@ -94,7 +94,7 @@ function ProductStatus() {
 
   const handleInActivateProduct = (item: Item) => {
     axios
-      .get("https://amuseapi.wheelgo.net/test/api/change/displayStatus", {
+      .get("https://devapi.wheelgo.net/test/api/change/displayStatus", {
         params: {
           status: "HIDDEN",
           itemCode: item.itemCode,
@@ -114,7 +114,7 @@ function ProductStatus() {
 
   const handleActivateProduct = (item: Item) => {
     axios
-      .get("https://amuseapi.wheelgo.net/test/api/change/displayStatus", {
+      .get("https://devapi.wheelgo.net/test/api/change/displayStatus", {
         params: {
           status: "DISPLAY",
           itemCode: item.itemCode,
