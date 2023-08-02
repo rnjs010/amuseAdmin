@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil";
 import { Cookies, useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 function Header() {
   const [cookies, setCookie, removeCookie] = useCookies(["id"]);
@@ -96,6 +97,29 @@ function Header() {
     const secs = seconds % 60;
     return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
   };
+
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const handleBeforeUnload = (event: any) => {
+      if (loggedIn && location.pathname !== "/login") {
+        setShowConfirmation(true);
+        event.preventDefault();
+        event.returnValue = ""; // Required for Chrome
+      }
+    };
+
+    if (loggedIn && location.pathname !== "/login") {
+      window.addEventListener("beforeunload", handleBeforeUnload);
+    }
+
+    return () => {
+      if (loggedIn && location.pathname !== "/login") {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      }
+    };
+  }, [loggedIn, location]);
 
   return (
     <div className={styles.header}>
