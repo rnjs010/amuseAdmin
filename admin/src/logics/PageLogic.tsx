@@ -1,5 +1,6 @@
 import axios from "axios";
-
+import { Cookies } from "react-cookie";
+const cookies = new Cookies();
 export const PageLogic = {
   getPageList: async () => {
     const response = await axios.get("https://devapi.wheelgo.net/test/api/page/all");
@@ -20,7 +21,7 @@ export const PageLogic = {
     const response = await axios.post(`https://devapi.wheelgo.net/test/api/page/register`, data, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: process.env.REACT_APP_COMPONENT_API_KEY,
+        Authorization: cookies.get("id"),
       },
     });
     return response;
