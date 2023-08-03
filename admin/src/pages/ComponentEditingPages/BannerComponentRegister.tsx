@@ -5,6 +5,8 @@ import { Editor } from "@toast-ui/react-editor";
 
 import Swal from "sweetalert2";
 import axios from "axios";
+import { Cookies } from "react-cookie";
+const cookies = new Cookies();
 
 const BannerComponentRegister = () => {
   const [title, setTitle] = useState<string>("");
@@ -68,7 +70,8 @@ const BannerComponentRegister = () => {
     axios
       .post("https://devapi.wheelgo.net/test/api/component/register/banner", postData, {
         headers: {
-          Authorization: process.env.REACT_APP_COMPONENT_API_KEY,
+          "Content-Type": "application/json",
+          Authorization: cookies.get("id"),
         },
       })
       .then((response) => {

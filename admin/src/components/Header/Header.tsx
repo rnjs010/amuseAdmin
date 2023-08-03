@@ -41,41 +41,41 @@ function Header() {
   }, [loggedIn]);
 
   const checkAdminAccounts = async (token: any) => {
-    console.log("요청보낸 토큰:", token);
+    console.log("요청보낸 토큰:", cookies.id);
     try {
       const apiU = "https://devapi.wheelgo.net/api/v1/auth/refresh";
       const response = await axios.get(apiU, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: token,
+          Authorization: cookies.id,
         },
       });
 
       const data = response.data;
       console.log(data);
-      if (data.code === 1000 && data.data) {
+      if (data.data) {
         setToken(data.data.token);
         console.log("새로운 토큰", data.data.token);
         return true;
       }
       return false;
     } catch (error) {
-      console.log("토큰 만료되지 않음:", error);
+      console.log("토큰 갱신 에러:", error);
       console.log(token);
       return false;
     }
   };
 
-  useEffect(() => {
-    const refreshAdminToken = async () => {
-      const tokenRefreshed = await checkAdminAccounts(token);
+  // useEffect(() => {
+  //   const refreshAdminToken = async () => {
+  //     const tokenRefreshed = await checkAdminAccounts(token);
 
-      if (tokenRefreshed) {
-        setCookie("id", token);
-      }
-    };
-    refreshAdminToken();
-  }, []);
+  //     if (tokenRefreshed) {
+  //       setCookie("id", token);
+  //     }
+  //   };
+  //   refreshAdminToken();
+  // }, []);
 
   useEffect(() => {
     if (remainingTime < 0 && loggedIn) {

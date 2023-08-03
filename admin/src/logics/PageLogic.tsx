@@ -31,7 +31,7 @@ export const PageLogic = {
     const response = await axios.put(`https://devapi.wheelgo.net/test/api/page/edit/${id}`, data, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: process.env.REACT_APP_COMPONENT_API_KEY,
+        Authorization: cookies.get("id"),
       },
     });
     return response;

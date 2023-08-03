@@ -9,6 +9,8 @@ import CourseInfo from "../ProductForm/CourseInfo";
 import ExtraInfo from "../ProductForm/ExtraInfo";
 import { IoMdRemoveCircle } from "react-icons/io";
 import { Cookies, useCookies } from "react-cookie";
+import { useRecoilState } from "recoil";
+import ModalComponent from "../ProductForm/ModalComponent";
 
 type HTML = string;
 
@@ -54,14 +56,12 @@ interface ImageFile {
 }
 
 type Product = {
-  id: null | number;
   productId: string;
   option: string;
   category: string[];
   title: string;
   startPrice: number;
   admin: string;
-  updateAdmin: string | null;
   accessAuthority: {
     accessibleUserList: string[];
     accessibleTier: string;
@@ -78,6 +78,8 @@ type Product = {
   mainInfo: string;
   course: Course[];
   extraInfo: HTML;
+  guide_code: string;
+  guide_comment: string;
 };
 
 const userTierList = ["Bronze", "Silver", "Gold", "Platinum"];
@@ -136,12 +138,13 @@ function ProductEdit() {
   const [extraInfo, setExtraInfo] = useState<HTML>("");
   const [cookies] = useCookies(["id"]);
   const accessToken = cookies.id;
+  console.log("accessToken 값은 ", accessToken);
   useEffect(() => {
     axiosInstance
       .get(`/test/api/product/${productId}`, {
         headers: {
           "Content-Type": "application/json",
-          // Authorization: `${accessToken}`,
+          Authorization: `${accessToken}`,
         },
       })
       .then((res) => {
@@ -328,54 +331,106 @@ function ProductEdit() {
   };
   //---Extra Info
 
-  const handleAddProduct = () => {
-    const product: Product = {
-      id: dbId,
-      productId,
-      option: "update",
-      category,
-      title: productTitle,
-      startPrice: 9999,
-      admin: "daw916@naver.com",
-      updateAdmin: "daw916@naver.com",
-      location: {
-        country,
-        city,
-      },
-      accessAuthority: {
-        accessibleUserList,
-        accessibleTier,
-      },
-      duration: `${durationNights}박 ${durationDays}일`,
-      startDate: listingStartDate,
-      endDate: listingEndDate,
-      mainImg,
-      ticket,
-      mainInfo,
-      course,
-      extraInfo,
-    };
-    console.log(product);
-    const jsonString = JSON.stringify(product);
-    const byteSize = new Blob([jsonString], { type: "application/json" }).size;
-    console.log("byteSize: ", byteSize);
+  type GuideData = {
+    guide_db_id: number;
+    guideCode: string;
+    userName: string;
+    email: string;
+    profileImageUrl: string;
+    introduce: string;
+  };
 
-    axiosInstance
-      .post("/test/api/product/insert", product)
-      .then((res) => {
-        console.log(JSON.stringify(res));
-        alert(`
+  // Now use the custom type for guideSelected state
+  const [guideSelected, setGuideSelected] = useState<GuideData>();
+  const [guide_code, setGuideCode] = useState<HTML>("");
+  const [guide_comment, setGuideComment] = useState<HTML>("");
+  const [guideInfos, setGuideInfos] = useState([]); // 가이드 모달창에 불러올 정보들
+
+  const handleGuideComment = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setGuideComment(event.target.value);
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 여부를 관리하는 상태
+
+  const loadGuide = async () => {
+    try {
+      const response = await axiosInstance.get(`https://devapi.wheelgo.net/test/api/list/guide?page=1&limit=4`);
+      const guideInfoData = response.data.data.guideInfo;
+      console.log(response.data.data.guideInfo);
+      setGuideInfos(guideInfoData);
+      setIsModalOpen(true); // 가이드 정보를 불러오는 버튼을 누르면 모달을 엽니다.
+    } catch (error) {
+      console.error(error);
+      // 에러 처리
+    }
+  };
+  const handleGuideCodeSelect = (selectedGuide: GuideData) => {
+    setGuideSelected(selectedGuide);
+    setGuideCode(selectedGuide.guideCode);
+    console.log("가이드값", selectedGuide);
+  };
+
+  // console.log("가이드 코드 ", guide_code);
+
+  const closeModal = () => {
+    setIsModalOpen(false); // 모달을 닫습니다.
+  };
+
+  const handleAddProduct = () => {
+    try {
+      // checkAdminAccounts(cookies.id);
+
+      console.log("productform 현재 토큰:", cookies.id);
+      const product: Product = {
+        productId,
+        option: "update",
+        category,
+        title: productTitle,
+        startPrice: 9999,
+        admin: "daw916@naver.com",
+        location: {
+          country,
+          city,
+        },
+        accessAuthority: {
+          accessibleUserList,
+          accessibleTier,
+        },
+        duration: `${durationNights}박 ${durationDays}일`,
+        startDate: listingStartDate,
+        endDate: listingEndDate,
+        mainImg,
+        ticket,
+        mainInfo,
+        course,
+        extraInfo,
+        guide_code: guideSelected!.guideCode,
+        guide_comment,
+      };
+
+      console.log(product);
+      const jsonString = JSON.stringify(product);
+      const byteSize = new Blob([jsonString], { type: "application/json" }).size;
+      console.log("byteSize: ", byteSize);
+      console.log("현재 access토큰:", cookies.id);
+      const res = axiosInstance.post("/test/api/product/insert", product, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: cookies.id,
+        },
+      });
+      console.log(JSON.stringify(res));
+      alert(`
       여행 상품 등록에 성공했습니다.
       ${JSON.stringify(res)}
     `);
-      })
-      .catch((err) => {
-        console.error(err);
-        alert(`
+    } catch (err) {
+      console.error(err);
+      alert(`
       여행 상품 등록에 실패했습니다.
       ${err}
     `);
-      });
+    }
   };
 
   return (
@@ -522,13 +577,31 @@ function ProductEdit() {
         <div className={styles.sectionDivider}></div>
         <div className={`${styles.container} ${styles.guide}`}>
           <div className={styles.guideProfile}>
-            <div className={styles.guideImg}></div>
-            <p className={styles.guideName}>name</p>
-            <p className={styles.guideCode}>1234-1234-1234</p>
+            {guideSelected && guideSelected.profileImageUrl && (
+              <>
+                <img src={guideSelected.profileImageUrl} alt="Guide Profile" className={styles.guideImg} />
+                <p className={styles.guideName}>{guideSelected.userName}</p>
+                <p className={styles.guideCode}>{guideSelected.email}</p>
+              </>
+            )}
           </div>
           <div className={styles.divider}></div>
-          <textarea className={styles.guideTextArea} placeholder="내용을 입력하세요."></textarea>
-          <button className={styles.guideGetBtn}>가이드 불러오기</button>
+          <textarea
+            className={styles.guideTextArea}
+            placeholder="내용을 입력하세요."
+            onChange={handleGuideComment}
+          ></textarea>
+          <button className={styles.guideGetBtn} onClick={loadGuide}>
+            가이드 불러오기
+          </button>
+          {isModalOpen && ( // ModalComponent를 조건부 렌더링
+            <ModalComponent
+              guideInfo={guideInfos}
+              isOpen={isModalOpen}
+              closeModal={closeModal}
+              onSelectGuide={handleGuideCodeSelect}
+            />
+          )}
         </div>
       </section>
       <div className={`${styles.container} ${styles.submit}`}>

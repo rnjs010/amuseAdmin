@@ -1,4 +1,6 @@
 import axios from "axios";
+import { Cookies } from "react-cookie";
+const cookies = new Cookies();
 
 export const ComponentLogic = {
   getComponentList: async () => {
@@ -15,7 +17,7 @@ export const ComponentLogic = {
     const response = await axios.post(`https://devapi.wheelgo.net/test/api/component/register/tile`, data, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: process.env.REACT_APP_COMPONENT_API_KEY,
+        Authorization: cookies.get("id"),
       },
     });
     return response.data.data;
@@ -25,7 +27,7 @@ export const ComponentLogic = {
     const response = await axios.post(`https://devapi.wheelgo.net/test/api/component/edit/tile`, data, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: process.env.REACT_APP_COMPONENT_API_KEY,
+        Authorization: cookies.get("id"),
       },
     });
     return response.data.data;

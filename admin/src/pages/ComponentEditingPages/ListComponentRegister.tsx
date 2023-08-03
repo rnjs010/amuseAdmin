@@ -4,6 +4,8 @@ import { DragDropContext, Droppable, Draggable, DropResult } from "react-beautif
 import "./ComponentStyle/ListComponentRegister.scss";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { Cookies } from "react-cookie";
+const cookies = new Cookies();
 
 interface ItemData {
   item_db_id: number;
@@ -14,7 +16,7 @@ interface ItemData {
 
 const ListComponentRegister = () => {
   const [title, setTitle] = useState<string>("");
-  const [itemCode, setItemCode] = useState<string[]>([]);
+  const [itemIds, setItemIds] = useState<number[]>([]);
 
   /**
    * Item API
@@ -68,24 +70,27 @@ const ListComponentRegister = () => {
    */
 
   useEffect(() => {
-    setItemCode(selected.map((select) => select.product_code));
+    setItemIds(selected.map((select) => select.item_db_id));
   }, [selected]);
+
+  console.log(itemIds);
 
   const handleRegister = () => {
     // 등록할 데이터를 정리합니다.
 
     const postData = {
+      id: null,
       title: title,
       type: "리스트",
-      createdBy: "daw916@naver.com",
-      itemCode: itemCode,
+      item_db_id: itemIds,
     };
-
+    console.log("쿠키 ", cookies.get("id"));
     // POST 요청을 보냅니다.
     axios
       .post("https://devapi.wheelgo.net/test/api/component/register/list", postData, {
         headers: {
-          Authorization: process.env.REACT_APP_COMPONENT_API_KEY,
+          "Content-Type": "application/json",
+          Authorization: cookies.get("id"),
         },
       })
       .then((response) => {
