@@ -3,17 +3,32 @@ import { Cookies } from "react-cookie";
 const cookies = new Cookies();
 export const PageLogic = {
   getPageList: async () => {
-    const response = await axios.get("https://devapi.wheelgo.net/test/api/page/all");
+    const response = await axios.get("https://devapi.wheelgo.net/test/api/page/all", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: cookies.get("id"),
+      },
+    });
     return response.data.data;
   },
 
   getPageListNotDisable: async () => {
-    const response = await axios.get("https://devapi.wheelgo.net/test/api/page/all?disable=false");
+    const response = await axios.get("https://devapi.wheelgo.net/test/api/page/all?disable=false", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: cookies.get("id"),
+      },
+    });
     return response.data.data;
   },
 
   getPageDetail: async (id: any) => {
-    const response = await axios.get(`https://devapi.wheelgo.net/test/api/page/${id}`);
+    const response = await axios.get(`https://devapi.wheelgo.net/test/api/page/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: cookies.get("id"),
+      },
+    });
     return response.data.data;
   },
 
@@ -38,7 +53,12 @@ export const PageLogic = {
   },
 
   deletePage: async (id: any) => {
-    const response = await axios.delete(`https://devapi.wheelgo.net/test/api/delete/page/${id}`);
+    const response = await axios.delete(`https://devapi.wheelgo.net/test/api/delete/page/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: cookies.get("id"),
+      },
+    });
     return response;
   },
 };

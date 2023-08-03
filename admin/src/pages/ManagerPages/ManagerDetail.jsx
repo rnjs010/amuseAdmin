@@ -81,10 +81,7 @@ const ManagerDetail = () => {
   };
 
   useEffect(() => {
-    // const accessToken = cookies.id;
-    if (token) {
-      fetchAdminAccounts(token);
-    }
+    fetchAdminAccounts(token);
   }, []);
 
   const [columns, setColumns] = useState(ManagerTableColumns(info));
