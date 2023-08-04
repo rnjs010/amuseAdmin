@@ -279,7 +279,7 @@ function ProductForm() {
   const closeModal = () => {
     setIsModalOpen(false); // 모달을 닫습니다.
   };
-
+  // const redirectU = "https://myadmin.wheelgo.net/product";
   const handleAddProduct = () => {
     try {
       // checkAdminAccounts(cookies.id);
@@ -327,7 +327,9 @@ function ProductForm() {
       alert(`
       여행 상품 등록에 성공했습니다.
       ${JSON.stringify(res)}
+      
     `);
+      window.history.back();
     } catch (err) {
       console.error(err);
       alert(`
