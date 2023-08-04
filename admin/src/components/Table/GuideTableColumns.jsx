@@ -29,18 +29,20 @@ export const GuideTableCloumns = (setAllGuide) => [
       const handleDeleteGuide = (guideCode) => {
         const confirmDelete = window.confirm("삭제하시겠습니까?");
         // console.log(guideCode);
-        axios
-          .get(`https://devapi.wheelgo.net/test/api/delete/guide/${guideId}`, {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: cookies.id,
-            },
-          })
-          .then((res) => {
-            console.log(res);
-            getGuideInfo(setAllGuide);
-          })
-          .catch((err) => console.log(err));
+        if (confirmDelete) {
+          axios
+            .get(`https://devapi.wheelgo.net/test/api/delete/guide/${guideId}`, {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: cookies.id,
+              },
+            })
+            .then((res) => {
+              console.log(res);
+              getGuideInfo(setAllGuide);
+            })
+            .catch((err) => console.log(err));
+        }
       };
 
       return <button onClick={() => handleDeleteGuide(guideId)}>삭제하기</button>;
