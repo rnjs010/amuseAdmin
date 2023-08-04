@@ -21,6 +21,13 @@ function Header() {
     return storedTime ? parseInt(storedTime, 10) : 0;
   });
 
+  // useEffect(() => {
+  //   if (!loggedIn) {
+  //     alert("로그인 페이지로 이동합니다.");
+  //     navigate("/login");
+  //   }
+  // }, []);
+
   useEffect(() => {
     if (loggedIn) {
       setRemainingTime(3600);
@@ -136,11 +143,11 @@ function Header() {
         )}
       </div>
       <div className={styles.category}>
-        <button onClick={() => navigate("/")}>여행 상품 관리</button>
-        <button onClick={() => navigate("/staff")}>가이드 관리</button>
-        <button onClick={() => navigate("/componentV2")}>컴포넌트 관리(V2)</button>
-        <button onClick={() => navigate("/page")}>페이지 관리</button>
-        <button onClick={() => navigate("/manager")}>권한 관리</button>
+        <button onClick={() => (loggedIn ? navigate("/") : navigate("/login"))}>여행 상품 관리</button>
+        <button onClick={() => (loggedIn ? navigate("/staff") : navigate("/login"))}>가이드 관리</button>
+        <button onClick={() => (loggedIn ? navigate("/componentV2") : navigate("/login"))}>컴포넌트 관리(V2)</button>
+        <button onClick={() => (loggedIn ? navigate("/page") : navigate("/login"))}>페이지 관리</button>
+        <button onClick={() => (loggedIn ? navigate("/manager") : navigate("/login"))}>권한 관리</button>
         <button onClick={() => navigate("/login")}>로그인</button>
 
         {/*<button onClick={() => navigate('/component')}> 컴포넌트 관리 </button>*/}

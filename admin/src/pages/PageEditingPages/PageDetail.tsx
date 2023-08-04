@@ -36,8 +36,16 @@ const PageDetail = () => {
       return false;
     }
 
-    if (!categoryImageFileName || !categoryImage) {
-      window.confirm("이미지를 첨부하세요");
+    // if (!categoryImageFileName || !categoryImage) {
+    //   window.confirm("이미지를 첨부하세요");
+    //   return false;
+    // }
+    // if (!categoryImageFileName) {
+    //   window.confirm("이미지를 첨부하세요 (filename)");
+    //   return false;
+    // }
+    if (!categoryImage) {
+      window.confirm("이미지를 첨부하세요 (categoryImage)");
       return false;
     }
 
@@ -60,6 +68,8 @@ const PageDetail = () => {
   };
 
   const submitPage = async () => {
+    console.log("dddd");
+    console.log(categoryImageFileName);
     if (!validationCheck()) return;
 
     const response = await PageLogic.editPage(id, {

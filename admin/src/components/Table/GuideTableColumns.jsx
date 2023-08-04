@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getGuideInfo } from "../../pages/StaffPages/StaffDetail";
+import { Cookies, useCookies } from "react-cookie";
 
 export const GuideTableCloumns = (setAllGuide) => [
   {
@@ -22,13 +23,19 @@ export const GuideTableCloumns = (setAllGuide) => [
   {
     Header: "Actions",
     Cell: ({ row }) => {
-      const guideCode = row.original.guideCode;
+      const guideId = row.original.guide_db_id;
       const navigate = useNavigate();
-
+      const [cookies, setCookie, removeCookie] = useCookies(["id"]);
       const handleDeleteGuide = (guideCode) => {
-        console.log(guideCode);
+        const confirmDelete = window.confirm("삭제하시겠습니까?");
+        // console.log(guideCode);
         axios
-          .get(`https://devapi.wheelgo.net/test/api/delete/guide/${guideCode}`)
+          .get(`https://devapi.wheelgo.net/test/api/delete/guide/${guideId}`, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: cookies.id,
+            },
+          })
           .then((res) => {
             console.log(res);
             getGuideInfo(setAllGuide);
@@ -36,7 +43,7 @@ export const GuideTableCloumns = (setAllGuide) => [
           .catch((err) => console.log(err));
       };
 
-      return <button onClick={() => handleDeleteGuide(guideCode)}>삭제하기</button>;
+      return <button onClick={() => handleDeleteGuide(guideId)}>삭제하기</button>;
     },
   },
 ];

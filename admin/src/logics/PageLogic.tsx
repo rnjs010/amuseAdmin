@@ -29,6 +29,7 @@ export const PageLogic = {
         // Authorization: cookies.get("id"),
       },
     });
+    console.log("page data : ", response.data.data);
     return response.data.data;
   },
 

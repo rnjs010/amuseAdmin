@@ -34,8 +34,12 @@ const PageRegister = () => {
       return false;
     }
 
-    if (!categoryImageFileName || !categoryImage) {
-      window.confirm("이미지를 첨부하세요");
+    // if (!categoryImageFileName) {
+    //   window.confirm("이미지를 첨부하세요 (filename)");
+    //   return false;
+    // }
+    if (!categoryImage) {
+      window.confirm("이미지를 첨부하세요 (categoryImage)");
       return false;
     }
 
