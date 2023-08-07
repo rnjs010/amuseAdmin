@@ -29,7 +29,7 @@ interface ComponentData {
 const ListComponentDatail = () => {
   const { id } = useParams();
   const [title, setTitle] = useState<string>("");
-  const [itemCode, setItemCode] = useState<string[]>([]);
+  const [itemIds, setItemIds] = useState<number[]>([]);
   const [selected, setSelected] = useState<ItemData[]>([]);
   const [token, setToken] = useRecoilState(accessToken);
   /**
@@ -101,7 +101,7 @@ const ListComponentDatail = () => {
    * Register API
    */
   useEffect(() => {
-    setItemCode(selected.map((select) => select.product_code));
+    setItemIds(selected.map((select) => select.item_db_id));
   }, [selected]);
 
   const handleRegister = () => {
@@ -111,10 +111,9 @@ const ListComponentDatail = () => {
       id: id,
       title: title,
       type: "리스트",
-      // createdBy: "daw916@naver.com",
-      // updatedBy: "daw564@naver.com",
-      itemCode: itemCode,
+      item_db_id: itemIds,
     };
+    console.log(postData);
 
     // POST 요청을 보냅니다.
     axios
