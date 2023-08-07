@@ -9,26 +9,33 @@ import { useLocation } from "react-router-dom";
 
 function Header() {
   const [cookies, setCookie, removeCookie] = useCookies(["id"]);
+  const [timeCookies, setTimeCookie, removeTimeCookie] = useCookies(["remainTime"]);
   const [userID, setUserId] = useState(null);
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useRecoilState(isLoggedIn);
   const [token, setToken] = useRecoilState(accessToken);
+  // const [remainingTime, setRemainingTime] = useState(() => {
+  //   const storedTime = localStorage.getItem("remainingTime");
+  //   return storedTime ? parseInt(storedTime, 10) : 0;
+  // });
+
   const [remainingTime, setRemainingTime] = useState(() => {
-    const storedTime = localStorage.getItem("remainingTime");
-    return storedTime ? parseInt(storedTime, 10) : 0;
+    const storedTime = parseInt(timeCookies.remainTime, 10);
+    return !isNaN(storedTime) ? storedTime : 0;
   });
 
   useEffect(() => {
     if (loggedIn) {
       console.log("header 쿠키", cookies.id);
       console.log("header 토큰", token);
-      setRemainingTime(9000);
+      if (remainingTime === 0) setRemainingTime(9000);
 
       // 타이머 시작
       const timer = setInterval(() => {
         setRemainingTime((prevTime) => {
           // remainingTime을 로컬 스토리지에 저장
           localStorage.setItem("remainingTime", String(prevTime));
+          setTimeCookie("remainTime", String(prevTime), { path: "/" });
           return prevTime - 1;
         });
       }, 1000);

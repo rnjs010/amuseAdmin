@@ -5,6 +5,8 @@ import { DragDropContext, Droppable, Draggable, DropResult } from "react-beautif
 import "./ComponentStyle/ListComponentRegister.scss";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useRecoilState } from "recoil";
+import { isLoggedIn, accessToken } from "../../pages/atoms";
 
 interface ItemData {
   item_db_id: number;
@@ -29,7 +31,7 @@ const ListComponentDatail = () => {
   const [title, setTitle] = useState<string>("");
   const [itemCode, setItemCode] = useState<string[]>([]);
   const [selected, setSelected] = useState<ItemData[]>([]);
-
+  const [token, setToken] = useRecoilState(accessToken);
   /**
    * Item API
    */
@@ -109,8 +111,8 @@ const ListComponentDatail = () => {
       id: id,
       title: title,
       type: "리스트",
-      createdBy: "daw916@naver.com",
-      updatedBy: "daw564@naver.com",
+      // createdBy: "daw916@naver.com",
+      // updatedBy: "daw564@naver.com",
       itemCode: itemCode,
     };
 
@@ -118,7 +120,8 @@ const ListComponentDatail = () => {
     axios
       .post("https://devapi.wheelgo.net/test/api/component/edit/list", postData, {
         headers: {
-          Authorization: process.env.REACT_APP_COMPONENT_API_KEY,
+          "Content-Type": "application/json",
+          Authorization: token,
         },
       })
       .then((response) => {
