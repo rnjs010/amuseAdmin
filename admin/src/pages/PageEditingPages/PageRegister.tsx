@@ -43,7 +43,7 @@ const PageRegister = () => {
       return false;
     }
 
-    if (isDisplay == "활성화" && !sequence) {
+    if (isDisplay == "활성화" && sequence < 0) {
       window.confirm("배치순서를 확인하세요");
       return false;
     }

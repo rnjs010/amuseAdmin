@@ -54,22 +54,23 @@ const ManagerDetail = () => {
   };
 
   const fetchAdminAccounts = async (token) => {
-    setToken(cookies.id);
-    console.log("fetch");
+    // setToken(cookies.id);
+    // console.log("managerdetail 토큰", token);
+    // console.log("fetch");
     try {
       const apiU = "https://devapi.wheelgo.net/api/v1/admin/accounts/all";
       const response = await axios.get(apiU, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: cookies.id,
+          Authorization: token,
         },
       });
-      console.log("manager detail 토큰:", cookies.id);
+      // console.log("manager detail 토큰:", cookies.id);
       const data = response.data;
       if (data.code === 1000 && data.data && data.data.accounts) {
         setInfo(data.data.accounts);
         setColumns(ManagerTableColumns(data.data.accounts));
-        console.log(data.data.accounts);
+        // console.log(data.data.accounts);
       } else {
         // No accounts or other error
         setInfo([]);

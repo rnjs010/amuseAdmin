@@ -6,8 +6,8 @@ import "./LoginDetail.css";
 import Header from "../../components/Header/Header";
 import { Link, redirect, useSearchParams } from "react-router-dom";
 import GoogleIcon from "@mui/icons-material/Google";
+import { isLoggedIn, accessToken } from "../atoms";
 import { useRecoilState } from "recoil";
-import { isLoggedIn } from "../atoms";
 import { useNavigate } from "react-router-dom";
 import { Cookies, useCookies } from "react-cookie";
 import EmailInput from "./EmailInput";
@@ -24,6 +24,7 @@ const LoginDetail = () => {
   const navigate = useNavigate();
   const redirectU = "https://myadmin.wheelgo.net";
   const [cookies, setCookie, removeCookie] = useCookies(["id"]);
+  const [token, setToken] = useRecoilState(accessToken);
   const axiosWithRedirects = axios.create({
     maxRedirects: 10, // 리다이렉션 허용 설정
   });
@@ -43,8 +44,8 @@ const LoginDetail = () => {
         setLoggedIn(true);
         alert("로그인 성공!");
         setCookie("id", data.data.accessToken); // "accessToken" 쿠키에 데이터의 accessToken 값을 설정
-
-        console.log("로그인 성공 쿠키 값:", cookies.id);
+        setToken(data.data.accessToken);
+        console.log("로그인 성공 쿠키 값:", data.data.accessToken);
 
         window.location.href = redirectU;
       } else if (data.status === 451) {

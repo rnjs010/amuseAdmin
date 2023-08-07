@@ -77,59 +77,64 @@ function ProductStatus() {
   }, [currentInActivePage]);
 
   const handleDeleteProducts = (itemCode: string) => {
-    setActiveItemList(
-      activeItemList.filter((item) => {
-        return item.itemCode !== itemCode;
-      })
-    );
-    axios
-      .get("https://devapi.wheelgo.net/test/api/product/delete", {
-        params: {
-          itemCode,
-        },
-      })
-      .then((res) => console.log(res))
-      .catch(console.error);
+    const confirmDelete = window.confirm("삭제하시겠습니까?");
+    if (confirmDelete) {
+      setActiveItemList(
+        activeItemList.filter((item) => {
+          return item.itemCode !== itemCode;
+        })
+      );
+      axios
+        .get(`https://devapi.wheelgo.net/test/api/product/delete?itemCode=${itemCode}`, {
+          params: {
+            itemCode,
+          },
+        })
+        .then((res) => console.log(res))
+        .catch(console.error);
+    }
   };
 
   const handleInActivateProduct = (item: Item) => {
-    axios
-      .get("https://devapi.wheelgo.net/test/api/change/displayStatus", {
-        params: {
-          status: "HIDDEN",
-          itemCode: item.itemCode,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        setActiveItemList(
-          activeItemList.filter((activeItem) => {
-            return activeItem.itemCode !== item.itemCode;
-          })
-        );
-        setInActiveItemList((prev) => [...prev, item]);
-      })
-      .catch(console.error);
+    console.log(item);
+    const confirmNone = window.confirm("상품을 비활성화 하시겠습니까?");
+    if (confirmNone) {
+      axios
+        .post(`https://devapi.wheelgo.net/test/api/change/item/${item.itemCode}/displayStatus`, {
+          display_true: false,
+        })
+        .then((res) => {
+          console.log(res);
+          setActiveItemList(
+            activeItemList.filter((activeItem) => {
+              return activeItem.itemCode !== item.itemCode;
+            })
+          );
+          setInActiveItemList((prev) => [...prev, item]);
+        })
+        .catch(console.error);
+    }
   };
 
   const handleActivateProduct = (item: Item) => {
-    axios
-      .get("https://devapi.wheelgo.net/test/api/change/displayStatus", {
-        params: {
-          status: "DISPLAY",
-          itemCode: item.itemCode,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        setInActiveItemList(
-          inActiveItemList.filter((inActiveItem) => {
-            return inActiveItem.itemCode !== item.itemCode;
-          })
-        );
-        setActiveItemList((prev) => [...prev, item]);
-      })
-      .catch(console.error);
+    console.log(item);
+    const confirmActive = window.confirm("상품을 활성화 하시겠습니까?");
+    if (confirmActive) {
+      axios
+        .post(`https://devapi.wheelgo.net/test/api/change/item/${item.itemCode}/displayStatus`, {
+          display_true: true,
+        })
+        .then((res) => {
+          console.log(res);
+          setInActiveItemList(
+            inActiveItemList.filter((inActiveItem) => {
+              return inActiveItem.itemCode !== item.itemCode;
+            })
+          );
+          setActiveItemList((prev) => [...prev, item]);
+        })
+        .catch(console.error);
+    }
   };
 
   return (

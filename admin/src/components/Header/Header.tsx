@@ -13,24 +13,16 @@ function Header() {
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useRecoilState(isLoggedIn);
   const [token, setToken] = useRecoilState(accessToken);
-  // console.log("로그인 여부", loggedIn);
-  // console.log("accessToken 쿠키 값:", cookies.id);
-
   const [remainingTime, setRemainingTime] = useState(() => {
     const storedTime = localStorage.getItem("remainingTime");
     return storedTime ? parseInt(storedTime, 10) : 0;
   });
 
-  // useEffect(() => {
-  //   if (!loggedIn) {
-  //     alert("로그인 페이지로 이동합니다.");
-  //     navigate("/login");
-  //   }
-  // }, []);
-
   useEffect(() => {
     if (loggedIn) {
-      setRemainingTime(3600);
+      console.log("header 쿠키", cookies.id);
+      console.log("header 토큰", token);
+      setRemainingTime(9000);
 
       // 타이머 시작
       const timer = setInterval(() => {
@@ -98,6 +90,8 @@ function Header() {
     navigate("/login");
   };
 
+  const tokenEvent = () => {};
+
   const formatTime = (seconds: any) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -136,7 +130,10 @@ function Header() {
         {loggedIn && (
           <div>
             <span>로그아웃까지 남은 시간: {formatTime(remainingTime)}</span>
-            <button style={{ marginLeft: "10px" }} onClick={logoutEvent}>
+            {/* <button style={{ marginLeft: "10px", border: "1px solid black", padding: "10px" }} onClick={tokenEvent}>
+              토큰 갱신
+            </button> */}
+            <button style={{ marginLeft: "10px", border: "1px solid black", padding: "10px" }} onClick={logoutEvent}>
               로그아웃
             </button>
           </div>
