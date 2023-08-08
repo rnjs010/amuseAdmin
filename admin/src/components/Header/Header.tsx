@@ -92,8 +92,8 @@ function Header() {
   const logoutEvent = () => {
     setLoggedIn(false);
     removeCookie("id");
-
-    console.log("accessToken 쿠키 값:", cookies.id);
+    removeTimeCookie("remainTime");
+    // console.log("accessToken 쿠키 값:", cookies.id);
     navigate("/login");
   };
 
