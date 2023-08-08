@@ -195,6 +195,20 @@ function ProductForm() {
   const handleDurationDays = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDurationDays(event.target.value);
   };
+  const [startPoint, setStartPoint] = useState<string>("");
+  const handleStartPoint = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setStartPoint(event.target.value);
+  };
+
+  const [activity, setActivity] = useState<string>("");
+  const handleActivity = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setActivity(event.target.value);
+  };
+
+  const [language, setLanguage] = useState<string>("");
+  const handleLanguage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLanguage(event.target.value);
+  };
 
   const [mainImg, setMainImg] = useState<ImageFile[]>([]);
   const handleMainImg = (imageFiles: ImageFile[]) => {
@@ -450,6 +464,21 @@ function ProductForm() {
               maxLength={2}
             />
             <span className={styles.title}>일</span>
+          </div>
+        </div>
+        <div className={`${styles.container} ${styles.locationAndDuration}`}>
+          <div className={styles.country}>
+            <span className={styles.title}>출발지</span>
+            <input value={country} onChange={handleStartPoint} type="text" />
+            <span className={styles.title}> 에서 출발</span>
+          </div>
+          <div className={styles.country}>
+            <span className={styles.title}>활동강도</span>
+            <input value={country} onChange={handleActivity} type="text" />
+          </div>
+          <div className={styles.country}>
+            <span className={styles.title}>제공 언어</span>
+            <input value={country} onChange={handleLanguage} type="text" />
           </div>
         </div>
       </section>
