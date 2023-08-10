@@ -68,7 +68,7 @@ function TicketModal({onSave, onToggle}: MordalProps) {
 
   const addPriceToPriceList = () => {
     console.log(price);
-    if(price.startDate && price.endDate){
+    if(price.startDate && price.endDate && Number(defaultPrice) > 0){
       setPriceList((prev) => (
         [...prev, price]
       ));
@@ -96,6 +96,12 @@ function TicketModal({onSave, onToggle}: MordalProps) {
         ['fri', false],
         ['sat', false],
       ])
+    }else if(!price.startDate){
+      alert("시작일을 입력해주세요")
+    }else if(!price.endDate){
+      alert("종료일을 입력해주세요")
+    }else if(Number(defaultPrice) < 1){
+      alert("기본 가격을 입력해주세요")
     }
   }
 
@@ -113,13 +119,20 @@ function TicketModal({onSave, onToggle}: MordalProps) {
   }
 
   const handleSave = () => {
-  {
+    
+    if(title.length > 0 && content.length >0 && priceList.length > 0){
       const ticket:Ticket = {
         title: title,
         content: content,
         priceList: priceList
       };
       onSave(ticket);
+    }else if(title.length < 1){
+      alert("티켓 제목을 입력해주세요")
+    }else if(content.length < 1){
+      alert("티켓 설명을 입력해주세요")
+    }else if(priceList.length < 1){
+      alert("티켓 가격을 등록해주세요")
     }
   };
 
@@ -136,7 +149,8 @@ function TicketModal({onSave, onToggle}: MordalProps) {
   )
 
   const handleDefaultPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDefaultPrice(event.target.value);
+    let price = event.target.value
+    setDefaultPrice(price.replace(/[^0-9]/g, ''));
   }
 
   useEffect(() => {

@@ -9,7 +9,7 @@ const FindMinWeekdayPrice = (ticket: any[]): number => {
             for (const weekday of weekdays) {
                 const price = parseInt(weekdayPrices[weekday]);
 
-                if (price < minPrice) {
+                if (price < minPrice && price > 0) {
                     minPrice = price;
                 }
             }

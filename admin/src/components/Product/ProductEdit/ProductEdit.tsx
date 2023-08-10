@@ -558,12 +558,12 @@ function ProductEdit() {
           <input className={`${styles.nameInput}`} value={productTitle} onChange={handleProductName} type="text" />
         </div>
         <div style={{display:"flex",flexDirection:"column"}}>
-          <div className={`${styles.container} ${styles.locationAndDuration}`} >
+          <div className={`${styles.container} ${styles.locationAndDuration}`} style={{justifyContent:"flex-start"}}>
             <div className={styles.country}>
               <span className={styles.title}>국가</span>
               <input value={country} onChange={handleCountry} type="text" />
             </div>
-            <div className={styles.city}>
+            <div className={styles.city} style={{marginLeft:12}}>
               <span className={styles.title}>도시</span>
               <input value={city} onChange={handleCity} type="text" />
             </div>
@@ -572,7 +572,7 @@ function ProductEdit() {
             <div className={styles.productPeriod}>
               <span className={styles.title}>상품 게재 기간</span>
               <input value={listingStartDate} onChange={handleListingStartDate} type="date" />
-              <span> ~ </span>
+              <span style={{margin:"0 12px"}}> ~ </span>
               <input value={listingEndDate} onChange={handleListingEndDate} type="date" />
             </div>
             <div className={styles.duration}>
@@ -585,7 +585,7 @@ function ProductEdit() {
                 placeholder=""
                 maxLength={2}
               />
-              <span className={styles.title}>박</span>
+              <span className={styles.title} style={{marginLeft:8}}>박</span>
               <input
                 className={styles.duration_input}
                 value={durationDays}
@@ -594,7 +594,7 @@ function ProductEdit() {
                 placeholder=""
                 maxLength={2}
               />
-              <span className={styles.title}>일</span>
+              <span className={styles.title} style={{marginLeft:8}}>일</span>
             </div>
           </div>
         </div>
