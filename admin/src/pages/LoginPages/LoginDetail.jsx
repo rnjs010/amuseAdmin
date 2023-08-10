@@ -76,34 +76,37 @@ const LoginDetail = () => {
       navigate("/");
     }
   }, []);
-
-  return (
-    <>
-      <div className="login_body">
-        <form className="login" action="/loginURL" method="post">
-          <div className="amuse_login_title">
-            <img className="amuse_logo" src="https://cdn.amusetravel.com/assets/headers/logo.png" alt="어뮤즈 이미지" />
-            <h2 className="amuse_title_top">모두가 즐거운 여행</h2>
-            <h2 className="amuse_title_bottom">어뮤즈 트래블</h2>
-          </div>
-          <div className="input">
-            <div className="email">
-              <EmailInput email={email} handleChangeEmail={handleChangeEmail} />
+  if(loggedIn){
+    return(<></>)
+  }else{
+    return (
+      <>
+        <div className="login_body">
+          <form className="login" action="/loginURL" method="post">
+            <div className="amuse_login_title">
+              <img className="amuse_logo" src="https://cdn.amusetravel.com/assets/headers/logo.png" alt="어뮤즈 이미지" />
+              <h2 className="amuse_title_top">모두가 즐거운 여행</h2>
+              <h2 className="amuse_title_bottom">어뮤즈 트래블</h2>
             </div>
-            <div className="password">
-              <PasswordInput password={password} handleChangePassword={handleChangePassword} />
+            <div className="input">
+              <div className="email">
+                <EmailInput email={email} handleChangeEmail={handleChangeEmail} />
+              </div>
+              <div className="password">
+                <PasswordInput password={password} handleChangePassword={handleChangePassword} />
+              </div>
             </div>
-          </div>
-          <div className="login_btn_box">
-            <button className="login_btn" onClick={loginEvent}>
-              <i className="fa-solid fa-door-open"></i>로그인
-            </button>
-          </div>
-        </form>
-        <div className="v_box"></div>
-      </div>
-    </>
-  );
+            <div className="login_btn_box">
+              <button className="login_btn" onClick={loginEvent}>
+                <i className="fa-solid fa-door-open"></i>로그인
+              </button>
+            </div>
+          </form>
+          <div className="v_box"></div>
+        </div>
+      </>
+    );
+  }
 };
 
 export default LoginDetail;

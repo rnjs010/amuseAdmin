@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
-import { Cookies, useCookies } from "react-cookie";
-import { useState } from "react";
+// import { Cookies, useCookies } from "react-cookie";
+// import { useState } from "react";
 
 const { persistAtom } = recoilPersist();
 

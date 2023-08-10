@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./GuideModal.module.css";
 import axios from "axios";
-import { getGuideInfo } from "./StaffDetail";
+// import { getGuideInfo } from "./StaffDetail";
 
 export default function GuideModal({ getGuideInfo, setAllGuide }) {
   const [isOpen, setIsOpen] = useState(false);

@@ -49,7 +49,7 @@ const PageDetail = () => {
       return false;
     }
 
-    if (isDisplay == "활성화" && sequence < 0) {
+    if (isDisplay === "활성화" && sequence < 0) {
       window.confirm("배치순서를 확인하세요");
       return false;
     }
@@ -59,7 +59,7 @@ const PageDetail = () => {
       return false;
     }
 
-    // if (pageComponentListArr.length == 0) {
+    // if (pageComponentListArr.length === 0) {
     //   window.confirm("추가할 컴포넌트를 선택해주세요");
     //   return false;
     // }
@@ -77,7 +77,7 @@ const PageDetail = () => {
       fileName: categoryImageFileName,
       base64Data: categoryImage,
       sequence: sequence,
-      disable: isDisplay == "활성화" ? false : true,
+      disable: isDisplay === "활성화" ? false : true,
       mainDescription: mainDescription,
       subDescription: subDescription,
       pageComponentInfos: pageComponentListArr.map((v: any) => ({ componentId: v.id })),
@@ -135,7 +135,7 @@ const PageDetail = () => {
   };
 
   const componentListHandler = (component: any) => {
-    if (!pageComponentListArr.some((v: any) => v.id == component.id)) {
+    if (!pageComponentListArr.some((v: any) => v.id === component.id)) {
       setPageComponentListArr([...pageComponentListArr, component]);
       return;
     }
@@ -223,7 +223,7 @@ const PageDetail = () => {
             <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginRight: 10 }}>
               <input
                 type="radio"
-                checked={isDisplay == "활성화"}
+                checked={isDisplay === "활성화"}
                 value={"활성화"}
                 id={"active"}
                 onChange={radioComponentTypeHandler}
@@ -234,7 +234,7 @@ const PageDetail = () => {
             <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginRight: 10 }}>
               <input
                 type="radio"
-                checked={isDisplay == "비활성화"}
+                checked={isDisplay === "비활성화"}
                 value={"비활성화"}
                 id={"Inactive"}
                 onChange={radioComponentTypeHandler}
@@ -307,7 +307,7 @@ const PageDetail = () => {
                 type={"checkbox"}
                 onChange={(e) => componentListHandler(v)}
                 value={v.id}
-                checked={pageComponentListArr.some((value: any) => value.id == v.id)}
+                checked={pageComponentListArr.some((value: any) => value.id === v.id)}
               />
               <div style={{ marginLeft: 10, width: 150 }}> id: {v.id} </div>
               <div style={{ marginLeft: 10, width: 300 }}> title: {v.title} </div>

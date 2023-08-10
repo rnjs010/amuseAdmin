@@ -1,8 +1,16 @@
+import React,{ useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./ProductManage.module.css";
+import { useCookies } from "react-cookie";
 
 function ProductManage() {
   const navigate = useNavigate();
+  const [cookies] = useCookies(["id"])
+  useEffect(()=>{
+    if(!cookies.id){
+      navigate("/login")
+    }
+  },[])
   return (
     <div className={`${styles.container} ${styles.productAdmin}`}>
       <div onClick={() => navigate("/status")} className={styles.routeBox}>

@@ -92,7 +92,7 @@ const MainPageComponentDetail = () => {
 	
 	const onSubmitSearchKeyword = () => {
 		
-		if (keyword == "") {
+		if (keyword === "") {
 			(async () => {
 				const response = await ItemLogic.getProductItems({
 					"option": 1,
@@ -105,7 +105,7 @@ const MainPageComponentDetail = () => {
 			return;
 		}
 		
-		if (option == "상품코드") {
+		if (option === "상품코드") {
 			(async () => {
 				const response = await ItemLogic.getProductItemsFromItemCode(keyword)
 					.then((r) => {
@@ -121,7 +121,7 @@ const MainPageComponentDetail = () => {
 			})()
 			return;
 		}
-		if (option == "카테고리") {
+		if (option === "카테고리") {
 			(async () => {
 				const response = await ItemLogic.getProductItems({
 					"option": 1,
@@ -134,7 +134,7 @@ const MainPageComponentDetail = () => {
 			})();
 			return;
 		}
-		if (option == "제목") {
+		if (option === "제목") {
 			(async () => {
 				const response = await ItemLogic.getProductItemsFromTitle(1, keyword)
 					.then((r) => {
@@ -150,14 +150,14 @@ const MainPageComponentDetail = () => {
 			})()
 			return;
 		}
-		if (option == "내용") {
+		if (option === "내용") {
 			return;
 		}
 	}
 	
 	const componentSubmit = async () => {
 		
-		if (componentType == "리스트") {
+		if (componentType === "리스트") {
 			const response = await ComponentManageLogic.postComponent({
 				id,
 				title: component,
@@ -176,7 +176,7 @@ const MainPageComponentDetail = () => {
 		}
 		
 		
-		if (componentType == "배너") {
+		if (componentType === "배너") {
 			const response = await ComponentManageLogic.postComponent({
 				id,
 				title: component,
@@ -200,7 +200,7 @@ const MainPageComponentDetail = () => {
 			return;
 		}
 		
-		if (componentType == "타일") {
+		if (componentType === "타일") {
 			const response = await ComponentManageLogic.postComponent({
 				id,
 				title: component,
@@ -398,7 +398,7 @@ const MainPageComponentDetail = () => {
 				</p>
 				
 				{
-					(componentType == "리스트") ? (
+					(componentType === "리스트") ? (
 						<div>
 							<p className={styles.p}>
 								<div
@@ -435,7 +435,7 @@ const MainPageComponentDetail = () => {
 				}
 				
 				{
-					(componentType == "배너") ? (
+					(componentType === "배너") ? (
 						<div>
 							{/*<p className={styles.p}>*/}
 							{/*	<div*/}
@@ -611,7 +611,7 @@ const MainPageComponentDetail = () => {
 				}
 				
 				{
-					(componentType == "타일") ? (
+					(componentType === "타일") ? (
 						<div>
 							<p className={styles.p}>
 								<div

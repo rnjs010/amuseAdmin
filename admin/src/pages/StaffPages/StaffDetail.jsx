@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import GuideModal from "./GuideModal";
 import axios from "axios";
-import styles from "./StaffDetail.module.css";
+// import styles from "./StaffDetail.module.css";
 import Table from "../../components/Table/Table";
 import { GuideTableCloumns } from "../../components/Table/GuideTableColumns";
 
