@@ -10,10 +10,11 @@ import TicketInfo from "./TicketInfo";
 import MainImage from "./MainImage";
 import { IoMdRemoveCircle } from "react-icons/io";
 import { useCookies } from "react-cookie";
-
+import { useNavigate } from "react-router-dom";
 import { isLoggedIn, accessToken } from "../../../pages/atoms";
 import { useRecoilState } from "recoil";
 import ModalComponent from "./ModalComponent";
+import FindMinWeekdayPrice from "../FindMinWeekdayPrice";
 
 type HTML = string;
 
@@ -87,6 +88,7 @@ type Product = {
 
 function ProductForm() {
   const [productId, setProductId] = useState<string>("");
+  const navigate = useNavigate();
 
   const handleProductID = (event: React.ChangeEvent<HTMLInputElement>) => {
     setProductId(event.target.value);
@@ -286,7 +288,6 @@ function ProductForm() {
   const handleGuideCodeSelect = (selectedGuide: GuideData) => {
     setGuideSelected(selectedGuide);
     setGuideCode(selectedGuide.guideCode);
-    console.log("가이드값", selectedGuide);
   };
 
   // console.log("가이드 코드 ", guide_code);
@@ -296,62 +297,62 @@ function ProductForm() {
   };
   // const redirectU = "https://myadmin.wheelgo.net/product";
   const handleAddProduct = () => {
-    try {
-      // checkAdminAccounts(cookies.id);
-
-      console.log("productform 현재 토큰:", cookies.id);
+    if(productId){
+      
       const product: Product = {
-        productId,
+        productId: productId,
         option: "create",
         category,
         title: productTitle,
-        startPrice: 9999,
-        admin: "daw916@naver.com",
+        startPrice: FindMinWeekdayPrice(ticket),
+        admin: 'daw916@naver.com',
         location: {
           country,
-          city,
+          city
         },
         accessAuthority: {
           accessibleUserList,
-          accessibleTier,
+          accessibleTier
         },
-        duration: `${durationNights}박 ${durationDays}일`,
+        duration:`${durationNights}박 ${durationDays}일`,
         startDate: listingStartDate,
         endDate: listingEndDate,
         mainImg,
         ticket,
         mainInfo,
-        course,
-        extraInfo,
+        course,  
+        extraInfo ,
         guide_code: guideSelected!.guideCode,
         guide_comment,
       };
-
       console.log(product);
       const jsonString = JSON.stringify(product);
-      const byteSize = new Blob([jsonString], { type: "application/json" }).size;
-      console.log("byteSize: ", byteSize);
-      console.log("현재 access토큰:", cookies.id);
-      const res = axiosInstance.post("/test/api/product/insert", product, {
+      const byteSize = new Blob([jsonString], {type: 'application/json'}).size;
+      console.log('byteSize: ', byteSize);
+      axiosInstance.post('/test/api/product/insert', product, {
         headers: {
           "Content-Type": "application/json",
           Authorization: cookies.id,
         },
-      });
-      console.log(JSON.stringify(res));
-      alert(`
-      여행 상품 등록에 성공했습니다.
-      ${JSON.stringify(res)}
-      
-    `);
-      window.history.back();
-    } catch (err) {
-      console.error(err);
-      alert(`
-      여행 상품 등록에 실패했습니다.
-      ${err}
-    `);
+      }).then((res) => {
+        // console.log(JSON.stringify(res));
+        alert(`
+          여행 상품 등록에 성공했습니다.
+        `)
+        navigate("/status")
+
+      }).catch((err) => {
+        console.error(err);
+        alert(`
+          여행 상품 등록에 실패했습니다.
+          ${err}
+        `)
+      }    
+      );
+    }else{
+      alert("상품 코드를 입력해주세요.")
     }
+
   };
 
   return (

@@ -347,7 +347,6 @@ function ProductCopy() {
   //---Extra Info
     
   const handleAddProduct = () => {
-    console.log("sddsds")
     if(newProductId){
       
       const product: Product = {
