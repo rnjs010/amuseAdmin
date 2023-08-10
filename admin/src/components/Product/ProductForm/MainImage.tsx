@@ -60,9 +60,9 @@ function MainImage({option, mainImgProp, onAdd, onRemove}:ExtraInfoProps) {
   const renderImageList = () => {
     return(
       <ul className={styles.mainImgList}>
-         {mainImg.map((file) => {
+         {mainImg.map((file,index) => {
                 return (
-                  <div className={styles.renderedImg} key={file.imgUrl || file.base64Data}>
+                  <div className={styles.renderedImg} key={file.imgUrl?.toString() + index.toString() || file.base64Data.toString() + index.toString()}>
                     <img 
                       key={file.fileName}
                       src={file.imgUrl || file.base64Data}

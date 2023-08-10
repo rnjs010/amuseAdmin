@@ -27,6 +27,7 @@
     "@types/react-draft-wysiwyg": "^1.13.4",
     "@types/react-icons": "^3.0.0",
     "@types/recoil": "^0.0.9",
+    "@types/styled-components": "^5.1.26",
     "axios": "^1.4.0",
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
@@ -49,6 +50,7 @@
     "recoil": "^0.7.7",
     "recoil-persist": "^5.1.0",
     "sass": "^1.62.1",
+    "styled-components": "^6.0.7",
     "sweetalert2": "^11.7.10",
     "typescript": "^4.9.5"
   },

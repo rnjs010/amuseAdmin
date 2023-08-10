@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
+import styled from "styled-components";
 
 // 모달 스타일 설정 (선택사항)
 const modalStyles = {
@@ -25,7 +26,6 @@ const ModalComponent = ({ guideInfo, isOpen, closeModal, onSelectGuide }) => {
   }
 
   const handleGuideSelect = (guide) => {
-    // console.log(guide);
     setSelectedGuide(guide.guideCode);
     onSelectGuide(guide);
   };
@@ -35,25 +35,50 @@ const ModalComponent = ({ guideInfo, isOpen, closeModal, onSelectGuide }) => {
       <h2 style={{ marginBottom: "10px" }}>가이드 정보</h2>
       <div>
         {guideInfo.map((guide) => (
-          <div style={{ marginBottom: "10px" ,display:"flex", flexDirection:"row"}} key={guide.guide_db_id}>
-            <input
-                type="radio"
-                value="guideCode"
-                checked={selectedGuide === guide.guideCode}
-                style={{marginRight:24}}
-                onChange={() => handleGuideSelect(guide)}
-              />
-            <label>
-              <p>이름: {guide.userName}</p>
-              <p>가이드 코드: {guide.guideCode}</p>
-            </label>
+          <div style={{ marginBottom: "10px" ,display:"flex", flexDirection:"row", justifyContent:"space-between"}} key={guide.guide_db_id}>
+            <div style={{width:"65%",display:"flex", flexDirection:"row"}}>
+              <img src={`${guide.profileImageUrl}`} style={{width:32, height:32, borderRadius:16, marginRight:24}}/>
+              {/* <input
+                  type="radio"
+                  value="guideCode"
+                  checked={selectedGuide === guide.guideCode}
+                  style={{marginRight:24}}
+                  onChange={() => handleGuideSelect(guide)}
+                /> */}
+              <label>
+                <p>이름: {guide.userName}</p>
+                <p>가이드 코드: {guide.guideCode}</p>
+              </label>
+            </div>
+            <SelectedGuideBtn
+              onClick={() => handleGuideSelect(guide)}
+            >{"선택"}
+            </SelectedGuideBtn> 
           </div>
         ))}
       </div>
-
-      <button onClick={closeModal}>저장</button>
+{/* <button onClick={closeModal}>저장</button> */}
     </Modal>
   );
 };
 
 export default ModalComponent;
+
+
+const SelectedGuideBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 24px;
+  background-color: var(--color-pink);
+  color: var(--color-white);
+  width: 60px;
+  height: 32px;
+  border-radius:8px;
+  cursor:pointer;
+
+  &:hover{
+    background-color: #e2e2e2; 
+    color: var(--color-pink);
+  }
+`;

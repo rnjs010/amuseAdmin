@@ -407,7 +407,7 @@ function ProductEdit() {
     setIsModalOpen(false); // 모달을 닫습니다.
   };
   
-  const handleAddProduct = () => {
+  const handleEditProduct = () => {
     try {
       // checkAdminAccounts(cookies.id);
 
@@ -658,7 +658,7 @@ function ProductEdit() {
         </div>
       </section>
       <div className={`${styles.container} ${styles.submit}`}>
-        <button className={styles.submitBtn} onClick={handleAddProduct}>
+        <button className={styles.submitBtn} onClick={handleEditProduct}>
           상품 수정하기
         </button>
       </div>
