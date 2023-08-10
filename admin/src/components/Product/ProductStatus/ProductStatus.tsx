@@ -3,8 +3,10 @@ import axios from "axios";
 import axiosInstance from "../../../services/axiosInstance";
 import styles from "./ProductStatus.module.css";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 interface Item {
+  item_db_id: number;
   itemCode: string;
   title: string;
   imgUrl: string;
@@ -12,9 +14,11 @@ interface Item {
 
 function ProductStatus() {
   const navigate = useNavigate();
+  const [cookies, setCookie, removeCookie] = useCookies(["id"]);
 
   const [activeItemList, setActiveItemList] = useState<Item[]>([
     {
+      item_db_id: 0,
       itemCode: "",
       title: "",
       imgUrl: "",
@@ -23,6 +27,7 @@ function ProductStatus() {
 
   const [inActiveItemList, setInActiveItemList] = useState<Item[]>([
     {
+      item_db_id: 0,
       itemCode: "",
       title: "",
       imgUrl: "",
@@ -46,12 +51,13 @@ function ProductStatus() {
       .then((res) => {
         setActivePageCount(res.data.data.pageCount);
         const data = res.data.data.data;
-        const processedData = data.map((item: any) => ({
-          itemCode: item.itemCode,
-          title: item.title,
-          imgUrl: item.imgUrl,
-        }));
-        setActiveItemList(processedData);
+        // const processedData = data.map((item: any) => ({
+        //   itemCode: item.itemCode,
+        //   title: item.title,
+        //   imgUrl: item.imgUrl,
+        // }));
+        console.log(data)
+        setActiveItemList(data);
       });
   }, [currentActivePage]);
 
@@ -68,6 +74,7 @@ function ProductStatus() {
         setInActivePageCount(res.data.data.pageCount);
         const data = res.data.data.data;
         const processedData = data.map((item: any) => ({
+          item_db_id:item.item_db_id,
           itemCode: item.itemCode,
           title: item.title,
           imgUrl: item.imgUrl,
@@ -76,31 +83,44 @@ function ProductStatus() {
       });
   }, [currentInActivePage]);
 
-  const handleDeleteProducts = (itemCode: string) => {
+  const handleDeleteProducts = (itemCode: string,itemId:number,isActive:boolean) => {
     const confirmDelete = window.confirm("삭제하시겠습니까?");
     if (confirmDelete) {
-      setActiveItemList(
-        activeItemList.filter((item) => {
-          return item.itemCode !== itemCode;
-        })
-      );
       axios
-        .get(`https://devapi.wheelgo.net/test/api/product/delete?itemCode=${itemCode}`, {
+        .delete(`https://devapi.wheelgo.net/test/api/product/delete?id=${itemId}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${cookies.id}`,
+          },
           params: {
             itemCode,
           },
         })
-        .then((res) => console.log(res))
-        .catch(console.error);
+        .then((res) =>{ 
+          console.log(res)
+          if(isActive){
+            setActiveItemList(
+              activeItemList.filter((item) => {
+                return item.itemCode !== itemCode;
+              })
+            );
+          }else{
+            setInActiveItemList(
+              inActiveItemList.filter((item) => {
+                return item.itemCode !== itemCode;
+              })
+            );
+          }
+        }).catch(console.error)
     }
   };
 
   const handleInActivateProduct = (item: Item) => {
-    console.log(item);
+    console.log("item",item);
     const confirmNone = window.confirm("상품을 비활성화 하시겠습니까?");
     if (confirmNone) {
       axios
-        .post(`https://devapi.wheelgo.net/test/api/change/item/${item.itemCode}/displayStatus`, {
+        .post(`https://devapi.wheelgo.net/test/api/change/item/${item.item_db_id}/displayStatus`, {
           display_true: false,
         })
         .then((res) => {
@@ -121,7 +141,7 @@ function ProductStatus() {
     const confirmActive = window.confirm("상품을 활성화 하시겠습니까?");
     if (confirmActive) {
       axios
-        .post(`https://devapi.wheelgo.net/test/api/change/item/${item.itemCode}/displayStatus`, {
+        .post(`https://devapi.wheelgo.net/test/api/change/item/${item.item_db_id}/displayStatus`, {
           display_true: true,
         })
         .then((res) => {
@@ -136,6 +156,14 @@ function ProductStatus() {
         .catch(console.error);
     }
   };
+  const handleEditProduct=(item:any)=>{
+    window.sessionStorage.setItem(`item`,JSON.stringify(item))
+    navigate(`/edit/${item?.itemCode}`)
+  }
+  const handleCopyProduct=(item:any)=>{
+    window.sessionStorage.setItem(`${item.itemCode}`,JSON.stringify(item))
+    navigate(`/copy/${item?.itemCode}`)
+  }
 
   return (
     <div>
@@ -147,10 +175,10 @@ function ProductStatus() {
             <li className={styles.activeItem} key={item.itemCode}>
               <img className={styles.activeImg} src={item.imgUrl} alt="" />
               <div className={styles.btnContainer}>
-                <button onClick={() => navigate(`/edit/${item.itemCode}`)}>수정</button>
-                <button onClick={() => handleDeleteProducts(item.itemCode)}>삭제</button>
+                <button onClick={() => handleEditProduct(item)}>수정</button>
+                <button onClick={() => handleDeleteProducts(item.itemCode,item.item_db_id,true)}>삭제</button>
                 <button onClick={() => handleInActivateProduct(item)}>비활성화</button>
-                <button onClick={() => navigate(`/copy/${item.itemCode}`)}>복사</button>
+                <button onClick={() => handleCopyProduct(item)}>복사</button>
               </div>
               <div className={styles.productCodeContainer}>
                 <p className={styles.label}>상품 코드</p>
@@ -180,10 +208,10 @@ function ProductStatus() {
             <li className={styles.inActiveItem} key={item.itemCode}>
               <img className={styles.inActiveImg} src={item.imgUrl} alt="" />
               <div className={styles.btnContainer}>
-                <button onClick={() => navigate(`/edit/${item.itemCode}`)}>수정</button>
-                <button onClick={() => handleDeleteProducts(item.itemCode)}>삭제</button>
+                <button onClick={() => handleEditProduct(item)}>수정</button>
+                <button onClick={() => handleDeleteProducts(item.itemCode,item.item_db_id,false)}>삭제</button>
                 <button onClick={() => handleActivateProduct(item)}>활성화</button>
-                <button onClick={() => navigate(`/copy/${item.itemCode}`)}>복사</button>
+                <button onClick={() => handleCopyProduct(item)}>복사</button>
               </div>
               <div className={styles.productCodeContainer}>
                 <p className={styles.label}>상품 코드</p>

@@ -68,7 +68,9 @@ function MainInfo({htmlProps, onChange}: MainInfoProps) {
             backgroundColor: "white",
             border: "1px solid black",
             borderRadius: "0px",
-            padding: "10px",          
+            padding: "10px",
+            position:"relative",
+            zIndex:0,
           }}
           toolbarStyle={{
             borderRadius: "10px"

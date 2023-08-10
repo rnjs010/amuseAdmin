@@ -1,4 +1,5 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import _ from "lodash";
 import axiosInstance from "../../../services/axiosInstance";
 import { useEffect, useState } from "react";
 import styles from "../ProductForm/ProductForm.module.css";
@@ -9,8 +10,8 @@ import CourseInfo from "../ProductForm/CourseInfo";
 import ExtraInfo from "../ProductForm/ExtraInfo";
 import { IoMdRemoveCircle } from "react-icons/io";
 import { Cookies, useCookies } from "react-cookie";
-import { useRecoilState } from "recoil";
 import ModalComponent from "../ProductForm/ModalComponent";
+import FindMinWeekdayPrice from "../FindMinWeekdayPrice";
 
 type HTML = string;
 
@@ -56,6 +57,7 @@ interface ImageFile {
 }
 
 type Product = {
+  id:number;
   productId: string;
   option: string;
   category: string[];
@@ -86,8 +88,10 @@ const userTierList = ["Bronze", "Silver", "Gold", "Platinum"];
 
 function ProductEdit() {
   const params = useParams();
+  const navigate = useNavigate();
   const productId = params.productId || "";
 
+  
   const [product, setProduct] = useState({
     productId: productId,
     option: "update",
@@ -138,10 +142,22 @@ function ProductEdit() {
   const [extraInfo, setExtraInfo] = useState<HTML>("");
   const [cookies] = useCookies(["id"]);
   const accessToken = cookies.id;
-  console.log("accessToken 값은 ", accessToken);
+  
+
+  
+  const [guideSelected, setGuideSelected] = useState<GuideData>();
+  const [guide_code, setGuideCode] = useState<HTML>("");
+  const [guide_comment, setGuideComment] = useState<HTML>("");
+  const [guideInfos, setGuideInfos] = useState([]); // 가이드 모달창에 불러올 정보들
+
+
   useEffect(() => {
+    console.log("accessToken 값은 ", accessToken);
+    const item = JSON.parse(window.sessionStorage.getItem("item") || "")
+    
+    const productDBID = item?.item_db_id
     axiosInstance
-      .get(`/test/api/product/${productId}`, {
+      .get(`/test/api/product/${productDBID}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `${accessToken}`,
@@ -160,19 +176,29 @@ function ProductEdit() {
         setCity(product.location.city);
         setDurationDays(product.duration);
         setDurationNights((parseInt(product.duration) - 1).toString());
-        setListingStartDate(product.startDate.split(" ")[0]);
-        setListingEndDate(product.endDate.split(" ")[0]);
+        if(!product.startDate){
+          setListingStartDate("");
+        } else{
+          setListingStartDate(product.startDate.split(" ")[0]);
+        }
+        if(!product.endDate){
+          setListingEndDate("");
+        } else{
+          setListingEndDate(product.endDate.split(" ")[0]);
+        }
         setMainImg(product.mainImg);
         setTicket(product.ticket);
         setMainInfo(product.mainInfo);
         setCourse(product.course);
         setExtraInfo(product.extraInfo);
-      });
+        setGuideCode(product.guide_code)
+        setGuideComment(product.guide_comment)
+      })
   }, []);
 
-  // useEffect(() => {
-  //   console.log('product', product);
-  // }, [product]);
+  useEffect(() => {
+    loadGuide(false)
+  }, [guide_code]);
 
   // ---Category
   const [categoryList, setCategoryList] = useState<string[]>([]);
@@ -215,6 +241,9 @@ function ProductEdit() {
     setCategory(category.filter((category) => category !== clickedCategory));
   };
 
+  const handleDeleteConcierge = (clickedUser: string) => {
+    setAccessibleUserList(accessibleUserList.filter((category) => category !== clickedUser));
+  };
   //---Category
 
   //---Access Authority
@@ -341,10 +370,6 @@ function ProductEdit() {
   };
 
   // Now use the custom type for guideSelected state
-  const [guideSelected, setGuideSelected] = useState<GuideData>();
-  const [guide_code, setGuideCode] = useState<HTML>("");
-  const [guide_comment, setGuideComment] = useState<HTML>("");
-  const [guideInfos, setGuideInfos] = useState([]); // 가이드 모달창에 불러올 정보들
 
   const handleGuideComment = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setGuideComment(event.target.value);
@@ -352,13 +377,19 @@ function ProductEdit() {
 
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 여부를 관리하는 상태
 
-  const loadGuide = async () => {
+  const loadGuide = async (tof:boolean) => {
     try {
       const response = await axiosInstance.get(`https://devapi.wheelgo.net/test/api/list/guide?page=1&limit=4`);
       const guideInfoData = response.data.data.guideInfo;
       console.log(response.data.data.guideInfo);
       setGuideInfos(guideInfoData);
-      setIsModalOpen(true); // 가이드 정보를 불러오는 버튼을 누르면 모달을 엽니다.
+      setIsModalOpen(tof); // 가이드 정보를 불러오는 버튼을 누르면 모달을 엽니다.
+      if(!tof){
+        const guide = _.find(guideInfoData,{guideCode:guide_code})
+        if(guide){
+          handleGuideCodeSelect(guide)
+        }
+      }
     } catch (error) {
       console.error(error);
       // 에러 처리
@@ -375,18 +406,20 @@ function ProductEdit() {
   const closeModal = () => {
     setIsModalOpen(false); // 모달을 닫습니다.
   };
-
+  
   const handleAddProduct = () => {
     try {
       // checkAdminAccounts(cookies.id);
 
       console.log("productform 현재 토큰:", cookies.id);
+      const item = JSON.parse(window.sessionStorage.getItem("item") || "")
       const product: Product = {
+        id:item.item_db_id,
         productId,
         option: "update",
         category,
         title: productTitle,
-        startPrice: 9999,
+        startPrice: FindMinWeekdayPrice(ticket),
         admin: "daw916@naver.com",
         location: {
           country,
@@ -398,7 +431,7 @@ function ProductEdit() {
         },
         duration: `${durationNights}박 ${durationDays}일`,
         startDate: listingStartDate,
-        endDate: listingEndDate,
+        endDate: listingEndDate || "",
         mainImg,
         ticket,
         mainInfo,
@@ -418,18 +451,23 @@ function ProductEdit() {
           "Content-Type": "application/json",
           Authorization: cookies.id,
         },
+      }).then((response)=>{
+        console.log(JSON.stringify(response));
+        alert(`
+          여행 상품 등록에 성공했습니다.
+         `);
+         navigate("/status")
+        
+      }).catch((err)=>{
+        console.error(err);
+        alert(`
+          여행 상품 등록에 실패했습니다.
+          ${err}
+        `);
       });
-      console.log(JSON.stringify(res));
-      alert(`
-      여행 상품 등록에 성공했습니다.
-      ${JSON.stringify(res)}
-    `);
+    
     } catch (err) {
-      console.error(err);
-      alert(`
-      여행 상품 등록에 실패했습니다.
-      ${err}
-    `);
+      console.log(err)
     }
   };
 
@@ -438,7 +476,7 @@ function ProductEdit() {
       <section>
         <div className={styles.sectionTitle}>상품 분류</div>
         <div className={styles.sectionDivider}></div>
-        <div className={`${styles.container} ${styles.idAndCategory}`}>
+        <div className={`${styles.container} ${styles.idAndCategory}`} style={{flexDirection:"column",alignItems:"flex-start"}}>
           <div className={styles.category}>
             <span className={styles.title}>여행 카테고리</span>
             <select className={styles.categorySelect} onChange={handleProductCategory}>
@@ -456,7 +494,7 @@ function ProductEdit() {
               ))}
             </div>
           </div>
-          <div className={styles.code}>
+          <div className={styles.code} style={{marginTop:24}}>
             <span className={styles.title}>상품 코드</span>
             <input className={styles.productId} type="text" value={productId} readOnly />
           </div>
@@ -491,12 +529,23 @@ function ProductEdit() {
             </div>
             {accessibleUserList && (
               <div className={styles.accessibleUserList}>
-                <ul>
+                {/* <ul>
                   {accessibleUserList.map((user) => (
                     <li>{user}</li>
                   ))}
-                </ul>
+                </ul> */}
+                <div className={styles.categoryStatus}>
+                  {accessibleUserList.map((user) => (
+                    <li key={user}>
+                      <span>{user}</span>
+                      <button className={styles.removeBtn} onClick={() => handleDeleteConcierge(user)}>
+                        <IoMdRemoveCircle />
+                      </button>
+                    </li>
+                  ))}
+                </div>
               </div>
+              
             )}
           </div>
         </section>
@@ -508,41 +557,45 @@ function ProductEdit() {
           <span className={` ${styles.title} ${styles.name}`}>여행 상품명</span>
           <input className={`${styles.nameInput}`} value={productTitle} onChange={handleProductName} type="text" />
         </div>
-        <div className={`${styles.container} ${styles.locationAndDuration}`}>
-          <div className={styles.country}>
-            <span className={styles.title}>국가</span>
-            <input value={country} onChange={handleCountry} type="text" />
+        <div style={{display:"flex",flexDirection:"column"}}>
+          <div className={`${styles.container} ${styles.locationAndDuration}`} >
+            <div className={styles.country}>
+              <span className={styles.title}>국가</span>
+              <input value={country} onChange={handleCountry} type="text" />
+            </div>
+            <div className={styles.city}>
+              <span className={styles.title}>도시</span>
+              <input value={city} onChange={handleCity} type="text" />
+            </div>
           </div>
-          <div className={styles.city}>
-            <span className={styles.title}>도시</span>
-            <input value={city} onChange={handleCity} type="text" />
-          </div>
-          <div className={styles.productPeriod}>
-            <span className={styles.title}>상품 게재 기간</span>
-            <input value={listingStartDate} onChange={handleListingStartDate} type="date" />
-            <span> ~ </span>
-            <input value={listingEndDate} onChange={handleListingEndDate} type="date" />
-          </div>
-          <div className={styles.duration}>
-            <span className={styles.title}>여행 기간</span>
-            <input
-              className={styles.duration_input}
-              value={durationNights}
-              onChange={handleDurationNights}
-              type="text"
-              placeholder=""
-              maxLength={2}
-            />
-            <span className={styles.title}>박</span>
-            <input
-              className={styles.duration_input}
-              value={durationDays}
-              onChange={handleDurationDays}
-              type="text"
-              placeholder=""
-              maxLength={2}
-            />
-            <span className={styles.title}>일</span>
+          <div className={`${styles.container} ${styles.locationAndDuration}`} >
+            <div className={styles.productPeriod}>
+              <span className={styles.title}>상품 게재 기간</span>
+              <input value={listingStartDate} onChange={handleListingStartDate} type="date" />
+              <span> ~ </span>
+              <input value={listingEndDate} onChange={handleListingEndDate} type="date" />
+            </div>
+            <div className={styles.duration}>
+              <span className={styles.title}>여행 기간</span>
+              <input
+                className={styles.duration_input}
+                value={durationNights}
+                onChange={handleDurationNights}
+                type="text"
+                placeholder=""
+                maxLength={2}
+              />
+              <span className={styles.title}>박</span>
+              <input
+                className={styles.duration_input}
+                value={durationDays}
+                onChange={handleDurationDays}
+                type="text"
+                placeholder=""
+                maxLength={2}
+              />
+              <span className={styles.title}>일</span>
+            </div>
           </div>
         </div>
       </section>
@@ -591,7 +644,7 @@ function ProductEdit() {
             placeholder="내용을 입력하세요."
             onChange={handleGuideComment}
           ></textarea>
-          <button className={styles.guideGetBtn} onClick={loadGuide}>
+          <button className={styles.guideGetBtn} onClick={()=>{loadGuide(true)}}>
             가이드 불러오기
           </button>
           {isModalOpen && ( // ModalComponent를 조건부 렌더링

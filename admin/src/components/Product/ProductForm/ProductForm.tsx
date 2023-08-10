@@ -84,6 +84,7 @@ type Product = {
   guide_comment: string;
 };
 
+
 function ProductForm() {
   const [productId, setProductId] = useState<string>("");
 
@@ -429,19 +430,21 @@ function ProductForm() {
           <span className={` ${styles.title} ${styles.name}`}>여행 상품명</span>
           <input className={`${styles.nameInput}`} value={productTitle} onChange={handleProductName} type="text" />
         </div>
-        <div className={`${styles.container} ${styles.locationAndDuration}`}>
+        <div className={`${styles.container} ${styles.locationAndDuration}`} style={{justifyContent:"flex-start"}}>
           <div className={styles.country}>
             <span className={styles.title}>국가</span>
             <input value={country} onChange={handleCountry} type="text" />
           </div>
-          <div className={styles.city}>
+          <div className={styles.city} style={{marginLeft:24}}>
             <span className={styles.title}>도시</span>
             <input value={city} onChange={handleCity} type="text" />
           </div>
+        </div>
+        <div className={`${styles.container} ${styles.locationAndDuration}`}>
           <div className={styles.productPeriod}>
             <span className={styles.title}>상품 게재 기간</span>
             <input value={listingStartDate} onChange={handleListingStartDate} type="date" />
-            <span> ~ </span>
+            <span style={{margin:"0 12px"}}> ~ </span>
             <input value={listingEndDate} onChange={handleListingEndDate} type="date" />
           </div>
           <div className={styles.duration}>
@@ -454,7 +457,7 @@ function ProductForm() {
               placeholder=""
               maxLength={2}
             />
-            <span className={styles.title}>박</span>
+            <span className={styles.title} style={{marginLeft:8}}>박</span>
             <input
               className={styles.duration_input}
               value={durationDays}
@@ -463,14 +466,14 @@ function ProductForm() {
               placeholder=""
               maxLength={2}
             />
-            <span className={styles.title}>일</span>
+            <span className={styles.title} style={{marginLeft:8}}>일</span>
           </div>
         </div>
         <div className={`${styles.container} ${styles.locationAndDuration}`}>
           <div className={styles.country}>
             <span className={styles.title}>출발지</span>
             <input value={country} onChange={handleStartPoint} type="text" />
-            <span className={styles.title}> 에서 출발</span>
+            <span className={styles.title} style={{marginLeft:8}}> 에서 출발</span>
           </div>
           <div className={styles.country}>
             <span className={styles.title}>활동강도</span>

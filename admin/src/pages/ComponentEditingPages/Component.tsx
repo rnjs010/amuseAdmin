@@ -62,19 +62,19 @@ const Component = () => {
 					<button className={styles.button}
 							onClick={() => navigate("/componentv2/listcomponent/register")}
 					>
-						리스트
+						리스트 추가
 					</button>
 					
 					<button className={styles.button}
 							onClick={() => navigate("/componentv2/bannercomponent/register")}
 					>
-						배너
+						배너 추가
 					</button>
 					
 					<button className={styles.button}
 							onClick={() => navigate("/componentv2/tilecomponent/register")}
 					>
-						타일
+						타일 추가
 					</button>
 				</div>
 			</div>

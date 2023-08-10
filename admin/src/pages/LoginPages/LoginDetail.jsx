@@ -10,6 +10,7 @@ import { isLoggedIn, accessToken } from "../atoms";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { Cookies, useCookies } from "react-cookie";
+import moment from "moment";
 import EmailInput from "./EmailInput";
 import PasswordInput from "./PasswordInput";
 
@@ -22,7 +23,7 @@ const LoginDetail = () => {
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useRecoilState(isLoggedIn);
   const navigate = useNavigate();
-  const redirectU = "https://myadmin.wheelgo.net";
+  const redirectU =  "http://localhost:3000" //"https://myadmin.wheelgo.net";
   const [cookies, setCookie, removeCookie] = useCookies(["id"]);
   const [token, setToken] = useRecoilState(accessToken);
   const axiosWithRedirects = axios.create({
@@ -43,7 +44,8 @@ const LoginDetail = () => {
         // 로그인에 성공한 경우
         setLoggedIn(true);
         alert("로그인 성공!");
-        setCookie("id", data.data.accessToken); // "accessToken" 쿠키에 데이터의 accessToken 값을 설정
+        const expires = moment().add("3", "h").toDate();
+        setCookie("id", data.data.accessToken,expires); // "accessToken" 쿠키에 데이터의 accessToken 값을 설정
         setToken(data.data.accessToken);
         console.log("로그인 성공 쿠키 값:", data.data.accessToken);
 

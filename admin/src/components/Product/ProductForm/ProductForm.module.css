@@ -180,6 +180,7 @@ input, select, textarea {
 .city {
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 

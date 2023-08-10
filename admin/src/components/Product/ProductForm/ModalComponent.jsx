@@ -13,6 +13,7 @@ const modalStyles = {
     borderRadius: "8px",
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
     padding: "20px",
+    zIndex: 10
   },
 };
 
@@ -34,14 +35,15 @@ const ModalComponent = ({ guideInfo, isOpen, closeModal, onSelectGuide }) => {
       <h2 style={{ marginBottom: "10px" }}>가이드 정보</h2>
       <div>
         {guideInfo.map((guide) => (
-          <div style={{ marginBottom: "10px" }} key={guide.guide_db_id}>
-            <label>
-              <input
+          <div style={{ marginBottom: "10px" ,display:"flex", flexDirection:"row"}} key={guide.guide_db_id}>
+            <input
                 type="radio"
                 value="guideCode"
                 checked={selectedGuide === guide.guideCode}
+                style={{marginRight:24}}
                 onChange={() => handleGuideSelect(guide)}
               />
+            <label>
               <p>이름: {guide.userName}</p>
               <p>가이드 코드: {guide.guideCode}</p>
             </label>

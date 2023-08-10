@@ -63,6 +63,8 @@ function ExtraInfo({ htmlProps, onChange }: ExtraInfoProps) {
             border: "1px solid black",
             borderRadius: "0px",
             padding: "20px",
+            zIndex:0,
+            position:"relative"
           }}
           placeholder="내용을 입력하세요."
           toolbarStyle={{
