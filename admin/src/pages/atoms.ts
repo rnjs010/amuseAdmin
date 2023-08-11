@@ -2,8 +2,13 @@ import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 // import { Cookies, useCookies } from "react-cookie";
 // import { useState } from "react";
+const sessionStorage = 
+      typeof window !== 'undefined' ? window.sessionStorage : undefined
 
-const { persistAtom } = recoilPersist();
+const { persistAtom } = recoilPersist({
+    key: 'atoms',
+    storage: sessionStorage,
+});
 
 export const isLoggedIn = atom<boolean>({
   key: "isLoggedIn",

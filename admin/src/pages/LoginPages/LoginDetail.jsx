@@ -23,7 +23,7 @@ const LoginDetail = () => {
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useRecoilState(isLoggedIn);
   const navigate = useNavigate();
-  const redirectU =  "https://myadmin.wheelgo.net";
+  const redirectU = "https://myadmin.wheelgo.net";
   const [cookies, setCookie, removeCookie] = useCookies(["id"]);
   const [token, setToken] = useRecoilState(accessToken);
   const axiosWithRedirects = axios.create({
@@ -71,13 +71,12 @@ const LoginDetail = () => {
   //   console.log("로그인 여부", loggedIn);
 
   useEffect(() => {
-    if (cookies.id) {
-      setLoggedIn(true)
+    if (loggedIn) {
       alert("이미 로그인 하였습니다.");
       navigate("/");
     }
   }, []);
-  if(cookies.id){
+  if(loggedIn){
     return(<></>)
   }else{
     return (
