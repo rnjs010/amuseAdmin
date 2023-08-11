@@ -299,7 +299,7 @@ function ProductForm() {
   };
   // const redirectU = "https://myadmin.wheelgo.net/product";
   const handleAddProduct = () => {
-    if (productId && guideSelected!.guideCode) {
+    if (productId && guideSelected) {
       const product: Product = {
         productId: productId,
         option: "create",
@@ -351,7 +351,7 @@ function ProductForm() {
           ${err}
         `);
         });
-    } else if(!guideSelected!.guideCode){
+    } else if(!guideSelected){
       alert("가이드를 선택해주세요.");
     }else {
       alert("상품 코드를 입력해주세요.");
