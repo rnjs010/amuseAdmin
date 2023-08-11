@@ -8,7 +8,7 @@ import { GuideTableCloumns } from "../../components/Table/GuideTableColumns";
 
 export const getGuideInfo = (setAllGuide) => {
   axios
-    .get(`https://devapi.wheelgo.net/test/api/list/guide?page=1&limit=200`)
+    .get(`${process.env.REACT_APP_AMUSE_API}/test/api/list/guide?page=1&limit=200`)
     .then((res) => {
       console.log(res);
       setAllGuide(res.data.data.guideInfo);
@@ -43,7 +43,7 @@ const StaffDetail = () => {
         {allGuide && allGuide.length > 0 ? (
           <Table columns={GuideTableCloumns(setAllGuide)} data={allGuide} />
         ) : (
-          <p>가이드 불러오는 중</p>
+          <></>
         )}
       </div>
     </div>

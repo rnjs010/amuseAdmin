@@ -3,7 +3,7 @@ import { Cookies } from "react-cookie";
 const cookies = new Cookies();
 export const PageLogic = {
   getPageList: async () => {
-    const response = await axios.get("https://devapi.wheelgo.net/test/api/page/all", {
+    const response = await axios.get(`${process.env.REACT_APP_AMUSE_API}/test/api/page/all`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: cookies.get("id"),
@@ -13,7 +13,7 @@ export const PageLogic = {
   },
 
   getPageListNotDisable: async () => {
-    const response = await axios.get("https://devapi.wheelgo.net/test/api/page/all?disable=false", {
+    const response = await axios.get(`${process.env.REACT_APP_AMUSE_API}/test/api/page/all?disable=false`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: cookies.get("id"),
@@ -23,7 +23,7 @@ export const PageLogic = {
   },
 
   getPageDetail: async (id: any) => {
-    const response = await axios.get(`https://devapi.wheelgo.net/test/api/page/${id}`, {
+    const response = await axios.get(`${process.env.REACT_APP_AMUSE_API}/test/api/page/${id}`, {
       headers: {
         "Content-Type": "application/json",
         // Authorization: cookies.get("id"),
@@ -34,7 +34,7 @@ export const PageLogic = {
   },
 
   registerPage: async (data: any) => {
-    const response = await axios.post(`https://devapi.wheelgo.net/test/api/page/register`, data, {
+    const response = await axios.post(`${process.env.REACT_APP_AMUSE_API}/test/api/page/register`, data, {
       headers: {
         "Content-Type": "application/json",
         Authorization: cookies.get("id"),
@@ -44,7 +44,7 @@ export const PageLogic = {
   },
 
   editPage: async (id: any, data: any) => {
-    const response = await axios.put(`https://devapi.wheelgo.net/test/api/page/edit/${id}`, data, {
+    const response = await axios.put(`${process.env.REACT_APP_AMUSE_API}/test/api/page/edit/${id}`, data, {
       headers: {
         "Content-Type": "application/json",
         Authorization: cookies.get("id"),
@@ -54,7 +54,7 @@ export const PageLogic = {
   },
 
   deletePage: async (id: any) => {
-    const response = await axios.delete(`https://devapi.wheelgo.net/test/api/delete/page/${id}`, {
+    const response = await axios.delete(`${process.env.REACT_APP_AMUSE_API}/test/api/delete/page/${id}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: cookies.get("id"),

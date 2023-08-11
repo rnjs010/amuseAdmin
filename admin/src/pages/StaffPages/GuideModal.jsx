@@ -43,7 +43,7 @@ export default function GuideModal({ getGuideInfo, setAllGuide }) {
 
   const handleAddGuide = () => {
     axios
-      .post(`https://devapi.wheelgo.net/test/api/create/guide`, {
+      .post(`${process.env.REACT_APP_AMUSE_API}/test/api/create/guide`, {
         name: name,
         email: email,
         guideCode: guideCode,

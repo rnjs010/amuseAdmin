@@ -68,7 +68,7 @@ const BannerComponentRegister = () => {
 
     // POST 요청을 보냅니다.
     axios
-      .post("https://devapi.wheelgo.net/test/api/component/register/banner", postData, {
+      .post(`${process.env.REACT_APP_AMUSE_API}/test/api/component/register/banner`, postData, {
         headers: {
           "Content-Type": "application/json",
           Authorization: cookies.get("id"),

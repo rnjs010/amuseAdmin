@@ -38,7 +38,7 @@ const ListComponentDatail = () => {
   const [itemData, setItemData] = useState<ItemData[]>([]);
   useEffect(() => {
     axios
-      .get("https://devapi.wheelgo.net/item/search?page=1")
+      .get(`${process.env.REACT_APP_AMUSE_API}/item/search?page=1`)
       .then((response) => {
         const responseItem = response.data.data.items;
         setItemData(responseItem);
@@ -54,7 +54,7 @@ const ListComponentDatail = () => {
   const [componentData, setComponentData] = useState<ComponentData | null>(null);
   useEffect(() => {
     axios
-      .get(`https://devapi.wheelgo.net/test/api/component/${id}`)
+      .get(`${process.env.REACT_APP_AMUSE_API}/test/api/component/${id}`)
       .then((response) => {
         const responseComponent = response.data.data;
         setComponentData(responseComponent);
@@ -117,7 +117,7 @@ const ListComponentDatail = () => {
 
     // POST 요청을 보냅니다.
     axios
-      .post("https://devapi.wheelgo.net/test/api/component/edit/list", postData, {
+      .post(`${process.env.REACT_APP_AMUSE_API}/test/api/component/edit/list`, postData, {
         headers: {
           "Content-Type": "application/json",
           Authorization: token,
@@ -147,7 +147,7 @@ const ListComponentDatail = () => {
 
   const handleDelete = () => {
     axios
-      .get(`https://devapi.wheelgo.net/test/api/component/delete/${id}`)
+      .get(`${process.env.REACT_APP_AMUSE_API}/test/api/component/delete/${id}`)
       .then((response) => {
         Swal.fire({
           icon: "success",

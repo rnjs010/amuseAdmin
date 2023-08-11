@@ -23,7 +23,8 @@ const LoginDetail = () => {
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useRecoilState(isLoggedIn);
   const navigate = useNavigate();
-  const redirectU =  "https://myadmin.wheelgo.net";
+
+  const redirectU =  `${process.env.REACT_APP_AMUSE_REDIRECT_URL}`;
   const [cookies, setCookie, removeCookie] = useCookies(["id"]);
   const [token, setToken] = useRecoilState(accessToken);
   const axiosWithRedirects = axios.create({
@@ -33,7 +34,7 @@ const LoginDetail = () => {
   const loginEvent = async (event) => {
     event.preventDefault();
 
-    const apiUrl = `https://devapi.wheelgo.net/api/v1/auth/login?id=${email}&password=${password}`;
+    const apiUrl = `${process.env.REACT_APP_AMUSE_API}/api/v1/auth/login?id=${email}&password=${password}`;
 
     try {
       const response = await axiosWithRedirects.get(apiUrl);

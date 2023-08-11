@@ -375,7 +375,7 @@ function ProductEdit() {
 
   const loadGuide = async (tof: boolean) => {
     try {
-      const response = await axiosInstance.get(`https://devapi.wheelgo.net/test/api/list/guide?page=1&limit=4`);
+      const response = await axiosInstance.get(`${process.env.REACT_APP_AMUSE_API}/test/api/list/guide?page=1&limit=4`);
       const guideInfoData = response.data.data.guideInfo;
       console.log(response.data.data.guideInfo);
       setGuideInfos(guideInfoData);

@@ -1,6 +1,6 @@
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { EditorState, convertToRaw, convertFromHTML, ContentState } from 'draft-js';
+import { EditorState, convertToRaw, convertFromHTML, ContentState, AtomicBlockUtils  } from 'draft-js';
 import draftjsToHtml from "draftjs-to-html";
 import { useEffect, useState } from 'react';
 import styles from './MainInfo.module.css';
@@ -40,6 +40,20 @@ function MainInfo({htmlProps, onChange}: MainInfoProps) {
 
 
   const uploadImageCallBack = (file: File) => {
+    
+    const contentState = draftState.getCurrentContent();
+    const contentStateWithEntity = contentState.createEntity(
+      'IMAGE',
+      'IMMUTABLE',
+      { src: URL.createObjectURL(file) }
+    );
+
+    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+    const newEditorState = EditorState.set(
+      draftState,
+      { currentContent: contentStateWithEntity },
+    );
+    
     return new Promise(
       (resolve, reject) => {
         const reader = new FileReader();
@@ -54,7 +68,7 @@ function MainInfo({htmlProps, onChange}: MainInfoProps) {
       }
     );
   };
-
+  
 
   return (
     <div className={`${styles.container} ${styles.mainInfo}`}>

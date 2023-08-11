@@ -15,7 +15,7 @@ const ManagerDetail = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["id"]);
   const [token, setToken] = useRecoilState(accessToken);
   // console.log("쿠키", cookies.id);
-  const redirectU = "https://myadmin.wheelgo.net/manager";
+  const redirectU = `${process.env.REACT_APP_AMUSE_REDIRECT_URL}/manager`;
 
   const addManager = async (event) => {
     if (email === "" || password === "") {
@@ -25,7 +25,7 @@ const ManagerDetail = () => {
     event.preventDefault();
     console.log(email, password);
 
-    const apiUrl = "https://devapi.wheelgo.net/api/v1/auth/signup";
+    const apiUrl = `${process.env.REACT_APP_AMUSE_API}/api/v1/auth/signup`;
     const requestData = {
       id: email,
       password: password,
@@ -58,7 +58,7 @@ const ManagerDetail = () => {
     // console.log("managerdetail 토큰", token);
     // console.log("fetch");
     try {
-      const apiU = "https://devapi.wheelgo.net/api/v1/admin/accounts/all";
+      const apiU = `${process.env.REACT_APP_AMUSE_API}/api/v1/admin/accounts/all`;
       const response = await axios.get(apiU, {
         headers: {
           "Content-Type": "application/json",
@@ -108,9 +108,9 @@ const ManagerDetail = () => {
       {/* info 상태값으로 받아온 데이터 출력 */}
 
       <div style={{ padding: "20px" }}>
-        <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <button className={styles.guideBtn} style={{ marginLeft: "20px" }} onClick={addManager}>
+        <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} style={{marginLeft:36}}/>
+        <input placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} style={{marginLeft:24}}/>
+        <button className={styles.guideBtn} style={{ marginLeft: "20px" ,width:120}} onClick={addManager} >
           관리자로 추가
         </button>
       </div>
