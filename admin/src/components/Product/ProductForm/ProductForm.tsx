@@ -85,7 +85,6 @@ type Product = {
   guide_comment: string;
 };
 
-
 function ProductForm() {
   const [productId, setProductId] = useState<string>("");
   const navigate = useNavigate();
@@ -210,8 +209,8 @@ function ProductForm() {
 
   const [language, setLanguage] = useState<string>("");
   const handleLanguage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let insert = event.target.value
-    if(insert.length < 3) {
+    let insert = event.target.value;
+    if (insert.length < 3) {
       setLanguage(insert.toUpperCase());
     }
   };
@@ -300,62 +299,61 @@ function ProductForm() {
   };
   // const redirectU = "https://myadmin.wheelgo.net/product";
   const handleAddProduct = () => {
-    if(productId){
-      
+    if (productId) {
       const product: Product = {
         productId: productId,
         option: "create",
         category,
         title: productTitle,
         startPrice: FindMinWeekdayPrice(ticket),
-        admin: 'daw916@naver.com',
+        admin: "daw916@naver.com",
         location: {
           country,
-          city
+          city,
         },
         accessAuthority: {
           accessibleUserList,
-          accessibleTier
+          accessibleTier,
         },
-        duration:`${durationNights}박 ${durationDays}일`,
+        duration: `${durationNights}박 ${durationDays}일`,
         startDate: listingStartDate,
         endDate: listingEndDate,
         mainImg,
         ticket,
         mainInfo,
-        course,  
-        extraInfo ,
+        course,
+        extraInfo,
         guide_code: guideSelected!.guideCode,
         guide_comment,
       };
       console.log(product);
       const jsonString = JSON.stringify(product);
-      const byteSize = new Blob([jsonString], {type: 'application/json'}).size;
-      console.log('byteSize: ', byteSize);
-      axiosInstance.post('/test/api/product/insert', product, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: cookies.id,
-        },
-      }).then((res) => {
-        // console.log(JSON.stringify(res));
-        alert(`
+      const byteSize = new Blob([jsonString], { type: "application/json" }).size;
+      console.log("byteSize: ", byteSize);
+      axiosInstance
+        .post("/test/api/product/insert", product, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: cookies.id,
+          },
+        })
+        .then((res) => {
+          // console.log(JSON.stringify(res));
+          alert(`
           여행 상품 등록에 성공했습니다.
-        `)
-        navigate("/status")
-
-      }).catch((err) => {
-        console.error(err);
-        alert(`
+        `);
+          navigate("/status");
+        })
+        .catch((err) => {
+          console.error(err);
+          alert(`
           여행 상품 등록에 실패했습니다.
           ${err}
-        `)
-      }    
-      );
-    }else{
-      alert("상품 코드를 입력해주세요.")
+        `);
+        });
+    } else {
+      alert("상품 코드를 입력해주세요.");
     }
-
   };
 
   return (
@@ -434,12 +432,12 @@ function ProductForm() {
           <span className={` ${styles.title} ${styles.name}`}>여행 상품명</span>
           <input className={`${styles.nameInput}`} value={productTitle} onChange={handleProductName} type="text" />
         </div>
-        <div className={`${styles.container} ${styles.locationAndDuration}`} style={{justifyContent:"flex-start"}}>
+        <div className={`${styles.container} ${styles.locationAndDuration}`} style={{ justifyContent: "flex-start" }}>
           <div className={styles.country}>
             <span className={styles.title}>국가</span>
             <input value={country} onChange={handleCountry} type="text" />
           </div>
-          <div className={styles.city} style={{marginLeft:24}}>
+          <div className={styles.city} style={{ marginLeft: 24 }}>
             <span className={styles.title}>도시</span>
             <input value={city} onChange={handleCity} type="text" />
           </div>
@@ -448,7 +446,7 @@ function ProductForm() {
           <div className={styles.productPeriod}>
             <span className={styles.title}>상품 게재 기간</span>
             <input value={listingStartDate} onChange={handleListingStartDate} type="date" />
-            <span style={{margin:"0 12px"}}> ~ </span>
+            <span style={{ margin: "0 12px" }}> ~ </span>
             <input value={listingEndDate} onChange={handleListingEndDate} type="date" />
           </div>
           <div className={styles.duration}>
@@ -461,7 +459,9 @@ function ProductForm() {
               placeholder=""
               maxLength={2}
             />
-            <span className={styles.title} style={{marginLeft:8}}>박</span>
+            <span className={styles.title} style={{ marginLeft: 8 }}>
+              박
+            </span>
             <input
               className={styles.duration_input}
               value={durationDays}
@@ -470,14 +470,19 @@ function ProductForm() {
               placeholder=""
               maxLength={2}
             />
-            <span className={styles.title} style={{marginLeft:8}}>일</span>
+            <span className={styles.title} style={{ marginLeft: 8 }}>
+              일
+            </span>
           </div>
         </div>
         <div className={`${styles.container} ${styles.locationAndDuration}`}>
           <div className={styles.country}>
             <span className={styles.title}>출발지</span>
             <input value={country} onChange={handleStartPoint} type="text" />
-            <span className={styles.title} style={{marginLeft:8}}> 에서 출발</span>
+            <span className={styles.title} style={{ marginLeft: 8 }}>
+              {" "}
+              에서 출발
+            </span>
           </div>
           <div className={styles.country}>
             <span className={styles.title}>활동강도</span>
@@ -485,7 +490,7 @@ function ProductForm() {
           </div>
           <div className={styles.country}>
             <span className={styles.title}>제공 언어</span>
-            <input value={language} onChange={handleLanguage} type="text"  pattern="[A-Za-z]+"/>
+            <input value={language} onChange={handleLanguage} type="text" pattern="[A-Za-z]+" />
           </div>
         </div>
       </section>

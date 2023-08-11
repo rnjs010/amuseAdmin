@@ -57,7 +57,7 @@ interface ImageFile {
 }
 
 type Product = {
-  id:number;
+  id: number;
   productId: string;
   option: string;
   category: string[];
@@ -91,7 +91,6 @@ function ProductEdit() {
   const navigate = useNavigate();
   const productId = params.productId || "";
 
-  
   const [product, setProduct] = useState({
     productId: productId,
     option: "update",
@@ -142,20 +141,17 @@ function ProductEdit() {
   const [extraInfo, setExtraInfo] = useState<HTML>("");
   const [cookies] = useCookies(["id"]);
   const accessToken = cookies.id;
-  
 
-  
   const [guideSelected, setGuideSelected] = useState<GuideData>();
   const [guide_code, setGuideCode] = useState<HTML>("");
   const [guide_comment, setGuideComment] = useState<HTML>("");
   const [guideInfos, setGuideInfos] = useState([]); // 가이드 모달창에 불러올 정보들
 
-
   useEffect(() => {
     console.log("accessToken 값은 ", accessToken);
-    const item = JSON.parse(window.sessionStorage.getItem("item") || "")
-    
-    const productDBID = item?.item_db_id
+    const item = JSON.parse(window.sessionStorage.getItem("item") || "");
+
+    const productDBID = item?.item_db_id;
     axiosInstance
       .get(`/test/api/product/${productDBID}`, {
         headers: {
@@ -176,14 +172,14 @@ function ProductEdit() {
         setCity(product.location.city);
         setDurationDays(product.duration);
         setDurationNights((parseInt(product.duration) - 1).toString());
-        if(!product.startDate){
+        if (!product.startDate) {
           setListingStartDate("");
-        } else{
+        } else {
           setListingStartDate(product.startDate.split(" ")[0]);
         }
-        if(!product.endDate){
+        if (!product.endDate) {
           setListingEndDate("");
-        } else{
+        } else {
           setListingEndDate(product.endDate.split(" ")[0]);
         }
         setMainImg(product.mainImg);
@@ -191,13 +187,13 @@ function ProductEdit() {
         setMainInfo(product.mainInfo);
         setCourse(product.course);
         setExtraInfo(product.extraInfo);
-        setGuideCode(product.guide_code)
-        setGuideComment(product.guide_comment)
-      })
+        setGuideCode(product.guide_code);
+        setGuideComment(product.guide_comment);
+      });
   }, []);
 
   useEffect(() => {
-    loadGuide(false)
+    loadGuide(false);
   }, [guide_code]);
 
   // ---Category
@@ -377,17 +373,17 @@ function ProductEdit() {
 
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 여부를 관리하는 상태
 
-  const loadGuide = async (tof:boolean) => {
+  const loadGuide = async (tof: boolean) => {
     try {
       const response = await axiosInstance.get(`https://devapi.wheelgo.net/test/api/list/guide?page=1&limit=4`);
       const guideInfoData = response.data.data.guideInfo;
       console.log(response.data.data.guideInfo);
       setGuideInfos(guideInfoData);
       setIsModalOpen(tof); // 가이드 정보를 불러오는 버튼을 누르면 모달을 엽니다.
-      if(!tof){
-        const guide = _.find(guideInfoData,{guideCode:guide_code})
-        if(guide){
-          handleGuideCodeSelect(guide)
+      if (!tof) {
+        const guide = _.find(guideInfoData, { guideCode: guide_code });
+        if (guide) {
+          handleGuideCodeSelect(guide);
         }
       }
     } catch (error) {
@@ -406,15 +402,15 @@ function ProductEdit() {
   const closeModal = () => {
     setIsModalOpen(false); // 모달을 닫습니다.
   };
-  
+
   const handleEditProduct = () => {
     try {
       // checkAdminAccounts(cookies.id);
 
       console.log("productform 현재 토큰:", cookies.id);
-      const item = JSON.parse(window.sessionStorage.getItem("item") || "")
+      const item = JSON.parse(window.sessionStorage.getItem("item") || "");
       const product: Product = {
-        id:item.item_db_id,
+        id: item.item_db_id,
         productId,
         option: "update",
         category,
@@ -446,28 +442,29 @@ function ProductEdit() {
       const byteSize = new Blob([jsonString], { type: "application/json" }).size;
       console.log("byteSize: ", byteSize);
       console.log("현재 access토큰:", cookies.id);
-      const res = axiosInstance.post("/test/api/product/insert", product, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: cookies.id,
-        },
-      }).then((response)=>{
-        console.log(JSON.stringify(response));
-        alert(`
+      const res = axiosInstance
+        .post("/test/api/product/insert", product, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: cookies.id,
+          },
+        })
+        .then((response) => {
+          console.log(JSON.stringify(response));
+          alert(`
           여행 상품 등록에 성공했습니다.
          `);
-         navigate("/status")
-        
-      }).catch((err)=>{
-        console.error(err);
-        alert(`
+          navigate("/status");
+        })
+        .catch((err) => {
+          console.error(err);
+          alert(`
           여행 상품 등록에 실패했습니다.
           ${err}
         `);
-      });
-    
+        });
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   };
 
@@ -476,7 +473,10 @@ function ProductEdit() {
       <section>
         <div className={styles.sectionTitle}>상품 분류</div>
         <div className={styles.sectionDivider}></div>
-        <div className={`${styles.container} ${styles.idAndCategory}`} style={{flexDirection:"column",alignItems:"flex-start"}}>
+        <div
+          className={`${styles.container} ${styles.idAndCategory}`}
+          style={{ flexDirection: "column", alignItems: "flex-start" }}
+        >
           <div className={styles.category}>
             <span className={styles.title}>여행 카테고리</span>
             <select className={styles.categorySelect} onChange={handleProductCategory}>
@@ -494,7 +494,7 @@ function ProductEdit() {
               ))}
             </div>
           </div>
-          <div className={styles.code} style={{marginTop:24}}>
+          <div className={styles.code} style={{ marginTop: 24 }}>
             <span className={styles.title}>상품 코드</span>
             <input className={styles.productId} type="text" value={productId} readOnly />
           </div>
@@ -545,7 +545,6 @@ function ProductEdit() {
                   ))}
                 </div>
               </div>
-              
             )}
           </div>
         </section>
@@ -557,22 +556,22 @@ function ProductEdit() {
           <span className={` ${styles.title} ${styles.name}`}>여행 상품명</span>
           <input className={`${styles.nameInput}`} value={productTitle} onChange={handleProductName} type="text" />
         </div>
-        <div style={{display:"flex",flexDirection:"column"}}>
-          <div className={`${styles.container} ${styles.locationAndDuration}`} style={{justifyContent:"flex-start"}}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div className={`${styles.container} ${styles.locationAndDuration}`} style={{ justifyContent: "flex-start" }}>
             <div className={styles.country}>
               <span className={styles.title}>국가</span>
               <input value={country} onChange={handleCountry} type="text" />
             </div>
-            <div className={styles.city} style={{marginLeft:12}}>
+            <div className={styles.city} style={{ marginLeft: 12 }}>
               <span className={styles.title}>도시</span>
               <input value={city} onChange={handleCity} type="text" />
             </div>
           </div>
-          <div className={`${styles.container} ${styles.locationAndDuration}`} >
+          <div className={`${styles.container} ${styles.locationAndDuration}`}>
             <div className={styles.productPeriod}>
               <span className={styles.title}>상품 게재 기간</span>
               <input value={listingStartDate} onChange={handleListingStartDate} type="date" />
-              <span style={{margin:"0 12px"}}> ~ </span>
+              <span style={{ margin: "0 12px" }}> ~ </span>
               <input value={listingEndDate} onChange={handleListingEndDate} type="date" />
             </div>
             <div className={styles.duration}>
@@ -585,7 +584,9 @@ function ProductEdit() {
                 placeholder=""
                 maxLength={2}
               />
-              <span className={styles.title} style={{marginLeft:8}}>박</span>
+              <span className={styles.title} style={{ marginLeft: 8 }}>
+                박
+              </span>
               <input
                 className={styles.duration_input}
                 value={durationDays}
@@ -594,7 +595,9 @@ function ProductEdit() {
                 placeholder=""
                 maxLength={2}
               />
-              <span className={styles.title} style={{marginLeft:8}}>일</span>
+              <span className={styles.title} style={{ marginLeft: 8 }}>
+                일
+              </span>
             </div>
           </div>
         </div>
@@ -644,7 +647,12 @@ function ProductEdit() {
             placeholder="내용을 입력하세요."
             onChange={handleGuideComment}
           ></textarea>
-          <button className={styles.guideGetBtn} onClick={()=>{loadGuide(true)}}>
+          <button
+            className={styles.guideGetBtn}
+            onClick={() => {
+              loadGuide(true);
+            }}
+          >
             가이드 불러오기
           </button>
           {isModalOpen && ( // ModalComponent를 조건부 렌더링

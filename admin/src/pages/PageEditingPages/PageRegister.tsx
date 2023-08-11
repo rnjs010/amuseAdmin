@@ -8,6 +8,11 @@ import { ComponentLogic } from "../../logics/ComponentLogic";
 import Table from "../../components/Table/Table";
 import { PageTableColumns } from "../../components/Table/PageTableColumns";
 
+interface PageCompList {
+  sequence: number;
+  id: number;
+}
+
 const PageRegister = () => {
   const [name, setName] = useState<string>("");
   const [sequence, setSequence] = useState<number>(0);
@@ -19,7 +24,7 @@ const PageRegister = () => {
   const [mainDescription, setMainDescription] = useState<string>("");
   const [subDescription, setSubDescription] = useState<string>("");
 
-  const [pageComponentListArr, setPageComponentListArr] = useState<any>([]);
+  const [pageComponentListArr, setPageComponentListArr] = useState<PageCompList[] | null>();
   const [componentListArr, setComponentListArr] = useState<any>([]);
 
   const [pageListArr, setPageListArr] = useState<any>([]);
@@ -63,7 +68,10 @@ const PageRegister = () => {
 
   const submitPage = async () => {
     if (!validationCheck()) return;
-
+    console.log(
+      "ddddd",
+      pageComponentListArr?.map((v: any) => ({ componentId: v.id, sequence: v.sequence }))
+    );
     const response = await PageLogic.registerPage({
       name: name,
       fileName: categoryImageFileName,
@@ -72,7 +80,7 @@ const PageRegister = () => {
       disable: isDisplay === "활성화" ? false : true,
       mainDescription: mainDescription,
       subDescription: subDescription,
-      pageComponentInfos: pageComponentListArr.map((v: any) => ({ componentId: v.id })),
+      pageComponentInfos: pageComponentListArr?.map((v: any) => ({ componentId: v.id, sequence: v.sequence })),
     })
       .then(() => {
         window.confirm("등록되었습니다.");
@@ -108,6 +116,7 @@ const PageRegister = () => {
   };
 
   const componentListHandler = (component: any) => {
+    if (!pageComponentListArr) return;
     if (!pageComponentListArr.some((v: any) => v.id === component.id)) {
       setPageComponentListArr([...pageComponentListArr, component]);
       return;
@@ -263,7 +272,7 @@ const PageRegister = () => {
             <strong>등록된 컴포넌트</strong>
           </div>
 
-          {pageComponentListArr.map((v: any, i: any) => (
+          {pageComponentListArr?.map((v: any, i: any) => (
             <div key={i} className={styles.componentListCell}>
               <div style={{ marginLeft: 10, width: 150 }}> id: {v.id} </div>
               <div style={{ marginLeft: 10, width: 300 }}> title: {v.title} </div>
@@ -282,7 +291,7 @@ const PageRegister = () => {
                 type={"checkbox"}
                 onChange={(e) => componentListHandler(v)}
                 value={v.id}
-                checked={pageComponentListArr.some((value: any) => value.id === v.id)}
+                checked={pageComponentListArr?.some((value: any) => value.id === v.id)}
               />
               <div style={{ marginLeft: 10, width: 150 }}> id: {v.id} </div>
               <div style={{ marginLeft: 10, width: 300 }}> title: {v.title} </div>

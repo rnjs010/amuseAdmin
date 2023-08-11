@@ -8,6 +8,11 @@ import { ComponentLogic } from "../../logics/ComponentLogic";
 import Table from "../../components/Table/Table";
 import { PageTableColumns } from "../../components/Table/PageTableColumns";
 
+interface PageCompList {
+  sequence: number;
+  id: number;
+}
+
 const PageDetail = () => {
   const { id } = useParams();
 
@@ -21,7 +26,7 @@ const PageDetail = () => {
   const [mainDescription, setMainDescription] = useState<string>("");
   const [subDescription, setSubDescription] = useState<string>("");
 
-  const [pageComponentListArr, setPageComponentListArr] = useState<any>([]);
+  const [pageComponentListArr, setPageComponentListArr] = useState<PageCompList[] | null>();
   const [componentListArr, setComponentListArr] = useState<any>([]);
 
   const [pageListArr, setPageListArr] = useState<any>([]);
@@ -68,9 +73,13 @@ const PageDetail = () => {
   };
 
   const submitPage = async () => {
-    console.log("dddd");
-    console.log(categoryImageFileName);
     if (!validationCheck()) return;
+    if (!pageComponentListArr) return;
+    let pageComponentInfos: any = [];
+    pageComponentListArr.map((v: any, index) => {
+      pageComponentInfos.push({ componentId: v.id, sequence: index + 1 });
+    });
+    console.log(pageComponentInfos);
 
     const response = await PageLogic.editPage(id, {
       name: name,
@@ -80,7 +89,8 @@ const PageDetail = () => {
       disable: isDisplay === "활성화" ? false : true,
       mainDescription: mainDescription,
       subDescription: subDescription,
-      pageComponentInfos: pageComponentListArr.map((v: any) => ({ componentId: v.id })),
+      pageComponentInfos: pageComponentInfos,
+      // sequnece: pageComponentListArr.map((v:any)=>({sequence:v.index}))
     })
       .then(() => {
         window.confirm("등록되었습니다.");
@@ -88,7 +98,7 @@ const PageDetail = () => {
       })
       .catch((e) => window.confirm(e));
   };
-
+  console.log(pageComponentListArr);
   const deletePage = async () => {
     const response = await PageLogic.deletePage(id)
       .then(() => {
@@ -135,6 +145,7 @@ const PageDetail = () => {
   };
 
   const componentListHandler = (component: any) => {
+    if (!pageComponentListArr) return;
     if (!pageComponentListArr.some((v: any) => v.id === component.id)) {
       setPageComponentListArr([...pageComponentListArr, component]);
       return;
@@ -288,7 +299,7 @@ const PageDetail = () => {
             <strong>등록된 컴포넌트</strong>
           </div>
 
-          {pageComponentListArr.map((v: any, i: any) => (
+          {pageComponentListArr?.map((v: any, i: any) => (
             <div key={i} className={styles.componentListCell}>
               <div style={{ marginLeft: 10, width: 150 }}> id: {v.id} </div>
               <div style={{ marginLeft: 10, width: 300 }}> title: {v.title} </div>
@@ -307,7 +318,7 @@ const PageDetail = () => {
                 type={"checkbox"}
                 onChange={(e) => componentListHandler(v)}
                 value={v.id}
-                checked={pageComponentListArr.some((value: any) => value.id === v.id)}
+                checked={pageComponentListArr?.some((value: any) => value.id === v.id)}
               />
               <div style={{ marginLeft: 10, width: 150 }}> id: {v.id} </div>
               <div style={{ marginLeft: 10, width: 300 }}> title: {v.title} </div>
