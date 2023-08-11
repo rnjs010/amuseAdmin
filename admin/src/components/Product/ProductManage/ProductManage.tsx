@@ -1,13 +1,17 @@
 import React,{ useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./ProductManage.module.css";
+import { isLoggedIn } from "../../../pages/atoms";
 import { useCookies } from "react-cookie";
+import { useRecoilState } from "recoil";
 
 function ProductManage() {
   const navigate = useNavigate();
   const [cookies] = useCookies(["id"])
+  const [loggedIn] = useRecoilState(isLoggedIn);
+
   useEffect(()=>{
-    if(!cookies.id){
+    if(!cookies.id || !loggedIn){
       navigate("/login")
     }
   },[])

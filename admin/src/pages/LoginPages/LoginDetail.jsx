@@ -23,7 +23,7 @@ const LoginDetail = () => {
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useRecoilState(isLoggedIn);
   const navigate = useNavigate();
-  const redirectU = "https://myadmin.wheelgo.net";
+  const redirectU =  "http://localhost:3001" //"https://myadmin.wheelgo.net";
   const [cookies, setCookie, removeCookie] = useCookies(["id"]);
   const [token, setToken] = useRecoilState(accessToken);
   const axiosWithRedirects = axios.create({
