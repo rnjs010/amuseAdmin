@@ -155,6 +155,7 @@ function Header() {
         <button onClick={() => (loggedIn ? navigate("/componentV2") : navigate("/login"))}>컴포넌트 관리(V2)</button>
         <button onClick={() => (loggedIn ? navigate("/page") : navigate("/login"))}>페이지 관리</button>
         <button onClick={() => (loggedIn ? navigate("/manager") : navigate("/login"))}>권한 관리</button>
+        <button onClick={() => (loggedIn ? navigate("/users") : navigate("/login"))}>고객 관리</button>
         <button onClick={() => navigate("/login")}>로그인</button>
 
         {/*<button onClick={() => navigate('/component')}> 컴포넌트 관리 </button>*/}
