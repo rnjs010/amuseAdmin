@@ -24,7 +24,7 @@ const PageRegister = () => {
   const [mainDescription, setMainDescription] = useState<string>("");
   const [subDescription, setSubDescription] = useState<string>("");
 
-  const [pageComponentListArr, setPageComponentListArr] = useState<PageCompList[] | null>();
+  const [pageComponentListArr, setPageComponentListArr] = useState<PageCompList[]>([]);
   const [componentListArr, setComponentListArr] = useState<any>([]);
 
   const [pageListArr, setPageListArr] = useState<any>([]);
@@ -68,10 +68,10 @@ const PageRegister = () => {
 
   const submitPage = async () => {
     if (!validationCheck()) return;
-    // console.log(
-    //   "ddddd",
-    //   pageComponentListArr?.map((v: any) => ({ componentId: v.id, sequence: v.sequence }))
-    // );
+    console.log(
+      "ddddd",
+      pageComponentListArr?.map((v: any) => ({ componentId: v.id, sequence: v.sequence }))
+    );
     const response = await PageLogic.registerPage({
       name: name,
       fileName: categoryImageFileName,
@@ -93,6 +93,7 @@ const PageRegister = () => {
     (async () => {
       const response = await PageLogic.getPageListNotDisable();
       setPageListArr(response);
+      setPageComponentListArr([])
     })();
 
     (async () => {
@@ -116,6 +117,7 @@ const PageRegister = () => {
   };
 
   const componentListHandler = (component: any) => {
+    console.log("dfdf")
     if (!pageComponentListArr) return;
     if (!pageComponentListArr.some((v: any) => v.id === component.id)) {
       setPageComponentListArr([...pageComponentListArr, component]);
@@ -125,7 +127,9 @@ const PageRegister = () => {
     setPageComponentListArr(pageComponentListArr.filter((v: any) => v.id !== component.id));
     return;
   };
-
+  useEffect(()=>{
+    console.log(pageComponentListArr)
+  },[pageComponentListArr])
   // @ts-ignore
   return (
     <div className={styles.container}>
@@ -290,7 +294,6 @@ const PageRegister = () => {
               <input
                 type={"checkbox"}
                 onChange={(e) => componentListHandler(v)}
-                value={v.id}
                 checked={pageComponentListArr?.some((value: any) => value.id === v.id)}
               />
               <div style={{ marginLeft: 10, width: 150 }}> id: {v.id} </div>
