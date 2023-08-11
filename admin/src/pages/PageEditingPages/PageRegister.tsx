@@ -68,10 +68,10 @@ const PageRegister = () => {
 
   const submitPage = async () => {
     if (!validationCheck()) return;
-    console.log(
-      "ddddd",
-      pageComponentListArr?.map((v: any) => ({ componentId: v.id, sequence: v.sequence }))
-    );
+    // console.log(
+    //   "ddddd",
+    //   pageComponentListArr?.map((v: any) => ({ componentId: v.id, sequence: v.sequence }))
+    // );
     const response = await PageLogic.registerPage({
       name: name,
       fileName: categoryImageFileName,

@@ -79,7 +79,7 @@ const PageDetail = () => {
     pageComponentListArr.map((v: any, index) => {
       pageComponentInfos.push({ componentId: v.id, sequence: index + 1 });
     });
-    console.log(pageComponentInfos);
+    console.log("pageDetail", pageComponentInfos);
 
     const response = await PageLogic.editPage(id, {
       name: name,
