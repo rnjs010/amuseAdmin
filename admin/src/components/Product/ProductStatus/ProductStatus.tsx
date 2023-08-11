@@ -41,7 +41,7 @@ function ProductStatus() {
 
   useEffect(() => {
     axios
-      .get("https://devapi.wheelgo.net/test/api/product/getList/byDisplay", {
+      .get(`${process.env.REACT_APP_AMUSE_API}/test/api/product/getList/byDisplay`, {
         params: {
           limit: 8,
           page: currentActivePage,
@@ -63,7 +63,7 @@ function ProductStatus() {
 
   useEffect(() => {
     axios
-      .get("https://devapi.wheelgo.net/test/api/product/getList/byDisplay", {
+      .get(`${process.env.REACT_APP_AMUSE_API}/test/api/product/getList/byDisplay`, {
         params: {
           limit: 8,
           page: currentInActivePage,
@@ -87,7 +87,7 @@ function ProductStatus() {
     const confirmDelete = window.confirm("삭제하시겠습니까?");
     if (confirmDelete) {
       axios
-        .delete(`https://devapi.wheelgo.net/test/api/product/delete?id=${itemId}`, {
+        .delete(`${process.env.REACT_APP_AMUSE_API}/test/api/product/delete?id=${itemId}`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `${cookies.id}`,
@@ -120,7 +120,7 @@ function ProductStatus() {
     const confirmNone = window.confirm("상품을 비활성화 하시겠습니까?");
     if (confirmNone) {
       axios
-        .post(`https://devapi.wheelgo.net/test/api/change/item/${item.item_db_id}/displayStatus`, {
+        .post(`${process.env.REACT_APP_AMUSE_API}/test/api/change/item/${item.item_db_id}/displayStatus`, {
           display_true: false,
         })
         .then((res) => {
@@ -141,7 +141,7 @@ function ProductStatus() {
     const confirmActive = window.confirm("상품을 활성화 하시겠습니까?");
     if (confirmActive) {
       axios
-        .post(`https://devapi.wheelgo.net/test/api/change/item/${item.item_db_id}/displayStatus`, {
+        .post(`${process.env.REACT_APP_AMUSE_API}/test/api/change/item/${item.item_db_id}/displayStatus`, {
           display_true: true,
         })
         .then((res) => {

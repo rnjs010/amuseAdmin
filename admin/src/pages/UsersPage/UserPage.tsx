@@ -1,22 +1,7 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React ,{useEffect,useState} from "react";
 import styled from "styled-components";
 import _ from "lodash";
-import {
-  CBadge,
-  CButton,
-  CCallout,
-  CCard,
-  CCardBody,
-  CCol,
-  CContainer,
-  CForm,
-  CFormInput,
-  CModal,
-  CModalBody,
-  CModalHeader,
-  CPagination,
-  CRow,
-} from "@coreui/react";
+import { CCallout, CCard, CCardBody, CCol, CContainer } from "@coreui/react";
 import { Table } from "react-bootstrap";
 import axiosInstance from "../../services/axiosInstance";
 import Paging from "./Pageing";

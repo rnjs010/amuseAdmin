@@ -4,17 +4,17 @@ const cookies = new Cookies();
 
 export const ComponentLogic = {
   getComponentList: async () => {
-    const response = await axios.get(`https://devapi.wheelgo.net/test/api/component`);
+    const response = await axios.get(`${process.env.REACT_APP_AMUSE_API}/test/api/component`);
     return response.data.data;
   },
 
   getComponentDetail: async (id: any) => {
-    const response = await axios.get(`https://devapi.wheelgo.net/test/api/component/${id}`);
+    const response = await axios.get(`${process.env.REACT_APP_AMUSE_API}/test/api/component/${id}`);
     return response.data.data;
   },
 
   postTileComponent: async (data: any) => {
-    const response = await axios.post(`https://devapi.wheelgo.net/test/api/component/register/tile`, data, {
+    const response = await axios.post(`${process.env.REACT_APP_AMUSE_API}/test/api/component/register/tile`, data, {
       headers: {
         "Content-Type": "application/json",
         Authorization: cookies.get("id"),
@@ -24,7 +24,7 @@ export const ComponentLogic = {
   },
 
   editTileComponent: async (data: any) => {
-    const response = await axios.post(`https://devapi.wheelgo.net/test/api/component/edit/tile`, data, {
+    const response = await axios.post(`${process.env.REACT_APP_AMUSE_API}/test/api/component/edit/tile`, data, {
       headers: {
         "Content-Type": "application/json",
         Authorization: cookies.get("id"),
@@ -34,7 +34,7 @@ export const ComponentLogic = {
   },
 
   deleteTileComponent: async (id: any) => {
-    const response = await axios.get(`https://devapi.wheelgo.net/test/api/component/delete/${id}`);
+    const response = await axios.get(`${process.env.REACT_APP_AMUSE_API}/test/api/component/delete/${id}`);
     return response.data.data;
   },
 };

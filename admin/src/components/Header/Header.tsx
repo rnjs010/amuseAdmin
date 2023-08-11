@@ -49,7 +49,7 @@ function Header() {
   const checkAdminAccounts = async (token: any) => {
     console.log("요청보낸 토큰:", cookies.id);
     try {
-      const apiU = "https://devapi.wheelgo.net/api/v1/auth/refresh";
+      const apiU = `${process.env.REACT_APP_AMUSE_API}/api/v1/auth/refresh`;
       const response = await axios.get(apiU, {
         headers: {
           "Content-Type": "application/json",

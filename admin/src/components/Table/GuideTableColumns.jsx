@@ -31,7 +31,7 @@ export const GuideTableCloumns = (setAllGuide) => [
         // console.log(guideCode);
         if (confirmDelete) {
           axios
-            .get(`https://devapi.wheelgo.net/test/api/delete/guide/${guideId}`, {
+            .get(`${process.env.REACT_APP_AMUSE_API}/test/api/delete/guide/${guideId}`, {
               headers: {
                 "Content-Type": "application/json",
                 Authorization: cookies.id,

@@ -24,7 +24,7 @@ const ListComponentRegister = () => {
   const [itemData, setItemData] = useState<ItemData[]>([]);
   useEffect(() => {
     axios
-      .get("https://devapi.wheelgo.net/item/search?page=1")
+      .get(`${process.env.REACT_APP_AMUSE_API}/item/search?page=1`)
       .then((response) => {
         const responseItem = response.data.data.items;
         setItemData(responseItem);
@@ -87,7 +87,7 @@ const ListComponentRegister = () => {
     console.log("쿠키 ", cookies.get("id"));
     // POST 요청을 보냅니다.
     axios
-      .post("https://devapi.wheelgo.net/test/api/component/register/list", postData, {
+      .post(`${process.env.REACT_APP_AMUSE_API}/test/api/component/register/list`, postData, {
         headers: {
           "Content-Type": "application/json",
           Authorization: cookies.get("id"),

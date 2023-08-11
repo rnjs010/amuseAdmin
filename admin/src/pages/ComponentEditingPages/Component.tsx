@@ -71,11 +71,11 @@ const Component = () => {
 						배너 추가
 					</button>
 					
-					<button className={styles.button}
+					{/* <button className={styles.button}
 							onClick={() => navigate("/componentv2/tilecomponent/register")}
 					>
 						타일 추가
-					</button>
+					</button> */}
 				</div>
 			</div>
 			

@@ -22,7 +22,7 @@ const NoticeDetail = () => {
   const editNotice = () => {
     (async () => {
       await axios
-        .post("https://devapi.wheelgo.net/test/api/notice/edit", {
+        .post(`${process.env.REACT_APP_AMUSE_API}/test/api/notice/edit`, {
           id: id,
           title: title,
           updatedBy: "daw916@naver.com",
@@ -38,7 +38,7 @@ const NoticeDetail = () => {
 
   useEffect(() => {
     (async () => {
-      await axios.get(`https://devapi.wheelgo.net/test/api/notice/${id}`).then((r) => {
+      await axios.get(`${process.env.REACT_APP_AMUSE_API}/test/api/notice/${id}`).then((r) => {
         const res = r.data.data;
         setTitle(res.title);
         setContent(res.content);

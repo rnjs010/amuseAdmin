@@ -12,7 +12,7 @@ const NoticeRegister = () => {
   const registerNotice = () => {
     (async () => {
       await axios
-        .post("https://devapi.wheelgo.net/test/api/notice/register", {
+        .post(`${process.env.REACT_APP_AMUSE_API}/test/api/notice/register`, {
           title: title,
           content: content,
           createdBy: "daw916@naver.com",

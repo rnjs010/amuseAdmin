@@ -27,14 +27,14 @@ export const ManagerTableColumns = (info) => [
 //     console.error("비밀번호 변경 에러:", error);
 //   }
 // };
-const redirectU = "https://myadmin.wheelgo.net/manager";
+const redirectU = `${process.env.REACT_APP_AMUSE_REDIRECT_URL}/manager`;
 const handleDeleteAccount = async (email) => {
   const confirmDelete = window.confirm("삭제하시겠습니까?");
   if (confirmDelete) {
     try {
       console.log("삭제 클릭: ", email);
 
-      const apiUrl = `https://devapi.wheelgo.net/api/v1/auth/withdraw?id=${email}`;
+      const apiUrl = `${process.env.REACT_APP_AMUSE_API}/api/v1/auth/withdraw?id=${email}`;
       const response = await axios.delete(apiUrl);
 
       console.log("삭제 응답 데이터:", response.data);
