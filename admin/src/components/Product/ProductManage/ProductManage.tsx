@@ -8,9 +8,14 @@ import { useRecoilState } from "recoil";
 function ProductManage() {
   const navigate = useNavigate();
   const [cookies] = useCookies(["id"])
-  const [loggedIn] = useRecoilState(isLoggedIn);
-
+  const [loggedIn,setLoggedIn] = useRecoilState(isLoggedIn);
   useEffect(()=>{
+    if(cookies.id){
+      setLoggedIn(true)
+    }
+  },[])
+
+  useEffect(()=>{  
     if(!cookies.id || !loggedIn){
       navigate("/login")
     }

@@ -149,19 +149,26 @@ function Header() {
           </div>
         )}
       </div>
-      <div className={styles.category}>
-        <button onClick={() => (loggedIn ? navigate("/") : navigate("/login"))}>여행 상품 관리</button>
-        <button onClick={() => (loggedIn ? navigate("/staff") : navigate("/login"))}>가이드 관리</button>
-        <button onClick={() => (loggedIn ? navigate("/componentV2") : navigate("/login"))}>컴포넌트 관리(V2)</button>
-        <button onClick={() => (loggedIn ? navigate("/page") : navigate("/login"))}>페이지 관리</button>
-        <button onClick={() => (loggedIn ? navigate("/manager") : navigate("/login"))}>권한 관리</button>
-        <button onClick={() => (loggedIn ? navigate("/users") : navigate("/login"))}>고객 관리</button>
-        <button onClick={() => navigate("/login")}>로그인</button>
+        {!loggedIn ?
+          <div className={styles.category} style={{justifyContent:"flex-end"}}>
+            <button onClick={() => navigate("/login")}>로그인</button>
+          </div>
+          :
+          <div className={styles.category}>
+            <button onClick={() => (loggedIn ? navigate("/") : navigate("/login"))}>여행 상품 관리</button>
+            <button onClick={() => (loggedIn ? navigate("/staff") : navigate("/login"))}>가이드 관리</button>
+            <button onClick={() => (loggedIn ? navigate("/componentV2") : navigate("/login"))}>컴포넌트 관리(V2)</button>
+            <button onClick={() => (loggedIn ? navigate("/page") : navigate("/login"))}>페이지 관리</button>
+            <button onClick={() => (loggedIn ? navigate("/manager") : navigate("/login"))}>권한 관리</button>
+            <button onClick={() => (loggedIn ? navigate("/users") : navigate("/login"))}>고객 관리</button>
+          </div>
+        }
+        
+        
 
         {/*<button onClick={() => navigate('/component')}> 컴포넌트 관리 </button>*/}
         {/*<button onClick={() => navigate('/category')}>카테고리 관리</button>*/}
         {/*<button onClick={() => navigate('/ad')}>광고 관리</button>*/}
-      </div>
     </div>
   );
 }

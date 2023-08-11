@@ -48,7 +48,6 @@ const LoginDetail = () => {
         setCookie("id", data.data.accessToken,expires); // "accessToken" 쿠키에 데이터의 accessToken 값을 설정
         setToken(data.data.accessToken);
         console.log("로그인 성공 쿠키 값:", data.data.accessToken);
-
         window.location.href = redirectU;
       } else if (data.status === 451) {
         alert("비밀번호가 틀렸습니다.");
@@ -72,7 +71,7 @@ const LoginDetail = () => {
 
   useEffect(() => {
     if (loggedIn) {
-      alert("이미 로그인 하였습니다.");
+      // alert("이미 로그인 하였습니다.");
       navigate("/");
     }
   }, []);
