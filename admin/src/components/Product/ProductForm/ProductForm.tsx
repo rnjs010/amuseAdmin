@@ -210,7 +210,10 @@ function ProductForm() {
 
   const [language, setLanguage] = useState<string>("");
   const handleLanguage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLanguage(event.target.value);
+    let insert = event.target.value
+    if(insert.length < 3) {
+      setLanguage(insert.toUpperCase());
+    }
   };
 
   const [mainImg, setMainImg] = useState<ImageFile[]>([]);
@@ -478,11 +481,11 @@ function ProductForm() {
           </div>
           <div className={styles.country}>
             <span className={styles.title}>활동강도</span>
-            <input value={country} onChange={handleActivity} type="text" />
+            <input value={activity} onChange={handleActivity} type="text" />
           </div>
           <div className={styles.country}>
             <span className={styles.title}>제공 언어</span>
-            <input value={country} onChange={handleLanguage} type="text" />
+            <input value={language} onChange={handleLanguage} type="text"  pattern="[A-Za-z]+"/>
           </div>
         </div>
       </section>

@@ -71,12 +71,13 @@ const LoginDetail = () => {
   //   console.log("로그인 여부", loggedIn);
 
   useEffect(() => {
-    if (loggedIn) {
+    if (cookies.id) {
+      setLoggedIn(true)
       alert("이미 로그인 하였습니다.");
       navigate("/");
     }
   }, []);
-  if(loggedIn){
+  if(cookies.id){
     return(<></>)
   }else{
     return (

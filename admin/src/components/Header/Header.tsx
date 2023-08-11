@@ -87,6 +87,9 @@ function Header() {
     if (remainingTime < 0 && loggedIn) {
       logoutEvent();
     }
+    if(!cookies.id){
+      logoutEvent();
+    }
   }, [remainingTime, loggedIn]);
 
   const logoutEvent = () => {
