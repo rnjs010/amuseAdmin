@@ -511,14 +511,14 @@ function ProductForm() {
           </div>
         </div>
         <div className={`${styles.container} ${styles.locationAndDuration}`}>
-          <div className={styles.country}>
+          {/* <div className={styles.country}>
             <span className={styles.title}>출발지</span>
             <input value={country} onChange={handleStartPoint} type="text" />
             <span className={styles.title} style={{ marginLeft: 8 }}>
               {" "}
               에서 출발
             </span>
-          </div>
+          </div> */}
           <div className={styles.country}>
             <span className={styles.title}>활동강도</span>
             <input value={activity} onChange={handleActivity} type="text" />
