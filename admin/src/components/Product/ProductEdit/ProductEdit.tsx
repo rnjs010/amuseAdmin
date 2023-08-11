@@ -224,12 +224,11 @@ function ProductEdit() {
   };
 
   useEffect(() => {
-    if (category.includes("컨시어지")) {
-      setIsConcierge(true);
-    } else {
-      setIsConcierge(false);
-      setAccessibleTier("");
-      setAccessibleUserList([]);
+    setIsConcierge(false);
+    for(let item of category){
+      if(item.includes("컨시어지")){
+        setIsConcierge(true);
+      }
     }
   }, [category]);
 
@@ -402,69 +401,104 @@ function ProductEdit() {
   const closeModal = () => {
     setIsModalOpen(false); // 모달을 닫습니다.
   };
-
+  const checkInsert =()=>{
+    if(!productId){
+      alert("상품코드를 입력해주세요")
+      return false
+    }
+    if(!productTitle){
+      alert("상품명을 입력해주세요")
+      return false
+    }
+    if(!country){
+      alert("국가 정보를 입력해주세요")
+      return false
+    }
+    if(!city){
+      alert("도시 정보를 입력해주세요")
+      return false
+    }
+    if(ticket.length < 0){
+      alert("티켓을 등록해주세요")
+      return false
+    }
+    if(!durationNights || !durationDays){
+      alert("여행기간을 입력해주세요")
+      return false
+    }
+    if(isConcierge && !accessibleTier){
+      alert("등급을 설정해주세요")
+      return false
+    }
+    if(!guideSelected){
+      alert("가이드를 선택해주세요.");
+      return false
+    }
+    return true
+  }
   const handleEditProduct = () => {
-    try {
-      // checkAdminAccounts(cookies.id);
-
-      console.log("productform 현재 토큰:", cookies.id);
-      const item = JSON.parse(window.sessionStorage.getItem("item") || "");
-      const product: Product = {
-        id: item.item_db_id,
-        productId,
-        option: "update",
-        category,
-        title: productTitle,
-        startPrice: FindMinWeekdayPrice(ticket),
-        admin: "daw916@naver.com",
-        location: {
-          country,
-          city,
-        },
-        accessAuthority: {
-          accessibleUserList,
-          accessibleTier,
-        },
-        duration: `${durationNights}박 ${durationDays}일`,
-        startDate: listingStartDate,
-        endDate: listingEndDate || "",
-        mainImg,
-        ticket,
-        mainInfo,
-        course,
-        extraInfo,
-        guide_code: guideSelected!.guideCode,
-        guide_comment,
-      };
-
-      console.log(product);
-      const jsonString = JSON.stringify(product);
-      const byteSize = new Blob([jsonString], { type: "application/json" }).size;
-      console.log("byteSize: ", byteSize);
-      console.log("현재 access토큰:", cookies.id);
-      const res = axiosInstance
-        .post("/test/api/product/insert", product, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: cookies.id,
+    if(checkInsert()){
+      try {
+        // checkAdminAccounts(cookies.id);
+        console.log("productform 현재 토큰:", cookies.id);
+        const item = JSON.parse(window.sessionStorage.getItem("item") || "");
+        const product: Product = {
+          id: item.item_db_id,
+          productId,
+          option: "update",
+          category,
+          title: productTitle,
+          startPrice: FindMinWeekdayPrice(ticket),
+          admin: "daw916@naver.com",
+          location: {
+            country,
+            city,
           },
-        })
-        .then((response) => {
-          console.log(JSON.stringify(response));
-          alert(`
-          여행 상품 등록에 성공했습니다.
-         `);
-          navigate("/status");
-        })
-        .catch((err) => {
-          console.error(err);
-          alert(`
-          여행 상품 등록에 실패했습니다.
-          ${err}
-        `);
-        });
-    } catch (err) {
-      console.log(err);
+          accessAuthority: {
+            accessibleUserList,
+            accessibleTier,
+          },
+          duration: `${durationNights}박 ${durationDays}일`,
+          startDate: listingStartDate,
+          endDate: listingEndDate || "",
+          mainImg,
+          ticket,
+          mainInfo,
+          course,
+          extraInfo,
+          guide_code: guideSelected!.guideCode,
+          guide_comment,
+        };
+
+        console.log(product);
+        const jsonString = JSON.stringify(product);
+        const byteSize = new Blob([jsonString], { type: "application/json" }).size;
+        console.log("byteSize: ", byteSize);
+        console.log("현재 access토큰:", cookies.id);
+        const res = axiosInstance
+          .post("/test/api/product/insert", product, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: cookies.id,
+            },
+          })
+          .then((response) => {
+            console.log(JSON.stringify(response));
+            alert(`
+            여행 상품 등록에 성공했습니다.
+          `);
+            navigate("/status");
+          })
+          .catch((err) => {
+            console.error(err);
+            alert(`
+            여행 상품 등록에 실패했습니다.
+            ${err}
+          `);
+          });
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 

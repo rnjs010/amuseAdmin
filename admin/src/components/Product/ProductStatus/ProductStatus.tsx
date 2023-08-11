@@ -172,7 +172,7 @@ function ProductStatus() {
         <div className={styles.divider}></div>
         <ul className={styles.activeItemList}>
           {activeItemList.map((item: any) => (
-            <li className={styles.activeItem} key={item.itemCode}>
+            <li className={styles.activeItem} key={item.itemCode} style={{minHeight:284}}>
               <img className={styles.activeImg} src={item.imgUrl} alt="" />
               <div className={styles.btnContainer}>
                 <button onClick={() => handleEditProduct(item)}>수정</button>
@@ -205,7 +205,7 @@ function ProductStatus() {
         <div className={styles.divider}></div>
         <ul className={styles.inActiveItemList}>
           {inActiveItemList.map((item: any) => (
-            <li className={styles.inActiveItem} key={item.itemCode}>
+            <li className={styles.inActiveItem} key={item.itemCode} style={{minHeight:284}}>
               <img className={styles.inActiveImg} src={item.imgUrl} alt="" />
               <div className={styles.btnContainer}>
                 <button onClick={() => handleEditProduct(item)}>수정</button>

@@ -136,10 +136,11 @@ function ProductForm() {
   }, []);
 
   useEffect(() => {
-    if (category.includes("컨시어지")) {
-      setIsConcierge(true);
-    } else {
-      setIsConcierge(false);
+    setIsConcierge(false);
+    for(let item of category){
+      if(item.includes("컨시어지")){
+        setIsConcierge(true);
+      }
     }
   }, [category]);
 
@@ -298,8 +299,44 @@ function ProductForm() {
     setIsModalOpen(false); // 모달을 닫습니다.
   };
   // const redirectU = "https://myadmin.wheelgo.net/product";
+
+  const checkInsert =()=>{
+    if(!productId){
+      alert("상품코드를 입력해주세요")
+      return false
+    }
+    if(!productTitle){
+      alert("상품명을 입력해주세요")
+      return false
+    }
+    if(!country){
+      alert("국가 정보를 입력해주세요")
+      return false
+    }
+    if(!city){
+      alert("도시 정보를 입력해주세요")
+      return false
+    }
+    if(ticket.length < 0){
+      alert("티켓을 등록해주세요")
+      return false
+    }
+    if(!durationNights || !durationDays){
+      alert("여행기간을 입력해주세요")
+      return false
+    }
+    if(isConcierge && !accessibleTier){
+      alert("등급을 설정해주세요")
+      return false
+    }
+    if(!guideSelected){
+      alert("가이드를 선택해주세요.");
+      return false
+    }
+    return true
+  }
   const handleAddProduct = () => {
-    if (productId && guideSelected) {
+    if (checkInsert()) {
       const product: Product = {
         productId: productId,
         option: "create",
@@ -351,11 +388,7 @@ function ProductForm() {
           ${err}
         `);
         });
-    } else if(!guideSelected){
-      alert("가이드를 선택해주세요.");
-    }else {
-      alert("상품 코드를 입력해주세요.");
-    }
+    } 
   };
 
   return (
