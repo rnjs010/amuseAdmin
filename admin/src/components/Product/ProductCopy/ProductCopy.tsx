@@ -168,8 +168,16 @@ function ProductCopy() {
         setCity(product.location.city);
         setDurationDays(product.duration);
         setDurationNights((parseInt(product.duration) - 1).toString());
-        setListingStartDate(product.startDate.split(' ')[0]);
-        setListingEndDate(product.endDate.split(' ')[0]);
+        if (!product.startDate) {
+          setListingStartDate("");
+        } else {
+          setListingStartDate(product.startDate.split(" ")[0]);
+        }
+        if (!product.endDate) {
+          setListingEndDate("");
+        } else {
+          setListingEndDate(product.endDate.split(" ")[0]);
+        }
         setMainImg(product.mainImg);
         setTicket(product.ticket);
         setMainInfo(product.mainInfo);
