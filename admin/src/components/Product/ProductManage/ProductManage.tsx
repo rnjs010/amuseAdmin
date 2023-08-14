@@ -10,7 +10,7 @@ function ProductManage() {
   const [cookies] = useCookies(["id"])
   const [loggedIn,setLoggedIn] = useRecoilState(isLoggedIn);
   useEffect(()=>{
-    if(cookies.id){
+    if(cookies.id &&  cookies.id !== "undefined" && cookies.id !== "null"){
       setLoggedIn(true)
     }
   },[])
