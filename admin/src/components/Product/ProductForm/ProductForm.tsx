@@ -303,18 +303,22 @@ function ProductForm() {
   const checkInsert =()=>{
     if(!productId){
       alert("상품코드를 입력해주세요")
+      document.getElementById("product-code")?.focus()
       return false
     }
     if(!productTitle){
       alert("상품명을 입력해주세요")
+      document.getElementById("product-name")?.focus()
       return false
     }
     if(!country){
       alert("국가 정보를 입력해주세요")
+      document.getElementById("country-name")?.focus()
       return false
     }
     if(!city){
       alert("도시 정보를 입력해주세요")
+      document.getElementById("city-name")?.focus()
       return false
     }
     if(ticket.length < 0){
@@ -323,14 +327,17 @@ function ProductForm() {
     }
     if(!durationNights || !durationDays){
       alert("여행기간을 입력해주세요")
+      document.getElementById("duration-name")?.focus()
       return false
     }
     if(isConcierge && !accessibleTier){
       alert("등급을 설정해주세요")
+      document.getElementById("product-rank")?.focus()
       return false
     }
     if(!guideSelected){
       alert("가이드를 선택해주세요.");
+      document.getElementById("guide-code")?.focus()
       return false
     }
     return true
@@ -416,7 +423,7 @@ function ProductForm() {
           </div>
           <div className={styles.code}>
             <span className={styles.title}>상품 코드</span>
-            <input className={styles.productId} type="text" onChange={handleProductID} />
+            <input id="product-code" tabIndex={-1} className={styles.productId} type="text" onChange={handleProductID} />
           </div>
         </div>
       </section>
@@ -441,7 +448,7 @@ function ProductForm() {
               </div>
               <div className={styles.accessibleTier}>
                 <span className={styles.title}>등급 설정</span>
-                <select value={accessibleTier} onChange={handleAccessibleUserTier}>
+                <select id='product-rank' tabIndex={-1} value={accessibleTier} onChange={handleAccessibleUserTier}>
                   <option value="">등급 선택</option>
                   {renderUserTierOptions()}
                 </select>
@@ -465,16 +472,16 @@ function ProductForm() {
         <div className={styles.sectionDivider}></div>
         <div className={`${styles.container} ${styles.name}`}>
           <span className={` ${styles.title} ${styles.name}`}>여행 상품명</span>
-          <input className={`${styles.nameInput}`} value={productTitle} onChange={handleProductName} type="text" />
+          <input id="product-name" tabIndex={-1} className={`${styles.nameInput}`} value={productTitle} onChange={handleProductName} type="text" />
         </div>
         <div className={`${styles.container} ${styles.locationAndDuration}`} style={{ justifyContent: "flex-start" }}>
           <div className={styles.country}>
             <span className={styles.title}>국가</span>
-            <input value={country} onChange={handleCountry} type="text" />
+            <input id='country-name' tabIndex={-1} value={country} onChange={handleCountry} type="text" />
           </div>
           <div className={styles.city} style={{ marginLeft: 24 }}>
             <span className={styles.title}>도시</span>
-            <input value={city} onChange={handleCity} type="text" />
+            <input id='city-name' tabIndex={-1} value={city} onChange={handleCity} type="text" />
           </div>
         </div>
         <div className={`${styles.container} ${styles.locationAndDuration}`}>
@@ -484,7 +491,7 @@ function ProductForm() {
             <span style={{ margin: "0 12px" }}> ~ </span>
             <input value={listingEndDate} onChange={handleListingEndDate} type="date" />
           </div>
-          <div className={styles.duration}>
+          <div id='duration-date' tabIndex={-1} className={styles.duration}>
             <span className={styles.title}>여행 기간</span>
             <input
               className={styles.duration_input}
@@ -576,7 +583,7 @@ function ProductForm() {
       <section>
         <div className={styles.sectionTitle}>담당 가이드</div>
         <div className={styles.sectionDivider}></div>
-        <div className={`${styles.container} ${styles.guide}`}>
+        <div id="guide-code" tabIndex={-1} className={`${styles.container} ${styles.guide}`}>
           <div className={styles.guideProfile}>
             {guideSelected && guideSelected.profileImageUrl && (
               <>
