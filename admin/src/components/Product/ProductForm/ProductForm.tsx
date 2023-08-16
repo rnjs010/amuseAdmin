@@ -90,7 +90,8 @@ function ProductForm() {
   const navigate = useNavigate();
 
   const handleProductID = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setProductId(event.target.value);
+    let input = event.target.value
+    setProductId(input.replace(/ /,""));
   };
 
   const [isConcierge, setIsConcierge] = useState<boolean>(false);
@@ -423,7 +424,7 @@ function ProductForm() {
           </div>
           <div className={styles.code}>
             <span className={styles.title}>상품 코드</span>
-            <input id="product-code" tabIndex={-1} className={styles.productId} type="text" onChange={handleProductID} />
+            <input id="product-code" tabIndex={-1} className={styles.productId} value={productId} type="text" onChange={handleProductID} />
           </div>
         </div>
       </section>

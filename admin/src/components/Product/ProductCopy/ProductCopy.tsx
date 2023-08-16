@@ -96,7 +96,8 @@ function ProductCopy() {
 
   const [newProductId, setNewProductId] = useState<string>('');
   const handleNewProductId = (event:React.ChangeEvent<HTMLInputElement>) => {
-    setNewProductId(event.target.value);
+    let input = event.target.value
+    setNewProductId(input.replace(/ /,""));
   }
 
   const [product, setProduct] = useState({
