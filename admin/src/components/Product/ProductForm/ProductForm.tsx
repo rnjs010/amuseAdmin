@@ -213,6 +213,7 @@ function ProductForm() {
   const handleLanguage = (event: React.ChangeEvent<HTMLInputElement>) => {
     let insert = event.target.value;
     if (insert.length < 3) {
+      insert = insert.replace(/[^A-Za-z]/ig,"")
       setLanguage(insert.toUpperCase());
     }
   };
@@ -532,7 +533,7 @@ function ProductForm() {
             <input value={activity} onChange={handleActivity} type="text" />
           </div>
           <div className={styles.country}>
-            <span className={styles.title}>제공 언어</span>
+            <span className={styles.title}>언어 코드</span>
             <input value={language} onChange={handleLanguage} type="text" pattern="[A-Za-z]+" />
           </div>
         </div>
