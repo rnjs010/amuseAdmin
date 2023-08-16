@@ -64,16 +64,18 @@ function CourseModal({courseCount, onSave, onToggle}: MordalProps) {
   };
 
   const handleLatitude = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let input = event.target.value
     setLocation((prev) => ({
       ...prev,
-      latitude: event.target.value
+      latitude: input.replace(/[^0-9.]/g,"")
     }))
   }
 
   const handleLongitude = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let input = event.target.value
     setLocation((prev) => ({
       ...prev,
-      longitude: event.target.value
+      longitude: input.replace(/[^0-9.]/g,"")
     }))
   }
 
@@ -100,7 +102,7 @@ function CourseModal({courseCount, onSave, onToggle}: MordalProps) {
     }
   }
 
-  const [day, setDay] = useState<number>(0);
+  const [day, setDay] = useState<number>(1);
 
   const handleDay = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDay(Number(event.target.value));
