@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./ProductForm.module.css";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import axios from "axios";
-import axiosInstance from "../../../services/axiosInstance";
+import axiosInstance,{axiosTokenRefresh} from "../../../services/axiosInstance";
 import ExtraInfo from "./ExtraInfo";
 import MainInfo from "./MainInfo";
 import CourseInfo from "./CourseInfo";
@@ -344,7 +344,7 @@ function ProductForm() {
     }
     return true
   }
-  const handleAddProduct = () => {
+  const handleAddProduct = async() => {
     if (checkInsert()) {
       const product: Product = {
         productId: productId,
@@ -372,10 +372,11 @@ function ProductForm() {
         guide_code: guideSelected!.guideCode,
         guide_comment,
       };
-      console.log(product);
       const jsonString = JSON.stringify(product);
       const byteSize = new Blob([jsonString], { type: "application/json" }).size;
       console.log("byteSize: ", byteSize);
+      await axiosTokenRefresh(cookies.id)
+
       axiosInstance
         .post("/test/api/product/insert", product, {
           headers: {

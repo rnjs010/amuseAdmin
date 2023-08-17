@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import _ from "lodash";
-import axiosInstance from "../../../services/axiosInstance";
+import axiosInstance,{axiosTokenRefresh} from "../../../services/axiosInstance";
 import { useEffect, useState } from "react";
 import styles from "../ProductForm/ProductForm.module.css";
 import MainImage from "../ProductForm/MainImage";
@@ -443,7 +443,7 @@ function ProductEdit() {
     }
     return true
   }
-  const handleEditProduct = () => {
+  const handleEditProduct = async() => {
     if(checkInsert()){
       try {
         // checkAdminAccounts(cookies.id);
@@ -482,6 +482,7 @@ function ProductEdit() {
         const byteSize = new Blob([jsonString], { type: "application/json" }).size;
         console.log("byteSize: ", byteSize);
         console.log("현재 access토큰:", cookies.id);
+        await axiosTokenRefresh(cookies.id)
         const res = axiosInstance
           .post("/test/api/product/insert", product, {
             headers: {

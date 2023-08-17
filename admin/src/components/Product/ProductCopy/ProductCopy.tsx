@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import _ from 'lodash';
-import axiosInstance from '../../../services/axiosInstance';
+import axiosInstance,{axiosTokenRefresh} from '../../../services/axiosInstance';
 import { useEffect, useState } from 'react';
 import styles from '../ProductForm/ProductForm.module.css';
 import MainImage from '../ProductForm/MainImage';
@@ -395,7 +395,7 @@ function ProductCopy() {
     }
     return true
   }
-  const handleAddProduct = () => {
+  const handleAddProduct = async() => {
     if(checkInsert()){
       
       const product: Product = {
@@ -428,6 +428,9 @@ function ProductCopy() {
       const jsonString = JSON.stringify(product);
       const byteSize = new Blob([jsonString], {type: 'application/json'}).size;
       console.log('byteSize: ', byteSize);
+      
+      await axiosTokenRefresh(cookies.id)
+
       axiosInstance.post('/test/api/product/insert', product, {
         headers: {
           "Content-Type": "application/json",
