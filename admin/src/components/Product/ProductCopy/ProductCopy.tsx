@@ -304,6 +304,9 @@ function ProductCopy() {
   //---Duration
 
   //---Main Images
+  const handleMainImgSet = (imageFiles: ImageFile[]) => {
+    setMainImg(imageFiles);
+  };
 
   const handleMainImg = (imageFiles: ImageFile[]) => {
     setMainImg((prev) => [...prev, ...imageFiles]);
@@ -338,6 +341,9 @@ function ProductCopy() {
   //---Main Info
 
   //---Course
+  const setCourseProps =(course: Course[])=>{
+    setCourse(course);  
+  }
   const handleCourse = (course:Course) => {
     setCourse((prev) => [...prev, course])
   }
@@ -610,7 +616,7 @@ function ProductCopy() {
         <section>
             <div className={styles.sectionTitle}>메인 이미지</div>
             <div className={styles.sectionDivider}></div>
-            <MainImage option={"edit"} mainImgProp={mainImg} onAdd={handleMainImg} onRemove={removeMainImg}/>
+            <MainImage option={"edit"} mainImgProp={mainImg} handleMainImgSet={handleMainImgSet} onAdd={handleMainImg} onRemove={removeMainImg}/>
         </section>    
             <section>
             <div className={styles.sectionTitle}>티켓</div>
@@ -625,7 +631,7 @@ function ProductCopy() {
         <section>
           <div className={styles.sectionTitle}>여행 코스</div>
           <div className={styles.sectionDivider}></div>
-          <CourseInfo option={"edit"} courseProps={course} onAdd={handleCourse} onRemove={removeCourse} />
+          <CourseInfo option={"edit"} courseProps={course} setCourseProps={setCourseProps} onAdd={handleCourse} onRemove={removeCourse} />
         </section>
           <section>
             <div className={styles.sectionTitle}>추가 정보</div>

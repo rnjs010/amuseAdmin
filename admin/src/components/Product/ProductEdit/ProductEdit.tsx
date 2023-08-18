@@ -313,6 +313,9 @@ function ProductEdit() {
 
   //---Main Images
 
+  const handleMainImgSet = (imageFiles: ImageFile[]) => {
+    setMainImg(imageFiles);
+  };
   const handleMainImg = (imageFiles: ImageFile[]) => {
     setMainImg((prev) => [...prev, ...imageFiles]);
   };
@@ -341,6 +344,9 @@ function ProductEdit() {
   //---Main Info
 
   //---Course
+  const setCourseProps =(course: Course[])=>{
+    setCourse(course);  
+  }
   const handleCourse = (course: Course) => {
     setCourse((prev) => [...prev, course]);
   };
@@ -477,11 +483,10 @@ function ProductEdit() {
           guide_comment,
         };
 
-        console.log(product);
+        // console.log(product); // mainImg, course 배열 순서대로 아이템 배치 필요
+        console.log(mainImg)
         const jsonString = JSON.stringify(product);
         const byteSize = new Blob([jsonString], { type: "application/json" }).size;
-        console.log("byteSize: ", byteSize);
-        console.log("현재 access토큰:", cookies.id);
         await axiosTokenRefresh(cookies.id)
         const res = axiosInstance
           .post("/test/api/product/insert", product, {
@@ -491,7 +496,7 @@ function ProductEdit() {
             },
           })
           .then((response) => {
-            console.log(JSON.stringify(response));
+            // console.log(JSON.stringify(response));
             alert(`
             여행 상품 등록에 성공했습니다.
           `);
@@ -648,7 +653,7 @@ function ProductEdit() {
       <section>
         <div className={styles.sectionTitle}>메인 이미지</div>
         <div className={styles.sectionDivider}></div>
-        <MainImage option={"edit"} mainImgProp={mainImg} onAdd={handleMainImg} onRemove={removeMainImg} />
+        <MainImage option={"edit"} mainImgProp={mainImg} handleMainImgSet={handleMainImgSet} onAdd={handleMainImg} onRemove={removeMainImg} />
       </section>
       <section>
         <div className={styles.sectionTitle}>티켓</div>
@@ -663,7 +668,7 @@ function ProductEdit() {
       <section>
         <div className={styles.sectionTitle}>여행 코스</div>
         <div className={styles.sectionDivider}></div>
-        <CourseInfo option={"edit"} courseProps={course} onAdd={handleCourse} onRemove={removeCourse} />
+        <CourseInfo option={"edit"} courseProps={course} setCourseProps={setCourseProps} onAdd={handleCourse} onRemove={removeCourse} />
       </section>
       <section>
         <div className={styles.sectionTitle}>추가 정보</div>

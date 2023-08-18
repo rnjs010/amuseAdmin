@@ -17,6 +17,9 @@ interface ItemData {
 const ListComponentRegister = () => {
   const [title, setTitle] = useState<string>("");
   const [itemIds, setItemIds] = useState<number[]>([]);
+  const [pageNumMax, setPageNumMax] = useState(1)
+  const [currentActivePage, setCurrentActivePage] = useState(1)
+  const [activePageBtns, setActivePageBtns] = useState<Array<any>>([])
 
   /**
    * Item API
@@ -24,7 +27,7 @@ const ListComponentRegister = () => {
   const [itemData, setItemData] = useState<ItemData[]>([]);
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_AMUSE_API}/item/search?page=2`)
+    .get(`${process.env.REACT_APP_AMUSE_API}/item/search?page=${currentActivePage}`)
       .then((response) => {
         const responseItem = response.data.data.items;
         setItemData(responseItem);
@@ -33,7 +36,41 @@ const ListComponentRegister = () => {
         console.log("연결 실패");
       });
   }, []);
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_AMUSE_API}/test/api/product/getList/byDisplay`, {
+        params: {
+          limit: 8,
+          page: currentActivePage,
+          displayStatus: "DISPLAY",
+        },
+      })
+      .then((res) => {
+        setPageNumMax(res.data.data.pageCount);
+        pageNumberCreat(res.data.data.pageCount)
 
+      });
+  }, [currentActivePage]);
+
+  const pageNumberCreat = (pageNumber : number)=>{
+    let btns:Array<any> =[]
+    for(let i =0 ; i< pageNumber; i++){
+      let fontWeight = "normal"
+      let fontSize = 12
+      let marginBottom = 0
+      if(currentActivePage === i+1){
+        fontWeight = "bold"
+        fontSize = 16
+        marginBottom = 4 
+      }
+      btns.push(
+        <div key={"page"+(i+1).toString()} style={{margin:"0 12px",marginBottom:marginBottom,fontWeight:fontWeight,fontSize:fontSize,cursor:"pointer"}} onClick={()=>{setCurrentActivePage(i+1)}}>
+          {i+1}
+        </div>
+      )
+    }
+    setActivePageBtns(btns)
+  }
   /**
    * Component Item Handler
    */
@@ -112,6 +149,17 @@ const ListComponentRegister = () => {
       });
   };
 
+  const handleMovePage=(num:number)=>{
+    if(num > 0){
+      if( currentActivePage+1 <= pageNumMax){
+        setCurrentActivePage(currentActivePage+1)
+      }
+    }else if(num < 0){
+      if( currentActivePage-1 > 0){
+        setCurrentActivePage(currentActivePage-1)
+      }
+    }
+  }
   return (
     <div className="ListComponentRegister">
       <div className={styles.body}>
@@ -192,6 +240,16 @@ const ListComponentRegister = () => {
               </div>
             ))}
           </div>
+          {pageNumMax >1?
+              <div style={{display:"flex",flexDirection:"row",justifyContent:"center",alignItems:"center",width:"100%"}}>
+                <div style={{margin:12,cursor:"pointer"}} onClick={()=>{handleMovePage(-1)}}>{"Prev"}</div>
+                  <div style={{display:"flex",flexDirection:"row",justifyContent:"center",alignItems:"center",margin:12}}>
+                      {activePageBtns.map((item)=>(item))}
+                  </div>
+                <div style={{margin:12,cursor:"pointer"}} onClick={()=>{handleMovePage(1)}}>{"Next"}</div>
+              </div>
+              :<></>
+            }
         </div>
 
         <div className="make-delete-button">

@@ -120,7 +120,7 @@ function CourseModal({courseCount, onSave, onToggle}: MordalProps) {
         content: content,
         image: image
       };
-      console.log(course);
+      // console.log(course);
       onSave(course);
     }
   };
