@@ -42,25 +42,29 @@ export default function GuideModal({ getGuideInfo, setAllGuide }) {
   };
 
   const handleAddGuide = () => {
-    axios
-      .post(`${process.env.REACT_APP_AMUSE_API}/test/api/create/guide`, {
-        name: name,
-        email: email,
-        guideCode: guideCode,
-        introduce: introduction,
-        fileName: fileName,
-        base64Data: guideImg,
-      })
-      .then((res) => {
-        console.log(res);
-        setName("");
-        setEmail("");
-        setGuideCode("");
-        setIntroduction("");
-        setGuideImg();
-        closeModal();
-      })
-      .catch((err) => console.log(err));
+    if(guideCode){
+      axios
+        .post(`${process.env.REACT_APP_AMUSE_API}/test/api/create/guide`, {
+          name: name,
+          email: email,
+          guideCode: guideCode,
+          introduce: introduction,
+          fileName: fileName,
+          base64Data: guideImg,
+        })
+        .then((res) => {
+          console.log(res);
+          setName("");
+          setEmail("");
+          setGuideCode("");
+          setIntroduction("");
+          setGuideImg();
+          closeModal();
+        })
+        .catch((err) => console.log(err));
+    }else{
+      alert("가이드 코드를 입력해주세요")
+    }
   };
 
   return (
