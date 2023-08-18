@@ -24,7 +24,7 @@ const ListComponentRegister = () => {
   const [itemData, setItemData] = useState<ItemData[]>([]);
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_AMUSE_API}/item/search?page=1`)
+      .get(`${process.env.REACT_APP_AMUSE_API}/item/search?page=2`)
       .then((response) => {
         const responseItem = response.data.data.items;
         setItemData(responseItem);
@@ -133,7 +133,7 @@ const ListComponentRegister = () => {
         {/* 순서 목록 */}
         <div className="component-order">
           <p className={styles.p}>
-            <div className={styles.pTitle}>상품 순서</div>
+            <p className={styles.pTitle}>상품 순서</p>
           </p>
 
           <div className="component-check-list">

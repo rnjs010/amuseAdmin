@@ -32,13 +32,16 @@ const ListComponentDatail = () => {
   const [itemIds, setItemIds] = useState<number[]>([]);
   const [selected, setSelected] = useState<ItemData[]>([]);
   const [token, setToken] = useRecoilState(accessToken);
+  const [pageNumMax, setPageNumMax] = useState(1)
+  const [currentActivePage, setCurrentActivePage] = useState(1)
+  const [activePageBtns, setActivePageBtns] = useState<Array<any>>([])
   /**
    * Item API
    */
   const [itemData, setItemData] = useState<ItemData[]>([]);
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_AMUSE_API}/item/search?page=1`)
+      .get(`${process.env.REACT_APP_AMUSE_API}/item/search?page=${currentActivePage}`)
       .then((response) => {
         const responseItem = response.data.data.items;
         setItemData(responseItem);
@@ -46,7 +49,7 @@ const ListComponentDatail = () => {
       .catch((error) => {
         console.log("연결 실패");
       });
-  }, [id]);
+  }, [id,currentActivePage]);
 
   /**
    * Component API
@@ -65,7 +68,41 @@ const ListComponentDatail = () => {
         console.log("연결 실패");
       });
   }, []);
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_AMUSE_API}/test/api/product/getList/byDisplay`, {
+        params: {
+          limit: 8,
+          page: currentActivePage,
+          displayStatus: "DISPLAY",
+        },
+      })
+      .then((res) => {
+        setPageNumMax(res.data.data.pageCount);
+        pageNumberCreat(res.data.data.pageCount)
 
+      });
+  }, [currentActivePage]);
+
+  const pageNumberCreat = (pageNumber : number)=>{
+    let btns:Array<any> =[]
+    for(let i =0 ; i< pageNumber; i++){
+      let fontWeight = "normal"
+      let fontSize = 12
+      let marginBottom = 0
+      if(currentActivePage === i+1){
+        fontWeight = "bold"
+        fontSize = 16
+        marginBottom = 4 
+      }
+      btns.push(
+        <div key={"page"+(i+1).toString()} style={{margin:"0 12px",marginBottom:marginBottom,fontWeight:fontWeight,fontSize:fontSize,cursor:"pointer"}} onClick={()=>{setCurrentActivePage(i+1)}}>
+          {i+1}
+        </div>
+      )
+    }
+    setActivePageBtns(btns)
+  }
   /**
    * Component Item Handler
    */
@@ -165,16 +202,26 @@ const ListComponentDatail = () => {
         });
       });
   };
-
+  const handleMovePage=(num:number)=>{
+    if(num > 0){
+      if( currentActivePage+1 <= pageNumMax){
+        setCurrentActivePage(currentActivePage+1)
+      }
+    }else if(num < 0){
+      if( currentActivePage-1 > 0){
+        setCurrentActivePage(currentActivePage-1)
+      }
+    }
+  }
   return (
     <div className="ListComponentRegister">
       <div className={styles.body}>
         <div className="component-list-title">📍 리스트 컴포넌트 수정</div>
 
         <div className="component-name">
-          <p className={styles.p}>
+          <div className={styles.p}>
             <div className={styles.pTitle}>컴포넌트 이름</div>
-          </p>
+          </div>
           <input
             className="component-name-input"
             type="text"
@@ -187,9 +234,9 @@ const ListComponentDatail = () => {
 
         {/* 순서 목록 */}
         <div className="component-order">
-          <p className={styles.p}>
+          <div className={styles.p}>
             <div className={styles.pTitle}>상품 순서</div>
-          </p>
+          </div>
 
           <div className="component-check-list">
             <DragDropContext onDragEnd={handleItemReorder}>
@@ -227,9 +274,9 @@ const ListComponentDatail = () => {
 
         {/* 상품 목록 */}
         <div className="component-item-list">
-          <p className={styles.p}>
+          <div className={styles.p}>
             <div className={styles.pTitle}>상품 목록</div>
-          </p>
+          </div>
 
           <div className="component-list">
             {itemData.map((item) => (
@@ -247,6 +294,16 @@ const ListComponentDatail = () => {
               </div>
             ))}
           </div>
+            {pageNumMax >1?
+              <div style={{display:"flex",flexDirection:"row",justifyContent:"center",alignItems:"center",width:"100%"}}>
+                <div style={{margin:12,cursor:"pointer"}} onClick={()=>{handleMovePage(-1)}}>{"Prev"}</div>
+                  <div style={{display:"flex",flexDirection:"row",justifyContent:"center",alignItems:"center",margin:12}}>
+                      {activePageBtns.map((item)=>(item))}
+                  </div>
+                <div style={{margin:12,cursor:"pointer"}} onClick={()=>{handleMovePage(1)}}>{"Next"}</div>
+              </div>
+              :<></>
+            }
         </div>
 
         <div className="make-delete-button">
