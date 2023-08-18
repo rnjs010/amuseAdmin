@@ -63,10 +63,11 @@ function CourseInfo({option, courseProps, onAdd, onRemove} : MainInfoProps) {
     return (
       <ul>
         {courseList.map((course) => {
-          return (
+          return (  
             <li className={styles.courseBox} key={course.title}>
               <button className={styles.removeBtn} onClick={() => removeCourse(course)}><IoMdRemoveCircle/></button>
               <div className={styles.textInfo}>
+                <p style={{marginBottom:32}}>{course.day}{"일차"}</p>
                 <p>제목</p>
                 <span>{course.title}</span>
                 <p>소요시간</p>
