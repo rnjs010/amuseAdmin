@@ -70,17 +70,24 @@ function CourseInfo({option, courseProps,setCourseProps, onAdd, onRemove} : Main
     const dragIndex = source.index;
     const hoverIndex = destination.index;
 
-    const reorderedItems = [...courseList];
+    let reorderedItems = [...courseList];
     const draggedItem = reorderedItems[dragIndex];
 
     // 순서 변경
     reorderedItems.splice(dragIndex, 1);
     reorderedItems.splice(hoverIndex, 0, draggedItem);
 
+    reorderedItems = updateSequenceIds(reorderedItems)
     setCourseList(reorderedItems);
-    console.log(reorderedItems)
     setCourseProps(reorderedItems)
   };
+  const updateSequenceIds = (corses:any) => {
+    let tourCourses =corses
+    for (let index = 0; index < tourCourses.length; index++) {
+        tourCourses[index].sequenceId = index + 1;
+    }
+    return tourCourses
+  }
   
   return (
   <div className={`${styles.container} ${styles.course}`}>

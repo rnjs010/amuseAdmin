@@ -185,12 +185,16 @@ function ProductEdit() {
         setMainImg(product.mainImg);
         setTicket(product.ticket);
         setMainInfo(product.mainInfo);
-        setCourse(product.course);
+        setCourse(rearrangeBySequenceId(product.course));
         setExtraInfo(product.extraInfo);
         setGuideCode(product.guide_code);
         setGuideComment(product.guide_comment);
       });
   }, []);
+
+  const rearrangeBySequenceId = (touristSpots: Course[]): Course[] => {
+    return [...touristSpots].sort((a, b) => a.sequenceId - b.sequenceId);
+  }
 
   useEffect(() => {
     loadGuide(false);
