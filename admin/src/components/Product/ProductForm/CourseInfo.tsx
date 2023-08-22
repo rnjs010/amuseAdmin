@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import styles from './CourseInfo.module.css';
 import CourseModal from '../../Modal/CourseModal';
 import { useEffect, useState } from 'react';
@@ -37,6 +38,8 @@ function CourseInfo({option, courseProps,setCourseProps, onAdd, onRemove} : Main
   const [courseModalOpen, setCourseModalOpen] = useState<boolean>(false);
   const [courseList, setCourseList] = useState<Course[]>([]);
   const [courseCount, setCourseCount] = useState<number>(0);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [editCourseId, setEditCourseId] = useState<number | null>(0);
 
   useEffect(()=>{
     setCourseList(courseProps);
@@ -47,13 +50,27 @@ function CourseInfo({option, courseProps,setCourseProps, onAdd, onRemove} : Main
   }, [courseList])
 
   const toggleCourseModal = () => {
+    setEditCourseId(null)
     setCourseModalOpen((prev) => !prev);
   }
-  const handleCourseModal = (course:Course) => {
-    toggleCourseModal();
-    setCourseList((prev) => [...prev, course]);
-    setCourseCount((prev) => prev + 1);
-    onAdd(course);
+  const handleCourseModal = (course:Course,isEdit:boolean) => {
+    if(isEdit){
+      console.log(course)
+      let filteredData = _.filter(courseProps, item => item.id !== course.id);
+      filteredData.push(course)
+      filteredData = _.sortBy(filteredData,"sequenceId")
+      console.log(filteredData)
+      setCourseList(filteredData);
+      setEditCourseId(null)
+      setCourseModalOpen(!courseModalOpen)
+      setIsEdit(!isEdit)
+      setCourseProps(filteredData)
+    }else{
+      toggleCourseModal();
+      setCourseList((prev) => [...prev, course]);
+      setCourseCount((prev) => prev + 1);
+      onAdd(course);
+    }
   }
   const removeCourse = (selectedCourse:Course) => {
     setCourseList((prevCourses) => prevCourses.filter((course) => course.title !== selectedCourse.title));
@@ -88,13 +105,20 @@ function CourseInfo({option, courseProps,setCourseProps, onAdd, onRemove} : Main
     }
     return tourCourses
   }
-  
+  const editCourse =(id:number | null)=>{
+    setEditCourseId(id)
+    setCourseModalOpen(true)
+    setIsEdit(true)
+  }
+  // useEffect(()=>{
+  //   console.log(editCourseId)
+  // },[editCourseId])
   return (
   <div className={`${styles.container} ${styles.course}`}>
       <div>
         <span className={styles.title}>코스 관리</span>
         <button className={styles.addBtn} onClick={toggleCourseModal}>추가하기</button>
-        {courseModalOpen && <CourseModal onSave={handleCourseModal} onToggle={toggleCourseModal} courseCount={courseCount}/>}
+        {courseModalOpen && <CourseModal onSave={handleCourseModal} onToggle={toggleCourseModal} courseCount={courseCount} isEdit={isEdit} editCourseId={editCourseId} courseProps={courseProps}/>}
       </div>
       <div className={`${styles.status} ${styles.course}`} style={{overflow:"auto"}}>
         <DragDropContext onDragEnd={handleItemReorder}>
@@ -112,7 +136,7 @@ function CourseInfo({option, courseProps,setCourseProps, onAdd, onRemove} : Main
                           >
                             {
                               <div className={styles.courseBox}>               
-                              <button className={styles.removeBtn} onClick={() => removeCourse(course)}><IoMdRemoveCircle/></button>
+                                <button className={styles.removeBtn} onClick={() => removeCourse(course)}><IoMdRemoveCircle/></button>
                                 <div className={styles.textInfo}>
                                   <p style={{marginBottom:32}}>{course.day}{"일차"}</p>
                                   <p>제목</p>
@@ -122,7 +146,12 @@ function CourseInfo({option, courseProps,setCourseProps, onAdd, onRemove} : Main
                                   <p>설명</p>
                                   <span style={{whiteSpace:"pre-wrap"}}>{course.content}</span>
                                 </div>
-                                <img className={styles.courseImg} src={course.image.imgUrl ? course.image.imgUrl: course.image.base64Data} alt="Course" />
+                                <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+                                  <img className={styles.courseImg} src={course.image.imgUrl ? course.image.imgUrl: course.image.base64Data} alt="Course" />
+                                  <button className={styles.addBtn} style={{marginTop:12,cursor:"pointer"}} onClick={()=>{
+                                    editCourse(course.id)
+                                  }}>수정</button>
+                                </div>
                               </div>
                             }
                           </div>

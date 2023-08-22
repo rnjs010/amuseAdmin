@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import styles from './CourseModal.module.css';
+import _ from 'lodash';
 
 interface ImageFile {
   fileName: string,
   base64Data: string
+  imgUrl:string | undefined
 }
 
 type Location  = {
@@ -26,12 +28,15 @@ interface Course {
 }
 
 type MordalProps = {
-  onSave(course:Course): void,
+  onSave(course:Course,isEdit:boolean): void,
   onToggle(): void,
-  courseCount: number
+  courseCount: number,
+  isEdit:boolean,
+  editCourseId:number|null,
+  courseProps:any
 };
 
-function CourseModal({courseCount, onSave, onToggle}: MordalProps) {
+function CourseModal({courseCount, onSave, onToggle, isEdit,editCourseId,courseProps}: MordalProps) {
   const [sequenceId, setSequenceId] = useState<number>(0);
   useEffect(() => {
     setSequenceId(courseCount);
@@ -82,7 +87,7 @@ function CourseModal({courseCount, onSave, onToggle}: MordalProps) {
         const imageFile = await new Promise <ImageFile>((resolve) => {
           const reader = new FileReader();
           reader.onloadend = () => {
-            resolve({fileName: file.name, base64Data: reader.result as string});
+            resolve({fileName: file.name, base64Data: reader.result as string,imgUrl: undefined});
           };
           reader.readAsDataURL(file);
         });
@@ -106,8 +111,10 @@ function CourseModal({courseCount, onSave, onToggle}: MordalProps) {
   
   const handleSave = () => {
     if(title.length > 0 && content.length && timeCost && image){
+      let courseId = null
+      if(isEdit){courseId = editCourseId}
       const course:Course = {
-        id: null,
+        id: courseId,
         sequenceId,
         day: day,
         title: title,
@@ -116,10 +123,22 @@ function CourseModal({courseCount, onSave, onToggle}: MordalProps) {
         content: content,
         image: image
       };
-      // console.log(course);
-      onSave(course);
+      onSave(course,isEdit);
     }
   };
+  useEffect(()=>{
+    if(isEdit){
+      let item = _.find(courseProps,{id:editCourseId})
+      console.log(item)
+      setTitle(item.title || "")
+      setContent(item.content || "")
+      setTimeCost(item.timeCost || 0)
+      setLocation(item.location || { latitude: "", longitude: ""})
+      setImage(item.image || undefined)
+      setDay(item.day || 1)
+      setSequenceId(item.sequenceId || sequenceId)
+    }
+  },[editCourseId])
 
   return (
     <>
@@ -159,13 +178,15 @@ function CourseModal({courseCount, onSave, onToggle}: MordalProps) {
             <textarea className={`${styles.input} ${styles.content}`} value={content} onChange={handleContent}></textarea>
           </div>
           <div className={`${styles.container} ${styles.img}`}>
-            <span className={` ${styles.label} ${styles.img}`}>코스 이미지</span>
-            <input className={styles.imgInput} id="imgInput" onChange={handleImg} accept="image/png, image/jpeg" type="file"/>
-            {image && <img className={styles.currentImg} src={image.base64Data} alt="Course" />}
+            <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
+              <span className={` ${styles.label} ${styles.img}`} style={{display:"flex",alignItems:"center"}}>코스 이미지</span>
+              <input className={styles.imgInput} style={{marginBottom:12}} id="imgInput" onChange={handleImg} accept="image/png, image/jpeg" type="file"/>
+            </div>
+            {image && <img className={styles.currentImg} src={image.base64Data || image.imgUrl} alt="Course" />}
           </div>       
         </div>
-
-        <button className={styles.saveBtn} onClick={handleSave}>추가</button>
+        {isEdit? <button className={styles.saveBtn} onClick={handleSave}>수정</button> : <button className={styles.saveBtn} onClick={handleSave}>추가</button>}
+        
       </div>
       <div className={styles.backDrop}></div>
     </>

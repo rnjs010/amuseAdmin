@@ -127,6 +127,7 @@ function ProductCopy() {
   })
   
   const [cookies] = useCookies(["id"]);
+  const [onProcessing, setOnProcessing] = useState(false); 
   
   const [dbId, setDbId] = useState<number>(0);
 
@@ -403,7 +404,7 @@ function ProductCopy() {
   }
   const handleAddProduct = async() => {
     if(checkInsert()){
-      
+      setOnProcessing(true)
       const product: Product = {
         productId: newProductId,
         option: "create",
@@ -444,6 +445,7 @@ function ProductCopy() {
         },
       }).then((res) => {
         console.log(JSON.stringify(res));
+        setOnProcessing(false)
         alert(`
           여행 상품 등록에 성공했습니다.
         `)
@@ -671,7 +673,12 @@ function ProductCopy() {
           </div>
         </section>
         <div className={`${styles.container} ${styles.submit}`}>
-            <button className={styles.submitBtn} onClick={handleAddProduct}>상품 복사하기</button>
+            {onProcessing
+              ?
+              <div className={styles.submitBtn}>상품 복사중</div>
+              :
+              <button className={styles.submitBtn} onClick={handleAddProduct}>상품 복사하기</button>
+            }
         </div>
     </div>
     

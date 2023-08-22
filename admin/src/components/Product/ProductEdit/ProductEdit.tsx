@@ -385,6 +385,7 @@ function ProductEdit() {
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 여부를 관리하는 상태
+  const [onProcessing, setOnProcessing] = useState(false); 
 
   const loadGuide = async (tof: boolean) => {
     try {
@@ -461,6 +462,7 @@ function ProductEdit() {
     if(checkInsert()){
       try {
         // checkAdminAccounts(cookies.id);
+        setOnProcessing(true)
         console.log("productform 현재 토큰:", cookies.id);
         const item = JSON.parse(window.sessionStorage.getItem("item") || "");
         const product: Product = {
@@ -491,8 +493,7 @@ function ProductEdit() {
           guide_comment,
         };
 
-        // console.log(product); // mainImg, course 배열 순서대로 아이템 배치 필요
-        // console.log(product)
+        // console.log(product); 
         const jsonString = JSON.stringify(product);
         const byteSize = new Blob([jsonString], { type: "application/json" }).size;
         await axiosTokenRefresh(cookies.id)
@@ -505,6 +506,7 @@ function ProductEdit() {
           })
           .then((response) => {
             // console.log(JSON.stringify(response));
+            setOnProcessing(false)
             alert(`
             여행 상품 등록에 성공했습니다.
           `);
@@ -522,7 +524,6 @@ function ProductEdit() {
       }
     }
   };
-
   return (
     <div className={styles.productForm}>
       <section>
@@ -721,9 +722,15 @@ function ProductEdit() {
         </div>
       </section>
       <div className={`${styles.container} ${styles.submit}`}>
-        <button className={styles.submitBtn} onClick={handleEditProduct}>
+        {onProcessing
+          ?
+          <div className={styles.submitBtn}>상품 수정중</div>
+          :
+          <button className={styles.submitBtn} onClick={handleEditProduct}>
           상품 수정하기
-        </button>
+          </button>
+        }
+        
       </div>
     </div>
   );

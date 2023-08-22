@@ -351,8 +351,10 @@ function ProductForm() {
     }
     return true
   }
+  const [onProcessing, setOnProcessing] = useState(false); 
   const handleAddProduct = async() => {
     if (checkInsert()) {
+      setOnProcessing(true)
       const product: Product = {
         productId: productId,
         option: "create",
@@ -392,6 +394,7 @@ function ProductForm() {
           },
         })
         .then((res) => {
+          setOnProcessing(false)
           // console.log(JSON.stringify(res));
           alert(`
           여행 상품 등록에 성공했습니다.
@@ -624,9 +627,14 @@ function ProductForm() {
       </section>
 
       <div className={`${styles.container} ${styles.submit}`}>
-        <button className={styles.submitBtn} onClick={handleAddProduct}>
-          상품 등록하기
-        </button>
+        {onProcessing
+          ?
+          <div className={styles.submitBtn}>상품 등록중</div>
+          :
+          <button className={styles.submitBtn} onClick={handleAddProduct}>
+            상품 등록하기
+          </button>
+        }
       </div>
     </div>
   );

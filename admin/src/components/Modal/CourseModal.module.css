@@ -15,20 +15,24 @@
   background-color: var(--color-pink);
   border-radius: 10px;
   color: var(--color-white);
+  position: absolute;
+  bottom: 12px;
+  z-index: 10;
 }
 
 
 .modal {
   width: 800px;
-  height: fit-content;
+  height: 98%;
+  max-height: 1000px;
   min-height: 600px;
   background-color: var(--color-light-grey);
   border-radius: var(--border-radius);
 
   z-index: 999;
 
-  position: absolute;
-  top: 245%;
+  position: fixed;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
@@ -73,7 +77,6 @@
 
 .container {
   margin-top: 20px;
-  margin-bottom: 10px;
 }
 
 .container.location {
@@ -120,8 +123,8 @@
 
 
 .currentImg{
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  object-fit: contain;
 }
 
 .addBtn {
