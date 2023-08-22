@@ -88,16 +88,26 @@ function MainImage({option, mainImgProp,handleMainImgSet, onAdd, onRemove}:Extra
     const dragIndex = source.index;
     const hoverIndex = destination.index;
 
-    const reorderedItems = [...mainImg];
+    let reorderedItems = [...mainImg];
     const draggedItem = reorderedItems[dragIndex];
 
     // 순서 변경
     reorderedItems.splice(dragIndex, 1);
     reorderedItems.splice(hoverIndex, 0, draggedItem);
 
+    
+    reorderedItems = updateSequenceIds(reorderedItems)
     setMainImg(reorderedItems);
     handleMainImgSet(reorderedItems)
+    console.log(reorderedItems)
   };
+  const updateSequenceIds = (img:any) => {
+    let mainImages =img
+    for (let index = 0; index < mainImages.length; index++) {
+        mainImages[index].sequence = index + 1;
+    }
+    return mainImages
+  }
 
   return (
     <div className={`${styles.container} ${styles.mainImg}`} style={{justifyContent:"space-between",flexDirection:"row"}}>

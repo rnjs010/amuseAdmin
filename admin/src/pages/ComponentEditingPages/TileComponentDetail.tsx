@@ -111,7 +111,7 @@ const TileComponentDetail = () => {
 		const selectedProducts = newData[index]?.products || [];
 		
 		console.log(selectedProducts)
-		console.log(product)
+		// console.log(product)
 		
 		const productIndex = selectedProducts.findIndex((p) => (p.id) ? (p.id == product.id) : (p.product_code == product.id));
 		

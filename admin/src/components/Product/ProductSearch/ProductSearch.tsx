@@ -42,7 +42,7 @@ function ProductSearch({isDeleting}: ProductSearchProps){
       category: category,
       code: code
     };
-    console.log(product);
+    // console.log(product);
     // axios.post('')
   }
 

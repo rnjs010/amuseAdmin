@@ -54,6 +54,7 @@ interface Course {
 
 interface ImageFile {
   fileName: string;
+  sequenceId: number;
   base64Data: string;
   imgUrl: string | undefined;
 }

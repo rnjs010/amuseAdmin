@@ -430,7 +430,7 @@ function ProductCopy() {
         guide_code: guideSelected!.guideCode,
         guide_comment,
       };
-      console.log(product);
+      // console.log(product);
       const jsonString = JSON.stringify(product);
       const byteSize = new Blob([jsonString], {type: 'application/json'}).size;
       console.log('byteSize: ', byteSize);

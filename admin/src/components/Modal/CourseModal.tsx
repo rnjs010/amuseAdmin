@@ -55,12 +55,8 @@ function CourseModal({courseCount, onSave, onToggle}: MordalProps) {
   };
 
   const handleTimeCost = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let input = event.currentTarget.value.replace(/[^0-9.]/g,"")
-    if(Number(input) !== 0 &&!Number(input)){
-      alert("올바르지 않은 숫자 입니다 : ( 소요시간 )")
-    }else{
-      setTimeCost(input);
-    }
+    let input = event.currentTarget.value
+    setTimeCost(input);
   };
 
   const handleLatitude = (event: React.ChangeEvent<HTMLInputElement>) => {

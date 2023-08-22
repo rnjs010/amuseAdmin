@@ -51,6 +51,7 @@ interface Course {
 
 interface ImageFile {
   id: number | null;
+  sequence: number;
   fileName: string;
   base64Data: string;
   imgUrl: string | undefined;
@@ -194,6 +195,9 @@ function ProductEdit() {
 
   const rearrangeBySequenceId = (touristSpots: Course[]): Course[] => {
     return [...touristSpots].sort((a, b) => a.sequenceId - b.sequenceId);
+  }
+  const rearrangeBySequence = (images: ImageFile[]): ImageFile[] => {
+    return [...images].sort((a, b) => a.sequence - b.sequence);
   }
 
   useEffect(() => {
@@ -488,7 +492,7 @@ function ProductEdit() {
         };
 
         // console.log(product); // mainImg, course 배열 순서대로 아이템 배치 필요
-        console.log(mainImg)
+        // console.log(product)
         const jsonString = JSON.stringify(product);
         const byteSize = new Blob([jsonString], { type: "application/json" }).size;
         await axiosTokenRefresh(cookies.id)
