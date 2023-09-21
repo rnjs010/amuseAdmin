@@ -12,7 +12,6 @@ interface MainInfoProps {
   htmlProps: HTML
 }
 
-
 function MainInfo({htmlProps, onChange}: MainInfoProps) {
 
   const [mainInfoState, setMainInfoState] = useState<EditorState>(EditorState.createEmpty());
@@ -35,6 +34,7 @@ function MainInfo({htmlProps, onChange}: MainInfoProps) {
     setMainInfoState(draftState);
     const html = draftjsToHtml(convertToRaw(draftState.getCurrentContent()));
     onChange(html);
+    console.log(typeof(html));
     alert('상품 소개 글이 저장되었습니다.');
   }
 

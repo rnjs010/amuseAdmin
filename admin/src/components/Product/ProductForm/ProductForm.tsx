@@ -15,6 +15,7 @@ import { isLoggedIn, accessToken } from "../../../pages/atoms";
 import { useRecoilState } from "recoil";
 import ModalComponent from "./ModalComponent";
 import FindMinWeekdayPrice from "../FindMinWeekdayPrice";
+import QuillEditor from './QuillEditor';
 
 type HTML = string;
 
@@ -565,7 +566,8 @@ function ProductForm() {
       <section>
         <div className={styles.sectionTitle}>상품 소개</div>
         <div className={styles.sectionDivider}></div>
-        <MainInfo htmlProps={mainInfo} onChange={handleMainInfo} />
+        {/* <MainInfo htmlProps={mainInfo} onChange={handleMainInfo} /> */}
+        <QuillEditor htmlProps={mainInfo} onChange={handleMainInfo}/>
       </section>
 
       <section>
